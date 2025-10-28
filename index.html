@@ -9,37 +9,89 @@
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="assets/icons/icon-192.png">
   <style>
-    :root {
-  --bg:#ffffff;
-  --card:#f4f9ff;
-  --accent:#0077cc;
-  --muted:#6b7a8c;
-  --text:#0a1a2a;
-}
-    *{box-sizing:border-box} html,body{height:100%} body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
-  background:#ffffff;
-  color:var(--text);
-}
+    :root{
+      --bg:#ffffff;
+      --card:#f4f9ff;        /* Tarjetas muy claras */
+      --accent:#0077cc;      /* Azul principal */
+      --muted:#6b7a8c;       /* Texto secundario */
+      --text:#0a1a2a;        /* Texto principal */
+      --line:#dce7f5;        /* Bordes suaves */
+      --tint:#eaf4ff;        /* Rellenos ligeros */
+      --accent-ink:#064e89;  /* Azul oscuro para texto/acento */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
+      background:#ffffff;
+      color:var(--text);
+    }
+
     .wrap{max-width:900px;margin:0 auto;padding:24px}
+
     header{display:flex;align-items:center;gap:12px;margin:8px 0 20px}
-    header .logo{width:44px;height:44px;border-radius:12px;background:radial-gradient(circle at 30% 30%,#41c7ff 0 40%,#0a2c47 41% 100%);display:grid;place-items:center;font-weight:700;color:#001728}
+    /* Badge claro en vez del cuadrado oscuro */
+    header .logo{
+      width:44px;height:44px;border-radius:12px;
+      background:var(--tint);
+      border:1px solid var(--line);
+      display:grid;place-items:center;
+      font-weight:800;color:var(--accent-ink);
+      letter-spacing:.5px;
+    }
+
     h1{font-size:1.4rem;line-height:1.1;margin:0}
-    .tag{font-size:.8rem;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );gap:16px;margin:16px 0 28px}
-    .card{background:linear-gradient(180deg,#121a33,#0f152b);border:1px solid #1b2a4a;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(9,13,30,.35);display:flex;flex-direction:column;gap:10px}
+    .tag{font-size:.85rem;color:var(--muted)}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );
+      gap:16px;margin:16px 0 28px
+    }
+
+    /* Tarjeta clara y plana */
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      display:flex;flex-direction:column;gap:10px
+    }
+
     .card h2{font-size:1.1rem;margin:0 0 4px}
+
     .row{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{appearance:none;border:none;background:rgba(14,165,233,.12);color:#c7eaff;padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600}
-    .btn:hover{background:rgba(14,165,233,.18)}
+
+    /* Botón claro azul */
+    .btn{
+      appearance:none;border:1px solid var(--line);
+      background:rgba(0,119,204,.08);
+      color:var(--accent-ink);
+      padding:10px 12px;border-radius:12px;
+      text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600
+    }
+    .btn:hover{background:rgba(0,119,204,.14)}
     .btn.small{font-weight:500;padding:8px 10px}
-    .hint{font-size:.85rem;color:var(--muted)}
-    footer{opacity:.7;font-size:.85rem;margin-top:8px}
+
+    .hint{font-size:.9rem;color:var(--muted)}
+
+    footer{opacity:.85;font-size:.9rem;margin-top:8px}
+
     .install{display:none;margin:8px 0 0}
-    .ok{color:#7ddc7a}
-    .warn{color:#ffd166}
-    .pill{display:inline-block;border:1px solid #24416e;border-radius:999px;padding:4px 10px;font-size:.75rem;color:#9fb0c6}
+
+    .ok{color:#21a653}
+    .warn{color:#c88a00}
+
+    /* Pill clara */
+    .pill{
+      display:inline-block;border:1px solid var(--line);
+      background:var(--tint);
+      border-radius:999px;padding:4px 10px;
+      font-size:.8rem;color:var(--accent-ink)
+    }
   </style>
 </head>
 <body>
@@ -57,7 +109,7 @@
       <!-- Oyambre -->
       <article class="card">
         <h2>Camping Caravaning Playa de Oyambre</h2>
-        <p class="hint">Todos los servicios Frente al mar</p>
+        <p class="hint">Todos los servicios · Frente al mar</p>
         <div class="row">
           <a class="btn" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" href="tel:+34942711461">Llamar</a>
