@@ -48,7 +48,6 @@
     footer{opacity:.85;font-size:.9rem;margin-top:8px}
     .install{display:none;margin:8px 0 0}
     .ok{color:#21a653}
-
     /* Mapa mini responsive */
     .map{width:100%; aspect-ratio: 16/10; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#fff}
     .map iframe{width:100%; height:100%; border:0}
@@ -148,10 +147,10 @@
   </div>
 
 <script>
-  // Update year
+  // Año
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // i18n dictionary (títulos/pistas en ES, y traducciones clave en otros idiomas)
+  // i18n
   const i18n = {
     es: { app:"Grupo A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
       oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Todos los servicios · Frente al mar",
@@ -239,7 +238,7 @@
     applyLang(val);
   });
 
-  // Register SW (auto-update version que ya subimos)
+  // Registrar SW (auto-update)
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./service-worker.js');
