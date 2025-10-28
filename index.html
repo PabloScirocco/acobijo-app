@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Grupo A Cobijo</title>
-  <meta name="description" content="App ligera del Grupo A Cobijo con accesos rápidos a los campings, teléfono y cómo llegar.">
+  <meta name="description" content="App ligera del Grupo A Cobijo con accesos rápidos a los campings, teléfono, WhatsApp, mapas y cómo llegar.">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="assets/icons/icon-192.png">
@@ -38,7 +38,7 @@
     .pill{display:inline-block;border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:4px 10px;font-size:.8rem;color:var(--accent-ink)}
     .lang{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;font-weight:600;color:var(--accent-ink)}
     .grid{display:grid;grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );gap:16px;margin:16px 0 28px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:10px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
     .card h2{font-size:1.1rem;margin:0 0 4px}
     .row{display:flex;gap:8px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid var(--line);background:rgba(0,119,204,.08);color:var(--accent-ink);padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600}
@@ -48,6 +48,10 @@
     footer{opacity:.85;font-size:.9rem;margin-top:8px}
     .install{display:none;margin:8px 0 0}
     .ok{color:#21a653}
+
+    /* Mapa mini responsive */
+    .map{width:100%; aspect-ratio: 16/10; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#fff}
+    .map iframe{width:100%; height:100%; border:0}
   </style>
 </head>
 <body>
@@ -75,10 +79,18 @@
         <h2 id="t-oy-title">Camping Caravaning Playa de Oyambre</h2>
         <p class="hint" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
-          <a class="btn" id="t-web" href="https://www.oyambre.com" target="_blank">Web</a>
+          <a class="btn" id="t-web" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" id="t-call" href="tel:+34942711461">Llamar</a>
-          <a class="btn" id="t-directions" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp" href="https://wa.me/34675696212?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20Caravaning%20Playa%20de%20Oyambre" target="_blank">WhatsApp</a>
+          <a class="btn" id="t-directions" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" id="t-whatsapp" href="https://wa.me/34675696212?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20Caravaning%20Playa%20de%20Oyambre" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map" aria-label="Mapa Oyambre">
+          <iframe
+            title="Mapa Oyambre"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed">
+          </iframe>
         </div>
       </article>
 
@@ -87,10 +99,18 @@
         <h2 id="t-ra-title">Camping Ramales</h2>
         <p class="hint" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
-          <a class="btn" id="t-web2" href="https://www.campingramales.com" target="_blank">Web</a>
+          <a class="btn" id="t-web2" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" id="t-call2" href="tel:+34654463133">Llamar</a>
-          <a class="btn" id="t-directions2" href="https://maps.google.com/?q=Camping+Ramales" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp2" href="https://wa.me/34654463133?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20Ramales" target="_blank">WhatsApp</a>
+          <a class="btn" id="t-directions2" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" id="t-whatsapp2" href="https://wa.me/34654463133?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20Ramales" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map" aria-label="Mapa Ramales">
+          <iframe
+            title="Mapa Ramales"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Camping+Ramales&output=embed">
+          </iframe>
         </div>
       </article>
 
@@ -99,17 +119,25 @@
         <h2 id="t-he-title">Camping El Helguero (Ruiloba)</h2>
         <p class="hint" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
-          <a class="btn" id="t-web3" href="https://www.campingelhelguero.com" target="_blank">Web</a>
+          <a class="btn" id="t-web3" href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" id="t-call3" href="tel:+34942722124">Llamar</a>
-          <a class="btn" id="t-directions3" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp3" href="https://wa.me/34652806564?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20El%20Helguero%20(Ruiloba)" target="_blank">WhatsApp</a>
+          <a class="btn" id="t-directions3" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" id="t-whatsapp3" href="https://wa.me/34652806564?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Camping%20El%20Helguero%20(Ruiloba)" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map" aria-label="Mapa El Helguero">
+          <iframe
+            title="Mapa El Helguero"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed">
+          </iframe>
         </div>
       </article>
     </section>
 
     <section class="card">
       <h2 id="t-install-title">Instálame como app</h2>
-      <p class="hint" id="t-install-hint">En Android/Chrome: abre ⋮ → Instalar app. En iOS (Safari): compartir → Añadir a pantalla de inicio.</p>
+      <p class="hint" id="t-install-hint">En Android/Chrome: abre ⋮ → <b>Instalar app</b>. En iOS (Safari): compartir → <b>Añadir a pantalla de inicio</b>.</p>
       <button id="installBtn" class="btn install">Instalar ahora</button>
       <p id="pwaStatus" class="hint"></p>
     </section>
@@ -123,7 +151,7 @@
   // Update year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // i18n dictionary
+  // i18n dictionary (títulos/pistas en ES, y traducciones clave en otros idiomas)
   const i18n = {
     es: { app:"Grupo A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
       oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Todos los servicios · Frente al mar",
@@ -134,12 +162,38 @@
       installHint:"En Android/Chrome: abre ⋮ → Instalar app. En iOS (Safari): compartir → Añadir a pantalla de inicio.",
       offline:"Funciona sin conexión"
     },
-    en: { web:"Website",call:"Call",directions:"Directions",whatsapp:"WhatsApp",
-      installTitle:"Install me as an app",installHint:"Android/Chrome: menu ⋮ → Install app. iOS (Safari): share → Add to Home Screen.",offline:"Works offline"
+    en: { app:"Grupo A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"All services · By the sea",
+      raTitle:"Camping Ramales",raHint:"Caves · Mountains · Activities",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Family · Pets",
+      web:"Website",call:"Call",directions:"Directions",whatsapp:"WhatsApp",
+      installTitle:"Install me as an app",installHint:"Android/Chrome: menu ⋮ → Install app. iOS (Safari): share → Add to Home Screen.",
+      offline:"Works offline"
     },
-    fr: { web:"Site web",call:"Appeler",directions:"Itinéraire",whatsapp:"WhatsApp",installTitle:"Installe-moi comme application",installHint:"Android/Chrome : menu ⋮ → Installer l’app. iOS (Safari) : partager → Sur l’écran d’accueil.",offline:"Fonctionne hors ligne"},
-    de: { web:"Webseite",call:"Anrufen",directions:"Anfahrt",whatsapp:"WhatsApp",installTitle:"Als App installieren",installHint:"Android/Chrome: Menü ⋮ → App installieren. iOS (Safari): Teilen → Zum Home-Bildschirm.",offline:"Funktioniert offline"},
-    nl: { web:"Website",call:"Bellen",directions:"Route",whatsapp:"WhatsApp",installTitle:"Installeer als app",installHint:"Android/Chrome: menu ⋮ → App installeren. iOS (Safari): delen → Zet op beginscherm.",offline:"Werkt offline"}
+    fr: { app:"Groupe A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Hors ligne",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Tous services · Bord de mer",
+      raTitle:"Camping Ramales",raHint:"Grottes · Montagne · Activités",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Famille · Animaux admis",
+      web:"Site web",call:"Appeler",directions:"Itinéraire",whatsapp:"WhatsApp",
+      installTitle:"Installe-moi comme application",installHint:"Android/Chrome : menu ⋮ → Installer l’app. iOS (Safari) : partager → Sur l’écran d’accueil.",
+      offline:"Fonctionne hors ligne"
+    },
+    de: { app:"Gruppe A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Alle Services · Am Meer",
+      raTitle:"Camping Ramales",raHint:"Höhlen · Berge · Aktivitäten",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natur · Familie · Haustiere",
+      web:"Webseite",call:"Anrufen",directions:"Anfahrt",whatsapp:"WhatsApp",
+      installTitle:"Als App installieren",installHint:"Android/Chrome: Menü ⋮ → App installieren. iOS (Safari): Teilen → Zum Home-Bildschirm.",
+      offline:"Funktioniert offline"
+    },
+    nl: { app:"Groep A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Alle faciliteiten · Aan zee",
+      raTitle:"Camping Ramales",raHint:"Grotten · Bergen · Activiteiten",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natuur · Familie · Huisdieren",
+      web:"Website",call:"Bellen",directions:"Route",whatsapp:"WhatsApp",
+      installTitle:"Installeer als app",installHint:"Android/Chrome: menu ⋮ → App installeren. iOS (Safari): delen → Zet op beginscherm.",
+      offline:"Werkt offline"
+    }
   };
 
   function detectLang(){
@@ -155,14 +209,14 @@
     document.getElementById('t-subtitle').textContent = T.subtitle;
     document.getElementById('t-pwa').textContent = T.pwa;
 
-    document.getElementById('t-oy-title').textContent = T.oyTitle || document.getElementById('t-oy-title').textContent;
-    document.getElementById('t-oy-hint').textContent  = T.oyHint  || document.getElementById('t-oy-hint').textContent;
+    document.getElementById('t-oy-title').textContent = T.oyTitle;
+    document.getElementById('t-oy-hint').textContent  = T.oyHint;
 
-    document.getElementById('t-ra-title').textContent = T.raTitle || document.getElementById('t-ra-title').textContent;
-    document.getElementById('t-ra-hint').textContent  = T.raHint  || document.getElementById('t-ra-hint').textContent;
+    document.getElementById('t-ra-title').textContent = T.raTitle;
+    document.getElementById('t-ra-hint').textContent  = T.raHint;
 
-    document.getElementById('t-he-title').textContent = T.heTitle || document.getElementById('t-he-title').textContent;
-    document.getElementById('t-he-hint').textContent  = T.heHint  || document.getElementById('t-he-hint').textContent;
+    document.getElementById('t-he-title').textContent = T.heTitle;
+    document.getElementById('t-he-hint').textContent  = T.heHint;
 
     document.querySelectorAll('#t-web,#t-web2,#t-web3').forEach(a=>a.textContent=T.web);
     document.querySelectorAll('#t-call,#t-call2,#t-call3').forEach(a=>a.textContent=T.call);
@@ -185,19 +239,20 @@
     applyLang(val);
   });
 
-  // Register SW
+  // Register SW (auto-update version que ya subimos)
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./service-worker.js');
     });
   }
 
+  // Install prompt
   let deferredPrompt;
   const btn = document.getElementById('installBtn');
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    btn.classList.remove('install');
+    btn?.classList.remove('install');
   });
   btn?.addEventListener('click', async () => {
     if (!deferredPrompt) return;
