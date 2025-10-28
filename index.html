@@ -194,4 +194,131 @@
       eventsTitle:"Veranstaltungen Grupo A Cobijo",
       calendarBtn:"Zum Kalender hinzufügen"
     },
-    nl: { app:"Groep A Cobijo",subtitle:"Car
+    nl: { app:"Groep A Cobijo",subtitle:"Caravaning Oyambre · Camping Ramales · Camping Ruiloba",pwa:"PWA • Offline",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Alle faciliteiten · Aan zee",
+      raTitle:"Camping Ramales",raHint:"Grotten · Bergen · Activiteiten",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natuur · Familie · Huisdieren",
+      web:"Website",call:"Bellen",directions:"Route",whatsapp:"WhatsApp",
+      installTitle:"Installeer als app",installHint:"Android/Chrome: menu ⋮ → App installeren. iOS (Safari): delen → Zet op beginscherm.",
+      offline:"Werkt offline",
+      eventsTitle:"Evenementen Groep A Cobijo",
+      calendarBtn:"Aan agenda toevoegen"
+    }
+  };
+
+  function detectLang(){
+    const saved = localStorage.getItem('lang');
+    if (saved) return saved;
+    const n = (navigator.language || 'es').slice(0,2).toLowerCase();
+    return ['es','en','fr','de','nl'].includes(n) ? n : 'es';
+  }
+
+  function applyLang(lang){
+    const T = i18n[lang] || i18n.es;
+    document.getElementById('t-app').textContent = T.app;
+    document.getElementById('t-subtitle').textContent = T.subtitle;
+    document.getElementById('t-pwa').textContent = T.pwa;
+
+    document.getElementById('t-oy-title').textContent = T.oyTitle;
+    document.getElementById('t-oy-hint').textContent  = T.oyHint;
+
+    document.getElementById('t-ra-title').textContent = T.raTitle;
+    document.getElementById('t-ra-hint').textContent  = T.raHint;
+
+    document.getElementById('t-he-title').textContent = T.heTitle;
+    document.getElementById('t-he-hint').textContent  = T.heHint;
+
+    document.querySelectorAll('#t-web,#t-web2,#t-web3').forEach(a=>a.textContent=T.web);
+    document.querySelectorAll('#t-call,#t-call2,#t-call3').forEach(a=>a.textContent=T.call);
+    document.querySelectorAll('#t-directions,#t-directions2,#t-directions3').forEach(a=>a.textContent=T.directions);
+    document.querySelectorAll('#t-whatsapp,#t-whatsapp2,#t-whatsapp3').forEach(a=>a.textContent=T.whatsapp);
+
+    document.getElementById('t-install-title').textContent = T.installTitle;
+    document.getElementById('t-install-hint').textContent = T.installHint;
+    document.getElementById('t-offline').textContent = T.offline;
+
+    document.getElementById('t-events-title').textContent = T.eventsTitle;
+
+    document.getElementById('langSel').value = lang;
+  }
+
+  const langSel = document.getElementById('langSel');
+  const initialLang = detectLang();
+  applyLang(initialLang);
+  langSel.addEventListener('change', ()=>{
+    const val = langSel.value;
+    localStorage.setItem('lang', val);
+    applyLang(val);
+  });
+
+  // Render eventos
+  async function loadEvents(){
+    try{
+      const res = await fetch('./events.json', { cache: 'no-cache' });
+      if (!res.ok) return;
+      const data = await res.json();
+      // Ordenar por fecha (si existe fecha_iso)
+      data.sort((a,b)=>{
+        const da = new Date(a.fecha_iso || 0).getTime();
+        const db = new Date(b.fecha_iso || 0).getTime();
+        return da - db;
+      });
+      const wrap = document.getElementById('events');
+      wrap.innerHTML = '';
+      const T = i18n[detectLang()] || i18n.es;
+
+      data.forEach(ev=>{
+        const start = ev.fecha_iso ? new Date(ev.fecha_iso) : null;
+        // Asumimos 2 horas de duración si hay hora
+        const end = start ? new Date(start.getTime() + 2*60*60*1000) : null;
+
+        function toCal(d){
+          // YYYYMMDDTHHMMSS (local time, sin Z)
+          const pad = n => String(n).padStart(2,'0');
+          return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+        }
+
+        const datesParam = (start && end) ? `${toCal(start)}/${toCal(end)}` : '';
+        const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(ev.titulo||'Evento')}&dates=${datesParam}&location=${encodeURIComponent(ev.lugar||'')}&details=${encodeURIComponent(ev.descripcion||'')}`;
+
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `
+          <div class="event-title">${ev.titulo||''}</div>
+          <div class="event-meta">${ev.fecha||''}${ev.lugar?` · ${ev.lugar}`:''}</div>
+          <div class="hint">${ev.descripcion||''}</div>
+          ${start ? `<a class="btn small" href="${calUrl}" target="_blank" rel="noopener">${T.calendarBtn}</a>` : ''}
+        `;
+        wrap.appendChild(card);
+      });
+    }catch(e){
+      console.warn('Eventos no disponibles aún');
+    }
+  }
+  loadEvents();
+
+  // Registrar SW (auto-update)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js');
+    });
+  }
+
+  // Install prompt
+  let deferredPrompt;
+  const btn = document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    btn?.classList.remove('install');
+  });
+  btn?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    btn.classList.add('install');
+    deferredPrompt = null;
+  });
+</script>
+</body>
+</html>
