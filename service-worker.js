@@ -1,49 +1,33 @@
-/* Simple service worker cache-first */
-const CACHE_NAME = 'acobijo-v1';
-const OFFLINE_URL = '/offline.html';
+// Simple cache-first service worker for static assets
+const CACHE_NAME = 'acobijo-cache-v1';
 const ASSETS = [
-  '/', '/index.html', '/styles.css', '/app.js',
-  '/manifest.webmanifest', '/offline.html',
-  '/data/sites.json',
-  '/assets/icon-192.png', '/assets/icon-512.png'
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    await cache.addAll(ASSETS);
-    self.skipWaiting();
-  })());
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+  );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.map(k => k !== CACHE_NAME ? caches.delete(k) : null));
-    self.clients.claim();
-  })());
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+    ))
+  );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  if (req.method !== 'GET') return;
-
-  event.respondWith((async () => {
-    try {
-      // Try network first for JSON (so data stays fresh)
-      if (req.url.endsWith('/data/sites.json')) {
-        const net = await fetch(req);
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(req, net.clone());
-        return net;
-      }
-      const cached = await caches.match(req);
-      return cached || fetch(req);
-    } catch (err) {
-      const cached = await caches.match(req);
-      if (cached) return cached;
-      if (req.mode === 'navigate') return caches.match(OFFLINE_URL);
-      throw err;
-    }
-  })());
+  const url = new URL(event.request.url);
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
 });

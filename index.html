@@ -3,46 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0B5641">
   <title>Grupo A Cobijo</title>
+  <meta name="description" content="App ligera del Grupo A Cobijo con accesos rápidos a los campings, teléfono y cómo llegar.">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="assets/icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0ea5e9">
+  <link rel="icon" href="assets/icons/icon-192.png">
+  <style>
+    :root { --bg:#0b1020; --card:#121a33; --accent:#0ea5e9; --muted:#9fb0c6; --text:#e8eef7; }
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:linear-gradient(180deg,#0b1020,#0a0e1a);color:var(--text);}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;gap:12px;margin:8px 0 20px}
+    header .logo{width:44px;height:44px;border-radius:12px;background:radial-gradient(circle at 30% 30%,#41c7ff 0 40%,#0a2c47 41% 100%);display:grid;place-items:center;font-weight:700;color:#001728}
+    h1{font-size:1.4rem;line-height:1.1;margin:0}
+    .tag{font-size:.8rem;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );gap:16px;margin:16px 0 28px}
+    .card{background:linear-gradient(180deg,#121a33,#0f152b);border:1px solid #1b2a4a;border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(9,13,30,.35);display:flex;flex-direction:column;gap:10px}
+    .card h2{font-size:1.1rem;margin:0 0 4px}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{appearance:none;border:none;background:rgba(14,165,233,.12);color:#c7eaff;padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600}
+    .btn:hover{background:rgba(14,165,233,.18)}
+    .btn.small{font-weight:500;padding:8px 10px}
+    .hint{font-size:.85rem;color:var(--muted)}
+    footer{opacity:.7;font-size:.85rem;margin-top:8px}
+    .install{display:none;margin:8px 0 0}
+    .ok{color:#7ddc7a}
+    .warn{color:#ffd166}
+    .pill{display:inline-block;border:1px solid #24416e;border-radius:999px;padding:4px 10px;font-size:.75rem;color:#9fb0c6}
+  </style>
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <img src="assets/icon-192.png" alt="Icono app" class="logo">
+  <div class="wrap">
+    <header>
+      <div class="logo">AC</div>
       <div>
         <h1>Grupo A Cobijo</h1>
-        <p class="subtitle">Campings en Cantabria: Oyambre · El Helguero · Ramales</p>
+        <div class="tag">Oyambre · Ramales · El Helguero</div>
       </div>
-    </div>
-    <button id="installBtn" class="btn install-btn" hidden>Instalar app</button>
-  </header>
+      <div style="margin-left:auto"><span class="pill">PWA • Offline</span></div>
+    </header>
 
-  <main id="content">
-    <section class="cards" id="sitesContainer" aria-live="polite">
-      <!-- Sitios cargados dinámicamente -->
+    <section class="grid">
+      <!-- Oyambre -->
+      <article class="card">
+        <h2>Camping Caravaning Playa de Oyambre</h2>
+        <p class="hint">Restaurante premiado · Frente a la costa · Gimnasio</p>
+        <div class="row">
+          <a class="btn" href="https://www.campingoyambre.com" target="_blank" rel="noopener">Web</a>
+          <a class="btn" href="tel:+34942XXXXXX">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </article>
+
+      <!-- Ramales -->
+      <article class="card">
+        <h2>Camping Ramales</h2>
+        <p class="hint">Cuevas · Montaña · Actividades</p>
+        <div class="row">
+          <a class="btn" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
+          <a class="btn" href="tel:+34942XXXXXX">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </article>
+
+      <!-- El Helguero -->
+      <article class="card">
+        <h2>Camping El Helguero (Ruiloba)</h2>
+        <p class="hint">Naturaleza · Familiar · Mascotas</p>
+        <div class="row">
+          <a class="btn" href="https://www.campingelhelguero.es" target="_blank" rel="noopener">Web</a>
+          <a class="btn" href="tel:+34942XXXXXX">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </article>
     </section>
 
-    <section class="info">
-      <h2>Sobre esta app</h2>
-      <ul>
-        <li>Gratis y sin tienda de apps. Puedes “instalarla” en tu móvil.</li>
-        <li>Funciona offline para la información básica.</li>
-        <li>Accesos rápidos: reservar, llamar, WhatsApp y cómo llegar.</li>
-      </ul>
-      <p class="tiny">Última actualización: <span id="lastUpdated"></span></p>
+    <section class="card">
+      <h2>Instálame como app</h2>
+      <p class="hint">En Android/Chrome: abre ⋮ &rarr; <b>Instalar app</b>. En iOS (Safari): comparte &rarr; <b>Añadir a pantalla de inicio</b>.</p>
+      <button id="installBtn" class="btn install">Instalar ahora</button>
+      <p id="pwaStatus" class="hint"></p>
     </section>
-  </main>
 
-  <footer class="app-footer">
-    <small>© <span id="year"></span> Grupo A Cobijo · Hecho con ❤️ en Cantabria</small>
-  </footer>
+    <footer>
+      © <span id="year"></span> Grupo A Cobijo • Funciona sin conexión <span class="ok">●</span>
+    </footer>
+  </div>
 
-  <script src="app.js"></script>
+<script>
+  // Update year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').then(() => {
+        console.log('SW registrado');
+        document.getElementById('pwaStatus').textContent = 'Listo para usar offline.';
+      }).catch(err => {
+        console.warn('SW error', err);
+        document.getElementById('pwaStatus').textContent = 'No se pudo activar el modo offline.';
+      });
+    });
+  }
+
+  // Install prompt
+  let deferredPrompt;
+  const btn = document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    btn.style.display = 'inline-flex';
+  });
+  btn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    btn.style.display = 'none';
+    deferredPrompt = null;
+  });
+</script>
 </body>
 </html>
