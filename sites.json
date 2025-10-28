@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Camping Caravaning Playa de Oyambre",
+    "city": "San Vicente de la Barquera (Cantabria)",
+    "phone": "+34 000 000 000",
+    "whatsapp": "+34 000 000 000",
+    "email": "info@campingoyambre.com",
+    "website": "https://www.campingoyambre.com",
+    "booking_url": "https://www.campingoyambre.com/reservas",
+    "maps_query": "Camping Caravaning Playa de Oyambre"
+  },
+  {
+    "name": "Camping El Helguero (Ruiloba)",
+    "city": "Ruiloba (Cantabria)",
+    "phone": "+34 000 000 000",
+    "whatsapp": "+34 000 000 000",
+    "email": "info@campingelhelguero.com",
+    "website": "https://www.campingelhelguero.com",
+    "booking_url": "https://www.campingelhelguero.com/reservas",
+    "maps_query": "Camping El Helguero"
+  },
+  {
+    "name": "Camping Ramales",
+    "city": "Ramales de la Victoria (Cantabria)",
+    "phone": "+34 000 000 000",
+    "whatsapp": "+34 000 000 000",
+    "email": "info@campingramales.com",
+    "website": "https://www.campingramales.com",
+    "booking_url": "https://www.campingramales.com/reservas",
+    "maps_query": "Camping Ramales"
+  }
+]

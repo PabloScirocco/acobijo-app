@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B5641">
+  <title>Grupo A Cobijo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="assets/icon-192.png" alt="Icono app" class="logo">
+      <div>
+        <h1>Grupo A Cobijo</h1>
+        <p class="subtitle">Campings en Cantabria: Oyambre · El Helguero · Ramales</p>
+      </div>
+    </div>
+    <button id="installBtn" class="btn install-btn" hidden>Instalar app</button>
+  </header>
+
+  <main id="content">
+    <section class="cards" id="sitesContainer" aria-live="polite">
+      <!-- Sitios cargados dinámicamente -->
+    </section>
+
+    <section class="info">
+      <h2>Sobre esta app</h2>
+      <ul>
+        <li>Gratis y sin tienda de apps. Puedes “instalarla” en tu móvil.</li>
+        <li>Funciona offline para la información básica.</li>
+        <li>Accesos rápidos: reservar, llamar, WhatsApp y cómo llegar.</li>
+      </ul>
+      <p class="tiny">Última actualización: <span id="lastUpdated"></span></p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>© <span id="year"></span> Grupo A Cobijo · Hecho con ❤️ en Cantabria</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
