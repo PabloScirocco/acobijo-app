@@ -383,12 +383,26 @@ function autoTranslateFromEs(text,lang){
   return out;
 }
 function i18nField(v,lang){return typeof v==="string"?autoTranslateFromEs(v,lang):(v[lang]||v.es||"");}
-function renderEvent(ev,lang){
-  return `<div class="event-card">
-    <div class="event-title">${i18nField(ev.titulo,lang)}</div>
-    <div class="event-meta">${new Date(ev.fecha).toLocaleString(lang,{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}</div>
-    <div class="hint">${i18nField(ev.descripcion,lang)}</div>
-  </div>`;
+function renderEvent(ev, lang){
+  const campingKey = (ev.camping || "").toLowerCase(); // oyambre | ramales | ruiloba | cardeo
+  const placeName = i18nField(ev.lugar, lang) || PLACE_LABEL[campingKey] || "";
+  const title = i18nField(ev.titulo, lang) || "(sin título)";
+  const desc  = i18nField(ev.descripcion, lang) || "";
+  const when  = new Intl.DateTimeFormat(lang, {weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}).format(new Date(ev.fecha));
+  const maps  = PLACE_LINK[campingKey] || (placeName ? `https://www.google.com/maps?q=${encodeURIComponent(placeName)}` : "#");
+
+  return `
+    <div class="event-card">
+      <div class="event-title">${title}</div>
+      <div class="event-meta">${when} · ${placeName || ""}</div>
+      <div class="hint" style="margin-bottom:8px">${desc}</div>
+      <div class="row">
+        <a class="btn" href="${maps}" target="_blank" rel="noopener" data-i18n-directions>
+          Cómo llegar
+        </a>
+      </div>
+    </div>
+  `;
 }
 async function loadEvents(){
   const lang=currentLang();
