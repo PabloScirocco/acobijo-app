@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="assets/icons/icon-192.png">
 
-  <!-- ✅ Splash + modo App en iOS -->
+  <!-- ✅ Splash / modo app en iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
@@ -47,12 +47,11 @@
       --accent-ink:#064e89;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui;background:#fff;color:var(--text)}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;background:#fff;color:var(--text)}
     .wrap{max-width:900px;margin:0 auto;padding:24px}
 
-    /* ✅ Logo */
     header{display:flex;align-items:center;gap:16px;margin:8px 0 20px;flex-wrap:wrap}
-    .logo-img{height:80px;width:auto;object-fit:contain}
+    .logo-img{height:80px;width:auto}
 
     h1{margin:0;font-size:1.4rem}
     .tag{color:var(--muted);font-size:.85rem}
@@ -62,19 +61,34 @@
     .pill{border:1px solid var(--line);background:var(--tint);padding:4px 10px;border-radius:999px;font-size:.8rem}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:16px 0 28px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
-    .btn{border:1px solid var(--line);background:rgba(0,119,204,.08);padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--accent-ink);font-weight:600}
+
+    /* ✅ Botones corregidos para iPhone */
+    .row{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{
+      appearance:none;
+      border:1px solid var(--line);
+      background:rgba(0,119,204,.08);
+      color:var(--accent-ink);
+      padding:10px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      flex:1;
+      min-width:120px; /* ✅ evita solapamiento en iOS */
+    }
     .btn:hover{background:rgba(0,119,204,.14)}
 
-    /* map */
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
     .map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
 
     footer{margin-top:8px;font-size:.9rem;opacity:.85}
     .ok{color:#21a653}
     .install{display:none}
 
-    /* eventos */
-    .event-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+    .event-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
     .event-title{font-weight:700}
     .event-meta{font-size:.9rem;color:var(--muted)}
   </style>
@@ -83,10 +97,8 @@
 <body>
   <div class="wrap">
 
-    <!-- ✅ HEADER -->
     <header>
       <img src="assets/logo.png" class="logo-img" alt="Grupo A Cobijo">
-
       <div>
         <h1 id="t-app">Grupo A Cobijo</h1>
         <div class="tag" id="t-subtitle">Caravaning Oyambre · Camping Ramales · Camping Ruiloba</div>
@@ -105,12 +117,11 @@
       <span class="pill" id="t-pwa">PWA • Offline</span>
     </header>
 
-    <!-- ✅ CAMPINGS -->
     <section class="grid">
 
       <article class="card">
         <h2 id="t-oy-title">Camping Caravaning Playa de Oyambre</h2>
-        <p class="hint" id="t-oy-hint">Todos los servicios · Frente al mar</p>
+        <p id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
           <a class="btn" href="https://www.oyambre.com" target="_blank">Web</a>
           <a class="btn" href="tel:+34942711461">Llamar</a>
@@ -122,7 +133,7 @@
 
       <article class="card">
         <h2 id="t-ra-title">Camping Ramales</h2>
-        <p class="hint" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
+        <p id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
           <a class="btn" href="https://www.campingramales.com" target="_blank">Web</a>
           <a class="btn" href="tel:+34654463133">Llamar</a>
@@ -134,7 +145,7 @@
 
       <article class="card">
         <h2 id="t-he-title">Camping El Helguero (Ruiloba)</h2>
-        <p class="hint" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
+        <p id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
           <a class="btn" href="https://www.campingelhelguero.com" target="_blank">Web</a>
           <a class="btn" href="tel:+34942722124">Llamar</a>
@@ -152,15 +163,13 @@
       <div id="events" class="grid"></div>
     </section>
 
-    <!-- ✅ INSTALACIÓN PWA -->
     <section class="card">
       <h2 id="t-install-title">Instálame como app</h2>
-      <p class="hint" id="t-install-hint">Android: ⋮ → Instalar App. iOS: Compartir → Añadir a pantalla inicio.</p>
+      <p id="t-install-hint">Android: ⋮ → Instalar App. iOS: Compartir → Añadir a pantalla inicio.</p>
       <button id="installBtn" class="btn install">Instalar ahora</button>
       <p id="pwaStatus" class="hint"></p>
     </section>
 
-    <!-- ✅ FOOTER -->
     <footer>
       © <span id="year"></span> Grupo A Cobijo · <span id="t-offline">Funciona sin conexión</span> <span class="ok">●</span>
     </footer>
@@ -169,16 +178,12 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Service worker (offline + autoupdate)
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
-
-  // Eventos
+  // Eventos JSON
   async function loadEvents(){
     try{
       const res = await fetch('./events.json', { cache: 'no-cache' });
       const data = await res.json();
-      const wrap = document.getElementById('events');
-      wrap.innerHTML = data.map(ev => `
+      document.getElementById('events').innerHTML = data.map(ev => `
         <div class="event-card">
           <div class="event-title">${ev.titulo}</div>
           <div class="event-meta">${ev.fecha} · ${ev.lugar}</div>
@@ -189,7 +194,9 @@
   }
   loadEvents();
 
-  // Instalación PWA
+  // PWA
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
+
   let deferredPrompt;
   const installBtn = document.getElementById("installBtn");
 
