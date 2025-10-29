@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Grupo A Cobijo</title>
 
-  <meta name="description" content="App ligera del Grupo A Cobijo con accesos rápidos a los campings, teléfono, WhatsApp, mapas y eventos.">
-
-  <!-- PWA -->
+  <meta name="description" content="Tu guía en el camping: eventos, horarios, mapas y contacto del Grupo A Cobijo.">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="assets/icons/icon-192.png">
@@ -48,18 +46,26 @@
     .app-splash { position: fixed; inset: 0; background:#fff; display:grid; place-items:center; z-index:9999; }
     .app-splash img { width: 180px; height:auto; opacity:.98; }
 
-    /* Header / logo */
-    header{display:flex;align-items:center;gap:16px;margin:8px 0 20px;flex-wrap:wrap}
+    /* Header / hero */
+    header{display:flex;align-items:center;gap:16px;margin:8px 0 12px;flex-wrap:wrap}
     .logo-img{height:80px;width:auto;object-fit:contain}
     h1{margin:0;font-size:1.4rem}
     .tag{color:var(--muted);font-size:.85rem}
     .spacer{flex:1}
-    .lang{appearance:none;border:1px solid var(--line);padding:6px 10px;border-radius:10px;font-weight:600;color:var(--accent-ink)}
     .pill{border:1px solid var(--line);background:var(--tint);padding:4px 10px;border-radius:999px;font-size:.8rem}
+    .lang{appearance:none;border:1px solid var(--line);padding:6px 10px;border-radius:10px;font-weight:600;color:var(--accent-ink)}
+
+    .hero{
+      margin:8px 0 18px; background:linear-gradient(180deg,#f8fbff,#eef5ff);
+      border:1px solid var(--line); border-radius:16px; padding:16px;
+    }
+    .hero h2{margin:0 0 6px; font-size:1.2rem}
+    .hero p{margin:0; color:var(--muted)}
 
     /* Cards / grid */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:16px 0 28px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
+    .card h2{margin:0 0 6px; font-size:1.1rem}
 
     /* Botones: fix iPhone */
     .row{display:flex;flex-wrap:wrap;gap:8px}
@@ -80,6 +86,15 @@
     .event-title{font-weight:700}
     .event-meta{font-size:.9rem;color:var(--muted)}
 
+    /* Modal horarios */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:10001}
+    .modal{width:min(92vw,520px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+    .modal .close{background:transparent;border:none;color:var(--muted);font-weight:700;float:right}
+    .schedule{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+    .schedule h4{margin:0 0 8px}
+    .schedule ul{margin:0;padding-left:18px}
+    .schedule li{margin:4px 0}
+
     footer{margin-top:8px;font-size:.9rem;opacity:.85}
     .ok{color:#21a653}
     .install{display:none}
@@ -93,11 +108,12 @@
   </div>
 
   <div class="wrap">
+    <!-- Header -->
     <header>
       <img src="assets/logo.png" class="logo-img" alt="Grupo A Cobijo">
       <div>
         <h1 id="t-app">Grupo A Cobijo</h1>
-        <div class="tag" id="t-subtitle">Caravaning Oyambre · Camping Ramales · Camping Ruiloba</div>
+        <div class="tag" id="t-subtitle">Tu estancia con nosotros · Oyambre · Ramales · Ruiloba</div>
       </div>
       <div class="spacer"></div>
       <select id="langSel" class="lang">
@@ -106,84 +122,172 @@
       <span class="pill" id="t-pwa">PWA • Offline</span>
     </header>
 
-    <section class="grid">
-      <article class="card">
-        <h2 id="t-oy-title">Camping Caravaning Playa de Oyambre</h2>
-        <p id="t-oy-hint">Todos los servicios · Frente al mar</p>
-        <div class="row">
-          <a class="btn" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
-          <a class="btn" href="tel:+34942711461">Llamar</a>
-          <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
-          <a class="btn" href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      </article>
-
-      <article class="card">
-        <h2 id="t-ra-title">Camping Ramales</h2>
-        <p id="t-ra-hint">Cuevas · Montaña · Actividades</p>
-        <div class="row">
-          <a class="btn" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
-          <a class="btn" href="tel:+34654463133">Llamar</a>
-          <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
-          <a class="btn" href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      </article>
-
-      <article class="card">
-        <h2 id="t-he-title">Camping El Helguero (Ruiloba)</h2>
-        <p id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
-        <div class="row">
-          <a class="btn" href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
-          <a class="btn" href="tel:+34942722124">Llamar</a>
-          <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
-          <a class="btn" href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      </article>
+    <!-- Hero de experiencia -->
+    <section class="hero">
+      <h2>Tu guía en el camping</h2>
+      <p>Eventos, horarios, cómo llegar y contacto — todo en tu móvil, también sin cobertura.</p>
     </section>
 
+    <!-- 1) EVENTOS (PRIMERO) -->
     <section>
-      <h2>Eventos Grupo A Cobijo</h2>
+      <h2>Eventos hoy y esta semana</h2>
       <div id="events" class="grid"></div>
     </section>
 
+    <!-- 2) HORARIOS -->
     <section class="card">
-      <h2 id="t-install-title">Instálame como app</h2>
-      <p id="t-install-hint" class="hint">Android: ⋮ → Instalar App. iOS: Compartir → Añadir a pantalla de inicio.</p>
+      <h2>Horarios</h2>
+      <p class="hint">Recepción, restaurante, piscina, supermercado... elige tu camping.</p>
+      <div class="row">
+        <button class="btn" id="h-oy">Ver horarios Oyambre</button>
+        <button class="btn" id="h-ra">Ver horarios Ramales</button>
+        <button class="btn" id="h-he">Ver horarios Ruiloba</button>
+      </div>
+    </section>
+
+    <!-- Modal horarios -->
+    <div class="modal-backdrop" id="modalHorarios" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal">
+        <button class="close" id="closeHorarios" aria-label="Cerrar">✕</button>
+        <h3 id="modalTitle">Horarios</h3>
+        <div id="scheduleWrap" class="schedule"></div>
+      </div>
+    </div>
+
+    <!-- 3) CAMPINGS (AL FINAL) -->
+    <section style="margin-top:24px">
+      <h2>Nuestros campings</h2>
+
+      <div class="grid">
+        <article class="card">
+          <h2>Camping Caravaning Playa de Oyambre</h2>
+          <p class="hint">Todos los servicios · Frente al mar</p>
+          <div class="row">
+            <a class="btn" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34942711461">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        </article>
+
+        <article class="card">
+          <h2>Camping Ramales</h2>
+          <p class="hint">Cuevas · Montaña · Actividades</p>
+          <div class="row">
+            <a class="btn" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34654463133">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        </article>
+
+        <article class="card">
+          <h2>Camping El Helguero (Ruiloba)</h2>
+          <p class="hint">Naturaleza · Familiar · Mascotas</p>
+          <div class="row">
+            <a class="btn" href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34942722124">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Instalación PWA -->
+    <section class="card">
+      <h2>Instálame como app</h2>
+      <p class="hint">Android: ⋮ → Instalar app. iOS: Compartir → Añadir a pantalla de inicio.</p>
       <button id="installBtn" class="btn install">Instalar ahora</button>
       <p id="pwaStatus" class="hint"></p>
     </section>
 
     <footer>
-      © <span id="year"></span> Grupo A Cobijo · <span id="t-offline">Funciona sin conexión</span> <span class="ok">●</span>
+      © <span id="year"></span> Grupo A Cobijo · <span class="ok">Funciona sin conexión</span> ●
     </footer>
   </div>
 
 <script>
-  // Año actual
+  // Año
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Cargar eventos
+  // Eventos (desde events.json)
   async function loadEvents(){
     try{
       const res = await fetch('./events.json', { cache: 'no-cache' });
       const data = await res.json();
-      document.getElementById('events').innerHTML = data.map(ev => `
+      const wrap = document.getElementById('events');
+      if(!data.length){ wrap.innerHTML = '<p class="hint">Pronto publicaremos aquí los próximos eventos.</p>'; return; }
+      wrap.innerHTML = data.map(ev => `
         <div class="event-card">
           <div class="event-title">${ev.titulo}</div>
           <div class="event-meta">${ev.fecha} · ${ev.lugar}</div>
           <div class="hint">${ev.descripcion}</div>
-        </div>`).join('');
-    }catch(e){}
+        </div>
+      `).join('');
+    }catch(e){
+      document.getElementById('events').innerHTML = '<p class="hint">Sin eventos por ahora.</p>';
+    }
   }
   loadEvents();
 
-  // Service Worker (offline + autoupdate)
+  // Horarios (datos de ejemplo: edítalos)
+  const HORARIOS = {
+    oyambre: {
+      titulo:"Oyambre",
+      items:[
+        "Recepción: 09:00–21:00",
+        "Restaurante: 13:00–16:00 y 20:00–23:00",
+        "Supermercado: 09:00–20:00",
+        "Piscina (verano): 10:00–20:00"
+      ]
+    },
+    ramales: {
+      titulo:"Ramales",
+      items:[
+        "Recepción: 09:30–20:30",
+        "Cafetería: 08:30–12:00 y 17:30–23:00",
+        "Actividades: según programación",
+        "Piscina (verano): 11:00–20:00"
+      ]
+    },
+    ruiloba: {
+      titulo:"Ruiloba (El Helguero)",
+      items:[
+        "Recepción: 09:00–21:00",
+        "Restaurante: 13:00–16:00 y 20:00–23:00",
+        "Supermercado: 09:30–19:30",
+        "Piscina (verano): 10:30–20:00"
+      ]
+    }
+  };
+
+  const modal = document.getElementById('modalHorarios');
+  const closeH = document.getElementById('closeHorarios');
+  const wrapH  = document.getElementById('scheduleWrap');
+
+  function openHorarios(key){
+    const h = HORARIOS[key];
+    if(!h) return;
+    wrapH.innerHTML = `
+      <h4>${h.titulo}</h4>
+      <ul>${h.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+    `;
+    modal.style.display = 'flex';
+  }
+  document.getElementById('h-oy').addEventListener('click', ()=>openHorarios('oyambre'));
+  document.getElementById('h-ra').addEventListener('click', ()=>openHorarios('ramales'));
+  document.getElementById('h-he').addEventListener('click', ()=>openHorarios('ruiloba'));
+  closeH.addEventListener('click', ()=> modal.style.display='none');
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.style.display='none'; });
+
+  // Service Worker
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
 
-  // Botón instalar
+  // Instalar PWA
   let deferredPrompt;
   const installBtn = document.getElementById('installBtn');
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -192,11 +296,10 @@
     installBtn.style.display = 'inline-flex';
   });
   installBtn.addEventListener('click', () => {
-    deferredPrompt?.prompt();
-    deferredPrompt = null;
+    deferredPrompt?.prompt(); deferredPrompt = null;
   });
 
-  // Ocultar pre-splash interno tras carga
+  // Ocultar pre-splash
   window.addEventListener('load', () => {
     setTimeout(() => document.getElementById('appSplash')?.remove(), 650);
   });
