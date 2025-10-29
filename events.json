@@ -1,9 +1,28 @@
 [
   {
-    "titulo": "Nochebuena en Ramales (Concierto)",
-    "fecha_iso": "2025-12-24T20:00:00",
-    "fecha": "24 diciembre 2025, 20:00",
-    "lugar": "Camping Ramales",
-    "descripcion": "Concierto especial de Nochebuena en Ramales con villancicos y versiones."
+    "id": "ev-nochebuena-ramales-2025",
+    "fecha": "2025-12-24T21:00:00+01:00",
+    "camping": "ramales",
+    "titulo": {
+      "es": "Nochebuena en Ramales",
+      "en": "Christmas Eve in Ramales",
+      "fr": "Réveillon à Ramales",
+      "de": "Heiligabend in Ramales",
+      "nl": "Kerstavond in Ramales"
+    },
+    "descripcion": {
+      "es": "Concierto especial y chocolate caliente. Entrada libre.",
+      "en": "Special concert and hot chocolate. Free entry.",
+      "fr": "Concert spécial et chocolat chaud. Entrée libre.",
+      "de": "Spezialkonzert und heiße Schokolade. Eintritt frei.",
+      "nl": "Speciaal concert en warme chocolademelk. Gratis toegang."
+    },
+    "lugar": {
+      "es": "Camping Ramales",
+      "en": "Camping Ramales",
+      "fr": "Camping Ramales",
+      "de": "Camping Ramales",
+      "nl": "Camping Ramales"
+    }
   }
 ]
