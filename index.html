@@ -1,360 +1,254 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grupo A Cobijo</title>
-  <meta name="description" content="App de experiencia del cliente Grupo A Cobijo: eventos, horarios y accesos rápidos a los campings.">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#0ea5e9">
-  <link rel="icon" href="assets/icons/icon-192.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grupo A Cobijo</title>
+<meta name="description" content="App de experiencia del cliente: eventos, horarios y accesos rápidos a los alojamientos del Grupo A Cobijo.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0ea5e9">
+<link rel="icon" href="assets/logo_acobijo_white.png">
 
-  <!-- Splash screen iOS -->
-  <link rel="apple-touch-icon" href="assets/icons/icon-512.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+:root {
+  --bg:#ffffff;
+  --card:#f4f9ff;
+  --accent:#0077cc;
+  --muted:#6b7a8c;
+  --text:#0a1a2a;
+  --line:#dce7f5;
+  --tint:#eaf4ff;
+  --accent-ink:#064e89;
+}
 
-  <style>
-    :root{
-      --bg:#ffffff;
-      --card:#f4f9ff;
-      --accent:#0077cc;
-      --muted:#6b7a8c;
-      --text:#0a1a2a;
-      --line:#dce7f5;
-      --tint:#eaf4ff;
-      --accent-ink:#064e89;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
-      background:#ffffff;color:var(--text);
-    }
-    .wrap{max-width:900px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;gap:12px;margin:8px 0 20px;flex-wrap:wrap}
-    header .logo{
-      width:60px;height:60px;border-radius:12px;background:white;
-      display:grid;place-items:center
-    }
-    h1{font-size:1.5rem;margin:0}
-    .tag{font-size:.85rem;color:var(--muted)}
-    .spacer{flex:1}
-    .pill{display:inline-block;border:1px solid var(--line);background:var(--tint);border-radius:999px;
-      padding:4px 10px;font-size:.8rem;color:var(--accent-ink)}
-    .lang{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;font-weight:600;color:var(--accent-ink)}
-    .section-title{font-size:1.2rem;margin:20px 0 10px;font-weight:700;color:var(--accent-ink)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:16px 0 28px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:10px}
-    .btn{appearance:none;border:1px solid var(--line);background:rgba(0,119,204,.08);color:var(--accent-ink);padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600}
-    .btn:hover{background:rgba(0,119,204,.14)}
-    .hint{font-size:.9rem;color:var(--muted)}
-    footer{opacity:.85;font-size:.9rem;margin-top:8px}
-    .install{display:none;margin:8px 0 0}
-    .ok{color:#21a653}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#ffffff;
+  color:var(--text);
+}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+header{display:flex;align-items:center;gap:12px;margin:8px 0 20px;flex-wrap:wrap}
+.logo{width:52px;height:52px;border-radius:12px;overflow:hidden;cursor:pointer}
+.logo img{width:100%;height:100%;object-fit:contain;}
+h1{font-size:1.6rem;margin:0}
+.tag{font-size:.9rem;color:var(--muted)}
+.pill{padding:4px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--line);background:var(--tint)}
+section-title{font-size:1.35rem;font-weight:700;margin-top:28px;display:block}
 
-    /* eventos */
-    .event-card{background:white;border-radius:14px;border:1px solid var(--line);padding:14px;margin-bottom:12px}
-    .event-title{font-size:1rem;font-weight:700}
-    .event-date{font-size:.85rem;color:var(--accent-ink)}
-    .event-desc{font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:12px}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:16px;
+  border:1px solid var(--line);
+}
+.btn{
+  padding:10px 14px;border-radius:12px;border:1px solid var(--line);
+  text-decoration:none;display:inline-block;background:var(--tint);
+  font-weight:600;margin-right:6px;margin-bottom:6px;color:var(--accent-ink)
+}
+.btn:hover{background:rgba(0,119,204,.12)}
 
-    /* admin modal */
-    #adminModal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center}
-    .modal-content{background:white;width:90%;max-width:700px;border-radius:18px;padding:20px;max-height:90%;overflow:auto}
+.event-card{
+  padding:14px;border-radius:14px;background:var(--card);
+  border:1px solid var(--line);margin-bottom:10px;
+}
+.event-title{font-weight:700;font-size:1.1rem;margin-bottom:4px}
+.event-date{font-size:.9rem;color:var(--muted)}
+.event-desc{font-size:.9rem;margin-top:6px;margin-bottom:4px}
 
-    input,select{width:100%;padding:8px;border-radius:10px;border:1px solid var(--line)}
-  </style>
+/*** PANEL ADMIN ***/
+#adminPanel{
+  display:none;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+}
+#adminBox{
+  max-width:500px;margin:60px auto;background:white;
+  padding:20px;border-radius:16px;
+}
+input, textarea, select{
+  width:100%;padding:10px;margin:6px 0 14px;border-radius:10px;border:1px solid var(--line)
+}
+textarea{height:80px}
+.admin-btn {width:100%;padding:12px;background:var(--accent);color:white;border-radius:12px;margin-top:6px;text-align:center;font-weight:600;border:none}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <img src="assets/icons/logo-cobijo.png" class="logo" id="logo">
-      <div>
-        <h1 id="t-app">Grupo A Cobijo</h1>
-        <div class="tag" id="t-subtitle">Experiencia del cliente</div>
-      </div>
-      <div class="spacer"></div>
-      <select id="langSel" class="lang">
-        <option value="es">ES</option>
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="de">DE</option>
-        <option value="nl">NL</option>
-      </select>
-      <span class="pill" id="t-pwa">PWA • Offline</span>
-    </header>
+<div class="wrap">
 
-    <!-- EVENTOS -->
-    <div class="section-title" id="t-events-title">Eventos Grupo A Cobijo</div>
-    <div id="eventsList"></div>
+<header>
+  <div class="logo" id="adminTrigger">
+    <img src="assets/logo_acobijo_white.png">
+  </div>
+  <div>
+    <h1>Grupo A Cobijo</h1>
+    <div class="tag">Experiencia del cliente</div>
+  </div>
+  <span class="pill" id="langLabel">ES</span>
+  <span class="pill">PWA • Offline</span>
+</header>
 
-    <!-- HORARIOS -->
-    <div class="section-title" id="t-horarios-title">Horarios</div>
-    <a class="btn" href="#" onclick="alert('Próximamente'); return false;">Ver horarios</a>
+<section-title>Eventos Grupo A Cobijo</section-title>
+<div id="eventsList"></div>
 
-    <!-- ALOJAMIENTOS -->
-    <div class="section-title">Campings</div>
-    <section class="grid">
-      <article class="card">
-        <h2>Camping Caravaning Playa de Oyambre</h2>
-        <div class="row">
-          <a class="btn" href="https://www.oyambre.com" target="_blank">Web</a>
-          <a class="btn" href="tel:+34942711461">Llamar</a>
-          <a class="btn" href="https://maps.app.goo.gl/ANYnRTLsxriZxnW3A" target="_blank">Cómo llegar</a>
-        </div>
-      </article>
+<section-title>Horarios</section-title>
+<a class="btn" href="#">Ver horarios</a>
 
-      <article class="card">
-        <h2>Camping Ramales</h2>
-        <div class="row">
-          <a class="btn" href="https://www.campingramales.com" target="_blank">Web</a>
-          <a class="btn" href="tel:+34654463133">Llamar</a>
-          <a class="btn" href="https://maps.app.goo.gl/s1L2VRUpiEYcerMH6" target="_blank">Cómo llegar</a>
-        </div>
-      </article>
+<section-title>Campings</section-title>
+<div class="grid">
 
-      <article class="card">
-        <h2>Camping El Helguero (Ruiloba)</h2>
-        <div class="row">
-          <a class="btn" href="https://www.campingelhelguero.com" target="_blank">Web</a>
-          <a class="btn" href="tel:+34942722124">Llamar</a>
-          <a class="btn" href="https://maps.app.goo.gl/CWwsWcUx8Feww8pb7" target="_blank">Cómo llegar</a>
-        </div>
-      </article>
-    </section>
-
-    <!-- EL CARDEO -->
-    <div class="section-title">Otros alojamientos del grupo</div>
-    <section class="grid">
-      <article class="card">
-        <h2>Apartamentos y Taberna El Cardeo</h2>
-        <div class="row">
-          <a class="btn" href="https://www.elcardeo.es" target="_blank">Web</a>
-          <a class="btn" href="tel:+34664686158">Llamar</a>
-          <a class="btn" href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank">Cómo llegar</a>
-        </div>
-      </article>
-    </section>
-
-    <footer>
-      © <span id="year"></span> Grupo A Cobijo • Funciona sin conexión <span class="ok">●</span>
-    </footer>
+  <div class="card">
+    <h3>Camping Caravaning Playa de Oyambre</h3>
+    <a class="btn" href="https://www.oyambre.com" target="_blank">Web</a>
+    <a class="btn" href="tel:+34942711461">Llamar</a>
+    <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank">Cómo llegar</a>
+    <a class="btn" href="https://wa.me/34675696212" target="_blank">WhatsApp</a>
   </div>
 
+  <div class="card">
+    <h3>Camping Ramales</h3>
+    <a class="btn" href="https://www.campingramales.com" target="_blank">Web</a>
+    <a class="btn" href="tel:+34654463133">Llamar</a>
+    <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank">Cómo llegar</a>
+    <a class="btn" href="https://wa.me/34654463133" target="_blank">WhatsApp</a>
+  </div>
 
-<!-- =================== MODAL ADMIN =================== -->
-<div id="adminModal">
-  <div class="modal-content">
-    <h2>Panel de administración</h2>
+  <div class="card">
+    <h3>Camping El Helguero (Ruiloba)</h3>
+    <a class="btn" href="https://www.campingelhelguero.com" target="_blank">Web</a>
+    <a class="btn" href="tel:+34942722124">Llamar</a>
+    <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank">Cómo llegar</a>
+    <a class="btn" href="https://wa.me/34652806564" target="_blank">WhatsApp</a>
+  </div>
 
-    <button onclick="downloadEvents()" class="btn">⬇️ Descargar events.json</button>
-    <button onclick="importEvents()" class="btn">⬆️ Importar events.json</button>
+</div>
 
-    <h3>Eventos</h3>
-    <table id="eventsTable"></table>
+<section-title>Otros alojamientos del grupo</section-title>
+<div class="grid">
+  <div class="card">
+    <h3>Apartamentos / Taberna El Cardeo</h3>
+    <a class="btn" href="https://www.elcardeo.es" target="_blank">Web</a>
+    <a class="btn" href="tel:+34664686158">Llamar</a>
+    <a class="btn" href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank">Cómo llegar</a>
+    <a class="btn" href="https://wa.me/34664686158" target="_blank">WhatsApp</a>
+  </div>
+</div>
 
-    <button onclick="addEvent()" class="btn">➕ Añadir evento</button>
+</div>
 
-    <!-- CONFIG GITHUB -->
-    <div class="card" style="margin-top:12px">
-      <h4>Config GitHub</h4>
-      <label>Repositorio (owner/repo)</label>
-      <input id="ghRepo" placeholder="PabloScirocco/grupo-a-cobijo-app">
-      <label>Branch (normalmente main)</label>
-      <input id="ghBranch" value="main">
-      <label>Token (solo se guarda en este dispositivo)</label>
-      <input id="ghToken" placeholder="github_pat_..." autocomplete="off">
-      <button id="saveGhCfg" class="btn">Guardar configuración</button>
-      <button id="pushEventsBtn" class="btn">💾 Guardar en GitHub (events.json)</button>
-    </div>
+<!-- PANEL ADMIN -->
+<div id="adminPanel">
+  <div id="adminBox">
 
-    <button onclick="closeAdmin()" class="btn" style="margin-top:12px">Cerrar</button>
+    <h2>Panel eventos</h2>
+
+    <select id="camping">
+      <option value="oyambre">Oyambre</option>
+      <option value="ramales">Ramales</option>
+      <option value="ruiloba">Ruiloba</option>
+      <option value="cardeo">El Cardeo</option>
+    </select>
+
+    <input id="fecha" type="datetime-local">
+    <input id="tituloES" placeholder="Título (ES)">
+    <textarea id="descES" placeholder="Descripción (ES)"></textarea>
+
+    <button class="admin-btn" id="saveEvent">✅ Guardar evento</button>
+
+    <hr>
+    <h3>Config GitHub</h3>
+    <input id="repo" placeholder="usuario/repositorio">
+    <input id="branch" value="main">
+    <input id="token" placeholder="TOKEN GitHub (PAT)">
+    <button class="admin-btn" id="pushGitHub">💾 Guardar en GitHub</button>
+
   </div>
 </div>
 
 <script>
-/* ==================== APP BASICS ==================== */
+const LANG = navigator.language.slice(0,2);
+document.getElementById("langLabel").textContent = LANG.toUpperCase();
 
-document.getElementById('year').textContent = new Date().getFullYear();
-const eventsList = document.getElementById("eventsList");
+let ADMIN_EVENTS = [];
+let adminClicks = 0;
 
-function detectLang(){
-  const saved = localStorage.getItem("lang");
-  if(saved) return saved;
-  const browser = navigator.language.slice(0,2);
-  return ["es","en","fr","de","nl"].includes(browser)? browser : "es";
-}
-
-let LANG = detectLang();
-document.getElementById("langSel").value = LANG;
-
-document.getElementById("langSel").addEventListener("change",()=>{
-  LANG = document.getElementById("langSel").value;
-  localStorage.setItem("lang",LANG);
-  renderEvents();
-});
-
-/* ==================== ADMIN ACCESS ==================== */
-
-let taps = 0;
-document.getElementById("logo").addEventListener("click",()=>{
-  taps++;
-  if(taps >= 5){
-    openAdmin();
-    taps = 0;
+document.getElementById("adminTrigger").addEventListener("click", ()=>{
+  adminClicks++;
+  if(adminClicks >= 5){
+    document.getElementById("adminPanel").style.display="block";
   }
 });
 
-/* ==================== LOAD EVENTS ==================== */
-
-let ADMIN_EVENTS = [];
-
-async function loadEvents(){
-  const url = "events.json?v="+Date.now();
-  const res = await fetch(url);
-  ADMIN_EVENTS = await res.json();
+// cargar eventos desde events.json
+fetch("events.json")
+.then(r=>r.json())
+.then(data=>{
+  ADMIN_EVENTS = data;
   renderEvents();
-}
-loadEvents();
+});
 
-/* ==================== RENDER EVENTS ==================== */
-
-function translate(text){
-  if(LANG==="es") return text;
-  return ""; // autotraducción simplificada para maqueta visual
-}
-
+// pintar eventos
 function renderEvents(){
-  eventsList.innerHTML = "";
+  const el = document.getElementById("eventsList");
+  el.innerHTML = "";
+
   ADMIN_EVENTS.sort((a,b)=> new Date(a.fecha) - new Date(b.fecha));
+
   ADMIN_EVENTS.forEach(ev=>{
-    const div = document.createElement("div");
-    div.className = "event-card";
-    div.innerHTML = `
-      <div class="event-title">${ev.titulo}</div>
-      <div class="event-date">${new Date(ev.fecha).toLocaleString()}</div>
-      <div class="event-desc">${ev.descripcion}</div>
-      <small>${ev.camping}</small>
+    const titulo = ev.titulo?.[LANG] || ev.titulo?.es || "";
+    const descripcion = ev.descripcion?.[LANG] || ev.descripcion?.es || "";
+    const lugar = ev.lugar?.[LANG] || ev.lugar?.es || "";
+
+    el.innerHTML += `
+      <div class="event-card">
+        <div class="event-title">${titulo}</div>
+        <div class="event-date">${new Date(ev.fecha).toLocaleString()}</div>
+        <div class="event-desc">${descripcion}</div>
+        <small>${lugar}</small>
+      </div>
     `;
-    eventsList.appendChild(div);
   });
 }
 
-/* ==================== ADMIN PANEL ==================== */
-
-function openAdmin(){
-  loadGhCfgToForm();
-  document.getElementById("adminModal").style.display="flex";
-  buildTable();
-}
-function closeAdmin(){
-  document.getElementById("adminModal").style.display="none";
-}
-
-function buildTable(){
-  const table = document.getElementById("eventsTable");
-  table.innerHTML = "";
-  ADMIN_EVENTS.forEach((ev,i)=>{
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${ev.titulo}</td>
-      <td><button onclick="editEvent(${i})">✏️</button></td>
-      <td><button onclick="deleteEvent(${i})">🗑️</button></td>
-    `;
-    table.appendChild(row);
-  });
-}
-
-function addEvent(){
-  const titulo = prompt("Título del evento");
-  if(!titulo) return;
+// guardar evento en memoria
+document.getElementById("saveEvent").onclick = ()=>{
   ADMIN_EVENTS.push({
-    id:"ev-"+Date.now(),
-    titulo,
-    descripcion:"",
-    camping:"ramales",
-    fecha:new Date().toISOString()
+    id: Date.now(),
+    fecha: document.getElementById("fecha").value,
+    camping: document.getElementById("camping").value,
+    titulo:{ es: document.getElementById("tituloES").value },
+    descripcion:{ es: document.getElementById("descES").value },
+    lugar:{ es: document.getElementById("camping").value }
   });
-  buildTable();
-}
-
-function editEvent(i){
-  const ev = ADMIN_EVENTS[i];
-  const titulo = prompt("Nuevo título", ev.titulo);
-  if(titulo!==null) ev.titulo = titulo;
-  buildTable();
-}
-function deleteEvent(i){
-  ADMIN_EVENTS.splice(i,1);
-  buildTable();
-}
-
-/* ================== IMPORT / EXPORT events.json ================== */
-
-function downloadEvents(){
-  const blob = new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:"application/json"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "events.json";
-  a.click();
-}
-
-function importEvents(){
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = ".json";
-  input.onchange = e=>{
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      ADMIN_EVENTS = JSON.parse(reader.result);
-      buildTable();
-    };
-    reader.readAsText(file);
-  };
-  input.click();
-}
-
-/* ================== CONFIG GITHUB & UPLOAD ================== */
-
-const GH_KEYS = { repo:'ghRepo', branch:'ghBranch', token:'ghToken' };
-
-function loadGhCfgToForm(){
-  document.getElementById("ghRepo").value   = localStorage.getItem(GH_KEYS.repo)   || "";
-  document.getElementById("ghBranch").value = localStorage.getItem(GH_KEYS.branch) || "main";
-  document.getElementById("ghToken").value  = localStorage.getItem(GH_KEYS.token)  || "";
-}
-
-document.getElementById("saveGhCfg").onclick = ()=>{
-  localStorage.setItem(GH_KEYS.repo, document.getElementById("ghRepo").value);
-  localStorage.setItem(GH_KEYS.branch, document.getElementById("ghBranch").value);
-  localStorage.setItem(GH_KEYS.token, document.getElementById("ghToken").value);
-  alert("Configuración guardada en este dispositivo ✅");
+  renderEvents();
 };
 
-document.getElementById("pushEventsBtn").onclick = async ()=>{
-  const repo = localStorage.getItem(GH_KEYS.repo);
-  const branch = localStorage.getItem(GH_KEYS.branch);
-  const token = localStorage.getItem(GH_KEYS.token);
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(ADMIN_EVENTS,null,2))));
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents/events.json`,{
+// guardar JSON en GitHub vía API
+document.getElementById("pushGitHub").onclick = async ()=>{
+  const repo = document.getElementById("repo").value;
+  const branch = document.getElementById("branch").value;
+  const token = document.getElementById("token").value;
+
+  const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/events.json?ref=${branch}`,{
+    headers:{Authorization:`Bearer ${token}`}
+  }).then(r=>r.json());
+
+  await fetch(getFile.url,{
     method:"PUT",
-    headers:{
-      "Authorization":`Bearer ${token}`,
-      "Content-Type":"application/json"
-    },
+    headers:{Authorization:`Bearer ${token}`},
     body:JSON.stringify({
       message:"update events.json",
-      content,
-      branch
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(ADMIN_EVENTS,null,2)))),
+      sha: getFile.sha
     })
   });
-  if(res.ok) alert("✅ Subido a GitHub correctamente");
-  else alert("❌ Error subiendo");
-};
 
+  alert("✅ Subido a GitHub");
+};
 </script>
 </body>
 </html>
