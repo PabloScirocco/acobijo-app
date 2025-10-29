@@ -1,33 +1,34 @@
-// Simple cache-first service worker for static assets
-const CACHE_NAME = 'acobijo-cache-v1';
-const ASSETS = [
-  './',
-  './index.html',
-  './manifest.webmanifest',
-  './assets/icons/icon-192.png',
-  './assets/icons/icon-512.png'
+// servicio de caché para PWA
+const CACHE_VERSION = 'v5';
+const CACHE_NAME = `acobijo-cache-${CACHE_VERSION}`;
+
+const FILES_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./manifest.webmanifest",
+  "./events.json",
+  "./assets/icons/icon-192.png",
+  "./assets/icons/icon-512.png"
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+self.addEventListener("install", evt => {
+  evt.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
   );
-  self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
+self.addEventListener("activate", evt => {
+  evt.waitUntil(
     caches.keys().then(keys => Promise.all(
-      keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+      keys.map(k => k !== CACHE_NAME && caches.delete(k))
     ))
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
+self.addEventListener("fetch", evt => {
+  evt.respondWith(
+    caches.match(evt.request).then(response => {
+      return response || fetch(evt.request);
+    })
   );
 });
