@@ -4,11 +4,36 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Grupo A Cobijo</title>
+
   <meta name="description" content="App ligera del Grupo A Cobijo con accesos rápidos a los campings, teléfono, WhatsApp, mapas y eventos.">
+
+  <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <meta name="theme-color" content="#0ea5e9">
   <link rel="icon" href="assets/icons/icon-192.png">
+
+  <!-- ✅ Splash + modo App en iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- ✅ Splash iPhone (portrait) -->
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-15pm-portrait.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-15p-portrait.png"  media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-14-15-plus-portrait.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-12pm-portrait.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-12-14-portrait.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-x-11pro-portrait.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-11r-portrait.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-6-8-se2-portrait.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/iphone-5-se1-portrait.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+
+  <!-- ✅ iPad -->
+  <link rel="apple-touch-startup-image" href="assets/splash/ipad-pro-12-9-portrait.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/ipad-pro-11-portrait.png"    media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/ipad-pro-10-5-portrait.png"  media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/ipad-9-7-portrait.png"       media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="assets/splash/ipad-10-9-portrait.png"      media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 
   <style>
     :root{
@@ -21,85 +46,46 @@
       --tint:#eaf4ff;
       --accent-ink:#064e89;
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
-      background:#ffffff;color:var(--text);
-    }
-
+    body{margin:0;font-family:system-ui;background:#fff;color:var(--text)}
     .wrap{max-width:900px;margin:0 auto;padding:24px}
 
-    /* ✅ LOGO GRANDE */
+    /* ✅ Logo */
     header{display:flex;align-items:center;gap:16px;margin:8px 0 20px;flex-wrap:wrap}
-    .logo-img{
-      height:80px;   /* <-- tamaño grande */
-      width:auto;
-      object-fit:contain;
-      display:block;
-    }
+    .logo-img{height:80px;width:auto;object-fit:contain}
 
-    h1{font-size:1.4rem;margin:0}
-    .tag{font-size:.85rem;color:var(--muted)}
+    h1{margin:0;font-size:1.4rem}
+    .tag{color:var(--muted);font-size:.85rem}
     .spacer{flex:1}
-    .pill{display:inline-block;border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:4px 10px;font-size:.8rem;color:var(--accent-ink)}
 
-    .lang{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;font-weight:600;color:var(--accent-ink)}
+    .lang{appearance:none;border:1px solid var(--line);padding:6px 10px;border-radius:10px;font-weight:600;color:var(--accent-ink)}
+    .pill{border:1px solid var(--line);background:var(--tint);padding:4px 10px;border-radius:999px;font-size:.8rem}
 
-    .grid{display:grid;grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );gap:16px;margin:16px 0 28px}
-
-    .card{
-      background:var(--card);border:1px solid var(--line);
-      border-radius:16px;padding:16px;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      display:flex;flex-direction:column;gap:12px;
-    }
-
-    .card h2{font-size:1.1rem;margin:0 0 4px}
-    .row{display:flex;gap:8px;flex-wrap:wrap}
-
-    .btn{
-      appearance:none;
-      border:1px solid var(--line);
-      background:rgba(0,119,204,.08);
-      color:var(--accent-ink);
-      padding:10px 12px;
-      border-radius:12px;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-weight:600;
-    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:16px 0 28px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
+    .btn{border:1px solid var(--line);background:rgba(0,119,204,.08);padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--accent-ink);font-weight:600}
     .btn:hover{background:rgba(0,119,204,.14)}
 
-    .hint{font-size:.9rem;color:var(--muted)}
-    footer{opacity:.85;font-size:.9rem;margin-top:8px}
-    .install{display:none;margin:8px 0 0}
+    /* map */
+    .map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+
+    footer{margin-top:8px;font-size:.9rem;opacity:.85}
     .ok{color:#21a653}
+    .install{display:none}
 
-    /* Mapas */
-    .map{width:100%; aspect-ratio: 16/10; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#fff}
-    .map iframe{width:100%; height:100%; border:0}
-
-    /* Eventos */
-    .events{margin-top:8px}
-    .events h2{margin:0 0 8px;font-size:1.15rem}
-    .events-grid{display:grid;grid-template-columns:repeat( auto-fit, minmax(240px,1fr) );gap:12px}
+    /* eventos */
     .event-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
     .event-title{font-weight:700}
     .event-meta{font-size:.9rem;color:var(--muted)}
-
   </style>
 </head>
+
 <body>
   <div class="wrap">
 
-    <!-- ✅ LOGO NUEVO EN CABECERA -->
+    <!-- ✅ HEADER -->
     <header>
-      <img src="assets/logo.png?v=2" alt="Grupo A Cobijo" class="logo-img">
+      <img src="assets/logo.png" class="logo-img" alt="Grupo A Cobijo">
 
       <div>
         <h1 id="t-app">Grupo A Cobijo</h1>
@@ -119,7 +105,6 @@
       <span class="pill" id="t-pwa">PWA • Offline</span>
     </header>
 
-
     <!-- ✅ CAMPINGS -->
     <section class="grid">
 
@@ -127,113 +112,97 @@
         <h2 id="t-oy-title">Camping Caravaning Playa de Oyambre</h2>
         <p class="hint" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
-          <a class="btn" id="t-web" href="https://www.oyambre.com" target="_blank">Web</a>
-          <a class="btn" id="t-call" href="tel:+34942711461">Llamar</a>
-          <a class="btn" id="t-directions" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp" href="https://wa.me/34675696212?text=Hola,%20quiero%20info%20sobre%20Oyambre" target="_blank">WhatsApp</a>
+          <a class="btn" href="https://www.oyambre.com" target="_blank">Web</a>
+          <a class="btn" href="tel:+34942711461">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank">Cómo llegar</a>
+          <a class="btn" href="https://wa.me/34675696212" target="_blank">WhatsApp</a>
         </div>
-        <div class="map">
-          <iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed"></iframe>
-        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed"></iframe></div>
       </article>
-
 
       <article class="card">
         <h2 id="t-ra-title">Camping Ramales</h2>
         <p class="hint" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
-          <a class="btn" id="t-web2" href="https://www.campingramales.com" target="_blank">Web</a>
-          <a class="btn" id="t-call2" href="tel:+34654463133">Llamar</a>
-          <a class="btn" id="t-directions2" href="https://maps.google.com/?q=Camping+Ramales" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp2" href="https://wa.me/34654463133?text=Hola,%20quiero%20info%20sobre%20Ramales" target="_blank">WhatsApp</a>
+          <a class="btn" href="https://www.campingramales.com" target="_blank">Web</a>
+          <a class="btn" href="tel:+34654463133">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank">Cómo llegar</a>
+          <a class="btn" href="https://wa.me/34654463133" target="_blank">WhatsApp</a>
         </div>
-        <div class="map">
-          <iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed"></iframe>
-        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed"></iframe></div>
       </article>
-
 
       <article class="card">
         <h2 id="t-he-title">Camping El Helguero (Ruiloba)</h2>
         <p class="hint" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
-          <a class="btn" id="t-web3" href="https://www.campingelhelguero.com" target="_blank">Web</a>
-          <a class="btn" id="t-call3" href="tel:+34942722124">Llamar</a>
-          <a class="btn" id="t-directions3" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank">Cómo llegar</a>
-          <a class="btn" id="t-whatsapp3" href="https://wa.me/34652806564?text=Hola,%20quiero%20info%20sobre%20Ruiloba" target="_blank">WhatsApp</a>
+          <a class="btn" href="https://www.campingelhelguero.com" target="_blank">Web</a>
+          <a class="btn" href="tel:+34942722124">Llamar</a>
+          <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank">Cómo llegar</a>
+          <a class="btn" href="https://wa.me/34652806564" target="_blank">WhatsApp</a>
         </div>
-        <div class="map">
-          <iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed"></iframe>
-        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed"></iframe></div>
       </article>
 
     </section>
 
-
     <!-- ✅ EVENTOS -->
-    <section class="events">
-      <h2 id="t-events-title">Eventos Grupo A Cobijo</h2>
-      <div id="events" class="events-grid"></div>
+    <section>
+      <h2>Eventos Grupo A Cobijo</h2>
+      <div id="events" class="grid"></div>
     </section>
 
-
-    <!-- ✅ INSTALAR APP -->
+    <!-- ✅ INSTALACIÓN PWA -->
     <section class="card">
       <h2 id="t-install-title">Instálame como app</h2>
-      <p class="hint" id="t-install-hint">En Android: ⋮ → Instalar App. En iOS: Compartir → Añadir a pantalla de inicio.</p>
+      <p class="hint" id="t-install-hint">Android: ⋮ → Instalar App. iOS: Compartir → Añadir a pantalla inicio.</p>
       <button id="installBtn" class="btn install">Instalar ahora</button>
       <p id="pwaStatus" class="hint"></p>
     </section>
 
-
+    <!-- ✅ FOOTER -->
     <footer>
-      © <span id="year"></span> Grupo A Cobijo • <span id="t-offline">Funciona sin conexión</span> <span class="ok">●</span>
+      © <span id="year"></span> Grupo A Cobijo · <span id="t-offline">Funciona sin conexión</span> <span class="ok">●</span>
     </footer>
   </div>
 
-
 <script>
-  // Actualiza año
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Carga de eventos desde events.json
-  loadEvents();
+  // Service worker (offline + autoupdate)
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
+
+  // Eventos
   async function loadEvents(){
     try{
       const res = await fetch('./events.json', { cache: 'no-cache' });
       const data = await res.json();
       const wrap = document.getElementById('events');
-      wrap.innerHTML = "";
-      data.forEach(ev=>{
-        wrap.innerHTML += `
-          <div class="event-card">
-            <div class="event-title">${ev.titulo}</div>
-            <div class="event-meta">${ev.fecha} · ${ev.lugar}</div>
-            <div class="hint">${ev.descripcion}</div>
-          </div>
-        `;
-      });
-    }catch(e){
-      console.warn("Sin eventos todavía");
-    }
+      wrap.innerHTML = data.map(ev => `
+        <div class="event-card">
+          <div class="event-title">${ev.titulo}</div>
+          <div class="event-meta">${ev.fecha} · ${ev.lugar}</div>
+          <div class="hint">${ev.descripcion}</div>
+        </div>
+      `).join('');
+    }catch(e){}
   }
+  loadEvents();
 
-  // Service Worker (offline + autoupdate)
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
-
-  // Botón instalar PWA
+  // Instalación PWA
   let deferredPrompt;
   const installBtn = document.getElementById("installBtn");
-  window.addEventListener("beforeinstallprompt", (e)=>{
+
+  window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
     installBtn.style.display = "inline-flex";
   });
-  installBtn.addEventListener("click", async ()=>{
+
+  installBtn.addEventListener("click", () => {
     deferredPrompt.prompt();
     deferredPrompt = null;
   });
-
 </script>
 
 </body>
