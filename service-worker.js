@@ -1,5 +1,5 @@
 // servicio de caché para PWA
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v7';
 const CACHE_NAME = `acobijo-cache-${CACHE_VERSION}`;
 
 const FILES_TO_CACHE = [
