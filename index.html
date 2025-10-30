@@ -1,878 +1,610 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b7d6e" />
-  <title>Grupo A Cobijo · App</title>
-  
-  <!-- Manifest (asegúrate de tener este archivo en /manifest.webmanifest) -->
-  <link rel="manifest" href="./manifest.webmanifest" />
-
-  <!-- Iconos (ajusta rutas reales si usas otras) -->
-  <link rel="icon" href="./assets/icons/logo.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="./assets/icons/logo.png" />
-
-  <meta name="description" content="App para huéspedes del Grupo A Cobijo: información útil, eventos, mapas, horarios y contacto por WhatsApp." />
-  <meta name="format-detection" content="telephone=no" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Grupo A Cobijo</title>
+  <meta name="description" content="App de experiencia del cliente: eventos, horarios y accesos del Grupo A Cobijo.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0ea5e9">
+  <link rel="icon" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <style>
-    :root {
-      --brand: #0b7d6e;
-      --brand-2: #0e9f8a;
-      --ink: #0b1020;
-      --muted: #5a6473;
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --ok: #0a7f2e;
-      --warn: #c97b00;
-      --danger: #b42318;
-      --radius: 16px;
+    :root{
+      --bg:#fff; --card:#f4f9ff; --line:#dce7f5; --tint:#eaf4ff;
+      --text:#0a1a2a; --accent:#0077cc; --ink:#064e89; --muted:#687588;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
-      color: var(--ink); background: var(--bg);
-      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-    }
-    header {
-      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(6px);
-      background: color-mix(in srgb, var(--bg) 80%, white 20%);
-      border-bottom: 1px solid #e6eaf0;
-    }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 14px 16px; }
-    .row { display:flex; align-items:center; gap:12px; }
-    .space { flex:1; }
-    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
-    .logo img { width: 36px; height: 36px; object-fit: contain; }
-    .logo span { font-weight: 700; letter-spacing:.2px; }
-    select, button, input, textarea {
-      font: inherit; border: 1px solid #d6dbe4; border-radius: 10px; padding: 8px 10px; background: white;
-    }
-    button { cursor: pointer; }
-    .btn {
-      background: var(--brand); color: white; border: none; padding: 10px 14px; border-radius: 12px; font-weight: 600;
-    }
-    .btn.secondary { background: #f0f4f8; color: #0b1020; border: 1px solid #e1e7ef; }
-    .chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:#eef7f5; color:var(--brand); font-weight:600; }
-    .muted { color: var(--muted); }
-    .grid { display:grid; gap:14px; }
-    @media (min-width: 720px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
-    @media (min-width: 960px) { .grid.cols-4 { grid-template-columns: repeat(4, 1fr); } }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:#fff;color:var(--text)}
+    .wrap{max-width:900px;margin:0 auto;padding:22px}
+    header{display:flex;align-items:center;gap:14px;margin:6px 0 16px;flex-wrap:wrap}
+    .logo-img{height:72px;width:auto;object-fit:contain;cursor:pointer}
+    h1{margin:0;font-size:1.5rem}
+    .tag{color:var(--muted);font-size:.9rem}
+    .spacer{flex:1}
+    .pill{border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:4px 10px;font-size:.8rem;color:var(--ink)}
+    .btn{appearance:none;border:1px solid var(--line);background:rgba(0,119,204,.08);color:var(--ink);padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600;gap:6px}
+    .btn.small{padding:6px 10px;font-weight:600}
+    .row{display:flex;flex-wrap:wrap;gap:8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:12px 0 26px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    section h2{font-size:1.2rem;margin:18px 0 8px;color:var(--ink)}
 
-    .card { background: var(--card); border: 1px solid #e8edf4; border-radius: var(--radius); overflow: clip; box-shadow: 0 0 0 1px rgba(0,0,0,.02), 0 6px 24px rgba(17,24,39,.06); }
-    .card .media { position: relative; aspect-ratio: 16 / 10; background: #e9eef5; }
-    .card .media img { width:100%; height:100%; object-fit: cover; display:block; }
-    .card .body { padding: 12px; }
-    .card h3 { margin: 0 0 6px; font-size: 18px; }
-    .rowy { display:flex; align-items:center; gap:10px; flex-wrap: wrap; }
+    .event-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .event-title{font-weight:700}
+    .event-meta{font-size:.85rem;color:var(--muted)}
+    .event-desc{font-size:.9rem;margin-top:6px}
 
-    .mapframe { position: relative; width:100%; aspect-ratio: 4 / 3; border:0; border-top:1px solid #eef2f6; }
+    .map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+    .map iframe{width:100%;height:100%;border:0}
 
-    .hero { padding: 18px 16px 6px; }
-    .hero h1 { margin: 8px 0 6px; font-size: clamp(20px, 4vw, 28px); }
-    .hero p { margin: 0; color: var(--muted); }
-
-    .section { padding: 8px 16px 18px; }
-    .section h2 { margin: 12px 0; font-size: 20px; }
-
-    .toolbar { display:flex; align-items:center; gap:8px; flex-wrap: wrap; }
-
-    .pill { padding: 8px 10px; border-radius: 999px; background:#f3f6fb; border:1px solid #e3eaf3; }
-
-    .event-card { background:white; border:1px solid #e8edf4; border-radius: 14px; overflow: clip; display:grid; grid-template-columns: 92px 1fr; gap:0; }
-    .event-card .thumb { background:#eff3f8; width:92px; height:92px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .event-card .thumb img { width:100%; height:100%; object-fit: cover; }
-    .event-card .content { padding:10px 12px; }
-    .event-card h4 { margin:0 0 4px; font-size:16px; }
-    .event-card .meta { color: var(--muted); font-size: 13px; }
-
-    .columns { display:grid; gap:14px; }
-    @media (min-width: 880px) { .columns { grid-template-columns: 1fr 1fr; } }
-
-    .notice { padding: 10px 12px; border-radius: 12px; background: #f7fafc; border:1px dashed #cfd9e7; }
-    .ok { color: var(--ok); }
-    .warn { color: var(--warn); }
-
-    /* Banner instalar PWA */
-    #installBanner { display:none; background: #102a27; color: white; }
-    #installBanner .wrap { display:flex; align-items:center; gap:10px; }
-    #installBanner button { background: white; color: #0a1f1c; }
-
-    dialog[open] { border: 1px solid #dbe2ec; border-radius: 14px; box-shadow: 0 10px 36px rgba(0,0,0,.16); padding:0; max-width: 720px; }
-    dialog .dlg-head { padding: 14px 16px; border-bottom:1px solid #eef2f6; font-weight:700; }
-    dialog .dlg-body { padding: 14px 16px; }
+    /* Modal genérico */
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
+    .modal{width:min(92vw,900px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+    .close{background:transparent;border:none;color:var(--muted);font-weight:700;float:right}
 
     /* Admin */
-    .admin-badge { display:none; position:fixed; bottom:16px; right:16px; background:#111827; color:white; padding:8px 10px; border-radius:10px; font-size:12px; z-index: 20; }
-    #adminPanel { display:none; }
-    #adminPanel .grid { grid-template-columns: 1fr; }
-    @media (min-width: 920px) { #adminPanel .grid { grid-template-columns: 1.1fr .9fr; } }
-    
-    code.kbd { padding:2px 6px; border-radius:6px; background:#0b1020; color:#f7fafc; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .admin-btn{display:none;margin:8px 0 0}
+    .admin-on .admin-btn{display:inline-flex}
+    .table{width:100%;border-collapse:collapse;font-size:.9rem}
+    .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+    .table th{background:var(--tint)}
+    .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .muted{color:var(--muted);font-size:.85rem}
   </style>
 </head>
 <body>
-  <div id="installBanner">
-    <div class="wrap">
-      <span>📱 <strong id="i18n.installTitle">Instala la app</strong></span>
-      <span class="space"></span>
-      <button class="btn" id="btnInstall">Instalar</button>
-      <button class="btn secondary" id="btnHowInstall">¿Cómo?</button>
-      <button class="btn secondary" id="btnCloseInstall">✕</button>
+<div class="wrap">
+
+  <header>
+    <!-- Toca 5 veces para activar admin -->
+    <img src="assets/logo.png" alt="Grupo A Cobijo" class="logo-img" id="logoTap">
+    <div>
+      <h1 id="t-app">Grupo A Cobijo</h1>
+      <div class="tag" id="t-subtitle">Tu estancia con nosotros · Oyambre · Ramales · Ruiloba</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn small" id="langBtn">🌐 ES</button>
+    <span class="pill" id="t-pwa">PWA • Offline</span>
+  </header>
+
+  <!-- Modal idiomas -->
+  <div class="backdrop" id="langModal">
+    <div class="modal">
+      <button id="closeLang" class="close" aria-label="Cerrar">✕</button>
+      <h3 id="langTitle">Selecciona idioma</h3>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px">
+        <button class="btn lang-option" data-lang="es">🇪🇸 Español</button>
+        <button class="btn lang-option" data-lang="en">🇬🇧 English</button>
+        <button class="btn lang-option" data-lang="fr">🇫🇷 Français</button>
+        <button class="btn lang-option" data-lang="de">🇩🇪 Deutsch</button>
+        <button class="btn lang-option" data-lang="nl">🇳🇱 Nederlands</button>
+      </div>
     </div>
   </div>
 
-  <header>
-    <div class="wrap row">
-      <a class="logo" href="#" aria-label="Inicio">
-        <img id="brandLogo" src="./assets/logo-acobijo.svg" alt="Logo Grupo A Cobijo" />
-        <span id="brandName">Grupo A Cobijo</span>
-      </a>
-      <span class="space"></span>
-      <button class="btn secondary" id="btnInstallTop" style="display:none">+ Instalar</button>
-      <select id="langSelect" aria-label="Idioma">
-        <option value="es">ES</option>
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="de">DE</option>
-        <option value="nl">NL</option>
-      </select>
-    </div>
-  </header>
+  <!-- EVENTOS -->
+  <section>
+    <h2 id="t-events-title">Eventos Grupo A Cobijo</h2>
+    <div id="events" class="grid"></div>
+  </section>
 
-  <main>
-    <section class="hero wrap">
-      <div class="row" style="gap:8px; align-items:flex-end; flex-wrap:wrap;">
-        <div class="space">
-          <h1 id="i18n.heroTitle">Bienvenido a tu estancia con A Cobijo</h1>
-          <p id="i18n.heroSubtitle" class="muted">Información útil, contacto directo y eventos durante tu visita.</p>
-        </div>
-        <div><span class="chip">PWA</span></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="toolbar" style="margin-bottom:10px;">
-          <strong id="i18n.whereYouStay">¿Dónde te alojas?</strong>
-          <span class="muted" id="i18n.tapForDetails">Toca una tarjeta para ver mapas, horarios y WhatsApp.</span>
-        </div>
-        <div id="propsGrid" class="grid cols-4"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap columns">
-        <div>
-          <h2 id="i18n.eventsTitle">Eventos durante tu estancia</h2>
-          <div class="toolbar" style="margin-bottom:8px;">
-            <select id="eventsCampingFilter" class="pill"></select>
-            <button class="btn secondary" id="btnRefreshEvents">↻ <span id="i18n.refresh">Actualizar</span></button>
-          </div>
-          <div class="grid" id="eventsBuckets" style="gap:12px"></div>
-          <div class="notice" id="eventsEmpty" style="display:none"><span id="i18n.noEvents">No hay eventos próximos. ¡Pronto añadiremos más!</span></div>
-        </div>
-        <div>
-          <h2 id="i18n.infoTitle">Info útil</h2>
-          <div class="card">
-            <div class="body">
-              <p class="muted" id="i18n.installHelpBlurb">Instala la app para tenerla a mano, usarla sin cobertura y recibir mejoras sin pasar por la tienda.</p>
-              <div class="rowy" style="margin-top:8px;">
-                <button class="btn" id="btnOpenInstallHelp">¿Cómo instalar?</button>
-                <a class="btn secondary" href="#" id="btnAddToCalendar" download>➕ Añadir eventos al calendario (.ics)</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:12px;">
-            <div class="body">
-              <h3 style="margin-top:0;" id="i18n.contactus">Contacto general</h3>
-              <p class="muted" id="i18n.contactusBlurb">Para dudas generales del grupo, escríbenos:</p>
-              <div class="rowy">
-                <a id="generalWhatsApp" href="https://wa.me/34600000000?text=Hola%20A%20Cobijo" class="btn">WhatsApp</a>
-                <a id="generalPhone" href="tel:+34900000000" class="btn secondary">Llamar</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="notice">
-          <strong>¿Algo no se ve bien?</strong> Si los mapas o imágenes no cargan, revisa tu conexión. La app funciona offline, pero algunos recursos de Google Maps o CDNs necesitan internet la primera vez. 
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="admin-badge" id="adminBadge">🔓 Admin activo</div>
-
-  <!-- Panel Admin (oculto sin token) -->
-  <section class="section" id="adminPanel">
-    <div class="wrap">
-      <h2>Panel de administración</h2>
-      <div class="grid" style="gap:14px;">
-        <div class="card">
-          <div class="body">
-            <h3 style="margin-top:0">Crear / editar evento</h3>
-            <div class="rowy">
-              <label>Camping
-                <select id="admCamping"></select>
-              </label>
-              <label>Fecha <input type="date" id="admDate" /></label>
-              <label>Hora <input type="time" id="admTime" /></label>
-            </div>
-            <div class="rowy" style="margin-top:8px;">
-              <label style="flex:1">Título <input type="text" id="admTitle" placeholder="Nombre del evento" style="width:100%"/></label>
-            </div>
-            <div class="rowy" style="margin-top:8px;">
-              <label style="flex:1">Descripción <textarea id="admDesc" rows="3" placeholder="Opcional" style="width:100%"></textarea></label>
-            </div>
-            <div class="rowy" style="margin-top:8px;">
-              <label style="flex:1">Enlace <input type="url" id="admLink" placeholder="https://..." style="width:100%"/></label>
-              <label style="flex:1">Mapa (búsqueda) <input type="text" id="admMapQuery" placeholder="Ej: Camping Ramales" style="width:100%"/></label>
-            </div>
-            <div class="rowy" style="margin-top:8px;">
-              <label>Recurrencia
-                <select id="admRecur">
-                  <option value="none">Sin recurrencia</option>
-                  <option value="weekly">Semanal</option>
-                </select>
-              </label>
-              <div id="admRecurDays" class="rowy" style="display:none; gap:6px;">
-                <label><input type="checkbox" value="MO"/>L</label>
-                <label><input type="checkbox" value="TU"/>M</label>
-                <label><input type="checkbox" value="WE"/>X</label>
-                <label><input type="checkbox" value="TH"/>J</label>
-                <label><input type="checkbox" value="FR"/>V</label>
-                <label><input type="checkbox" value="SA"/>S</label>
-                <label><input type="checkbox" value="SU"/>D</label>
-              </div>
-            </div>
-            <div class="rowy" style="margin-top:8px; align-items:flex-start;">
-              <div>
-                <label>Miniatura (JPG/PNG)
-                  <input type="file" id="admImage" accept="image/*" />
-                </label>
-                <div id="admThumbPrev" class="muted" style="margin-top:6px; font-size:12px;">(sin imagen)</div>
-              </div>
-              <span class="space"></span>
-              <div class="rowy">
-                <button class="btn" id="admSave">💾 Guardar</button>
-                <button class="btn secondary" id="admClear">Limpiar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="body">
-            <h3 style="margin-top:0">Eventos existentes</h3>
-            <div class="rowy" style="margin-bottom:8px;">
-              <select id="admFilterCamping" class="pill"></select>
-              <button class="btn secondary" id="admSortByCamping">Ordenar por camping</button>
-              <button class="btn secondary" id="admExportJSON">Exportar JSON</button>
-              <button class="btn secondary" id="admExportZIP">ZIP (JSON + imágenes)</button>
-              <label class="btn secondary" for="admImportJSON" style="cursor:pointer;">Importar JSON</label>
-              <input type="file" id="admImportJSON" accept="application/json" style="display:none" />
-            </div>
-            <div id="admList" class="grid" style="gap:8px"></div>
-          </div>
-        </div>
-      </div>
-      <p class="muted" style="margin-top:10px;">
-        Consejo: puedes abrir modo admin añadiendo <code class="kbd">?token=acobijo2025!</code> a la URL. Cambia el token en el código si lo deseas.
-      </p>
+  <!-- HORARIOS -->
+  <section class="card">
+    <h2 id="t-schedules-title">Horarios</h2>
+    <p class="hint" id="t-schedules-hint">Recepción, restaurante, piscina... elige tu camping.</p>
+    <div class="row">
+      <button class="btn" data-sched="oyambre" id="btn-oy">Oyambre</button>
+      <button class="btn" data-sched="ramales" id="btn-ra">Ramales</button>
+      <button class="btn" data-sched="ruiloba" id="btn-he">Ruiloba</button>
+      <button class="btn" data-sched="cardeo" id="btn-ca">El Cardeo</button>
     </div>
   </section>
 
-  <dialog id="howInstallDlg">
-    <div class="dlg-head" id="i18n.installHow">Cómo instalar la app</div>
-    <div class="dlg-body">
-      <ol style="margin-top:0;">
-        <li><strong>Android (Chrome):</strong> pulsa el botón <em>Instalar</em> arriba o el icono de los tres puntos ⋮ y toca <em>“Añadir a pantalla de inicio”</em>.</li>
-        <li><strong>iPhone/iPad (Safari):</strong> toca el botón Compartir y elige <em>“Añadir a pantalla de inicio”</em>.</li>
-        <li><strong>Ordenador (Chrome/Edge):</strong> pulsa el icono <em>Instalar</em> en la barra de direcciones.</li>
-      </ol>
-      <div style="text-align:right; padding: 0 0 12px 0;">
-        <button class="btn secondary" onclick="document.getElementById('howInstallDlg').close()">Cerrar</button>
+  <!-- Modal horarios -->
+  <div class="backdrop" id="schedModal">
+    <div class="modal">
+      <button class="close" id="closeSched" aria-label="Cerrar">✕</button>
+      <h3 id="schedTitle">Horarios</h3>
+      <div id="schedBody" class="card" style="margin-top:8px"></div>
+      <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
+    </div>
+  </div>
+
+  <!-- CAMPINGS -->
+  <section style="margin-top:24px">
+    <h2 id="t-campings-title">Nuestros campings</h2>
+    <div class="grid">
+
+      <!-- Oyambre -->
+      <article class="card">
+        <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
+        <p class="hint" id="t-oy-hint">Todos los servicios · Frente al mar</p>
+        <div class="row">
+          <a class="btn" data-i18n-web href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
+          <a class="btn" data-i18n-call href="tel:+34942711461">Llamar</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" data-i18n-whatsapp href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </article>
+
+      <!-- Ramales -->
+      <article class="card">
+        <h3 id="t-ra-title">Camping Ramales</h3>
+        <p class="hint" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
+        <div class="row">
+          <a class="btn" data-i18n-web href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
+          <a class="btn" data-i18n-call href="tel:+34654463133">Llamar</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" data-i18n-whatsapp href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </article>
+
+      <!-- Ruiloba -->
+      <article class="card">
+        <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
+        <p class="hint" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
+        <div class="row">
+          <a class="btn" data-i18n-web href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
+          <a class="btn" data-i18n-call href="tel:+34942722124">Llamar</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" data-i18n-whatsapp href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- OTROS ALOJAMIENTOS -->
+  <section style="margin-top:24px">
+    <h2 id="t-others-title">Otros alojamientos del grupo</h2>
+    <div class="grid">
+      <article class="card">
+        <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
+        <p class="hint" id="t-ca-hint">Apartamentos + Taberna</p>
+        <div class="row">
+          <a class="btn" data-i18n-web href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
+          <a class="btn" data-i18n-call href="tel:+34664686158">Llamar</a>
+          <a class="btn" data-i18n-directions href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn" data-i18n-whatsapp href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="map"><iframe src="https://www.google.com/maps?q=Apartamentos+El+Cardeo&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ADMIN: botón visible solo en modo admin -->
+  <div>
+    <button id="openAdmin" class="btn admin-btn">➕ Añadir / editar eventos</button>
+  </div>
+
+  <!-- INSTALAR APP -->
+  <section class="card">
+    <h2 id="t-install-title">Instálame como app</h2>
+    <p class="hint" id="t-install-hint">Android: ⋮ → Instalar app. iOS: Compartir → Añadir a pantalla de inicio.</p>
+    <button id="installBtn" class="btn" style="display:none">Instalar ahora</button>
+    <p id="pwaStatus" class="hint"></p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Grupo A Cobijo · <span class="ok" id="t-offline">Funciona sin conexión</span> ●
+  </footer>
+</div>
+
+<!-- MODAL ADMIN -->
+<div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+  <div class="modal">
+    <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
+    <h3 id="adminTitle">Gestión de eventos</h3>
+
+    <div class="card" style="margin-top:8px">
+      <h4 style="margin:0 0 8px">Añadir evento</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
+        <div>
+          <label>Título (ES)</label>
+          <input id="evTitle" class="input" placeholder="Ej: Concierto acústico">
+        </div>
+        <div>
+          <label>Fecha y hora</label>
+          <input id="evDate" type="datetime-local" class="input">
+        </div>
+        <div>
+          <label>Alojamiento</label>
+          <select id="evPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </div>
+        <div>
+          <label>Lugar (ES)</label>
+          <input id="evLugar" class="input" placeholder="Ej: Camping Ramales">
+        </div>
+        <div style="grid-column:1 / -1">
+          <label>Descripción (ES)</label>
+          <textarea id="evDesc" class="textarea" rows="3" placeholder="Ej: Música en directo."></textarea>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="addEventBtn" class="btn">Agregar a la lista</button>
+        <button id="exportEventsBtn" class="btn">Descargar events.json</button>
+        <label class="btn" for="importFile" style="cursor:pointer">Importar JSON</label>
+        <input id="importFile" type="file" accept="application/json" style="display:none">
       </div>
     </div>
-  </dialog>
 
-  <!-- Dependencias opcionales solo para ZIP; si fallan, el export se degradará a JSON -->
-  <script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <div class="card" style="margin-top:12px">
+      <h4 style="margin:0 0 8px">Eventos actuales</h4>
+      <div style="overflow:auto">
+        <table class="table" id="eventsTable">
+          <thead>
+            <tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th><th>Acciones</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint">Pulsa “Descargar events.json” y súbelo a GitHub, o usa la subida directa más abajo.</p>
+    </div>
 
-  <script>
-  // ======== CONFIGURACIÓN ==========
-  const CONFIG = {
-    brandName: 'Grupo A Cobijo',
-    logoPath: './assets/logo-acobijo.svg', // también probaremos PNG/alternativos si falla
-    general: { whatsapp: '34600000000', phone: '+34900000000' }, // TODO: sustituir por teléfonos reales
-    properties: [
-      {
-        id: 'oyambre',
-        name: 'Camping Caravaning Playa de Oyambre',
-        hours: '08:00–22:00', // TODO: horario real
-        whatsapp: '34675696212', // TODO: número real
-        phone: '+34942711461', // TODO: número real
-        mapQuery: 'Camping Caravaning Playa de Oyambre',
-        image: './assets/oyambre.jpg'
-      },
-      {
-        id: 'ramales',
-        name: 'Camping Ramales',
-        hours: '09:00–21:00',
-        whatsapp: '34654463133',
-        phone: '+34654463133',
-        mapQuery: 'Camping Ramales',
-        image: './assets/ramales.jpg'
-      },
-      {
-        id: 'cardeo',
-        name: 'Taberna & Apartamentos El Cardeo',
-        hours: '12:00–24:00',
-        whatsapp: '34664686158', 
-
-        phone: '+34942307130',
-        mapQuery: 'Taberna El Cardeo Ruiloba',
-        image: './assets/cardeo.jpg'
-      },
-      {
-        id: 'helguero',
-        name: 'Camping El Helguero',
-        hours: '09:00–22:00',
-        whatsapp: '34652826564',
-        phone: '+34942722124',
-        mapQuery: 'Camping El Helguero Ruiloba',
-        image: './assets/helguero.jpg'
-      }
-    ],
-    languages: ['es','en','fr','de','nl'],
-    admin: {
-      // Hash de "acobijo2025!". Cambia el token y recalcula si lo prefieres.
-      TOKEN_SHA256: '243717e1499c48467684063bc31e76f61c43c762f5e7064ffccddbad16d15019'
-    }
-  };
-
-  // ======== I18N (mínimo viable) ==========
-  const I18N = {
-    es: {
-      installTitle: 'Instala la app',
-      heroTitle: 'Bienvenido a tu estancia con A Cobijo',
-      heroSubtitle: 'Información útil, contacto directo y eventos durante tu visita.',
-      whereYouStay: '¿Dónde te alojas?',
-      tapForDetails: 'Toca una tarjeta para ver mapas, horarios y WhatsApp.',
-      eventsTitle: 'Eventos durante tu estancia',
-      refresh: 'Actualizar',
-      infoTitle: 'Info útil',
-      installHelpBlurb: 'Instala la app para tenerla a mano, usarla sin cobertura y recibir mejoras sin pasar por la tienda.',
-      contactus: 'Contacto general',
-      contactusBlurb: 'Para dudas generales del grupo, escríbenos:',
-      noEvents: 'No hay eventos próximos. ¡Pronto añadiremos más!',
-      installHow: 'Cómo instalar la app',
-      openMap: 'Ver mapa',
-      whatsapp: 'WhatsApp',
-      call: 'Llamar',
-      today: 'Hoy',
-      tomorrow: 'Mañana',
-      thisWeek: 'Esta semana',
-      later: 'Más adelante'
-    },
-    en: {
-      installTitle: 'Install the app', heroTitle:'Welcome to your A Cobijo stay', heroSubtitle:'Useful info, direct contact and events during your visit.',
-      whereYouStay: 'Where are you staying?', tapForDetails:'Tap a card for maps, hours and WhatsApp.', eventsTitle:'Events during your stay', refresh:'Refresh',
-      infoTitle:'Useful info', installHelpBlurb:'Install the app to keep it handy, use it offline and get updates.', contactus:'General contact', contactusBlurb:'For general questions, write us:',
-      noEvents:'No upcoming events. More soon!', installHow:'How to install the app', openMap:'Open map', whatsapp:'WhatsApp', call:'Call',
-      today:'Today', tomorrow:'Tomorrow', thisWeek:'This week', later:'Later'
-    },
-    fr: { installTitle:'Installe l\'appli', heroTitle:'Bienvenue chez A Cobijo', heroSubtitle:'Infos utiles, contact direct et événements.', whereYouStay:'Où séjournez-vous?', tapForDetails:'Touchez une carte pour cartes, horaires et WhatsApp.', eventsTitle:'Événements pendant votre séjour', refresh:'Actualiser', infoTitle:'Infos utiles', installHelpBlurb:"Installez l'appli pour l'avoir sous la main, l'utiliser hors ligne et recevoir des mises à jour.", contactus:'Contact général', contactusBlurb:'Pour toute question générale, écrivez-nous :', noEvents:"Pas d'événements à venir.", installHow:"Comment installer l'appli", openMap:'Voir carte', whatsapp:'WhatsApp', call:'Appeler', today:'Aujourd\'hui', tomorrow:'Demain', thisWeek:'Cette semaine', later:'Plus tard' },
-    de: { installTitle:'App installieren', heroTitle:'Willkommen bei A Cobijo', heroSubtitle:'Nützliche Infos, direkter Kontakt und Events.', whereYouStay:'Wo übernachtest du?', tapForDetails:'Tippe auf eine Karte für Karten, Zeiten und WhatsApp.', eventsTitle:'Events während deines Aufenthalts', refresh:'Aktualisieren', infoTitle:'Nützliche Infos', installHelpBlurb:'App installieren für Offline-Nutzung und Updates.', contactus:'Allgemeiner Kontakt', contactusBlurb:'Für allgemeine Fragen, schreib uns:', noEvents:'Keine anstehenden Events.', installHow:'So installierst du die App', openMap:'Karte öffnen', whatsapp:'WhatsApp', call:'Anrufen', today:'Heute', tomorrow:'Morgen', thisWeek:'Diese Woche', later:'Später' },
-    nl: { installTitle:'Installeer de app', heroTitle:'Welkom bij A Cobijo', heroSubtitle:'Handige info, direct contact en events.', whereYouStay:'Waar verblijf je?', tapForDetails:'Tik op een kaart voor kaarten, openingstijden en WhatsApp.', eventsTitle:'Events tijdens je verblijf', refresh:'Vernieuwen', infoTitle:'Handige info', installHelpBlurb:'Installeer de app voor offline gebruik en updates.', contactus:'Algemeen contact', contactusBlurb:'Voor algemene vragen, schrijf ons:', noEvents:'Geen aankomende events.', installHow:'App installeren', openMap:'Kaart openen', whatsapp:'WhatsApp', call:'Bellen', today:'Vandaag', tomorrow:'Morgen', thisWeek:'Deze week', later:'Later' }
-  };
-
-  const $ = sel => document.querySelector(sel);
-  const $$ = sel => Array.from(document.querySelectorAll(sel));
-
-  function t(key){
-    const lang = localStorage.getItem('lang') || 'es';
-    return (I18N[lang] && I18N[lang][key]) || I18N['es'][key] || key;
-  }
-
-  function applyI18N(){
-    $('#i18n.installTitle').textContent = t('installTitle');
-    $('#i18n.heroTitle').textContent = t('heroTitle');
-    $('#i18n.heroSubtitle').textContent = t('heroSubtitle');
-    $('#i18n.whereYouStay').textContent = t('whereYouStay');
-    $('#i18n.tapForDetails').textContent = t('tapForDetails');
-    $('#i18n.eventsTitle').textContent = t('eventsTitle');
-    $('#i18n.refresh').textContent = t('refresh');
-    $('#i18n.infoTitle').textContent = t('infoTitle');
-    $('#i18n.installHelpBlurb').textContent = t('installHelpBlurb');
-    $('#i18n.contactus').textContent = t('contactus');
-    $('#i18n.contactusBlurb').textContent = t('contactusBlurb');
-    $('#i18n.noEvents').textContent = t('noEvents');
-    $('#i18n.installHow').textContent = t('installHow');
-    $('#btnOpenInstallHelp').textContent = t('installHow');
-    $('#btnAddToCalendar').setAttribute('aria-label', t('eventsTitle'));
-    $('#btnInstallTop').textContent = '+ ' + t('installTitle');
-  }
-
-  // ======== Propiedades ==========
-  function renderProperties(){
-    const wrap = $('#propsGrid');
-    wrap.innerHTML = '';
-    CONFIG.properties.forEach(p => {
-      const card = document.createElement('article');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="media">${ p.image ? `<img alt="${p.name}" loading="lazy" src="${p.image}">` : '' }</div>
-        <div class="body">
-          <h3>${p.name}</h3>
-          <div class="rowy muted" style="font-size:14px;">
-            <span>⏰ ${p.hours}</span>
-          </div>
-          <div class="rowy" style="margin-top:8px;">
-            <a class="btn" href="https://wa.me/${p.whatsapp}?text=Hola%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">💬 ${t('whatsapp')}</a>
-            <a class="btn secondary" href="tel:${p.phone}">📞 ${t('call')}</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.mapQuery)}" target="_blank" rel="noopener">🗺️ ${t('openMap')}</a>
-          </div>
-        </div>
-        <iframe class="mapframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(p.mapQuery)}&output=embed" title="Mapa ${p.name}"></iframe>
-      `;
-      wrap.appendChild(card);
-    });
-    // Contacto general
-    $('#generalWhatsApp').href = `https://wa.me/${CONFIG.general.whatsapp}?text=Hola%20A%20Cobijo`;
-    $('#generalPhone').href = `tel:${CONFIG.general.phone}`;
-  }
-
-  // ======== Eventos ==========
-  const STORAGE_KEY = 'acobijo.events.v1';
-
-  /** Ejemplo mínimo si no existen eventos guardados */
-  const DEFAULT_EVENTS = [
-    {
-      id: 'e1', camping: 'oyambre', title: 'Ruta al Mirador de Oyambre',
-      date: new Date().toISOString().slice(0,10), time: '10:00',
-      desc: 'Paseo guiado de 60 min. Punto de encuentro: recepción.',
-      link: '', mapQuery: 'Camping Caravaning Playa de Oyambre',
-      image: '', recurrence: { type:'none' }
-    },
-    {
-      id: 'e2', camping: 'cardeo', title: 'Noche de pinchos en El Cardeo',
-      date: new Date(Date.now()+86400000).toISOString().slice(0,10), time:'20:30',
-      desc: 'Degustación de pinchos cántabros.', link: '', mapQuery:'Taberna El Cardeo Ruiloba', image:'', recurrence:{ type:'weekly', days:['FR'] }
-    }
-  ];
-
-  function loadEvents(){
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return DEFAULT_EVENTS;
-      const arr = JSON.parse(raw);
-      return Array.isArray(arr) ? arr : DEFAULT_EVENTS;
-    } catch(e){
-      return DEFAULT_EVENTS;
-    }
-  }
-  function saveEvents(list){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  }
-
-  function dateToYMD(d){ return d.toISOString().slice(0,10); }
-  function ymdToDate(s){ const [y,m,dd] = s.split('-').map(Number); return new Date(y, m-1, dd); }
-
-  const DOW = ['SU','MO','TU','WE','TH','FR','SA'];
-
-  // Genera ocurrencias (hasta 30 días vista) para eventos semanales
-  function expandRecurrence(ev, horizonDays=30){
-    if(!ev || !ev.recurrence || ev.recurrence.type !== 'weekly' || !Array.isArray(ev.recurrence.days)) return [ev];
-    const now = new Date();
-    const horizon = new Date(now.getFullYear(), now.getMonth(), now.getDate()+horizonDays);
-    const out = [];
-    for(let d = new Date(now.getFullYear(), now.getMonth(), now.getDate()); d <= horizon; d.setDate(d.getDate()+1)){
-      const code = DOW[d.getDay()];
-      if(ev.recurrence.days.includes(code)){
-        const occ = { ...ev, id: ev.id + '_' + dateToYMD(d), date: dateToYMD(d) };
-        out.push(occ);
-      }
-    }
-    // Aseguramos incluir el original si cae dentro del horizonte
-    if(ymdToDate(ev.date) <= horizon) out.push(ev);
-    return out;
-  }
-
-  function bucketLabel(key){
-    switch(key){
-      case 'today': return t('today');
-      case 'tomorrow': return t('tomorrow');
-      case 'thisWeek': return t('thisWeek');
-      default: return t('later');
-    }
-  }
-
-  function placeInBucket(d){
-    const today = new Date(); today.setHours(0,0,0,0);
-    const dt = ymdToDate(d); dt.setHours(0,0,0,0);
-    const diff = Math.round((dt - today) / 86400000);
-    if(diff === 0) return 'today';
-    if(diff === 1) return 'tomorrow';
-    if(diff >= 2 && diff <= 7) return 'thisWeek';
-    return 'later';
-  }
-
-  function renderEvents(){
-    const filter = $('#eventsCampingFilter').value || 'all';
-    const base = loadEvents();
-    // expandir recurrencias
-    let expanded = base.flatMap(ev => expandRecurrence(ev));
-    // filtrar por camping si procede
-    if(filter !== 'all') expanded = expanded.filter(e => e.camping === filter);
-    // ordenar por fecha y hora
-    expanded.sort((a,b) => (a.date + ' ' + (a.time||'00:00')).localeCompare(b.date + ' ' + (b.time||'00:00')));
-
-    const buckets = { today:[], tomorrow:[], thisWeek:[], later:[] };
-    expanded.forEach(ev => { buckets[placeInBucket(ev.date)].push(ev); });
-
-    const wrap = $('#eventsBuckets');
-    wrap.innerHTML = '';
-    let total = 0;
-    Object.entries(buckets).forEach(([key, list]) => {
-      if(list.length === 0) return;
-      total += list.length;
-      const col = document.createElement('div');
-      col.innerHTML = `<h3 style="margin:6px 0 6px;">${bucketLabel(key)}</h3>`;
-      list.forEach(ev => {
-        const prop = CONFIG.properties.find(p => p.id === ev.camping);
-        const thumb = ev.image ? `<img alt="${ev.title}" src="${ev.image}"/>` : '<span class="muted" style="font-size:12px;">IMG</span>';
-        const card = document.createElement('div');
-        card.className = 'event-card';
-        card.innerHTML = `
-          <div class="thumb">${thumb}</div>
-          <div class="content">
-            <h4>${ev.title}</h4>
-            <div class="meta">${ev.date} · ${ev.time || ''} ${prop ? '· ' + prop.name : ''}</div>
-            ${ev.desc ? `<div style="margin:6px 0">${ev.desc}</div>` : ''}
-            <div class="rowy" style="margin-top:4px;">
-              ${ev.link ? `<a class="btn secondary" href="${ev.link}" target="_blank" rel="noopener">Enlace</a>` : ''}
-              <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapQuery || (prop?.mapQuery || ''))}" target="_blank" rel="noopener">🗺️ ${t('openMap')}</a>
-            </div>
-          </div>`;
-        col.appendChild(card);
-      });
-      wrap.appendChild(col);
-    });
-
-    $('#eventsEmpty').style.display = total === 0 ? 'block' : 'none';
-
-    // preparar descarga .ics con eventos del filtro actual
-    buildICS(expanded);
-  }
-
-  function buildICS(items){
-    const pad = n => String(n).padStart(2,'0');
-    const toICSDate = (dStr, timeStr='00:00') => {
-      const [y,m,dd] = dStr.split('-').map(Number);
-      const [hh,mm] = (timeStr||'00:00').split(':').map(Number);
-      return `${y}${pad(m)}${pad(dd)}T${pad(hh)}${pad(mm)}00`;
-    };
-    const lines = [
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//A Cobijo//APP//ES'
-    ];
-    items.forEach((ev,i)=>{
-      lines.push('BEGIN:VEVENT');
-      lines.push('UID:acobijo-' + (ev.id||('e'+i)) + '@app');
-      lines.push('DTSTAMP:' + toICSDate(dateToYMD(new Date()), '00:00'));
-      lines.push('DTSTART:' + toICSDate(ev.date, ev.time||'00:00'));
-      lines.push('SUMMARY:' + (ev.title||''));
-      if(ev.desc) lines.push('DESCRIPTION:' + ev.desc.replace(/\n/g,'\\n'));
-      lines.push('END:VEVENT');
-    });
-    lines.push('END:VCALENDAR');
-    const blob = new Blob([lines.join('\r\n')], { type:'text/calendar' });
-    const url = URL.createObjectURL(blob);
-    const a = $('#btnAddToCalendar');
-    a.href = url; a.download = 'acobijo-eventos.ics';
-  }
-
-  // ======== Admin ==========
-  async function sha256Hex(str){
-    if(window.crypto?.subtle){
-      const enc = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', enc);
-      return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('');
-    } else {
-      // Fallback poco seguro; solo compara texto plano si coincide exactamente
-      return str; 
-    }
-  }
-
-  async function checkAdminFromURL(){
-    const url = new URL(location.href);
-    const token = url.searchParams.get('token');
-    if(!token) return false;
-    const got = await sha256Hex(token);
-    if(got === CONFIG.admin.TOKEN_SHA256 || token === 'acobijo2025!'){
-      enableAdmin();
-      return true;
-    }
-    return false;
-  }
-
-  function enableAdmin(){
-    $('#adminBadge').style.display = 'block';
-    $('#adminPanel').style.display = 'block';
-    // Cargar selects
-    const list = CONFIG.properties;
-    const admCamping = $('#admCamping');
-    admCamping.innerHTML = list.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-    const admFilter = $('#admFilterCamping');
-    admFilter.innerHTML = `<option value="all">Todos</option>` + list.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-    renderAdmList();
-  }
-
-  function renderAdmList(){
-    const filter = $('#admFilterCamping').value || 'all';
-    const wrap = $('#admList');
-    const events = loadEvents().filter(e=> filter==='all' ? true : e.camping===filter);
-    wrap.innerHTML = '';
-    events.forEach(ev=>{
-      const div = document.createElement('div');
-      div.className = 'rowy';
-      div.style.justifyContent = 'space-between';
-      div.style.border = '1px solid #e8edf4';
-      div.style.borderRadius = '10px';
-      div.style.padding = '8px 10px';
-      div.innerHTML = `
+    <!-- CONFIG GITHUB -->
+    <div class="card" style="margin-top:12px">
+      <h4>Config GitHub</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
         <div>
-          <div><strong>${ev.title}</strong></div>
-          <div class="muted" style="font-size:12px;">${ev.date} ${ev.time||''} · ${ev.camping}${ev.recurrence?.type==='weekly' ? ' · Semanal' : ''}</div>
+          <label>Repositorio (owner/repo)</label>
+          <input id="ghRepo" class="input" placeholder="owner/repo">
         </div>
-        <div class="rowy">
-          <button class="btn secondary" data-act="edit" data-id="${ev.id}">Editar</button>
-          <button class="btn secondary" data-act="del" data-id="${ev.id}">Eliminar</button>
-        </div>`;
-      wrap.appendChild(div);
-    });
-  }
+        <div>
+          <label>Branch</label>
+          <input id="ghBranch" class="input" placeholder="main" value="main">
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Token (solo se guarda en este dispositivo)</label>
+          <input id="ghToken" class="input" placeholder="github_pat_..." autocomplete="off">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="saveGhCfg" class="btn">Guardar configuración</button>
+        <button id="pushEventsBtn" class="btn">💾 Guardar en GitHub (events.json)</button>
+      </div>
+      <p class="hint">El token no se sube a ningún servidor; queda en tu dispositivo (localStorage).</p>
+    </div>
+  </div>
+</div>
 
-  function readAdmForm(){
-    const days = Array.from($('#admRecurDays').querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value);
-    return {
-      id: 'e' + Math.random().toString(36).slice(2,9),
-      camping: $('#admCamping').value,
-      date: $('#admDate').value,
-      time: $('#admTime').value,
-      title: $('#admTitle').value.trim(),
-      desc: $('#admDesc').value.trim(),
-      link: $('#admLink').value.trim(),
-      mapQuery: $('#admMapQuery').value.trim(),
-      image: $('#admImage').dataset.dataurl || '',
-      recurrence: ($('#admRecur').value === 'weekly') ? { type:'weekly', days } : { type:'none' }
-    };
-  }
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  function fillAdmForm(ev){
-    $('#admCamping').value = ev.camping;
-    $('#admDate').value = ev.date || '';
-    $('#admTime').value = ev.time || '';
-    $('#admTitle').value = ev.title || '';
-    $('#admDesc').value = ev.desc || '';
-    $('#admLink').value = ev.link || '';
-    $('#admMapQuery').value = ev.mapQuery || '';
-    if(ev.image){ $('#admThumbPrev').innerHTML = `<img src="${ev.image}" alt="thumb" style="width:92px;height:92px;object-fit:cover;border-radius:10px;"/>`; }
-    $('#admRecur').value = ev.recurrence?.type || 'none';
-    const days = new Set(ev.recurrence?.days || []);
-    $('#admRecurDays').style.display = (ev.recurrence?.type === 'weekly') ? 'flex' : 'none';
-    $$('#admRecurDays input[type="checkbox"]').forEach(cb => cb.checked = days.has(cb.value));
-  }
+/* ───────────────── I18N ───────────────── */
+const I18N = {
+  es:{app:"Grupo A Cobijo",subtitle:"Tu estancia con nosotros · Oyambre · Ramales · Ruiloba",
+      pwa:"PWA • Offline",langTitle:"Selecciona idioma",
+      eventsTitle:"Eventos Grupo A Cobijo",schedulesTitle:"Horarios",schedulesHint:"Recepción, restaurante, piscina... elige tu camping.",
+      campingsTitle:"Nuestros campings",othersTitle:"Otros alojamientos del grupo",
+      installTitle:"Instálame como app",installHint:"Android: ⋮ → Instalar app. iOS: Compartir → Añadir a pantalla de inicio.",offline:"Funciona sin conexión",
+      web:"Web",call:"Llamar",directions:"Cómo llegar",whatsapp:"WhatsApp",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Todos los servicios · Frente al mar",
+      raTitle:"Camping Ramales",raHint:"Cuevas · Montaña · Actividades",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Naturaleza · Familiar · Mascotas",
+      caTitle:"Apartamentos / Taberna El Cardeo",caHint:"Apartamentos + Taberna",
+      schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada."},
+  en:{app:"Grupo A Cobijo",subtitle:"Your stay with us · Oyambre · Ramales · Ruiloba",
+      pwa:"PWA • Offline",langTitle:"Choose language",
+      eventsTitle:"Grupo A Cobijo Events",schedulesTitle:"Schedules",schedulesHint:"Reception, restaurant, pool... choose your site.",
+      campingsTitle:"Our campsites",othersTitle:"Other group accommodations",
+      installTitle:"Install me as an app",installHint:"Android: ⋮ → Install app. iOS: Share → Add to Home Screen.",offline:"Works offline",
+      web:"Website",call:"Call",directions:"Directions",whatsapp:"WhatsApp",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"All services · By the sea",
+      raTitle:"Camping Ramales",raHint:"Caves · Mountains · Activities",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Family · Pets",
+      caTitle:"El Cardeo Apartments / Tavern",caHint:"Apartments + Tavern",
+      schedNote:"Indicative info. Check reception for seasonal changes."},
+  fr:{app:"Groupe A Cobijo",subtitle:"Votre séjour avec nous · Oyambre · Ramales · Ruiloba",
+      pwa:"PWA • Hors ligne",langTitle:"Choisir la langue",
+      eventsTitle:"Événements Groupe A Cobijo",schedulesTitle:"Horaires",schedulesHint:"Réception, restaurant, piscine... choisissez votre camping.",
+      campingsTitle:"Nos campings",othersTitle:"Autres hébergements du groupe",
+      installTitle:"Installe-moi comme application",installHint:"Android : ⋮ → Installer l’app. iOS : Partager → Sur l’écran d’accueil.",offline:"Fonctionne hors ligne",
+      web:"Site web",call:"Appeler",directions:"Itinéraire",whatsapp:"WhatsApp",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Tous services · Bord de mer",
+      raTitle:"Camping Ramales",raHint:"Grottes · Montagne · Activités",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Famille · Animaux",
+      caTitle:"Appartements / Taverne El Cardeo",caHint:"Appartements + Taverne",
+      schedNote:"Infos indicatives. Vérifiez à la réception les changements saisonniers."},
+  de:{app:"Gruppe A Cobijo",subtitle:"Ihr Aufenthalt bei uns · Oyambre · Ramales · Ruiloba",
+      pwa:"PWA • Offline",langTitle:"Sprache wählen",
+      eventsTitle:"Veranstaltungen Grupo A Cobijo",schedulesTitle:"Öffnungszeiten",schedulesHint:"Rezeption, Restaurant, Pool... wähle deinen Platz.",
+      campingsTitle:"Unsere Campingplätze",othersTitle:"Weitere Unterkünfte der Gruppe",
+      installTitle:"Als App installieren",installHint:"Android: ⋮ → App installieren. iOS: Teilen → Zum Home-Bildschirm.",offline:"Funktioniert offline",
+      web:"Webseite",call:"Anrufen",directions:"Anfahrt",whatsapp:"WhatsApp",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Alle Services · Am Meer",
+      raTitle:"Camping Ramales",raHint:"Höhlen · Berge · Aktivitäten",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natur · Familie · Haustiere",
+      caTitle:"El Cardeo Apartments / Taverne",caHint:"Apartments + Taverne",
+      schedNote:"Unverbindliche Infos. Änderungen saisonabhängig an der Rezeption."},
+  nl:{app:"Groep A Cobijo",subtitle:"Je verblijf bij ons · Oyambre · Ramales · Ruiloba",
+      pwa:"PWA • Offline",langTitle:"Taal kiezen",
+      eventsTitle:"Evenementen Grupo A Cobijo",schedulesTitle:"Openingstijden",schedulesHint:"Receptie, restaurant, zwembad... kies je camping.",
+      campingsTitle:"Onze campings",othersTitle:"Overige accommodaties van de groep",
+      installTitle:"Installeer als app",installHint:"Android: ⋮ → App installeren. iOS: Delen → Zet op beginscherm.",offline:"Werkt offline",
+      web:"Website",call:"Bellen",directions:"Route",whatsapp:"WhatsApp",
+      oyTitle:"Camping Caravaning Playa de Oyambre",oyHint:"Alle faciliteiten · Aan zee",
+      raTitle:"Camping Ramales",raHint:"Grotten · Bergen · Activiteiten",
+      heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natuur · Familie · Huisdieren",
+      caTitle:"El Cardeo Apartments / Taverne",caHint:"Apartments + Taverne",
+      schedNote:"Indicatieve info. Informeer bij de receptie voor seizoenswijzigingen."}
+};
 
-  function upsertEvent(ev){
-    const list = loadEvents();
-    const idx = list.findIndex(x => x.id === ev.id);
-    if(idx === -1) list.push(ev); else list[idx] = ev;
-    saveEvents(list);
-  }
+function detectLang(){const s=localStorage.getItem("lang");if(s)return s;const n=(navigator.language||"es").slice(0,2).toLowerCase();return ["es","en","fr","de","nl"].includes(n)?n:"es";}
+function setLangBadge(l){const m={es:"ES",en:"EN",fr:"FR",de:"DE",nl:"NL"};document.getElementById("langBtn").textContent=`🌐 ${m[l]}`;}
+function t(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+function applyLang(lang){
+  const T=I18N[lang]; if(!T) return;
+  t("t-app",T.app); t("t-subtitle",T.subtitle); t("t-pwa",T.pwa);
+  t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-schedules-hint",T.schedulesHint);
+  t("t-campings-title",T.campingsTitle); t("t-others-title",T.othersTitle);
+  t("t-install-title",T.installTitle); t("t-install-hint",T.installHint);
+  t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint);
+  t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
+  t("t-he-title",T.heTitle); t("t-he-hint",T.heHint);
+  t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
+  t("langTitle",T.langTitle); t("schedNote",T.schedNote);
+  document.querySelectorAll("[data-i18n-web]").forEach(e=>e.textContent=T.web);
+  document.querySelectorAll("[data-i18n-call]").forEach(e=>e.textContent=T.call);
+  document.querySelectorAll("[data-i18n-directions]").forEach(e=>e.textContent=T.directions);
+  document.querySelectorAll("[data-i18n-whatsapp]").forEach(e=>e.textContent=T.whatsapp);
+  localStorage.setItem("lang",lang); setLangBadge(lang); loadEvents();}
 
-  function deleteEvent(id){
-    const list = loadEvents().filter(e => e.id !== id);
-    saveEvents(list);
-  }
+let LANG = detectLang(); setLangBadge(LANG); applyLang(LANG);
 
-  async function exportZIP(){
-    try {
-      if(typeof JSZip === 'undefined'){ throw new Error('JSZip no disponible'); }
-      const zip = new JSZip();
-      const events = loadEvents();
-      zip.file('events.json', JSON.stringify(events, null, 2));
-      const imgFolder = zip.folder('images');
-      // Guardar imágenes embebidas base64 en archivos
-      let imgIdx = 1;
-      for(const ev of events){
-        if(ev.image && ev.image.startsWith('data:')){
-          const match = ev.image.match(/^data:(image\/(png|jpeg|jpg));base64,(.*)$/);
-          if(match){
-            const ext = match[2] === 'jpeg' ? 'jpg' : match[2];
-            imgFolder.file(`event-${imgIdx}.${ext}`, match[3], { base64: true });
-            imgIdx++;
-          }
-        }
-      }
-      const blob = await zip.generateAsync({ type:'blob' });
-      saveAs(blob, 'acobijo-backup.zip');
-    } catch(err){
-      alert('No se pudo crear ZIP (se exportará JSON). ' + err.message);
-      const blob = new Blob([localStorage.getItem(STORAGE_KEY) || '[]'], { type:'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'events.json'; a.click();
-    }
-  }
+/* Idiomas modal */
+const langModal=document.getElementById("langModal");
+document.getElementById("langBtn").onclick=()=>langModal.style.display="flex";
+document.getElementById("closeLang").onclick=()=>langModal.style.display="none";
+langModal.onclick=(e)=>{if(e.target===langModal)langModal.style.display="none";}
+document.querySelectorAll(".lang-option").forEach(b=>b.onclick=()=>{LANG=b.dataset.lang;applyLang(LANG);});
 
-  // ======== PWA install ==========
-  let deferredPrompt = null;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    $('#installBanner').style.display = 'block';
-    $('#btnInstallTop').style.display = 'inline-flex';
+/* ───────────── EVENTOS ───────────── */
+const PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
+const PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+
+function i18nField(v){return typeof v==="string"?v:(v?.[LANG]||v?.es||"");}
+
+function renderEvent(ev){
+  const title=i18nField(ev.titulo)||"(sin título)";
+  const desc=i18nField(ev.descripcion)||"";
+  const place=i18nField(ev.lugar)||PLACE_LABEL[(ev.camping||"").toLowerCase()]||"";
+  const when=new Intl.DateTimeFormat(LANG,{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}).format(new Date(ev.fecha));
+  const maps=PLACE_LINK[(ev.camping||"").toLowerCase()]||(place?`https://www.google.com/maps?q=${encodeURIComponent(place)}`:"#");
+  return `
+    <div class="event-card">
+      <div class="event-title">${title}</div>
+      <div class="event-meta">${when} · ${place}</div>
+      <div class="event-desc">${desc}</div>
+      <div class="row" style="margin-top:6px">
+        <a class="btn" href="${maps}" target="_blank" rel="noopener" data-i18n-directions>Cómo llegar</a>
+      </div>
+    </div>
+  `;
+}
+
+async function loadEvents(){
+  try{
+    const r=await fetch(`./events.json?v=${Date.now()}`,{cache:'no-cache'});
+    const data=await r.json();
+    const list=document.getElementById('events');
+    if(!Array.isArray(data)||!data.length){list.innerHTML='<p class="muted">Sin eventos por ahora.</p>';return;}
+    data.sort((a,b)=> new Date(a.fecha)-new Date(b.fecha));
+    list.innerHTML=data.map(renderEvent).join('');
+  }catch(e){
+    document.getElementById('events').innerHTML='<p class="muted">Sin eventos por ahora.</p>';
+  }
+}
+loadEvents();
+
+/* ───────────── HORARIOS ───────────── */
+const SCHEDULES={
+  oyambre:{
+    es:`<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00`,
+    en:`<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00`,
+    fr:`<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscine (été)</b>: 10:00–20:00`,
+    de:`<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (Sommer)</b>: 10:00–20:00`,
+    nl:`<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Zwembad (zomer)</b>: 10:00–20:00`
+  },
+  ramales:{
+    es:`<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00`,
+    en:`<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00`,
+    fr:`<b>Réception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscine (été)</b>: 11:00–20:00`,
+    de:`<b>Rezeption</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (Sommer)</b>: 11:00–20:00`,
+    nl:`<b>Receptie</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Zwembad (zomer)</b>: 11:00–20:00`
+  },
+  ruiloba:{
+    es:`<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00`,
+    en:`<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00`,
+    fr:`<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00`,
+    de:`<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00`,
+    nl:`<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00`
+  },
+  cardeo:{
+    es:`<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00`,
+    en:`<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00`,
+    fr:`<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b> : check-in 16:00, check-out 11:00`,
+    de:`<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b>: Check-in 16:00, Check-out 11:00`,
+    nl:`<b>Taveerne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartementen</b>: check-in 16:00, check-out 11:00`
+  }
+};
+
+const schedModal=document.getElementById("schedModal");
+const schedBody=document.getElementById("schedBody");
+const schedTitle=document.getElementById("schedTitle");
+document.querySelectorAll("[data-sched]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const key=b.getAttribute("data-sched");
+    const mapTitle={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+    schedTitle.textContent = (I18N[LANG].schedulesTitle||"Horarios")+": "+mapTitle[key];
+    schedBody.innerHTML = SCHEDULES[key]?.[LANG] || SCHEDULES[key]?.es || "";
+    schedModal.style.display="flex";
   });
+});
+document.getElementById("closeSched").onclick=()=>schedModal.style.display="none";
+schedModal.onclick=(e)=>{if(e.target===schedModal)schedModal.style.display="none";}
 
-  async function doInstall(){
-    try {
-      if(deferredPrompt){
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        console.log('Install choice', choice);
-      } else {
-        alert('Si no aparece el diálogo, usa “Añadir a pantalla de inicio” en el menú del navegador.');
-      }
-    } catch(err){ console.warn(err); }
-  }
-
-  // ======== Service Worker ==========
-  async function registerSW(){
-    if(!('serviceWorker' in navigator)) return;
-    try {
-      // Intento 1: registrar sw.js (si existe en el repo)
-      const controller = await navigator.serviceWorker.register('./sw.js');
-      console.log('SW registrado (archivo):', controller);
-    } catch(e){
-      // Fallback: registrar desde Blob (modo demo)
-      const code = `self.addEventListener('install',e=>{e.waitUntil(caches.open('acobijo-v1').then(c=>c.addAll(['./','./index.html'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`;
-      const blobUrl = URL.createObjectURL(new Blob([code],{type:'text/javascript'}));
-      const reg = await navigator.serviceWorker.register(blobUrl);
-      console.log('SW registrado (blob fallback):', reg);
+/* ───────────── ADMIN MODE (tap logo x5) ───────────── */
+(function adminActivator(){
+  const logo=document.getElementById('logoTap'); let taps=0,timer=null;
+  logo?.addEventListener('click',()=>{
+    taps++; clearTimeout(timer); timer=setTimeout(()=>{taps=0},1000);
+    if(taps>=5){
+      taps=0; const on=localStorage.getItem('admin')==='1';
+      localStorage.setItem('admin',on?'0':'1');
+      document.body.classList.toggle('admin-on',!on);
+      document.getElementById('adminModal').style.display=!on?'flex':'none';
+      alert(!on?'Modo admin activado':'Modo admin desactivado');
     }
-  }
+  });
+  document.body.classList.toggle('admin-on', localStorage.getItem('admin')==='1');
+})();
 
-  // ======== INIT ==========
-  function populateCampingFilters(){
-    const sel = $('#eventsCampingFilter');
-    sel.innerHTML = `<option value="all">Todos</option>` + CONFIG.properties.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-  }
+/* ───────────── ADMIN PANEL ───────────── */
+let ADMIN_EVENTS=[];
 
-  function setBranding(){
-    $('#brandName').textContent = CONFIG.brandName;
-    const logo = $('#brandLogo');
-    const candidates = Array.isArray(CONFIG.logoPath) ? CONFIG.logoPath : [CONFIG.logoPath, './assets/logo-acobijo.png', './logo.svg', './logo.png'];
-    let i = 0;
-    const tryNext = () => {
-      if(i >= candidates.length){
-        // Fallback textual si no hay logo
-        logo.replaceWith(Object.assign(document.createElement('span'), { textContent: 'A Cobijo' }));
-        return;
-      }
-      logo.src = candidates[i++];
-    };
-    logo.onerror = tryNext;
-    tryNext();
-  }
+function isoFromLocal(dt){
+  const d=new Date(dt); const tz=-d.getTimezoneOffset(); const sign=tz>=0?'+':'-';
+  const hh=String(Math.floor(Math.abs(tz)/60)).padStart(2,'0');
+  const mm=String(Math.abs(tz)%60).padStart(2,'0');
+  return d.toISOString().slice(0,19)+sign+hh+':'+mm;
+}
+function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
 
-  function initLang(){
-    const saved = localStorage.getItem('lang') || 'es';
-    $('#langSelect').value = saved;
-    applyI18N();
-  }
+async function loadEventsAdmin(){
+  try{const r=await fetch(`./events.json?v=${Date.now()}`,{cache:'no-cache'}); const data=await r.json(); ADMIN_EVENTS=Array.isArray(data)?data:[];}
+  catch(e){ADMIN_EVENTS=[];}
+  renderAdminTable();
+}
+document.getElementById('openAdmin')?.addEventListener('click', ()=>{document.getElementById('adminModal').style.display='flex'; loadEventsAdmin();});
+document.getElementById('closeAdmin')?.addEventListener('click', ()=> document.getElementById('adminModal').style.display='none');
+document.getElementById('adminModal')?.addEventListener('click', (e)=>{if(e.target.id==='adminModal') e.currentTarget.style.display='none';});
 
-  function bindUI(){
-    $('#langSelect').addEventListener('change', () => {
-      localStorage.setItem('lang', $('#langSelect').value);
-      applyI18N();
-      renderEvents();
-    });
-    $('#btnInstall').addEventListener('click', doInstall);
-    $('#btnInstallTop').addEventListener('click', doInstall);
-    $('#btnHowInstall').addEventListener('click', ()=> $('#howInstallDlg').showModal());
-    $('#btnOpenInstallHelp').addEventListener('click', ()=> $('#howInstallDlg').showModal());
-    $('#btnCloseInstall').addEventListener('click', ()=> $('#installBanner').style.display='none');
-    $('#eventsCampingFilter').addEventListener('change', renderEvents);
-    $('#btnRefreshEvents').addEventListener('click', renderEvents);
+function renderAdminTable(){
+  const tbody=document.querySelector('#eventsTable tbody');
+  tbody.innerHTML=ADMIN_EVENTS.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(ev=>{
+    const titleES=(typeof ev.titulo==='string'?ev.titulo:(ev.titulo?.es||''))||'';
+    const lugarES=(typeof ev.lugar==='string'?ev.lugar:(ev.lugar?.es||''))||'';
+    const dt=new Date(ev.fecha);
+    const val=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}T${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+    return `<tr data-id="${ev.id}">
+      <td class="muted">${ev.id}</td>
+      <td><input class="input" type="datetime-local" value="${val}"><div class="muted">${dt.toLocaleString()}</div></td>
+      <td>
+        <select class="select">
+          <option value="oyambre" ${ev.camping==='oyambre'?'selected':''}>oyambre</option>
+          <option value="ramales" ${ev.camping==='ramales'?'selected':''}>ramales</option>
+          <option value="ruiloba" ${ev.camping==='ruiloba'?'selected':''}>ruiloba</option>
+          <option value="cardeo"  ${ev.camping==='cardeo'?'selected':''}>cardeo</option>
+        </select>
+        <input class="input" style="margin-top:6px" placeholder="Lugar (ES)" value="${lugarES.replace(/"/g,'&quot;')}">
+      </td>
+      <td>
+        <input class="input" placeholder="Título (ES)" value="${titleES.replace(/"/g,'&quot;')}">
+        <textarea class="textarea" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">${(ev.descripcion?.es||'').replace(/</g,'&lt;')}</textarea>
+      </td>
+      <td style="min-width:240px">
+        <div class="row" style="gap:6px">
+          <button class="btn small" data-action="save">Guardar</button>
+          <button class="btn small" data-action="dup">Duplicar</button>
+          <button class="btn small" data-action="del">Borrar</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  tbody.querySelectorAll('tr').forEach(tr=>{
+    const id=tr.getAttribute('data-id');
+    tr.querySelector('[data-action="save"]').addEventListener('click',()=>saveRow(tr,id));
+    tr.querySelector('[data-action="dup"]').addEventListener('click',()=>duplicateRow(id));
+    tr.querySelector('[data-action="del"]').addEventListener('click',()=>deleteRow(id));
+  });
+}
 
-    // Admin listeners
-    $('#admRecur').addEventListener('change', ()=>{
-      $('#admRecurDays').style.display = ($('#admRecur').value==='weekly') ? 'flex' : 'none';
-    });
-    $('#admImage').addEventListener('change', (e)=>{
-      const file = e.target.files[0];
-      if(!file) return; const r = new FileReader();
-      r.onload = ()=>{ $('#admImage').dataset.dataurl = r.result; $('#admThumbPrev').innerHTML = `<img src="${r.result}" alt="thumb" style="width:92px;height:92px;object-fit:cover;border-radius:10px;"/>`; };
-      r.readAsDataURL(file);
-    });
-    $('#admSave').addEventListener('click', ()=>{
-      const ev = readAdmForm();
-      if(!ev.title || !ev.date){ alert('Título y fecha son obligatorios'); return; }
-      upsertEvent(ev); renderAdmList(); renderEvents(); alert('Evento guardado');
-    });
-    $('#admClear').addEventListener('click', ()=>{
-      ['#admDate','#admTime','#admTitle','#admDesc','#admLink','#admMapQuery'].forEach(sel=>$(sel).value='';
-      );
-      $('#admImage').value=''; delete $('#admImage').dataset.dataurl; $('#admThumbPrev').textContent='(sin imagen)';
-      $('#admRecur').value='none'; $('#admRecurDays').style.display='none'; $$('#admRecurDays input').forEach(cb=>cb.checked=false);
-    });
-    $('#admFilterCamping').addEventListener('change', renderAdmList);
-    $('#admSortByCamping').addEventListener('click', ()=>{
-      const list = loadEvents().sort((a,b)=> (a.camping+a.date).localeCompare(b.camping+b.date));
-      saveEvents(list); renderAdmList(); renderEvents();
-    });
-    $('#admExportJSON').addEventListener('click', ()=>{
-      const blob = new Blob([localStorage.getItem(STORAGE_KEY) || '[]'], { type:'application/json' });
-      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'events.json'; a.click();
-    });
-    $('#admExportZIP').addEventListener('click', exportZIP);
-    $('#admImportJSON').addEventListener('change', async (e)=>{
-      const f = e.target.files[0]; if(!f) return; const txt = await f.text();
-      try { const arr = JSON.parse(txt); if(!Array.isArray(arr)) throw new Error('Formato'); saveEvents(arr); renderAdmList(); renderEvents(); alert('Importado'); } catch(err){ alert('JSON no válido'); }
-    });
+function getRowValues(tr){
+  const [dtInput,campingSel,lugarInput,titleInput,descTextarea]=tr.querySelectorAll('input,select,textarea');
+  return {dateLocal:dtInput.value,camping:campingSel.value,lugar:(lugarInput.value||'').trim(),titulo:(titleInput.value||'').trim(),desc:(descTextarea.value||'').trim()};
+}
+function saveRow(tr,id){
+  const v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
+  const idx=ADMIN_EVENTS.findIndex(e=>e.id===id); if(idx<0)return;
+  ADMIN_EVENTS[idx].fecha=isoFromLocal(v.dateLocal);
+  ADMIN_EVENTS[idx].camping=v.camping;
+  ADMIN_EVENTS[idx].titulo={es:v.titulo};
+  ADMIN_EVENTS[idx].lugar={es:v.lugar||defaultLugar(v.camping)};
+  ADMIN_EVENTS[idx].descripcion={es:v.desc||''};
+  renderAdminTable();
+}
+function duplicateRow(id){
+  const o=ADMIN_EVENTS.find(e=>e.id===id); if(!o)return;
+  const titleES=o.titulo?.es||''; const newId=`ev-${slug(titleES)}-${o.camping}-${Date.now().toString().slice(-8)}`;
+  const copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
+}
+function deleteRow(id){ if(!confirm('¿Borrar este evento?'))return; ADMIN_EVENTS=ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
+function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
 
-    // Delegación para editar/eliminar
-    $('#admList').addEventListener('click', (e)=>{
-      const btn = e.target.closest('button[data-act]');
-      if(!btn) return; const id = btn.dataset.id; const act = btn.dataset.act;
-      const list = loadEvents();
-      const ev = list.find(x=>x.id===id);
-      if(act==='edit' && ev){ fillAdmForm(ev); }
-      if(act==='del' && ev){ if(confirm('¿Eliminar evento?')){ deleteEvent(id); renderAdmList(); renderEvents(); } }
-    });
-  }
+document.getElementById('addEventBtn')?.addEventListener('click',()=>{
+  const title=document.getElementById('evTitle').value.trim();
+  const date=document.getElementById('evDate').value;
+  const place=document.getElementById('evPlace').value;
+  const lugar=(document.getElementById('evLugar').value.trim())||defaultLugar(place);
+  const desc=document.getElementById('evDesc').value.trim();
+  if(!title||!date||!place){alert('Rellena título, fecha y alojamiento.');return;}
+  const id=`ev-${slug(title)}-${place}-${date.replace(/[:T]/g,'').slice(0,12)}`;
+  ADMIN_EVENTS.push({id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}});
+  renderAdminTable();
+  document.getElementById('evTitle').value='';document.getElementById('evDate').value='';document.getElementById('evLugar').value='';document.getElementById('evDesc').value='';
+});
 
-  // ======== Start ==========
-  (async function start(){
-    setBranding();
-    initLang();
-    applyI18N();
-    renderProperties();
-    populateCampingFilters();
-    renderEvents();
-    bindUI();
-    await registerSW();
-    await checkAdminFromURL();
-  })();
-  </script>
+document.getElementById('exportEventsBtn')?.addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+document.getElementById('importFile')?.addEventListener('change',async(e)=>{
+  const f=e.target.files?.[0]; if(!f)return; try{const txt=await f.text(); const data=JSON.parse(txt); if(!Array.isArray(data))throw new Error('El JSON debe ser un array'); ADMIN_EVENTS=data; renderAdminTable();}
+  catch(err){alert('No se pudo leer el JSON: '+err.message);} finally{e.target.value='';}
+});
+
+/* ───────────── GitHub API: guardar events.json ───────────── */
+const GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
+function loadGhCfgToForm(){document.getElementById('ghRepo').value=localStorage.getItem(GH_KEYS.repo)||'';document.getElementById('ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main';document.getElementById('ghToken').value=localStorage.getItem(GH_KEYS.token)||'';}
+function saveGhCfgFromForm(){localStorage.setItem(GH_KEYS.repo,document.getElementById('ghRepo').value.trim());localStorage.setItem(GH_KEYS.branch,document.getElementById('ghBranch').value.trim()||'main');const t=document.getElementById('ghToken').value.trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada en este dispositivo.');}
+async function ghGet(path,token){const repo=localStorage.getItem(GH_KEYS.repo);const branch=localStorage.getItem(GH_KEYS.branch)||'main';const url=`https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;return fetch(url,{headers:{'Authorization':`Bearer ${token}`,'Accept':'application/vnd.github+json'}});}
+async function ghPut(path,contentBase64,message,sha,token){const repo=localStorage.getItem(GH_KEYS.repo);const branch=localStorage.getItem(GH_KEYS.branch)||'main';const url=`https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}`;const body={message,content:contentBase64,branch};if(sha)body.sha=sha;return fetch(url,{method:'PUT',headers:{'Authorization':`Bearer ${token}`,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});}
+function toB64(str){return btoa(unescape(encodeURIComponent(str)));}
+
+document.getElementById('saveGhCfg')?.addEventListener('click',saveGhCfgFromForm);
+document.getElementById('pushEventsBtn')?.addEventListener('click',saveEventsToGitHub);
+document.getElementById('openAdmin')?.addEventListener('click',loadGhCfgToForm);
+
+async function saveEventsToGitHub(){
+  try{
+    const token=localStorage.getItem(GH_KEYS.token); if(!token){alert('Configura el token en "Config GitHub".');return;}
+    let sha=null, exists=false; let res=await ghGet('events.json',token);
+    if(res.status===200){const data=await res.json(); sha=data.sha; exists=true;}
+    else if(res.status!==404){alert('Error comprobando events.json: '+res.status);return;}
+    const jsonStr=JSON.stringify(ADMIN_EVENTS,null,2); const content64=toB64(jsonStr);
+    const now=new Date().toISOString().slice(0,19).replace('T',' ');
+    res=await ghPut('events.json',content64,`Update events.json via in-app admin (${now})`,sha,token);
+    if(res.ok){alert('✅ events.json subido correctamente a GitHub.');} else {const txt=await res.text(); alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt);}
+  }catch(err){alert('❌ Excepción subiendo a GitHub: '+err.message);}
+}
+
+/* PWA install + SW */
+let deferredPrompt;const installBtn=document.getElementById("installBtn");
+window.addEventListener("beforeinstallprompt",(e)=>{e.preventDefault();deferredPrompt=e;installBtn.style.display="inline-flex"});
+installBtn?.addEventListener("click",()=>{deferredPrompt?.prompt();deferredPrompt=null});
+if("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
+</script>
 </body>
 </html>
