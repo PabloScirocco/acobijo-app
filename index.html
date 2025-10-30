@@ -1,254 +1,264 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Grupo A Cobijo</title>
-<meta name="description" content="App de experiencia del cliente: eventos, horarios y accesos rápidos a los alojamientos del Grupo A Cobijo.">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0ea5e9">
-<link rel="icon" href="assets/logo_acobijo_white.png">
+<meta name="description" content="App de experiencia del cliente: eventos, horarios y accesos del Grupo A Cobijo." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0ea5e9" />
+<link rel="icon" href="assets/icons/icon-192.png" />
 <style>
-:root{--bg:#fff;--card:#f4f9ff;--accent:#0077cc;--muted:#6b7a8c;--text:#0a1a2a;--line:#dce7f5;--tint:#eaf4ff;--ink:#064e89}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--text)}
+:root{--bg:#fff;--card:#f4f9ff;--line:#dce7f5;--tint:#eaf4ff;--ink:#064e89;--text:#0a1a2a;--muted:#6b7a8c}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--text)}
 .wrap{max-width:900px;margin:0 auto;padding:20px}
-header{display:flex;align-items:center;gap:12px;margin:8px 0 20px;flex-wrap:wrap}
-.logo{width:52px;height:52px;border-radius:12px;overflow:hidden;cursor:pointer}
-.logo img{width:100%;height:100%;object-fit:contain}
-h1{font-size:1.6rem;margin:0}
-.tag{font-size:.9rem;color:var(--muted)}
-.pill{padding:4px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--line);background:var(--tint);color:var(--ink)}
-section-title{font-size:1.35rem;font-weight:700;margin-top:28px;display:block}
+header{display:flex;align-items:center;gap:12px;margin:6px 0 18px;flex-wrap:wrap}
+.logo{height:64px;width:auto;object-fit:contain}
+h1{margin:0;font-size:1.6rem} .tag{color:var(--muted);font-size:.95rem} .pill{border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:4px 10px;font-size:.85rem;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin:12px 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--tint);color:var(--ink);padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.btn.small{padding:6px 10px;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.event-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.event-title{font-weight:700} .event-meta{font-size:.9rem;color:var(--muted)} .event-desc{margin-top:6px}
+.map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)} .map iframe{width:100%;height:100%;border:0}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:12px}
-.card{background:var(--card);border-radius:16px;padding:16px;border:1px solid var(--line)}
-.btn{padding:10px 14px;border-radius:12px;border:1px solid var(--line);text-decoration:none;display:inline-block;background:var(--tint);font-weight:600;margin-right:6px;margin-bottom:6px;color:var(--ink)}
-.btn:hover{background:rgba(0,119,204,.12)}
+/* Modal genérico */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal{width:min(92vw,720px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.close{background:transparent;border:none;color:var(--muted);font-weight:700;float:right}
 
-.event-card{padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line);margin-bottom:10px}
-.event-title{font-weight:700;font-size:1.05rem;margin-bottom:4px}
-.event-date{font-size:.9rem;color:var(--muted)}
-.event-desc{font-size:.95rem;margin-top:6px;margin-bottom:4px}
-
-/* Mapas */
-.map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff}
-.map iframe{width:100%;height:100%;border:0}
-
-/* Panel Admin con scroll móvil */
-#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:none;max-height:90vh;overflow-y:auto;padding-bottom:60px}
-#adminBox{max-width:560px;margin:40px auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}
-input,textarea,select{width:100%;padding:10px;margin:6px 0 14px;border-radius:10px;border:1px solid var(--line)}
-textarea{height:90px}
-.admin-btn{width:100%;padding:12px;background:var(--accent);color:#fff;border-radius:12px;margin-top:6px;font-weight:700;border:none}
-table{width:100%;border-collapse:collapse}
-th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
-.muted{color:var(--muted);font-size:.9rem}
+/* Admin (oculto por defecto; lo mantengo mínimo para no liarnos hoy) */
+#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;max-height:90vh;overflow-y:auto;padding:18px}
+#adminBox{max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;margin:6px 0 12px}
+.admin-btn{width:100%;padding:12px;background:#0077cc;color:#fff;border:none;border-radius:12px;font-weight:700}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="logo" id="adminTrigger"><img src="assets/logo_acobijo_white.png" alt="Grupo A Cobijo"></div>
-    <div><h1>Grupo A Cobijo</h1><div class="tag">Experiencia del cliente</div></div>
-    <span class="pill" style="margin-left:auto">PWA • Offline</span>
-  </header>
-
-  <section-title>Eventos Grupo A Cobijo</section-title>
-  <div id="eventsList"></div>
-
-  <section-title>Horarios</section-title>
-  <a class="btn" href="#">Ver horarios</a>
-
-  <section-title>Campings</section-title>
-  <div class="grid">
-    <!-- Oyambre -->
-    <article class="card">
-      <h3>Camping Caravaning Playa de Oyambre</h3>
-      <p class="muted">Todos los servicios · Frente al mar</p>
-      <div class="row">
-        <a class="btn" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
-        <a class="btn" href="tel:+34942711461">Llamar</a>
-        <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
-        <a class="btn" href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
+  <div class="wrap">
+    <header>
+      <img id="logo" class="logo" src="assets/logo.png" alt="Grupo A Cobijo" />
+      <script>
+        // Fallback logo si assets/logo.png no existe:
+        document.getElementById('logo').addEventListener('error',function(){
+          this.src='assets/logo_acobijo_white.png';
+        });
+      </script>
+      <div>
+        <h1>Grupo A Cobijo</h1>
+        <div class="tag">Experiencia del cliente</div>
       </div>
-      <div class="map"><iframe title="Mapa Oyambre" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed"></iframe></div>
-    </article>
+      <div style="margin-left:auto" class="pill">PWA • Offline</div>
+    </header>
 
-    <!-- Ramales -->
-    <article class="card">
-      <h3>Camping Ramales</h3>
-      <p class="muted">Cuevas · Montaña · Actividades</p>
-      <div class="row">
-        <a class="btn" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
-        <a class="btn" href="tel:+34654463133">Llamar</a>
-        <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
-        <a class="btn" href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="map"><iframe title="Mapa Ramales" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+Ramales&output=embed"></iframe></div>
-    </article>
+    <!-- EVENTOS -->
+    <section>
+      <h2>Eventos Grupo A Cobijo</h2>
+      <div id="events" class="grid"></div>
+    </section>
 
-    <!-- Ruiloba -->
-    <article class="card">
-      <h3>Camping El Helguero (Ruiloba)</h3>
-      <p class="muted">Naturaleza · Familiar · Mascotas</p>
+    <!-- HORARIOS -->
+    <section class="card">
+      <h2>Horarios</h2>
+      <p class="tag">Recepción, restaurante, piscina... elige tu camping.</p>
       <div class="row">
-        <a class="btn" href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
-        <a class="btn" href="tel:+34942722124">Llamar</a>
-        <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
-        <a class="btn" href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn" data-sched="oyambre">Oyambre</button>
+        <button class="btn" data-sched="ramales">Ramales</button>
+        <button class="btn" data-sched="ruiloba">Ruiloba</button>
+        <button class="btn" data-sched="cardeo">El Cardeo</button>
       </div>
-      <div class="map"><iframe title="Mapa El Helguero" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed"></iframe></div>
-    </article>
+    </section>
+
+    <!-- CAMPINGS -->
+    <section>
+      <h2>Nuestros campings</h2>
+      <div class="grid">
+        <!-- Oyambre -->
+        <article class="card">
+          <h3>Camping Caravaning Playa de Oyambre</h3>
+          <p class="tag">Todos los servicios · Frente al mar</p>
+          <div class="row">
+            <a class="btn" href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34942711461">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe title="Mapa Oyambre" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed"></iframe></div>
+        </article>
+
+        <!-- Ramales -->
+        <article class="card">
+          <h3>Camping Ramales</h3>
+          <p class="tag">Cuevas · Montaña · Actividades</p>
+          <div class="row">
+            <a class="btn" href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34654463133">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe title="Mapa Ramales" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+Ramales&output=embed"></iframe></div>
+        </article>
+
+        <!-- Ruiloba -->
+        <article class="card">
+          <h3>Camping El Helguero (Ruiloba)</h3>
+          <p class="tag">Naturaleza · Familiar · Mascotas</p>
+          <div class="row">
+            <a class="btn" href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34942722124">Llamar</a>
+            <a class="btn" href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe title="Mapa El Helguero" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed"></iframe></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- OTROS -->
+    <section>
+      <h2>Otros alojamientos del grupo</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Apartamentos / Taberna El Cardeo</h3>
+          <p class="tag">Apartamentos + Taberna</p>
+          <div class="row">
+            <a class="btn" href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
+            <a class="btn" href="tel:+34664686158">Llamar</a>
+            <a class="btn" href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div class="map"><iframe title="Mapa El Cardeo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Apartamentos+El+Cardeo&output=embed"></iframe></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- INSTALAR APP -->
+    <section class="card">
+      <h2>Instálame como app</h2>
+      <p class="tag" id="installText">Android/Chrome: ⋮ → <b>Instalar app</b>. iOS (Safari): Compartir → <b>Añadir a pantalla de inicio</b>.</p>
+      <button id="installBtn" class="btn" style="display:none">Instalar ahora</button>
+      <p id="pwaStatus" class="tag"></p>
+    </section>
+
+    <footer class="tag">© <span id="year"></span> Grupo A Cobijo • <span class="pill" style="padding:2px 8px">Offline</span></footer>
   </div>
 
-  <section-title>Otros alojamientos del grupo</section-title>
-  <div class="grid">
-    <article class="card">
-      <h3>Apartamentos / Taberna El Cardeo</h3>
-      <p class="muted">Apartamentos + Taberna</p>
-      <div class="row">
-        <a class="btn" href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
-        <a class="btn" href="tel:+34664686158">Llamar</a>
-        <a class="btn" href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Cómo llegar</a>
-        <a class="btn" href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="map"><iframe title="Mapa El Cardeo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Apartamentos+El+Cardeo&output=embed"></iframe></div>
-    </article>
+  <!-- MODAL HORARIOS -->
+  <div class="backdrop" id="schedModal">
+    <div class="modal">
+      <button class="close" id="closeSched" aria-label="Cerrar">✕</button>
+      <h3 id="schedTitle">Horarios</h3>
+      <div id="schedBody" class="card" style="margin-top:8px"></div>
+      <p class="tag">Info orientativa. Pregunta en recepción por cambios de temporada.</p>
+    </div>
   </div>
-</div>
 
-<!-- PANEL ADMIN -->
-<div id="adminPanel">
-  <div id="adminBox">
-    <button style="float:right" class="btn" onclick="document.getElementById('adminPanel').style.display='none'">✕</button>
-    <h2>Panel de eventos</h2>
-
-    <label>Título (ES)</label>
-    <input id="titleES" placeholder="Ej: Concierto acústico">
-
-    <label>Fecha y hora</label>
-    <input id="fecha" type="datetime-local">
-
-    <label>Alojamiento</label>
-    <select id="campingSelect">
-      <option value="oyambre">Oyambre</option>
-      <option value="ramales">Ramales</option>
-      <option value="ruiloba">Ruiloba</option>
-      <option value="cardeo">El Cardeo</option>
-    </select>
-
-    <label>Lugar (ES)</label>
-    <input id="lugarES" placeholder="Ej: Camping Ramales">
-
-    <label>Descripción (ES)</label>
-    <textarea id="descES" placeholder="Ej: Música en directo."></textarea>
-
-    <button class="admin-btn" id="addEvent">Agregar a la lista</button>
-    <button class="admin-btn" id="exportEvents">Descargar events.json</button>
-
-    <h3 style="margin-top:18px">Eventos actuales</h3>
-    <table>
-      <thead><tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th></tr></thead>
-      <tbody id="eventTable"></tbody>
-    </table>
-
-    <hr>
-    <h2>Config GitHub</h2>
-    <label>Repositorio (owner/repo)</label>
-    <input id="repo" placeholder="usuario/repositorio">
-    <label>Branch</label>
-    <input id="branch" value="main">
-    <label>Token (solo se guarda en este dispositivo)</label>
-    <input id="token" type="password" placeholder="github_pat_...">
-    <button class="admin-btn" id="saveToGitHub">💾 Guardar en GitHub</button>
+  <!-- PANEL ADMIN MUY BÁSICO (para no perderlo) -->
+  <div id="adminPanel">
+    <div id="adminBox">
+      <button class="btn" style="float:right" onclick="document.getElementById('adminPanel').style.display='none'">✕</button>
+      <h3>Subir events.json a GitHub</h3>
+      <input id="repo" placeholder="owner/repo">
+      <input id="branch" placeholder="main" value="main">
+      <input id="token" type="password" placeholder="github_pat_...">
+      <button class="admin-btn" id="pushEvents">💾 Guardar events.json</button>
+    </div>
   </div>
-</div>
 
 <script>
-// Activar panel admin tocando el logo 5 veces
-let tap=0,timer=null;
-document.getElementById("adminTrigger").onclick=()=>{tap++;clearTimeout(timer);timer=setTimeout(()=>tap=0,900);if(tap>=5){tap=0;document.getElementById("adminPanel").style.display="block";}};
+document.getElementById('year').textContent=new Date().getFullYear();
 
-// Cargar eventos (sin caché)
-let ADMIN_EVENTS=[];
-fetch("events.json?v="+Date.now(),{cache:'no-cache'}).then(r=>r.json()).then(data=>{ADMIN_EVENTS=Array.isArray(data)?data:[];renderEvents();});
+/* Eventos */
+function renderEvent(ev){
+  const t = ev.titulo?.es || ev.titulo || '(sin título)';
+  const d = ev.descripcion?.es || ev.descripcion || '';
+  const l = ev.lugar?.es || ev.lugar || '';
+  const when = new Date(ev.fecha);
+  return `<div class="event-card">
+    <div class="event-title">${t}</div>
+    <div class="event-meta">${when.toLocaleString()}</div>
+    <div class="event-desc">${d}</div>
+    <small>${l}</small>
+  </div>`;
+}
+async function loadEvents(){
+  try{
+    const r = await fetch('events.json?v='+Date.now(),{cache:'no-cache'});
+    const data = await r.json();
+    const list = document.getElementById('events');
+    if(!Array.isArray(data) || !data.length){ list.innerHTML = '<p class="tag">Sin eventos por ahora.</p>'; return; }
+    data.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+    list.innerHTML = data.map(renderEvent).join('');
+  }catch(e){
+    document.getElementById('events').innerHTML = '<p class="tag">Sin eventos por ahora.</p>';
+  }
+}
+loadEvents();
 
-// Render de eventos
-function renderEvents(){
-  const list=document.getElementById("eventsList");
-  list.innerHTML="";
-  ADMIN_EVENTS.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
-  ADMIN_EVENTS.forEach(ev=>{
-    const titulo = typeof ev.titulo==='string'?ev.titulo:(ev.titulo?.es||"");
-    const desc   = typeof ev.descripcion==='string'?ev.descripcion:(ev.descripcion?.es||"");
-    const lugar  = typeof ev.lugar==='string'?ev.lugar:(ev.lugar?.es||"");
-    list.innerHTML += `
-      <div class="event-card">
-        <div class="event-title">${titulo}</div>
-        <div class="event-date">${new Date(ev.fecha).toLocaleString()}</div>
-        <div class="event-desc">${desc}</div>
-        <small>${lugar}</small>
-      </div>`;
+/* Horarios (modal) */
+const SCHEDULES={
+  oyambre:`<b>Recepción</b> 9:00–21:00<br><b>Restaurante</b> 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b> 10:00–20:00`,
+  ramales:`<b>Recepción</b> 9:00–21:00<br><b>Bar</b> 9:00–23:30<br><b>Piscina (verano)</b> 11:00–20:00`,
+  ruiloba:`<b>Recepción</b> 9:00–21:00<br><b>Restaurante</b> 13:00–16:00 / 20:00–23:00`,
+  cardeo:`<b>Taberna</b> 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b> check-in 16:00 · check-out 11:00`
+};
+const schedModal=document.getElementById('schedModal');
+document.querySelectorAll('[data-sched]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const key=b.getAttribute('data-sched');
+    document.getElementById('schedTitle').textContent='Horarios: '+b.textContent;
+    document.getElementById('schedBody').innerHTML=SCHEDULES[key]||'';
+    schedModal.style.display='flex';
   });
+});
+document.getElementById('closeSched').onclick=()=>schedModal.style.display='none';
+schedModal.onclick=(e)=>{ if(e.target===schedModal) schedModal.style.display='none'; };
 
-  document.getElementById("eventTable").innerHTML = ADMIN_EVENTS.map(ev=>{
-    const titulo = ev.titulo?.es || ev.titulo || "";
-    return `<tr><td>${ev.id}</td><td>${new Date(ev.fecha).toLocaleString()}</td><td>${ev.camping||""}</td><td>${titulo}</td></tr>`;
-  }).join("");
+/* Instalar app + estado offline */
+let deferredPrompt; const installBtn=document.getElementById('installBtn'); const pwaStatus=document.getElementById('pwaStatus');
+window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='inline-flex'; });
+installBtn?.addEventListener('click', async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; });
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./service-worker.js').then(()=>{
+    pwaStatus.textContent='Listo para usar offline.';
+  }).catch(()=>{ pwaStatus.textContent='No se pudo activar el modo offline.'; });
 }
 
-// Añadir evento a la lista
-document.getElementById("addEvent").onclick=()=>{
-  const title=document.getElementById("titleES").value.trim();
-  const fecha=document.getElementById("fecha").value;
-  const camping=document.getElementById("campingSelect").value;
-  const lugar=document.getElementById("lugarES").value.trim();
-  const desc=document.getElementById("descES").value.trim();
-  if(!title||!fecha||!camping){alert("Rellena título, fecha y alojamiento.");return;}
-  const id=`ev-${camping}-${Date.now()}`;
-  ADMIN_EVENTS.push({
-    id, fecha, camping,
-    titulo:{es:title},
-    descripcion:{es:desc},
-    lugar:{es:lugar||campingLabel(camping)}
-  });
-  // limpiar campos
-  document.getElementById("titleES").value="";
-  document.getElementById("fecha").value="";
-  document.getElementById("lugarES").value="";
-  document.getElementById("descES").value="";
-  renderEvents();
-};
+/* Panel admin (tocar logo 5 veces) */
+let taps=0,timer=null;
+document.getElementById('logo').addEventListener('click',()=>{
+  taps++; clearTimeout(timer); timer=setTimeout(()=>taps=0,900);
+  if(taps>=5){ taps=0; document.getElementById('adminPanel').style.display='block'; }
+});
 
-function campingLabel(k){return k==='oyambre'?'Camping Caravaning Playa de Oyambre':k==='ramales'?'Camping Ramales':k==='ruiloba'?'Camping El Helguero (Ruiloba)':'Apartamentos El Cardeo';}
-
-// Descargar JSON
-document.getElementById("exportEvents").onclick=()=>{
-  const blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url;a.download="events.json";a.click();URL.revokeObjectURL(url);
-};
-
-// Guardar en GitHub (PUT contents API)
-document.getElementById("saveToGitHub").onclick=async()=>{
-  const repo=document.getElementById("repo").value.trim();
-  const branch=document.getElementById("branch").value.trim()||"main";
-  const token=document.getElementById("token").value.trim();
-  if(!repo||!token){alert("Rellena repo y token.");return;}
-  // obtener sha actual (si existe)
-  const meta=await fetch(`https://api.github.com/repos/${repo}/contents/events.json?ref=${encodeURIComponent(branch)}`,{headers:{Authorization:`Bearer ${token}`}}).then(r=>r.json());
-  const sha = meta && meta.sha ? meta.sha : undefined;
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(ADMIN_EVENTS,null,2))));
-  const res=await fetch(meta.url||`https://api.github.com/repos/${repo}/contents/events.json`,{
-    method:"PUT",
-    headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},
-    body:JSON.stringify({message:"update events.json via app",content,branch,sha})
-  });
-  if(res.ok){alert("✅ Subido a GitHub correctamente");} else {const t=await res.text(); alert("❌ Error: "+res.status+"\n"+t);}
-};
-
-// Registrar SW
-if("serviceWorker" in navigator){navigator.serviceWorker.register("./service-worker.js");}
+/* Subir events.json (usa lo que esté cargado en la app) */
+let ADMIN_EVENTS_CACHE=[];
+async function cacheForPush(){ try{const r=await fetch('events.json?v='+Date.now()); ADMIN_EVENTS_CACHE=await r.json(); }catch{} }
+cacheForPush();
+document.getElementById('pushEvents').addEventListener('click', async ()=>{
+  try{
+    if(!Array.isArray(ADMIN_EVENTS_CACHE) || !ADMIN_EVENTS_CACHE.length){ alert('No hay eventos para subir.'); return; }
+    const repo=document.getElementById('repo').value.trim();
+    const branch=(document.getElementById('branch').value.trim()||'main');
+    const token=document.getElementById('token').value.trim();
+    if(!repo||!token){ alert('Rellena repo y token.'); return; }
+    const meta=await fetch(`https://api.github.com/repos/${repo}/contents/events.json?ref=${encodeURIComponent(branch)}`,{headers:{Authorization:`Bearer ${token}`}}).then(r=>r.json());
+    const sha=meta?.sha;
+    const body={
+      message:'update events.json via in-app admin',
+      content:btoa(unescape(encodeURIComponent(JSON.stringify(ADMIN_EVENTS_CACHE,null,2)))),
+      branch, ...(sha?{sha}:{})
+    };
+    const res=await fetch(meta?.url || `https://api.github.com/repos/${repo}/contents/events.json`,{
+      method:'PUT',
+      headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(res.ok) alert('✅ Subido a GitHub correctamente'); else alert('❌ Error '+res.status+': '+await res.text());
+  }catch(err){ alert('❌ '+err.message); }
+});
 </script>
 </body>
 </html>
