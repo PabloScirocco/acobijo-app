@@ -112,7 +112,7 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-beavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 /* ✕ mejorada */
@@ -420,7 +420,11 @@ body.modal-open{overflow:hidden}
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
+(function init(){
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once:true });
+    return;
+  }
 
   /* ===== Estado admin + PIN por defecto ===== */
   localStorage.setItem('admin','0');
@@ -940,14 +944,12 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Init ===== */
-  loadEvents();
-  loadSchedules();
-  renderAcc();
+  (function initData(){ loadEvents(); loadSchedules(); renderAcc(); })();
 
   /* ===== SW ===== */
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
 
-}); // DOMContentLoaded
+})(); // init inmediato + fallback DOMContentLoaded
 </script>
 </body>
 </html>
