@@ -36,19 +36,16 @@ body.dark .topbar .burger{background:#0f1a2b}
 .lang-btn,.theme-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.35rem .6rem;cursor:pointer}
 body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 
-<!-- Drawer -->
-<div class="drawer" id="drawer">
-  <div class="back" id="drawerBack"></div>
-  <aside class="panel">
-    <div class="item" data-nav="home">🏠 <strong>Inicio</strong></div>
-    <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
-    <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
-    <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
-    <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
-    <!-- (eliminado el mensaje de “Toca el logo 5×…”) -->
-  </aside>
-</div>
-/* Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
+/* Drawer */
+.drawer{position:fixed;inset:0;z-index:30;display:none}
+.drawer.open{display:block}
+.drawer .back{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.drawer .panel{position:absolute;inset:0 auto 0 0;width:min(86vw,320px);background:#fff;border-right:1px solid var(--line);
+  padding:14px;display:flex;flex-direction:column;gap:8px}
+body.dark .drawer .panel{background:#0f1a2b}
+.drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
+.drawer .item:active{transform:scale(.98)}
+/* Ocultar admin por defecto; mostrar SOLO en admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
@@ -124,9 +121,6 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin button (solo en admin-on) */
-.muted{color:var(--muted);font-size:.9rem}
-
 /* Tabla admin simple */
 .table{width:100%;border-collapse:collapse;font-size:.9rem}
 .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
@@ -148,7 +142,7 @@ body.modal-open{overflow:hidden}
   <button class="lang-btn" id="langBtn">🌐 ES</button>
 </header>
 
-<!-- Drawer -->
+<!-- Drawer (sin mensaje de 5 toques) -->
 <div class="drawer" id="drawer">
   <div class="back" id="drawerBack"></div>
   <aside class="panel">
@@ -157,7 +151,6 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
-    <div class="muted">Toca el logo 5× para activar/desactivar Admin.</div>
   </aside>
 </div>
 
@@ -423,48 +416,41 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
-<!-- JSZip (solo se usa al pulsar ZIP) -->
+<!-- JSZip (solo al pulsar ZIP) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
-  /* ===== Estado admin al cargar + PIN por defecto ===== */
+  /* ===== Estado admin + PIN por defecto ===== */
   localStorage.setItem('admin','0');
   document.body.classList.remove('admin-on');
   if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
 
   /* ===== Utils ===== */
-  function $(sel){return document.querySelector(sel);}
-  function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
-  function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
+  const $=s=>document.querySelector(s);
+  const $all=s=>Array.from(document.querySelectorAll(s));
+  const on=(el,ev,fn)=>{ if(el) el.addEventListener(ev,fn); };
 
-  /* ===== Tema claro/oscuro ===== */
+  /* ===== Tema ===== */
   function detectTheme(){
-    var saved = localStorage.getItem('theme');
+    const saved = localStorage.getItem('theme');
     if(saved) return saved;
-    try{
-      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    }catch(e){}
+    try{ if(matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){}
     return 'light';
   }
   function applyTheme(mode){
     document.body.classList.toggle('dark', mode==='dark');
-    var themeBtn = $('#themeBtn');
-    if(themeBtn) themeBtn.textContent = mode==='dark' ? '☀️' : '🌙';
+    $('#themeBtn').textContent = mode==='dark' ? '☀️' : '🌙';
     localStorage.setItem('theme', mode);
-    var meta = document.querySelector('meta[name="theme-color"]');
+    const meta=document.querySelector('meta[name="theme-color"]');
     if(meta) meta.setAttribute('content', mode==='dark' ? '#0b1220' : '#0ea5e9');
   }
-  var THEME = detectTheme();
-  applyTheme(THEME);
-  on($('#themeBtn'),'click', function(){
-    THEME = (THEME==='dark') ? 'light' : 'dark';
-    applyTheme(THEME);
-  });
+  let THEME = detectTheme(); applyTheme(THEME);
+  on($('#themeBtn'),'click', ()=>{ THEME = THEME==='dark'?'light':'dark'; applyTheme(THEME); });
 
   /* ===== i18n ===== */
-  var I18N = {
+  const I18N = {
     es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
         ev:"Eventos", evSub:"Qué hay hoy", pl:"Campings", plSub:"Accesos rápidos", sc:"Horarios", scSub:"Recepción · bar",
         inst:"Instalar", instSub:"Añadir a inicio",
@@ -494,11 +480,11 @@ document.addEventListener('DOMContentLoaded', function(){
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules"
     }
   };
-  function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
-  var LANG = detectLang();
-  function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+  function detectLang(){ const s=localStorage.getItem('lang'); if(s) return s; const n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
+  let LANG = detectLang();
+  function t(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
   function applyLang(){
-    var T=I18N[LANG];
+    const T=I18N[LANG];
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub); t("t-pl",T.pl); t("t-pl-sub",T.plSub); t("t-sc",T.sc); t("t-sc-sub",T.scSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
@@ -508,145 +494,138 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
     t("schedNote",T.schedNote);
-    var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc');
+    const nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc');
     if(nh) nh.textContent=T.nHome; if(ne) ne.textContent=T.nEv; if(np) np.textContent=T.nPl; if(ns) ns.textContent=T.nSc;
-    $all("[data-i18n-web]").forEach(function(e){e.textContent=T.web;});
-    $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
-    $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
-    $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
-    renderAcc(); // re-render horarios con nuevo idioma
+    $all("[data-i18n-web]").forEach(e=>e.textContent=T.web);
+    $all("[data-i18n-call]").forEach(e=>e.textContent=T.call);
+    $all("[data-i18n-directions]").forEach(e=>e.textContent=T.directions);
+    $all("[data-i18n-whatsapp]").forEach(e=>e.textContent=T.whatsapp);
+    renderAcc(); // re-render horarios en idioma
   }
   applyLang();
 
-  on($('#langBtn'),'click', function(){ var m=$('#langModal'); if(m) m.style.display='flex'; });
-  on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
-  $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){
+  on($('#langBtn'),'click', ()=>{ $('#langModal').style.display='flex'; });
+  on($('#closeLang'),'click', (e)=>{ e.preventDefault(); $('#langModal').style.display='none'; });
+  $all('.lang-option').forEach(b=>{
+    on(b,'click', ()=>{
       LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents();
-      var m=$('#langModal'); if(m) m.style.display='none';
+      $('#langModal').style.display='none';
     });
   });
 
   /* ===== Navegación ===== */
   function showView(id){
-    $all('.view').forEach(function(v){ v.classList.remove('active'); });
-    var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
-    $all('.navbtn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-nav')===id); });
-    var dr=$('#drawer'); if(dr) dr.classList.remove('open');
+    $all('.view').forEach(v=>v.classList.remove('active'));
+    const tgt=document.getElementById('view-'+id); if(tgt) tgt.classList.add('active');
+    $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
+    $('#drawer').classList.remove('open');
   }
-  $all('[data-nav]').forEach(function(el){
-    on(el,'click', function(){ showView(el.getAttribute('data-nav')); });
-  });
-  on($('#menuBtn'),'click', function(){ var d=$('#drawer'); if(d) d.classList.add('open'); });
-  on($('#drawerBack'),'click', function(){ var d=$('#drawer'); if(d) d.classList.remove('open'); });
+  $all('[data-nav]').forEach(el=> on(el,'click', ()=> showView(el.getAttribute('data-nav')) ));
+  on($('#menuBtn'),'click', ()=> $('#drawer').classList.add('open'));
+  on($('#drawerBack'),'click', ()=> $('#drawer').classList.remove('open'));
 
   /* ===== Datos comunes ===== */
-  var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
-  var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
-  var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
-  function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
-  function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
+  const PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
+  const PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+  const WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
+  const i18nField=v=>typeof v==="string"?v:((v&&v[LANG])||(v&&v.es)||"");
+  const waLink=(camping,msg)=>{const n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(msg||'')):null};
 
-  /* ===== Eventos (home + grid con filtros) ===== */
-  var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
-  function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
+  /* ===== Eventos ===== */
+  let EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
+  const whenFmt=d=>{ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } };
   function categoryFor(dateStr){
-    var d=new Date(dateStr), now=new Date();
-    var startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    var startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
-    var endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate()+(7-startToday.getDay()));
+    const d=new Date(dateStr), now=new Date();
+    const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
+    const endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate()+(7-startToday.getDay()));
     if(d>=startToday && d<startTomorrow) return 'today';
     if(d>=startTomorrow && d< new Date(startTomorrow.getFullYear(),startTomorrow.getMonth(),startTomorrow.getDate()+1)) return 'tomorrow';
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
   function renderHomeSlider(){
-    var wrap=$('#homeEvents'); if(!wrap) return;
-    var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
+    const wrap=$('#homeEvents');
+    const next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
     if(!next.length){ wrap.innerHTML='<div class="muted">Sin eventos por ahora.</div>'; return; }
-    wrap.innerHTML = next.map(function(ev){
-      var title=i18nField(ev.titulo)||'(sin título)';
-      var place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var img=ev.imagen||ev.image||'';
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
-      return '<div class="card">'
-        + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
-        + '<div class="title">'+title+'</div>'
-        + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+wa+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
-        + '</div></div>';
+    wrap.innerHTML = next.map(ev=>{
+      const title=i18nField(ev.titulo)||'(sin título)';
+      const place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
+      const img=ev.imagen||ev.image||'';
+      const wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
+      return `<div class="card">
+        ${img?`<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">`:''}
+        <div class="title">${title}</div>
+        <div class="meta">${whenFmt(ev.fecha)} · ${place}</div>
+        <div class="row" style="margin-top:6px">
+          ${wa?`<a class="btn" href="${wa}" target="_blank" rel="noopener">${I18N[LANG].whatsapp}</a>`:''}
+          <a class="btn" href="${PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#'}" target="_blank" rel="noopener">${I18N[LANG].directions}</a>
+        </div></div>`;
     }).join('');
   }
   function renderEventsGrid(){
-    var grid=$('#eventsGrid'), empty=$('#eventsEmpty'); if(!grid) return;
-    var filtered = EVENTS.filter(function(ev){
-      var byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
-      var byCamp = CAMP_FILTER==='all' ? true : (String(ev.camping||'').toLowerCase()===CAMP_FILTER);
+    const grid=$('#eventsGrid'), empty=$('#eventsEmpty');
+    const filtered = EVENTS.filter(ev=>{
+      const byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
+      const byCamp = CAMP_FILTER==='all' ? true : (String(ev.camping||'').toLowerCase()===CAMP_FILTER);
       return byDate && byCamp;
-    }).sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)});
-    if(!filtered.length){ grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
-    if(empty) empty.style.display='none';
-    grid.innerHTML = filtered.map(function(ev){
-      var title=i18nField(ev.titulo)||'(sin título)';
-      var place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var img=ev.imagen||ev.image||'';
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
-      return '<div class="card" style="min-width:unset">'
-        + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
-        + '<div class="title">'+title+'</div>'
-        + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+wa+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
-        + '</div></div>';
+    }).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+    if(!filtered.length){ grid.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display='none';
+    grid.innerHTML = filtered.map(ev=>{
+      const title=i18nField(ev.titulo)||'(sin título)';
+      const place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
+      const img=ev.imagen||ev.image||'';
+      const wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
+      return `<div class="card" style="min-width:unset">
+        ${img?`<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">`:''}
+        <div class="title">${title}</div>
+        <div class="meta">${whenFmt(ev.fecha)} · ${place}</div>
+        <div class="row" style="margin-top:6px">
+          ${wa?`<a class="btn" href="${wa}" target="_blank" rel="noopener">${I18N[LANG].whatsapp}</a>`:''}
+          <a class="btn" href="${PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#'}" target="_blank" rel="noopener">${I18N[LANG].directions}</a>
+        </div></div>`;
     }).join('');
   }
   function loadEvents(){
-    fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(data){ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
-      .catch(function(){ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
+    fetch('./events.json?v='+Date.now(),{cache:'no-store'})
+      .then(r=>r.json())
+      .then(data=>{ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
+      .catch(()=>{ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
   }
-
-  $all('[data-filter]').forEach(function(ch){
-    on(ch,'click', function(){
-      $all('[data-filter]').forEach(function(x){x.classList.remove('on');});
+  $all('[data-filter]').forEach(ch=>{
+    on(ch,'click', ()=>{
+      $all('[data-filter]').forEach(x=>x.classList.remove('on'));
       ch.classList.add('on'); DATE_FILTER=ch.getAttribute('data-filter')||'all'; renderEventsGrid();
     });
   });
-  $all('[data-camp]').forEach(function(ch){
-    on(ch,'click', function(){
-      $all('[data-camp]').forEach(function(x){x.classList.remove('on');});
+  $all('[data-camp]').forEach(ch=>{
+    on(ch,'click', ()=>{
+      $all('[data-camp]').forEach(x=>x.classList.remove('on'));
       ch.classList.add('on'); CAMP_FILTER=ch.getAttribute('data-camp')||'all'; renderEventsGrid();
     });
   });
 
-  /* ===== Horarios: datos ===== */
-  var SCHEDULES_DEFAULT={
-    oyambre:{
+  /* ===== Horarios (datos) ===== */
+  const SCHEDULES_DEFAULT={ oyambre:{
       es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
       en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00",
       fr:"<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscine (été)</b>: 10:00–20:00",
       de:"<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (Sommer)</b>: 10:00–20:00",
       nl:"<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Zwembad (zomer)</b>: 10:00–20:00"
-    },
-    ramales:{
+    }, ramales:{
       es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
       en:"<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00",
       fr:"<b>Réception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscine (été)</b>: 11:00–20:00",
       de:"<b>Rezeption</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (Sommer)</b>: 11:00–20:00",
       nl:"<b>Receptie</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Zwembad (zomer)</b>: 11:00–20:00"
-    },
-    ruiloba:{
+    }, ruiloba:{
       es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
       en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
       fr:"<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
       de:"<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
       nl:"<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"
-    },
-    cardeo:{
+    }, cardeo:{
       es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
       en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00",
       fr:"<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b>: check-in 16:00, check-out 11:00",
@@ -654,49 +633,39 @@ document.addEventListener('DOMContentLoaded', function(){
       nl:"<b>Taveerne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartementen</b>: check-in 16:00, check-out 11:00"
     }
   };
-  var SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); // copia mutable
-
+  let SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
   function renderAcc(){
-    ['oyambre','ramales','ruiloba','cardeo'].forEach(function(k){
-      var el=document.getElementById('acc-'+k);
+    ['oyambre','ramales','ruiloba','cardeo'].forEach(k=>{
+      const el=document.getElementById('acc-'+k);
       if(!el) return;
-      var block = (SCHEDULES_DATA[k] && (SCHEDULES_DATA[k][LANG] || SCHEDULES_DATA[k].es)) || (SCHEDULES_DEFAULT[k][LANG] || SCHEDULES_DEFAULT[k].es);
+      const block = (SCHEDULES_DATA[k] && (SCHEDULES_DATA[k][LANG] || SCHEDULES_DATA[k].es)) || (SCHEDULES_DEFAULT[k][LANG] || SCHEDULES_DEFAULT[k].es);
       el.innerHTML = block || '';
     });
   }
-
   function loadSchedules(){
-    fetch('./schedules.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw new Error('no schedules.json'); return r.json(); })
-      .then(function(data){
-        if(data && typeof data==='object'){ SCHEDULES_DATA = data; renderAcc(); }
-      })
-      .catch(function(){ SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
+    fetch('./schedules.json?v='+Date.now(),{cache:'no-store'})
+      .then(r=>{ if(!r.ok) throw new Error('no schedules.json'); return r.json(); })
+      .then(data=>{ if(data && typeof data==='object'){ SCHEDULES_DATA=data; renderAcc(); }})
+      .catch(()=>{ SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
   }
 
-  /* ===== Abrir/cerrar acordeón horarios ===== */
-  $all('.acc-h').forEach(function(h){
-    on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
-  });
+  /* ===== Acordeón horarios ===== */
+  $all('.acc-h').forEach(h=> on(h,'click', ()=> h.parentElement.classList.toggle('open') ));
 
-  /* ===== Admin (tap x5 en logo + PIN) ===== */
+  /* ===== Admin (5 toques + PIN) ===== */
   (function adminActivator(){
-    var logo=document.getElementById('logoTap'); var taps=0,timer=null;
+    const logo=$('#logoTap'); let taps=0,timer=null;
     if(!logo) return;
-
-    function isAdminOn(){ return document.body.classList.contains('admin-on'); }
-    function askForPin(){
-      var stored = localStorage.getItem('admin_pin');
-      if(!stored){ stored='311974'; localStorage.setItem('admin_pin', stored); }
-      var entered = window.prompt('Introduce la contraseña de admin:','');
+    const isAdminOn=()=> document.body.classList.contains('admin-on');
+    const askForPin=()=>{
+      let stored = localStorage.getItem('admin_pin') || '311974';
+      const entered = window.prompt('Introduce la contraseña de admin:','');
       if(entered===null) return false;
       if(entered===stored) return true;
-      alert('Contraseña incorrecta');
-      return false;
-    }
-
-    on(logo,'click', function(){
-      taps++; clearTimeout(timer); timer=setTimeout(function(){taps=0},1000);
+      alert('Contraseña incorrecta'); return false;
+    };
+    on(logo,'click', ()=>{
+      taps++; clearTimeout(timer); timer=setTimeout(()=>{taps=0},1000);
       if(taps>=5){
         taps=0;
         if(isAdminOn()){
@@ -707,94 +676,85 @@ document.addEventListener('DOMContentLoaded', function(){
           if(!askForPin()) return;
           localStorage.setItem('admin','1');
           document.body.classList.add('admin-on');
-          openAdminModal();
-          loadEventsAdmin();
-          loadSchedulesAdminUI(); // cargar editor de horarios
+          openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI();
           alert('Modo admin activado');
         }
       }
     });
-
-    /* Arranque siempre sin admin */
     localStorage.setItem('admin','0');
     document.body.classList.remove('admin-on');
   })();
 
-  /* Abrir admin solo si eres admin */
-  on($('#openAdmin'), 'click', function(){
+  /* Abrir admin solo si admin-on */
+  on($('#openAdmin'), 'click', ()=>{
     if(!document.body.classList.contains('admin-on')) return;
-    openAdminModal();
-    loadEventsAdmin();
-    loadSchedulesAdminUI();
+    openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI();
   });
 
-  /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
-  function openAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
-  }
-  function closeAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
-  }
-  on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
-  on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
+  /* ===== Modal Admin helpers ===== */
+  function openAdminModal(){ $('#adminModal').style.display='flex'; document.body.classList.add('modal-open'); }
+  function closeAdminModal(){ $('#adminModal').style.display='none'; document.body.classList.remove('modal-open'); }
+  on($('#closeAdmin'),'click', e=>{ e.preventDefault(); closeAdminModal(); });
+  on($('#adminModal'),'click', e=>{ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla (eventos) ===== */
-  var ADMIN_EVENTS=[];
-  function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
+  /* ===== Admin: eventos ===== */
+  let ADMIN_EVENTS=[];
+  const slug=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);
   function isoFromLocal(dt){
-    var d=new Date(dt); var tz=-d.getTimezoneOffset(); var sign=tz>=0?'+':'-';
-    var hh=('0'+Math.floor(Math.abs(tz)/60)).slice(-2); var mm=('0'+(Math.abs(tz)%60)).slice(-2);
+    const d=new Date(dt); const tz=-d.getTimezoneOffset(); const sign=tz>=0?'+':'-';
+    const hh=('0'+Math.floor(Math.abs(tz)/60)).slice(-2); const mm=('0'+(Math.abs(tz)%60)).slice(-2);
     return d.toISOString().slice(0,19)+sign+hh+':'+mm;
   }
-  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
+  const defaultLugar=p=> p==='oyambre'?'Camping Caravaning Playa de Oyambre'
+                         :p==='ramales'?'Camping Ramales'
+                         :p==='ruiloba'?'Camping El Helguero'
+                         :p==='cardeo'?'Apartamentos El Cardeo':'';
 
   function loadEventsAdmin(){
-    fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(data){ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
-      .catch(function(){ ADMIN_EVENTS=[]; renderAdminTable(); });
+    fetch('./events.json?v='+Date.now(),{cache:'no-store'})
+      .then(r=>r.json())
+      .then(data=>{ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
+      .catch(()=>{ ADMIN_EVENTS=[]; renderAdminTable(); });
     loadGhCfgToForm();
   }
   function renderAdminTable(){
-    var tbody = $('#eventsTable tbody'); if(!tbody) return;
-    ADMIN_EVENTS.sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)});
-    tbody.innerHTML = ADMIN_EVENTS.map(function(ev){
-      var titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
-      var lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
-      var dt=new Date(ev.fecha);
-      var val = dt.getFullYear()+'-'+('0'+(dt.getMonth()+1)).slice(-2)+'-'+('0'+dt.getDate()).slice(-2)+'T'+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2);
-      return '<tr data-id="'+ev.id+'">'
-        + '<td class="muted">'+ev.id+'</td>'
-        + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+dt.toLocaleString()+'</div></td>'
-        + '<td>'
-          + '<select class="select camp">'
-            + '<option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option>'
-            + '<option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option>'
-            + '<option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option>'
-            + '<option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option>'
-          + '</select>'
-          + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+lugarES.replace(/"/g,'&quot;')+'">'
-        + '</td>'
-        + '<td>'
-          + '<input class="input titulo" placeholder="Título (ES)" value="'+titleES.replace(/"/g,'&quot;')+'">'
-          + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+(((ev.descripcion&&ev.descripcion.es)||'').replace(/</g,'&lt;'))+'</textarea>'
-          + '<input class="input img" placeholder="Imagen (URL)" value="'+((ev.imagen||ev.image||'').replace(/"/g,'&quot;'))+'" style="margin-top:6px">'
-        + '</td>'
-        + '<td style="min-width:220px">'
-          + '<button class="btn act-save">Guardar</button> '
-          + '<button class="btn act-dup">Duplicar</button> '
-          + '<button class="btn act-del">Borrar</button>'
-        + '</td>'
-      + '</tr>';
+    const tbody = $('#eventsTable tbody'); if(!tbody) return;
+    ADMIN_EVENTS.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+    tbody.innerHTML = ADMIN_EVENTS.map(ev=>{
+      const titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
+      const lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
+      const dt=new Date(ev.fecha);
+      const val = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}T${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+      return `<tr data-id="${ev.id}">
+        <td class="muted">${ev.id}</td>
+        <td><input class="input dt" type="datetime-local" value="${val}"><div class="muted">${dt.toLocaleString()}</div></td>
+        <td>
+          <select class="select camp">
+            <option value="oyambre" ${ev.camping==='oyambre'?'selected':''}>oyambre</option>
+            <option value="ramales" ${ev.camping==='ramales'?'selected':''}>ramales</option>
+            <option value="ruiloba" ${ev.camping==='ruiloba'?'selected':''}>ruiloba</option>
+            <option value="cardeo" ${ev.camping==='cardeo'?'selected':''}>cardeo</option>
+          </select>
+          <input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="${lugarES.replace(/"/g,'&quot;')}">
+        </td>
+        <td>
+          <input class="input titulo" placeholder="Título (ES)" value="${titleES.replace(/"/g,'&quot;')}">
+          <textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">${((ev.descripcion&&ev.descripcion.es)||'').replace(/</g,'&lt;')}</textarea>
+          <input class="input img" placeholder="Imagen (URL)" value="${((ev.imagen||ev.image||'')||'').replace(/"/g,'&quot;')}" style="margin-top:6px">
+        </td>
+        <td style="min-width:220px">
+          <button class="btn act-save">Guardar</button>
+          <button class="btn act-dup">Duplicar</button>
+          <button class="btn act-del">Borrar</button>
+        </td>
+      </tr>`;
     }).join('');
-    $all('#eventsTable tbody tr').forEach(function(tr){
-      var id = tr.getAttribute('data-id');
-      on(tr.querySelector('.act-save'),'click', function(){ saveRow(tr,id); });
-      on(tr.querySelector('.act-dup'),'click', function(){ duplicateRow(id); });
-      on(tr.querySelector('.act-del'),'click', function(){ deleteRow(id); });
+    $all('#eventsTable tbody tr').forEach(tr=>{
+      const id = tr.getAttribute('data-id');
+      on(tr.querySelector('.act-save'),'click', ()=> saveRow(tr,id) );
+      on(tr.querySelector('.act-dup'),'click', ()=> duplicateRow(id) );
+      on(tr.querySelector('.act-del'),'click', ()=> deleteRow(id) );
     });
   }
   function getRowValues(tr){
@@ -808,8 +768,8 @@ document.addEventListener('DOMContentLoaded', function(){
     };
   }
   function saveRow(tr,id){
-    var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
-    var idx=ADMIN_EVENTS.findIndex(function(e){return e.id===id;}); if(idx<0) return;
+    const v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
+    const idx=ADMIN_EVENTS.findIndex(e=>e.id===id); if(idx<0) return;
     ADMIN_EVENTS[idx].fecha=isoFromLocal(v.dateLocal);
     ADMIN_EVENTS[idx].camping=v.camping;
     ADMIN_EVENTS[idx].titulo={es:v.titulo};
@@ -819,89 +779,82 @@ document.addEventListener('DOMContentLoaded', function(){
     renderAdminTable();
   }
   function duplicateRow(id){
-    var o=ADMIN_EVENTS.find(function(e){return e.id===id;}); if(!o) return;
-    var titleES=(o.titulo&&o.titulo.es)||''; var newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
-    var copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
+    const o=ADMIN_EVENTS.find(e=>e.id===id); if(!o) return;
+    const titleES=(o.titulo&&o.titulo.es)||'';
+    const newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
+    const copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
   }
   function deleteRow(id){
     if(!confirm('¿Borrar este evento?')) return;
-    ADMIN_EVENTS = ADMIN_EVENTS.filter(function(e){return e.id!==id}); renderAdminTable();
+    ADMIN_EVENTS = ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable();
   }
-
-  on($('#addEventBtn'),'click', function(){
-    var title=$('#evTitle').value.trim();
-    var date=$('#evDate').value;
-    var place=$('#evPlace').value;
-    var lugar=$('#evLugar').value.trim() || defaultLugar(place);
-    var img=$('#evImg').value.trim();
-    var desc=$('#evDesc').value.trim();
+  on($('#addEventBtn'),'click', ()=>{
+    const title=$('#evTitle').value.trim();
+    const date=$('#evDate').value;
+    const place=$('#evPlace').value;
+    const lugar=$('#evLugar').value.trim() || defaultLugar(place);
+    const img=$('#evImg').value.trim();
+    const desc=$('#evDesc').value.trim();
     if(!title||!date||!place){alert('Rellena título, fecha y alojamiento.');return;}
-    var id='ev-'+slug(title)+'-'+place+'-'+date.replace(/[:T]/g,'').slice(0,12);
-    var obj={id:id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}};
+    const id='ev-'+slug(title)+'-'+place+'-'+date.replace(/[:T]/g,'').slice(0,12);
+    const obj={id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}};
     if(img) obj.imagen=img;
     ADMIN_EVENTS.push(obj); renderAdminTable();
-    ['#evTitle','#evDate','#evLugar','#evImg','#evDesc'].forEach(function(s){var el=$(s); if(el) el.value='';});
+    ['#evTitle','#evDate','#evLugar','#evImg','#evDesc'].forEach(s=>{$(s).value='';});
   });
-
-  on($('#exportEventsBtn'),'click', function(){
-    var blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
-    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  on($('#exportEventsBtn'),'click', ()=>{
+    const blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
-  on($('#exportZipBtn'),'click', function(){
+  on($('#exportZipBtn'),'click', ()=>{
     try{
-      var zip=new JSZip();
+      const zip=new JSZip();
       zip.file('events.json', JSON.stringify(ADMIN_EVENTS,null,2));
-      var imgs=ADMIN_EVENTS.map(function(e){return e.imagen||e.image}).filter(Boolean);
-      var folder=zip.folder('images'); var added={};
-      Promise.all(imgs.map(function(u){
-        if(added[u]) return Promise.resolve();
-        return fetch(u,{mode:'cors'}).then(function(res){return res.blob()}).then(function(blob){return blob.arrayBuffer()}).then(function(buf){
-          var name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
-        }).catch(function(){});
-      })).then(function(){
-        return zip.generateAsync({type:'blob'});
-      }).then(function(blob){
-        var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      const imgs=ADMIN_EVENTS.map(e=>e.imagen||e.image).filter(Boolean);
+      const folder=zip.folder('images'); const added={};
+      Promise.all(imgs.map(u=>{
+        if(added[u]) return;
+        return fetch(u,{mode:'cors'}).then(res=>res.blob()).then(b=>b.arrayBuffer()).then(buf=>{
+          const name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
+        }).catch(()=>{});
+      })).then(()=> zip.generateAsync({type:'blob'})).then(blob=>{
+        const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
       });
     }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
   });
-  on($('#importFile'),'change', function(e){
-    var f=e.target.files && e.target.files[0]; if(!f) return;
-    f.text().then(function(txt){
-      var data=JSON.parse(txt); if(!Array.isArray(data)) throw new Error('El JSON debe ser un array');
+  on($('#importFile'),'change', e=>{
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    f.text().then(txt=>{
+      const data=JSON.parse(txt); if(!Array.isArray(data)) throw new Error('El JSON debe ser un array');
       ADMIN_EVENTS=data; renderAdminTable();
-    }).catch(function(err){ alert('No se pudo leer el JSON: '+err.message); }).finally(function(){ e.target.value=''; });
+    }).catch(err=> alert('No se pudo leer el JSON: '+err.message) ).finally(()=>{ e.target.value=''; });
   });
 
   /* ===== GitHub API (PAT) ===== */
-  var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
+  const GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
   function loadGhCfgToForm(){
-    var repoEl=$('#ghRepo'), branchEl=$('#ghBranch'), tokenEl=$('#ghToken');
-    if(!repoEl||!branchEl||!tokenEl) return;
-    repoEl.value=localStorage.getItem(GH_KEYS.repo)||'';
-    branchEl.value=localStorage.getItem(GH_KEYS.branch)||'main';
-    tokenEl.value=localStorage.getItem(GH_KEYS.token)||'';
+    $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||'';
+    $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main';
+    $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||'';
   }
   function saveGhCfgFromForm(){
-    var repoEl=$('#ghRepo'), branchEl=$('#ghBranch'), tokenEl=$('#ghToken');
-    if(!repoEl||!branchEl||!tokenEl) return;
-    localStorage.setItem(GH_KEYS.repo, (repoEl.value||'').trim());
-    localStorage.setItem(GH_KEYS.branch, (branchEl.value||'').trim()||'main');
-    var t=(tokenEl.value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token, t);
+    localStorage.setItem(GH_KEYS.repo, ($('#ghRepo').value||'').trim());
+    localStorage.setItem(GH_KEYS.branch, ($('#ghBranch').value||'').trim()||'main');
+    const t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token, t);
     alert('Configuración guardada en este dispositivo.');
   }
   function ghGet(path, token){
-    var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
-    var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch);
+    const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
+    const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch);
     return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}});
   }
   function ghPut(path, contentBase64, message, sha, token){
-    var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
-    var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path);
-    var body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha;
+    const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
+    const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path);
+    const body={message,content:contentBase64,branch}; if(sha) body.sha=sha;
     return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)});
   }
-  function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
+  const toB64=str=> btoa(unescape(encodeURIComponent(str)));
 
   on($('#saveGhCfg'),'click', saveGhCfgFromForm);
   on($('#pushEventsBtn'),'click', saveEventsToGitHub);
@@ -910,86 +863,85 @@ document.addEventListener('DOMContentLoaded', function(){
   function saveEventsToGitHub(){
     try{
       if(!ADMIN_EVENTS.length){ alert('No hay eventos en la lista. Primero añádelos o importa JSON.'); return; }
-      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
-      var sha=null;
-      ghGet('events.json', token).then(function(res){
-        if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
+      const token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+      let sha=null;
+      ghGet('events.json', token).then(res=>{
+        if(res.status===200){ return res.json().then(data=>{ sha=data.sha; return 200; }); }
         if(res.status===404){ return 404; }
-        return res.text().then(function(txt){ throw new Error('Error comprobando events.json: '+res.status+'\n'+txt); });
-      }).then(function(){
-        var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
-        var content64=toB64(jsonStr);
-        var now=new Date().toISOString().slice(0,19).replace('T',' ');
+        return res.text().then(txt=>{ throw new Error('Error comprobando events.json: '+res.status+'\n'+txt); });
+      }).then(()=>{
+        const jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
+        const content64=toB64(jsonStr);
+        const now=new Date().toISOString().slice(0,19).replace('T',' ');
         return ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token);
-      }).then(function(res){
+      }).then(res=>{
         if(res.ok){ alert('✅ events.json subido correctamente.'); }
-        else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
-      }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
+        else { return res.text().then(txt=> alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt) ); }
+      }).catch(err=> alert('❌ Excepción subiendo a GitHub: '+err.message) );
     }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
   }
 
   /* ===== Admin: Horarios (editor) ===== */
   function loadSchedulesAdminUI(){
-    // Inicializa selects con valores actuales
-    var placeSel=$('#schPlace'), langSel=$('#schLang'), txt=$('#schText');
+    const placeSel=$('#schPlace'), langSel=$('#schLang'), txt=$('#schText');
     if(!placeSel||!langSel||!txt) return;
     function refreshTextarea(){
-      var p=placeSel.value, l=langSel.value;
-      var cur=(SCHEDULES_DATA[p] && (SCHEDULES_DATA[p][l] || SCHEDULES_DATA[p].es)) || '';
+      const p=placeSel.value, l=langSel.value;
+      const cur=(SCHEDULES_DATA[p] && (SCHEDULES_DATA[p][l] || SCHEDULES_DATA[p].es)) || '';
       txt.value = cur;
     }
     refreshTextarea();
     on(placeSel,'change', refreshTextarea);
     on(langSel,'change', refreshTextarea);
 
-    on($('#schSaveMem'),'click', function(){
-      var p=placeSel.value, l=langSel.value, v=txt.value;
+    on($('#schSaveMem'),'click', ()=>{
+      const p=placeSel.value, l=langSel.value, v=txt.value;
       if(!SCHEDULES_DATA[p]) SCHEDULES_DATA[p]={};
       SCHEDULES_DATA[p][l]=v;
       alert('Horarios guardados en memoria. Recuerda subir a GitHub para publicarlos.');
       renderAcc();
     });
-    on($('#schExport'),'click', function(){
-      var blob=new Blob([JSON.stringify(SCHEDULES_DATA,null,2)],{type:'application/json'});
-      var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    on($('#schExport'),'click', ()=>{
+      const blob=new Blob([JSON.stringify(SCHEDULES_DATA,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     });
-    on($('#schImport'),'change', function(e){
-      var f=e.target.files && e.target.files[0]; if(!f) return;
-      f.text().then(function(txtJson){
-        var data=JSON.parse(txtJson); if(!data || typeof data!=='object') throw new Error('Formato inválido');
+    on($('#schImport'),'change', e=>{
+      const f=e.target.files && e.target.files[0]; if(!f) return;
+      f.text().then(txtJson=>{
+        const data=JSON.parse(txtJson); if(!data || typeof data!=='object') throw new Error('Formato inválido');
         SCHEDULES_DATA=data; refreshTextarea(); renderAcc(); alert('schedules.json importado.');
-      }).catch(function(err){ alert('No se pudo importar: '+err.message); }).finally(function(){ e.target.value=''; });
+      }).catch(err=> alert('No se pudo importar: '+err.message) ).finally(()=>{ e.target.value=''; });
     });
-    on($('#pushSchedulesBtn'),'click', function(){
+    on($('#pushSchedulesBtn'),'click', ()=>{
       try{
-        var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
-        var sha=null;
-        ghGet('schedules.json', token).then(function(res){
-          if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
+        const token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+        let sha=null;
+        ghGet('schedules.json', token).then(res=>{
+          if(res.status===200){ return res.json().then(data=>{ sha=data.sha; return 200; }); }
           if(res.status===404){ return 404; }
-          return res.text().then(function(txt){ throw new Error('Error comprobando schedules.json: '+res.status+'\n'+txt); });
-        }).then(function(){
-          var content64=toB64(JSON.stringify(SCHEDULES_DATA,null,2));
-          var now=new Date().toISOString().slice(0,19).replace('T',' ');
+          return res.text().then(txt=>{ throw new Error('Error comprobando schedules.json: '+res.status+'\n'+txt); });
+        }).then(()=>{
+          const content64=toB64(JSON.stringify(SCHEDULES_DATA,null,2));
+          const now=new Date().toISOString().slice(0,19).replace('T',' ');
           return ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token);
-        }).then(function(res){
+        }).then(res=>{
           if(res.ok){ alert('✅ schedules.json subido correctamente.'); }
-          else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
-        }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
+          else { return res.text().then(txt=> alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt) ); }
+        }).catch(err=> alert('❌ Excepción subiendo a GitHub: '+err.message) );
       }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
     });
   }
 
   /* ===== PWA install ===== */
-  var deferredPrompt=null;
-  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
-  on($('#installTile'),'click', function(){
-    if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; }
+  let deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; });
+  on($('#installTile'),'click', ()=>{
+    if(deferredPrompt){ try{ deferredPrompt.prompt(); deferredPrompt=null; }catch(e){} }
   });
 
   /* ===== Init ===== */
   loadEvents();
-  loadSchedules(); // carga schedules.json (o defaults)
+  loadSchedules();
   renderAcc();
 
   /* ===== SW ===== */
