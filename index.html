@@ -174,7 +174,7 @@ body.modal-open{overflow:hidden}
     </div>
 
     <h3 style="margin:14px 4px 8px">Próximos eventos</h3>
-    <div id="homeEvents" class="hscroll"></div>
+    <div id="homeEvents" class="hscroll"></"></div>
   </section>
 
   <!-- EVENTOS -->
@@ -344,6 +344,22 @@ body.modal-open{overflow:hidden}
       </div>
       <p class="muted">El token no se sube a ningún servidor; queda en tu dispositivo (localStorage).</p>
     </div>
+
+    <!-- Seguridad -->
+    <div class="card" style="margin-top:12px">
+      <h4>Seguridad</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
+        <div>
+          <label>Nueva contraseña admin</label>
+          <input id="adminPinInput" class="input" placeholder="Mín. 4 caracteres">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="saveAdminPin" class="btn">Guardar contraseña</button>
+      </div>
+      <p class="muted">Se guarda SOLO en este dispositivo (localStorage). Se pedirá al activar admin con 5 toques.</p>
+    </div>
+
   </div>
 </div>
 
@@ -368,7 +384,12 @@ body.modal-open{overflow:hidden}
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
-  /* ===== Utils seguros ===== */
+  /* ===== Estado admin al cargar + PIN por defecto ===== */
+  localStorage.setItem('admin','0');
+  document.body.classList.remove('admin-on');
+  if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
+
+  /* ===== Utils ===== */
   function $(sel){return document.querySelector(sel);}
   function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
@@ -397,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function(){
     applyTheme(THEME);
   });
 
-  /* ===== i18n básico ===== */
+  /* ===== i18n ===== */
   var I18N = {
     es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
         ev:"Eventos", evSub:"Qué hay hoy", pl:"Campings", plSub:"Accesos rápidos", sc:"Horarios", scSub:"Recepción · bar",
@@ -576,36 +597,56 @@ document.addEventListener('DOMContentLoaded', function(){
     on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
   });
 
-  /* ===== Admin (tap x5 en logo) ===== */
+  /* ===== Admin (tap x5 en logo + PIN) ===== */
   (function adminActivator(){
     var logo=document.getElementById('logoTap'); var taps=0,timer=null;
     if(!logo) return;
+
+    function isAdminOn(){ return document.body.classList.contains('admin-on'); }
+    function askForPin(){
+      var stored = localStorage.getItem('admin_pin');
+      if(!stored){ stored='311974'; localStorage.setItem('admin_pin', stored); }
+      var entered = window.prompt('Introduce la contraseña de admin:','');
+      if(entered===null) return false;
+      if(entered===stored) return true;
+      alert('Contraseña incorrecta');
+      return false;
+    }
+
     on(logo,'click', function(){
       taps++; clearTimeout(timer); timer=setTimeout(function(){taps=0},1000);
       if(taps>=5){
-        taps=0; var onAdmin = localStorage.getItem('admin')==='1';
-        localStorage.setItem('admin', onAdmin?'0':'1');
-        document.body.classList.toggle('admin-on', !onAdmin);
-        var modal=$('#adminModal');
-        if(!onAdmin){ if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); } loadEventsAdmin(); }
-        else { if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); } }
-        alert(!onAdmin?'Modo admin activado':'Modo admin desactivado');
+        taps=0;
+        if(isAdminOn()){
+          localStorage.setItem('admin','0');
+          document.body.classList.remove('admin-on');
+          alert('Modo admin desactivado');
+        }else{
+          if(!askForPin()) return;
+          localStorage.setItem('admin','1');
+          document.body.classList.add('admin-on');
+          var modal=document.getElementById('adminModal');
+          if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
+          loadEventsAdmin();
+          alert('Modo admin activado');
+        }
       }
     });
-    document.body.classList.toggle('admin-on', localStorage.getItem('admin')==='1');
+
+    /* Arranque siempre sin admin */
+    localStorage.setItem('admin','0');
+    document.body.classList.remove('admin-on');
   })();
-  on($('#openAdmin'),'click', function(){
-    var modal=$('#adminModal'); if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
+
+  /* Bloquear botón Admin del menú si no eres admin */
+  on($('#openAdmin'), 'click', function(){
+    if(!document.body.classList.contains('admin-on')) return;
+    var modal=document.getElementById('adminModal');
+    if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
     loadEventsAdmin();
   });
-  on($('#closeAdmin'),'click', function(){
-    var modal=$('#adminModal'); if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
-  });
-  on($('#adminModal'),'click', function(e){
-    if(e.target && e.target.id==='adminModal'){ e.currentTarget.style.display='none'; document.body.classList.remove('modal-open'); }
-  });
 
-  /* ===== Admin tabla (simple y robusta) ===== */
+  /* ===== Admin tabla (simple) ===== */
   var ADMIN_EVENTS=[];
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
   function isoFromLocal(dt){
@@ -654,7 +695,6 @@ document.addEventListener('DOMContentLoaded', function(){
         + '</td>'
       + '</tr>';
     }).join('');
-    // listeners de fila
     $all('#eventsTable tbody tr').forEach(function(tr){
       var id = tr.getAttribute('data-id');
       on(tr.querySelector('.act-save'),'click', function(){ saveRow(tr,id); });
