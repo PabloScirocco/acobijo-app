@@ -1,0 +1,30 @@
+{
+  "oyambre": {
+    "es": "<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
+    "en": "<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00",
+    "fr": "<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscine (été)</b>: 10:00–20:00",
+    "de": "<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (Sommer)</b>: 10:00–20:00",
+    "nl": "<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Zwembad (zomer)</b>: 10:00–20:00"
+  },
+  "ramales": {
+    "es": "<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
+    "en": "<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00",
+    "fr": "<b>Réception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscine (été)</b>: 11:00–20:00",
+    "de": "<b>Rezeption</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (Sommer)</b>: 11:00–20:00",
+    "nl": "<b>Receptie</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Zwembad (zomer)</b>: 11:00–20:00"
+  },
+  "ruiloba": {
+    "es": "<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
+    "en": "<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+    "fr": "<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+    "de": "<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+    "nl": "<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"
+  },
+  "cardeo": {
+    "es": "<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
+    "en": "<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00",
+    "fr": "<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b> : check-in 16:00, check-out 11:00",
+    "de": "<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b>: Check-in 16:00, Check-out 11:00",
+    "nl": "<b>Taveerne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartementen</b>: check-in 16:00, check-out 11:00"
+  }
+}
