@@ -1,5 +1,19 @@
 [
   {
+    "id": "ev-halloween-en-cardeo-cardeo-2025-10-3121",
+    "fecha": "2025-10-31T20:00:00+01:00",
+    "camping": "cardeo",
+    "titulo": {
+      "es": "Halloween en Cardeo"
+    },
+    "descripcion": {
+      "es": "Xx"
+    },
+    "lugar": {
+      "es": "El Cardeo"
+    }
+  },
+  {
     "id": "ev-nochebuena-ramales-2025",
     "fecha": "2025-12-24T21:00:00+01:00",
     "camping": "ramales",
