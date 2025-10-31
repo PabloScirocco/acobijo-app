@@ -45,7 +45,7 @@ body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
 .drawer .muted{color:var(--muted);font-size:.85rem}
-/* 🔒 Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
+/* Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
@@ -122,7 +122,6 @@ body.dark .modal{background:#0f1a2b}
 body.modal-open{overflow:hidden}
 
 /* Admin button (solo en admin-on) */
-.admin-btn{ /* por compatibilidad, aunque lo controla la regla específica del drawer */ }
 .muted{color:var(--muted);font-size:.9rem}
 
 /* Tabla admin simple */
@@ -365,6 +364,44 @@ body.modal-open{overflow:hidden}
       <p class="muted">Se guarda SOLO en este dispositivo (localStorage). Se pedirá al activar admin con 5 toques.</p>
     </div>
 
+    <!-- Horarios (editar) -->
+    <div class="card" style="margin-top:12px">
+      <h4>Horarios (editar)</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        <div>
+          <label>Camping</label>
+          <select id="schPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </div>
+        <div>
+          <label>Idioma</label>
+          <select id="schLang" class="select">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="nl">Nederlands</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label>Contenido (HTML permitido básico)</label>
+        <textarea id="schText" class="textarea" rows="5" placeholder="<b>Recepción</b>: 9:00–21:00&#10;<b>Restaurante</b>: ..."></textarea>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="schSaveMem" class="btn">Guardar en memoria</button>
+        <button id="schExport" class="btn">Descargar schedules.json</button>
+        <label class="btn" for="schImport" style="cursor:pointer">Importar JSON</label>
+        <input id="schImport" type="file" accept="application/json" style="display:none">
+        <button id="pushSchedulesBtn" class="btn">💾 Guardar en GitHub (schedules.json)</button>
+      </div>
+      <p class="muted">Estos horarios se muestran en la sección “Horarios”.</p>
+    </div>
+
   </div>
 </div>
 
@@ -474,6 +511,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
     $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
     $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
+    renderAcc(); // re-render horarios con nuevo idioma
   }
   applyLang();
 
@@ -568,6 +606,7 @@ document.addEventListener('DOMContentLoaded', function(){
       .then(function(data){ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
       .catch(function(){ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
   }
+
   $all('[data-filter]').forEach(function(ch){
     on(ch,'click', function(){
       $all('[data-filter]').forEach(function(x){x.classList.remove('on');});
@@ -581,23 +620,58 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  /* ===== Horarios ===== */
-  var SCHEDULES={
-    oyambre:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00"},
-    ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00"},
-    ruiloba:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"},
-    cardeo:{es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
-            en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00"}
+  /* ===== Horarios: datos ===== */
+  var SCHEDULES_DEFAULT={
+    oyambre:{
+      es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
+      en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00",
+      fr:"<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscine (été)</b>: 10:00–20:00",
+      de:"<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (Sommer)</b>: 10:00–20:00",
+      nl:"<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Zwembad (zomer)</b>: 10:00–20:00"
+    },
+    ramales:{
+      es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
+      en:"<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00",
+      fr:"<b>Réception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscine (été)</b>: 11:00–20:00",
+      de:"<b>Rezeption</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (Sommer)</b>: 11:00–20:00",
+      nl:"<b>Receptie</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Zwembad (zomer)</b>: 11:00–20:00"
+    },
+    ruiloba:{
+      es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
+      en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+      fr:"<b>Réception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+      de:"<b>Rezeption</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00",
+      nl:"<b>Receptie</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"
+    },
+    cardeo:{
+      es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
+      en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00",
+      fr:"<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b>: check-in 16:00, check-out 11:00",
+      de:"<b>Taverne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartements</b>: Check-in 16:00, Check-out 11:00",
+      nl:"<b>Taveerne</b>: 12:30–16:00 / 19:30–23:30<br><b>Appartementen</b>: check-in 16:00, check-out 11:00"
+    }
   };
+  var SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); // copia mutable
+
   function renderAcc(){
     ['oyambre','ramales','ruiloba','cardeo'].forEach(function(k){
       var el=document.getElementById('acc-'+k);
-      if(el) el.innerHTML = SCHEDULES[k][LANG] || SCHEDULES[k].es;
+      if(!el) return;
+      var block = (SCHEDULES_DATA[k] && (SCHEDULES_DATA[k][LANG] || SCHEDULES_DATA[k].es)) || (SCHEDULES_DEFAULT[k][LANG] || SCHEDULES_DEFAULT[k].es);
+      el.innerHTML = block || '';
     });
   }
+
+  function loadSchedules(){
+    fetch('./schedules.json?v='+(Date.now()),{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('no schedules.json'); return r.json(); })
+      .then(function(data){
+        if(data && typeof data==='object'){ SCHEDULES_DATA = data; renderAcc(); }
+      })
+      .catch(function(){ SCHEDULES_DATA = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
+  }
+
+  /* ===== Abrir/cerrar acordeón horarios ===== */
   $all('.acc-h').forEach(function(h){
     on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
   });
@@ -632,6 +706,7 @@ document.addEventListener('DOMContentLoaded', function(){
           document.body.classList.add('admin-on');
           openAdminModal();
           loadEventsAdmin();
+          loadSchedulesAdminUI(); // cargar editor de horarios
           alert('Modo admin activado');
         }
       }
@@ -647,6 +722,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!document.body.classList.contains('admin-on')) return;
     openAdminModal();
     loadEventsAdmin();
+    loadSchedulesAdminUI();
   });
 
   /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
@@ -662,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla (simple) ===== */
+  /* ===== Admin tabla (eventos) ===== */
   var ADMIN_EVENTS=[];
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
   function isoFromLocal(dt){
@@ -849,6 +925,58 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
   }
 
+  /* ===== Admin: Horarios (editor) ===== */
+  function loadSchedulesAdminUI(){
+    // Inicializa selects con valores actuales
+    var placeSel=$('#schPlace'), langSel=$('#schLang'), txt=$('#schText');
+    if(!placeSel||!langSel||!txt) return;
+    function refreshTextarea(){
+      var p=placeSel.value, l=langSel.value;
+      var cur=(SCHEDULES_DATA[p] && (SCHEDULES_DATA[p][l] || SCHEDULES_DATA[p].es)) || '';
+      txt.value = cur;
+    }
+    refreshTextarea();
+    on(placeSel,'change', refreshTextarea);
+    on(langSel,'change', refreshTextarea);
+
+    on($('#schSaveMem'),'click', function(){
+      var p=placeSel.value, l=langSel.value, v=txt.value;
+      if(!SCHEDULES_DATA[p]) SCHEDULES_DATA[p]={};
+      SCHEDULES_DATA[p][l]=v;
+      alert('Horarios guardados en memoria. Recuerda subir a GitHub para publicarlos.');
+      renderAcc();
+    });
+    on($('#schExport'),'click', function(){
+      var blob=new Blob([JSON.stringify(SCHEDULES_DATA,null,2)],{type:'application/json'});
+      var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+    on($('#schImport'),'change', function(e){
+      var f=e.target.files && e.target.files[0]; if(!f) return;
+      f.text().then(function(txtJson){
+        var data=JSON.parse(txtJson); if(!data || typeof data!=='object') throw new Error('Formato inválido');
+        SCHEDULES_DATA=data; refreshTextarea(); renderAcc(); alert('schedules.json importado.');
+      }).catch(function(err){ alert('No se pudo importar: '+err.message); }).finally(function(){ e.target.value=''; });
+    });
+    on($('#pushSchedulesBtn'),'click', function(){
+      try{
+        var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+        var sha=null;
+        ghGet('schedules.json', token).then(function(res){
+          if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
+          if(res.status===404){ return 404; }
+          return res.text().then(function(txt){ throw new Error('Error comprobando schedules.json: '+res.status+'\n'+txt); });
+        }).then(function(){
+          var content64=toB64(JSON.stringify(SCHEDULES_DATA,null,2));
+          var now=new Date().toISOString().slice(0,19).replace('T',' ');
+          return ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token);
+        }).then(function(res){
+          if(res.ok){ alert('✅ schedules.json subido correctamente.'); }
+          else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
+        }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
+      }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
+    });
+  }
+
   /* ===== PWA install ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
@@ -857,7 +985,9 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Init ===== */
-  loadEvents(); renderAcc();
+  loadEvents();
+  loadSchedules(); // carga schedules.json (o defaults)
+  renderAcc();
 
   /* ===== SW ===== */
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
