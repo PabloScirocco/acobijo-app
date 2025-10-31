@@ -702,6 +702,14 @@ body.modal-open{overflow:hidden}
   on($('#adminModal'),'click', e=>{ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeAdminModal(); } });
 
+  /* Guardar nueva contraseña admin */
+  on($('#saveAdminPin'), 'click', ()=>{
+    const v = ($('#adminPinInput').value||'').trim();
+    if(v.length<4){ alert('La contraseña debe tener al menos 4 caracteres.'); return; }
+    localStorage.setItem('admin_pin', v);
+    alert('Contraseña actualizada para este dispositivo.');
+  });
+
   /* ===== Admin: eventos ===== */
   let ADMIN_EVENTS=[];
   const slug=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);
@@ -947,7 +955,8 @@ body.modal-open{overflow:hidden}
   (function initData(){ loadEvents(); loadSchedules(); renderAcc(); })();
 
   /* ===== SW ===== */
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
+  // Importante: cambiamos el nombre para forzar actualización del SW
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker-v4.js'); }
 
 })(); // init inmediato + fallback DOMContentLoaded
 </script>
