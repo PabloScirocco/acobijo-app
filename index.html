@@ -28,12 +28,14 @@
     .pill{border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:4px 10px;font-size:.8rem;color:var(--ink)}
     .btn{appearance:none;border:1px solid var(--line);background:rgba(0,119,204,.08);color:var(--ink);padding:10px 12px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600;gap:6px}
     .btn.small{padding:6px 10px;font-weight:600}
+    .btn.on{background:var(--accent); color:#fff;}
     .row{display:flex;flex-wrap:wrap;gap:8px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:12px 0 26px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
     section h2{font-size:1.2rem;margin:18px 0 8px;color:var(--ink)}
 
     .event-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .event-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:8px;border:1px solid var(--line)}
     .event-title{font-weight:700}
     .event-meta{font-size:.85rem;color:var(--muted)}
     .event-desc{font-size:.9rem;margin-top:6px}
@@ -43,8 +45,10 @@
 
     /* Modal genérico */
     .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-    .modal{width:min(92vw,900px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+    .modal{width:min(92vw,900px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2);
+      max-height:88vh; overflow:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;}
     .close{background:transparent;border:none;color:var(--muted);font-weight:700;float:right}
+    body.modal-open{overflow:hidden}
 
     /* Admin */
     .admin-btn{display:none;margin:8px 0 0}
@@ -89,6 +93,15 @@
   <!-- EVENTOS -->
   <section>
     <h2 id="t-events-title">Eventos Grupo A Cobijo</h2>
+
+    <!-- Filtros -->
+    <div class="row" id="eventFilterRow" style="margin-bottom:8px">
+      <button class="btn small filter-btn on" data-filter="all" id="f-all">Todos</button>
+      <button class="btn small filter-btn" data-filter="today" id="f-today">Hoy</button>
+      <button class="btn small filter-btn" data-filter="tomorrow" id="f-tomorrow">Mañana</button>
+      <button class="btn small filter-btn" data-filter="week" id="f-week">Esta semana</button>
+    </div>
+
     <div id="events" class="grid"></div>
   </section>
 
@@ -187,7 +200,7 @@
   <!-- INSTALAR APP -->
   <section class="card">
     <h2 id="t-install-title">Instálame como app</h2>
-    <p class="hint" id="t-install-hint">Android: ⋮ → Instalar app. iOS: Compartir → Añadir a pantalla de inicio.</p>
+    <p id="t-install-hint" class="hint">Android: ⋮ → Instalar app. iOS: Compartir → Añadir a pantalla de inicio.</p>
     <button id="installBtn" class="btn" style="display:none">Instalar ahora</button>
     <p id="pwaStatus" class="hint"></p>
   </section>
@@ -227,6 +240,10 @@
           <label>Lugar (ES)</label>
           <input id="evLugar" class="input" placeholder="Ej: Camping Ramales">
         </div>
+        <div>
+          <label>Imagen (URL)</label>
+          <input id="evImg" class="input" placeholder="https://...">
+        </div>
         <div style="grid-column:1 / -1">
           <label>Descripción (ES)</label>
           <textarea id="evDesc" class="textarea" rows="3" placeholder="Ej: Música en directo."></textarea>
@@ -235,6 +252,7 @@
       <div class="row" style="margin-top:10px">
         <button id="addEventBtn" class="btn">Agregar a la lista</button>
         <button id="exportEventsBtn" class="btn">Descargar events.json</button>
+        <button id="exportZipBtn" class="btn">Descargar copia (ZIP)</button>
         <label class="btn" for="importFile" style="cursor:pointer">Importar JSON</label>
         <input id="importFile" type="file" accept="application/json" style="display:none">
       </div>
@@ -245,7 +263,7 @@
       <div style="overflow:auto">
         <table class="table" id="eventsTable">
           <thead>
-            <tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th><th>Acciones</th></tr>
+            <tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título / Descripción / Imagen</th><th>Acciones</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -279,6 +297,9 @@
   </div>
 </div>
 
+<!-- JSZip para ZIP backup -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -294,7 +315,8 @@ const I18N = {
       raTitle:"Camping Ramales",raHint:"Cuevas · Montaña · Actividades",
       heTitle:"Camping El Helguero (Ruiloba)",heHint:"Naturaleza · Familiar · Mascotas",
       caTitle:"Apartamentos / Taberna El Cardeo",caHint:"Apartamentos + Taberna",
-      schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada."},
+      schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
+      fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana"},
   en:{app:"Grupo A Cobijo",subtitle:"Your stay with us · Oyambre · Ramales · Ruiloba",
       pwa:"PWA • Offline",langTitle:"Choose language",
       eventsTitle:"Grupo A Cobijo Events",schedulesTitle:"Schedules",schedulesHint:"Reception, restaurant, pool... choose your site.",
@@ -305,7 +327,8 @@ const I18N = {
       raTitle:"Camping Ramales",raHint:"Caves · Mountains · Activities",
       heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Family · Pets",
       caTitle:"El Cardeo Apartments / Tavern",caHint:"Apartments + Tavern",
-      schedNote:"Indicative info. Check reception for seasonal changes."},
+      schedNote:"Indicative info. Check reception for seasonal changes.",
+      fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week"},
   fr:{app:"Groupe A Cobijo",subtitle:"Votre séjour avec nous · Oyambre · Ramales · Ruiloba",
       pwa:"PWA • Hors ligne",langTitle:"Choisir la langue",
       eventsTitle:"Événements Groupe A Cobijo",schedulesTitle:"Horaires",schedulesHint:"Réception, restaurant, piscine... choisissez votre camping.",
@@ -316,7 +339,8 @@ const I18N = {
       raTitle:"Camping Ramales",raHint:"Grottes · Montagne · Activités",
       heTitle:"Camping El Helguero (Ruiloba)",heHint:"Nature · Famille · Animaux",
       caTitle:"Appartements / Taverne El Cardeo",caHint:"Appartements + Taverne",
-      schedNote:"Infos indicatives. Vérifiez à la réception les changements saisonniers."},
+      schedNote:"Infos indicatives. Vérifiez à la réception les changements saisonniers.",
+      fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine"},
   de:{app:"Gruppe A Cobijo",subtitle:"Ihr Aufenthalt bei uns · Oyambre · Ramales · Ruiloba",
       pwa:"PWA • Offline",langTitle:"Sprache wählen",
       eventsTitle:"Veranstaltungen Grupo A Cobijo",schedulesTitle:"Öffnungszeiten",schedulesHint:"Rezeption, Restaurant, Pool... wähle deinen Platz.",
@@ -327,7 +351,8 @@ const I18N = {
       raTitle:"Camping Ramales",raHint:"Höhlen · Berge · Aktivitäten",
       heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natur · Familie · Haustiere",
       caTitle:"El Cardeo Apartments / Taverne",caHint:"Apartments + Taverne",
-      schedNote:"Unverbindliche Infos. Änderungen saisonabhängig an der Rezeption."},
+      schedNote:"Unverbindliche Infos. Änderungen saisonabhängig an der Rezeption.",
+      fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche"},
   nl:{app:"Groep A Cobijo",subtitle:"Je verblijf bij ons · Oyambre · Ramales · Ruiloba",
       pwa:"PWA • Offline",langTitle:"Taal kiezen",
       eventsTitle:"Evenementen Grupo A Cobijo",schedulesTitle:"Openingstijden",schedulesHint:"Receptie, restaurant, zwembad... kies je camping.",
@@ -338,7 +363,8 @@ const I18N = {
       raTitle:"Camping Ramales",raHint:"Grotten · Bergen · Activiteiten",
       heTitle:"Camping El Helguero (Ruiloba)",heHint:"Natuur · Familie · Huisdieren",
       caTitle:"El Cardeo Apartments / Taverne",caHint:"Apartments + Taverne",
-      schedNote:"Indicatieve info. Informeer bij de receptie voor seizoenswijzigingen."}
+      schedNote:"Indicatieve info. Informeer bij de receptie voor seizoenswijzigingen.",
+      fAll:"Alle", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week"}
 };
 
 function detectLang(){const s=localStorage.getItem("lang");if(s)return s;const n=(navigator.language||"es").slice(0,2).toLowerCase();return ["es","en","fr","de","nl"].includes(n)?n:"es";}
@@ -355,11 +381,14 @@ function applyLang(lang){
   t("t-he-title",T.heTitle); t("t-he-hint",T.heHint);
   t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
   t("langTitle",T.langTitle); t("schedNote",T.schedNote);
+  // Filtros
+  t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek);
   document.querySelectorAll("[data-i18n-web]").forEach(e=>e.textContent=T.web);
   document.querySelectorAll("[data-i18n-call]").forEach(e=>e.textContent=T.call);
   document.querySelectorAll("[data-i18n-directions]").forEach(e=>e.textContent=T.directions);
   document.querySelectorAll("[data-i18n-whatsapp]").forEach(e=>e.textContent=T.whatsapp);
-  localStorage.setItem("lang",lang); setLangBadge(lang); loadEvents();}
+  localStorage.setItem("lang",lang); setLangBadge(lang); loadEvents();
+}
 
 let LANG = detectLang(); setLangBadge(LANG); applyLang(LANG);
 
@@ -373,8 +402,30 @@ document.querySelectorAll(".lang-option").forEach(b=>b.onclick=()=>{LANG=b.datas
 /* ───────────── EVENTOS ───────────── */
 const PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
 const PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+const WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
+
+let EVENTS=[]; let CURRENT_FILTER='all';
 
 function i18nField(v){return typeof v==="string"?v:(v?.[LANG]||v?.es||"");}
+
+function categoryFor(dateStr){
+  const d=new Date(dateStr);
+  const now=new Date();
+  const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
+  const endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate() + (7 - startToday.getDay()));
+  if(d>=startToday && d<startTomorrow) return 'today';
+  if(d>=startTomorrow && d<new Date(startTomorrow.getFullYear(),startTomorrow.getMonth(),startTomorrow.getDate()+1)) return 'tomorrow';
+  if(d>=startToday && d<endOfWeek) return 'week';
+  return 'all';
+}
+
+function waLinkFor(camping,message){
+  const n=WHATSAPP[(camping||'').toLowerCase()];
+  if(!n) return null;
+  const txt=encodeURIComponent(message||'');
+  return `https://wa.me/${n}${txt?`?text=${txt}`:''}`;
+}
 
 function renderEvent(ev){
   const title=i18nField(ev.titulo)||"(sin título)";
@@ -382,30 +433,54 @@ function renderEvent(ev){
   const place=i18nField(ev.lugar)||PLACE_LABEL[(ev.camping||"").toLowerCase()]||"";
   const when=new Intl.DateTimeFormat(LANG,{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}).format(new Date(ev.fecha));
   const maps=PLACE_LINK[(ev.camping||"").toLowerCase()]||(place?`https://www.google.com/maps?q=${encodeURIComponent(place)}`:"#");
+  const imgSrc = ev.imagen || ev.image || "";
+  const waMsg = `Hola, tengo una consulta sobre el evento “${title}” en ${place}.`;
+  const wa = waLinkFor(ev.camping, waMsg);
+
   return `
     <div class="event-card">
+      ${imgSrc ? `<img class="event-thumb" src="${imgSrc}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ""}
       <div class="event-title">${title}</div>
       <div class="event-meta">${when} · ${place}</div>
       <div class="event-desc">${desc}</div>
       <div class="row" style="margin-top:6px">
+        ${wa ? `<a class="btn" href="${wa}" target="_blank" rel="noopener" data-i18n-whatsapp>WhatsApp</a>` : ""}
         <a class="btn" href="${maps}" target="_blank" rel="noopener" data-i18n-directions>Cómo llegar</a>
       </div>
     </div>
   `;
 }
 
+function renderEvents(){
+  const list=document.getElementById('events');
+  if(!EVENTS.length){list.innerHTML='<p class="muted">Sin eventos por ahora.</p>';return;}
+  const filtered = EVENTS.filter(ev=>{
+    if(CURRENT_FILTER==='all') return true;
+    return categoryFor(ev.fecha)===CURRENT_FILTER;
+  }).sort((a,b)=> new Date(a.fecha)-new Date(b.fecha));
+  list.innerHTML = filtered.map(renderEvent).join('') || '<p class="muted">Sin eventos por ahora.</p>';
+}
+
 async function loadEvents(){
   try{
     const r=await fetch(`./events.json?v=${Date.now()}`,{cache:'no-cache'});
     const data=await r.json();
-    const list=document.getElementById('events');
-    if(!Array.isArray(data)||!data.length){list.innerHTML='<p class="muted">Sin eventos por ahora.</p>';return;}
-    data.sort((a,b)=> new Date(a.fecha)-new Date(b.fecha));
-    list.innerHTML=data.map(renderEvent).join('');
+    EVENTS = Array.isArray(data)?data:[];
+    renderEvents();
   }catch(e){
-    document.getElementById('events').innerHTML='<p class="muted">Sin eventos por ahora.</p>';
+    EVENTS=[]; renderEvents();
   }
 }
+
+/* Filtros UI */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    CURRENT_FILTER = btn.dataset.filter || 'all';
+    renderEvents();
+  });
+});
 loadEvents();
 
 /* ───────────── HORARIOS ───────────── */
@@ -464,7 +539,9 @@ schedModal.onclick=(e)=>{if(e.target===schedModal)schedModal.style.display="none
       taps=0; const on=localStorage.getItem('admin')==='1';
       localStorage.setItem('admin',on?'0':'1');
       document.body.classList.toggle('admin-on',!on);
-      document.getElementById('adminModal').style.display=!on?'flex':'none';
+      const modal=document.getElementById('adminModal');
+      if(!on){ modal.style.display='flex'; document.body.classList.add('modal-open'); loadEventsAdmin(); }
+      else{ modal.style.display='none'; document.body.classList.remove('modal-open'); }
       alert(!on?'Modo admin activado':'Modo admin desactivado');
     }
   });
@@ -478,7 +555,7 @@ function isoFromLocal(dt){
   const d=new Date(dt); const tz=-d.getTimezoneOffset(); const sign=tz>=0?'+':'-';
   const hh=String(Math.floor(Math.abs(tz)/60)).padStart(2,'0');
   const mm=String(Math.abs(tz)%60).padStart(2,'0');
-  return d.toISOString().slice(0,19)+sign+hh+':'+mm;
+  return d.toISOString().slice(0,19)+sign+hh+':mm'.replace('mm',mm);
 }
 function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
 
@@ -487,15 +564,28 @@ async function loadEventsAdmin(){
   catch(e){ADMIN_EVENTS=[];}
   renderAdminTable();
 }
-document.getElementById('openAdmin')?.addEventListener('click', ()=>{document.getElementById('adminModal').style.display='flex'; loadEventsAdmin();});
-document.getElementById('closeAdmin')?.addEventListener('click', ()=> document.getElementById('adminModal').style.display='none');
-document.getElementById('adminModal')?.addEventListener('click', (e)=>{if(e.target.id==='adminModal') e.currentTarget.style.display='none';});
+document.getElementById('openAdmin')?.addEventListener('click', ()=>{
+  document.getElementById('adminModal').style.display='flex';
+  document.body.classList.add('modal-open');
+  loadEventsAdmin();
+});
+document.getElementById('closeAdmin')?.addEventListener('click', ()=>{
+  document.getElementById('adminModal').style.display='none';
+  document.body.classList.remove('modal-open');
+});
+document.getElementById('adminModal')?.addEventListener('click', (e)=>{
+  if(e.target.id==='adminModal'){
+    e.currentTarget.style.display='none';
+    document.body.classList.remove('modal-open');
+  }
+});
 
 function renderAdminTable(){
   const tbody=document.querySelector('#eventsTable tbody');
   tbody.innerHTML=ADMIN_EVENTS.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(ev=>{
     const titleES=(typeof ev.titulo==='string'?ev.titulo:(ev.titulo?.es||''))||'';
     const lugarES=(typeof ev.lugar==='string'?ev.lugar:(ev.lugar?.es||''))||'';
+    const img=(ev.imagen||ev.image||'');
     const dt=new Date(ev.fecha);
     const val=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}T${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
     return `<tr data-id="${ev.id}">
@@ -513,6 +603,7 @@ function renderAdminTable(){
       <td>
         <input class="input" placeholder="Título (ES)" value="${titleES.replace(/"/g,'&quot;')}">
         <textarea class="textarea" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">${(ev.descripcion?.es||'').replace(/</g,'&lt;')}</textarea>
+        <input class="input" data-img placeholder="Imagen (URL)" value="${img.replace(/"/g,'&quot;')}" style="margin-top:6px">
       </td>
       <td style="min-width:240px">
         <div class="row" style="gap:6px">
@@ -532,8 +623,20 @@ function renderAdminTable(){
 }
 
 function getRowValues(tr){
-  const [dtInput,campingSel,lugarInput,titleInput,descTextarea]=tr.querySelectorAll('input,select,textarea');
-  return {dateLocal:dtInput.value,camping:campingSel.value,lugar:(lugarInput.value||'').trim(),titulo:(titleInput.value||'').trim(),desc:(descTextarea.value||'').trim()};
+  const dtInput = tr.querySelector('td:nth-child(2) input[type="datetime-local"]');
+  const campingSel = tr.querySelector('td:nth-child(3) select');
+  const lugarInput = tr.querySelector('td:nth-child(3) input');
+  const titleInput = tr.querySelector('td:nth-child(4) input:not([data-img])');
+  const descTextarea = tr.querySelector('td:nth-child(4) textarea');
+  const imgInput = tr.querySelector('td:nth-child(4) input[data-img]');
+  return {
+    dateLocal:dtInput.value,
+    camping:campingSel.value,
+    lugar:(lugarInput.value||'').trim(),
+    titulo:(titleInput.value||'').trim(),
+    desc:(descTextarea.value||'').trim(),
+    img:(imgInput.value||'').trim()
+  };
 }
 function saveRow(tr,id){
   const v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
@@ -543,6 +646,7 @@ function saveRow(tr,id){
   ADMIN_EVENTS[idx].titulo={es:v.titulo};
   ADMIN_EVENTS[idx].lugar={es:v.lugar||defaultLugar(v.camping)};
   ADMIN_EVENTS[idx].descripcion={es:v.desc||''};
+  if(v.img) ADMIN_EVENTS[idx].imagen=v.img; else delete ADMIN_EVENTS[idx].imagen;
   renderAdminTable();
 }
 function duplicateRow(id){
@@ -558,18 +662,42 @@ document.getElementById('addEventBtn')?.addEventListener('click',()=>{
   const date=document.getElementById('evDate').value;
   const place=document.getElementById('evPlace').value;
   const lugar=(document.getElementById('evLugar').value.trim())||defaultLugar(place);
+  const img=document.getElementById('evImg').value.trim();
   const desc=document.getElementById('evDesc').value.trim();
   if(!title||!date||!place){alert('Rellena título, fecha y alojamiento.');return;}
   const id=`ev-${slug(title)}-${place}-${date.replace(/[:T]/g,'').slice(0,12)}`;
-  ADMIN_EVENTS.push({id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}});
+  const obj={id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}};
+  if(img) obj.imagen=img;
+  ADMIN_EVENTS.push(obj);
   renderAdminTable();
-  document.getElementById('evTitle').value='';document.getElementById('evDate').value='';document.getElementById('evLugar').value='';document.getElementById('evDesc').value='';
+  document.getElementById('evTitle').value='';document.getElementById('evDate').value='';document.getElementById('evLugar').value='';document.getElementById('evImg').value='';document.getElementById('evDesc').value='';
 });
 
 document.getElementById('exportEventsBtn')?.addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 });
+
+/* ZIP backup: events.json + imágenes */
+document.getElementById('exportZipBtn')?.addEventListener('click', async ()=>{
+  try{
+    const zip=new JSZip();
+    zip.file('events.json', JSON.stringify(ADMIN_EVENTS,null,2));
+    const imgs=ADMIN_EVENTS.map(e=>e.imagen||e.image).filter(Boolean);
+    const folder=zip.folder('images'); const added=new Set();
+    await Promise.all(imgs.map(async (u)=>{
+      if(added.has(u)) return;
+      try{
+        const res=await fetch(u,{mode:'cors'}); const blob=await res.blob(); const buf=await blob.arrayBuffer();
+        const name=(u.split('/').pop()||'image').split('?')[0];
+        folder.file(name,buf); added.add(u);
+      }catch(err){ console.warn('No se pudo añadir la imagen:', u, err); }
+    }));
+    const blob=await zip.generateAsync({type:'blob'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }catch(e){ alert('No se pudo generar la copia de seguridad.'); console.error(e); }
+});
+
 document.getElementById('importFile')?.addEventListener('change',async(e)=>{
   const f=e.target.files?.[0]; if(!f)return; try{const txt=await f.text(); const data=JSON.parse(txt); if(!Array.isArray(data))throw new Error('El JSON debe ser un array'); ADMIN_EVENTS=data; renderAdminTable();}
   catch(err){alert('No se pudo leer el JSON: '+err.message);} finally{e.target.value='';}
