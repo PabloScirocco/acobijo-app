@@ -366,18 +366,18 @@ function detectTheme(){
 }
 function applyTheme(mode){
   document.body.classList.toggle('dark', mode==='dark');
-  document.getElementById('themeBtn').textContent = mode==='dark' ? '☀️' : '🌙';
+  const themeBtn = document.getElementById('themeBtn');
+  if(themeBtn) themeBtn.textContent = mode==='dark' ? '☀️' : '🌙';
   localStorage.setItem('theme', mode);
-  // Ajusta meta theme-color para el status bar móvil
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', mode==='dark' ? '#0b1220' : '#0ea5e9');
 }
 let THEME = detectTheme();
 applyTheme(THEME);
-document.getElementById('themeBtn').onclick=()=>{
+document.getElementById('themeBtn')?.addEventListener('click',()=>{
   THEME = (THEME==='dark') ? 'light' : 'dark';
   applyTheme(THEME);
-};
+});
 
 /* =========== i18n básico =========== */
 const I18N = {
@@ -424,31 +424,29 @@ function applyLang(){
   t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
   t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
   t("schedNote",T.schedNote);
-  document.getElementById('n-home').textContent=T.nHome;
-  document.getElementById('n-ev').textContent=T.nEv;
-  document.getElementById('n-pl').textContent=T.nPl;
-  document.getElementById('n-sc').textContent=T.nSc;
+  const nh=document.getElementById('n-home'), ne=document.getElementById('n-ev'), np=document.getElementById('n-pl'), ns=document.getElementById('n-sc');
+  if(nh) nh.textContent=T.nHome; if(ne) ne.textContent=T.nEv; if(np) np.textContent=T.nPl; if(ns) ns.textContent=T.nSc;
   document.querySelectorAll("[data-i18n-web]").forEach(e=>e.textContent=T.web);
   document.querySelectorAll("[data-i18n-call]").forEach(e=>e.textContent=T.call);
   document.querySelectorAll("[data-i18n-directions]").forEach(e=>e.textContent=T.directions);
   document.querySelectorAll("[data-i18n-whatsapp]").forEach(e=>e.textContent=T.whatsapp);
 }
 applyLang();
-document.getElementById('langBtn').onclick=()=>document.getElementById('langModal').style.display='flex';
-document.getElementById('closeLang').onclick=()=>document.getElementById('langModal').style.display='none';
-document.querySelectorAll('.lang-option').forEach(b=> b.onclick=()=>{ LANG=b.dataset.lang; localStorage.setItem('lang',LANG); applyLang(); loadEvents(); });
+document.getElementById('langBtn')?.addEventListener('click',()=>document.getElementById('langModal').style.display='flex');
+document.getElementById('closeLang')?.addEventListener('click',()=>document.getElementById('langModal').style.display='none');
+document.querySelectorAll('.lang-option').forEach(b=> b.addEventListener('click',()=>{ LANG=b.dataset.lang; localStorage.setItem('lang',LANG); applyLang(); loadEvents(); }));
 
 /* =========== Nav y Drawer =========== */
 function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+id).classList.add('active');
+  const target=document.getElementById('view-'+id);
+  if(target) target.classList.add('active');
   document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.nav===id));
-  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer')?.classList.remove('open');
 }
 document.querySelectorAll('[data-nav]').forEach(el=> el.addEventListener('click',()=> showView(el.dataset.nav)));
-document.getElementById('menuBtn').onclick=()=> document.getElementById('drawer').classList.add('open');
-document.getElementById('drawerBack').onclick=()=> document.getElementById('drawer').classList.remove('open');
-document.getElementById('installTile').onclick=()=> installBtn?.click();
+document.getElementById('menuBtn')?.addEventListener('click',()=> document.getElementById('drawer')?.classList.add('open'));
+document.getElementById('drawerBack')?.addEventListener('click',()=> document.getElementById('drawer')?.classList.remove('open'));
 
 /* =========== Datos comunes =========== */
 const PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
@@ -497,9 +495,9 @@ function renderEventsGrid(){
     const byCamp = CAMP_FILTER==='all' ? true : (String(ev.camping||'').toLowerCase()===CAMP_FILTER);
     return byDate && byCamp;
   }).sort((a,b)=> new Date(a.fecha)-new Date(b.fecha));
-  if(!filtered.length){ grid.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display='none';
-  grid.innerHTML = filtered.map(ev=>{
+  if(!filtered.length){ if(grid) grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
+  if(empty) empty.style.display='none';
+  if(grid) grid.innerHTML = filtered.map(ev=>{
     const title=i18nField(ev.titulo)||'(sin título)';
     const place=i18nField(ev.lugar)||PLACE_LABEL[(ev.camping||'').toLowerCase()]||'';
     const img=ev.imagen||ev.image||'';
@@ -547,7 +545,7 @@ const SCHEDULES={
 function renderAcc(){
   ['oyambre','ramales','ruiloba','cardeo'].forEach(k=>{
     const el=document.getElementById('acc-'+k);
-    el.innerHTML = SCHEDULES[k][LANG] || SCHEDULES[k].es;
+    if(el) el.innerHTML = SCHEDULES[k][LANG] || SCHEDULES[k].es;
   });
 }
 document.querySelectorAll('.acc-h').forEach(h=>{
@@ -566,21 +564,21 @@ document.querySelectorAll('.acc-h').forEach(h=>{
       localStorage.setItem('admin', on?'0':'1');
       document.body.classList.toggle('admin-on', !on);
       const modal=document.getElementById('adminModal');
-      if(!on){ modal.style.display='flex'; document.body.classList.add('modal-open'); loadEventsAdmin(); }
-      else { modal.style.display='none'; document.body.classList.remove('modal-open'); }
+      if(!on){ if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); } loadEventsAdmin(); }
+      else { if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); } }
       alert(!on?'Modo admin activado':'Modo admin desactivado');
     }
   });
   document.body.classList.toggle('admin-on', localStorage.getItem('admin')==='1');
 })();
 document.getElementById('openAdmin')?.addEventListener('click', ()=>{
-  document.getElementById('adminModal').style.display='flex';
-  document.body.classList.add('modal-open');
+  const modal=document.getElementById('adminModal');
+  if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
   loadEventsAdmin();
 });
 document.getElementById('closeAdmin')?.addEventListener('click', ()=>{
-  document.getElementById('adminModal').style.display='none';
-  document.body.classList.remove('modal-open');
+  const modal=document.getElementById('adminModal');
+  if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
 });
 document.getElementById('adminModal')?.addEventListener('click', (e)=>{
   if(e.target.id==='adminModal'){ e.currentTarget.style.display='none'; document.body.classList.remove('modal-open'); }
@@ -601,6 +599,7 @@ async function loadEventsAdmin(){
 }
 function paintAdminTable(){
   const tb=document.getElementById('eventsTable');
+  if(!tb) return;
   tb.innerHTML = `
     <div style="display:contents">
       ${ADMIN_EVENTS.sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(ev=>{
@@ -667,19 +666,20 @@ function delRow(idx){
 function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
 
 document.getElementById('addEventBtn')?.addEventListener('click',()=>{
-  const title=document.getElementById('evTitle').value.trim();
-  const date=document.getElementById('evDate').value;
-  const place=document.getElementById('evPlace').value;
-  const lugar=(document.getElementById('evLugar').value.trim())||defaultLugar(place);
-  const img=document.getElementById('evImg').value.trim();
-  const desc=document.getElementById('evDesc').value.trim();
+  const title=document.getElementById('evTitle')?.value.trim();
+  const date=document.getElementById('evDate')?.value;
+  const place=document.getElementById('evPlace')?.value;
+  const lugar=(document.getElementById('evLugar')?.value.trim())||defaultLugar(place);
+  const img=document.getElementById('evImg')?.value.trim();
+  const desc=document.getElementById('evDesc')?.value.trim();
   if(!title||!date||!place){alert('Rellena título, fecha y alojamiento.');return;}
   const id=`ev-${slug(title)}-${place}-${date.replace(/[:T]/g,'').slice(0,12)}`;
   const obj={id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}};
   if(img) obj.imagen=img;
   ADMIN_EVENTS.push(obj);
   paintAdminTable();
-  document.getElementById('evTitle').value='';document.getElementById('evDate').value='';document.getElementById('evLugar').value='';document.getElementById('evImg').value='';document.getElementById('evDesc').value='';
+  const clr=(id)=>{const el=document.getElementById(id); if(el) el.value='';};
+  clr('evTitle'); clr('evDate'); clr('evLugar'); clr('evImg'); clr('evDesc');
 });
 
 /* Export/Import + ZIP */
@@ -712,11 +712,23 @@ document.getElementById('importFile')?.addEventListener('change',async(e)=>{
 
 /* GitHub API (PAT fine-grained) */
 const GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
-function loadGhCfgToForm(){ghRepo.value=localStorage.getItem(GH_KEYS.repo)||''; ghBranch.value=localStorage.getItem(GH_KEYS.branch)||'main'; ghToken.value=localStorage.getItem(GH_KEYS.token)||'';}
+function loadGhCfgToForm(){
+  const repoEl=document.getElementById('ghRepo');
+  const branchEl=document.getElementById('ghBranch');
+  const tokenEl=document.getElementById('ghToken');
+  if(!repoEl||!branchEl||!tokenEl) return;
+  repoEl.value=localStorage.getItem(GH_KEYS.repo)||'';
+  branchEl.value=localStorage.getItem(GH_KEYS.branch)||'main';
+  tokenEl.value=localStorage.getItem(GH_KEYS.token)||'';
+}
 function saveGhCfgFromForm(){
-  localStorage.setItem(GH_KEYS.repo, ghRepo.value.trim());
-  localStorage.setItem(GH_KEYS.branch, ghBranch.value.trim()||'main');
-  const t=ghToken.value.trim(); if(t) localStorage.setItem(GH_KEYS.token,t);
+  const repoEl=document.getElementById('ghRepo');
+  const branchEl=document.getElementById('ghBranch');
+  const tokenEl=document.getElementById('ghToken');
+  if(!repoEl||!branchEl||!tokenEl) return;
+  localStorage.setItem(GH_KEYS.repo, repoEl.value.trim());
+  localStorage.setItem(GH_KEYS.branch, branchEl.value.trim()||'main');
+  const t=tokenEl.value.trim(); if(t) localStorage.setItem(GH_KEYS.token,t);
   alert('Configuración guardada en este dispositivo.');
 }
 async function ghGet(path, token){
@@ -731,8 +743,9 @@ async function ghPut(path, contentBase64, message, sha, token){
   return fetch(url,{method:'PUT',headers:{'Authorization':`token ${(token||'').trim()}`,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)});
 }
 function toB64(str){return btoa(unescape(encodeURIComponent(str)));}
-saveGhCfg.addEventListener('click', saveGhCfgFromForm);
-pushEventsBtn.addEventListener('click', saveEventsToGitHub);
+
+document.getElementById('saveGhCfg')?.addEventListener('click', saveGhCfgFromForm);
+document.getElementById('pushEventsBtn')?.addEventListener('click', saveEventsToGitHub);
 document.getElementById('openAdmin')?.addEventListener('click', loadGhCfgToForm);
 
 async function saveEventsToGitHub(){
@@ -750,10 +763,10 @@ async function saveEventsToGitHub(){
 }
 
 /* PWA install */
-let deferredPrompt; const installBtn=document.createElement('button'); installBtn.style.display='none';
+let deferredPrompt; 
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;});
 document.getElementById('installTile')?.addEventListener('click', async ()=>{
-  if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }
+  if(deferredPrompt){ await deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }
 });
 
 /* Init */
