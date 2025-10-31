@@ -93,7 +93,7 @@ body.dark .chip{background:#0f1a2b}
 .place{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
 .place h3{margin:0 0 2px}
 .map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-.map iframe{width:100%;height:100%;border:0; background:#fff}
+.map iframe{width:100%;height:100%;border:0;background:#fff}
 
 /* Schedules (accordion) */
 .acc{display:flex;flex-direction:column;gap:8px}
@@ -112,16 +112,16 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-beavior:contain;
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
-/* ✕ mejorada */
+/* ✕ grande y accesible */
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;
   font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Tabla admin simple */
+/* Tabla admin */
 .table{width:100%;border-collapse:collapse;font-size:.9rem}
 .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .table th{background:var(--tint)}
@@ -142,7 +142,7 @@ body.modal-open{overflow:hidden}
   <button class="lang-btn" id="langBtn">🌐 ES</button>
 </header>
 
-<!-- Drawer (sin mensaje de 5 toques) -->
+<!-- Drawer (sin mensajes) -->
 <div class="drawer" id="drawer">
   <div class="back" id="drawerBack"></div>
   <aside class="panel">
@@ -416,7 +416,7 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
-<!-- JSZip (solo al pulsar ZIP) -->
+<!-- JSZip (para copia ZIP) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
@@ -426,10 +426,7 @@ body.modal-open{overflow:hidden}
     return;
   }
 
-  /* ===== Estado admin + PIN por defecto ===== */
-  localStorage.setItem('admin','0');
-  document.body.classList.remove('admin-on');
-  if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
+  const VERSION='index-2025-10-31-REV2'; console.log('[A Cobijo]', VERSION);
 
   /* ===== Utils ===== */
   const $=s=>document.querySelector(s);
@@ -504,7 +501,7 @@ body.modal-open{overflow:hidden}
     $all("[data-i18n-call]").forEach(e=>e.textContent=T.call);
     $all("[data-i18n-directions]").forEach(e=>e.textContent=T.directions);
     $all("[data-i18n-whatsapp]").forEach(e=>e.textContent=T.whatsapp);
-    renderAcc(); // re-render horarios en idioma
+    renderAcc(); // re-render horarios
   }
   applyLang();
 
@@ -524,6 +521,7 @@ body.modal-open{overflow:hidden}
     $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
     $('#drawer').classList.remove('open');
   }
+  // Menu y mosaico/bottom nav
   $all('[data-nav]').forEach(el=> on(el,'click', ()=> showView(el.getAttribute('data-nav')) ));
   on($('#menuBtn'),'click', ()=> $('#drawer').classList.add('open'));
   on($('#drawerBack'),'click', ()=> $('#drawer').classList.remove('open'));
@@ -542,9 +540,10 @@ body.modal-open{overflow:hidden}
     const d=new Date(dateStr), now=new Date();
     const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
+    const endTomorrow=new Date(startTomorrow); endTomorrow.setDate(startTomorrow.getDate()+1);
     const endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate()+(7-startToday.getDay()));
     if(d>=startToday && d<startTomorrow) return 'today';
-    if(d>=startTomorrow && d< new Date(startTomorrow.getFullYear(),startTomorrow.getMonth(),startTomorrow.getDate()+1)) return 'tomorrow';
+    if(d>=startTomorrow && d<endTomorrow) return 'tomorrow';
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
@@ -662,7 +661,7 @@ body.modal-open{overflow:hidden}
     if(!logo) return;
     const isAdminOn=()=> document.body.classList.contains('admin-on');
     const askForPin=()=>{
-      let stored = localStorage.getItem('admin_pin') || '311974';
+      const stored = localStorage.getItem('admin_pin') || '311974';
       const entered = window.prompt('Introduce la contraseña de admin:','');
       if(entered===null) return false;
       if(entered===stored) return true;
@@ -680,24 +679,23 @@ body.modal-open{overflow:hidden}
           if(!askForPin()) return;
           localStorage.setItem('admin','1');
           document.body.classList.add('admin-on');
-          openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI();
+          openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI(); loadGhCfgToForm();
           alert('Modo admin activado');
         }
       }
     });
+    // Arranque siempre desactivado
     localStorage.setItem('admin','0');
     document.body.classList.remove('admin-on');
   })();
 
-  /* Abrir admin solo si admin-on */
-  on($('#openAdmin'), 'click', ()=>{
-    if(!document.body.classList.contains('admin-on')) return;
-    openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI();
-  });
-
-  /* ===== Modal Admin helpers ===== */
+  /* ===== Modal Admin ===== */
   function openAdminModal(){ $('#adminModal').style.display='flex'; document.body.classList.add('modal-open'); }
   function closeAdminModal(){ $('#adminModal').style.display='none'; document.body.classList.remove('modal-open'); }
+  on($('#openAdmin'), 'click', ()=>{
+    if(!document.body.classList.contains('admin-on')) return;
+    openAdminModal(); loadEventsAdmin(); loadSchedulesAdminUI(); loadGhCfgToForm();
+  });
   on($('#closeAdmin'),'click', e=>{ e.preventDefault(); closeAdminModal(); });
   on($('#adminModal'),'click', e=>{ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeAdminModal(); } });
@@ -728,7 +726,6 @@ body.modal-open{overflow:hidden}
       .then(r=>r.json())
       .then(data=>{ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
       .catch(()=>{ ADMIN_EVENTS=[]; renderAdminTable(); });
-    loadGhCfgToForm();
   }
   function renderAdminTable(){
     const tbody = $('#eventsTable tbody'); if(!tbody) return;
@@ -869,10 +866,7 @@ body.modal-open{overflow:hidden}
   const toB64=str=> btoa(unescape(encodeURIComponent(str)));
 
   on($('#saveGhCfg'),'click', saveGhCfgFromForm);
-  on($('#pushEventsBtn'),'click', saveEventsToGitHub);
-  on($('#openAdmin'),'click', loadGhCfgToForm);
-
-  function saveEventsToGitHub(){
+  on($('#pushEventsBtn'),'click', ()=>{
     try{
       if(!ADMIN_EVENTS.length){ alert('No hay eventos en la lista. Primero añádelos o importa JSON.'); return; }
       const token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
@@ -891,7 +885,7 @@ body.modal-open{overflow:hidden}
         else { return res.text().then(txt=> alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt) ); }
       }).catch(err=> alert('❌ Excepción subiendo a GitHub: '+err.message) );
     }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
-  }
+  });
 
   /* ===== Admin: Horarios (editor) ===== */
   function loadSchedulesAdminUI(){
@@ -955,10 +949,9 @@ body.modal-open{overflow:hidden}
   (function initData(){ loadEvents(); loadSchedules(); renderAcc(); })();
 
   /* ===== SW ===== */
-  // Importante: cambiamos el nombre para forzar actualización del SW
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker-v4.js'); }
 
-})(); // init inmediato + fallback DOMContentLoaded
+})(); // init
 </script>
 </body>
 </html>
