@@ -36,15 +36,18 @@ body.dark .topbar .burger{background:#0f1a2b}
 .lang-btn,.theme-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.35rem .6rem;cursor:pointer}
 body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 
-/* Drawer */
-.drawer{position:fixed;inset:0;z-index:30;display:none}
-.drawer.open{display:block}
-.drawer .back{position:absolute;inset:0;background:rgba(0,0,0,.35)}
-.drawer .panel{position:absolute;inset:0 auto 0 0;width:min(86vw,320px);background:#fff;border-right:1px solid var(--line);
-  padding:14px;display:flex;flex-direction:column;gap:8px}
-body.dark .drawer .panel{background:#0f1a2b}
-.drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
-.drawer .muted{color:var(--muted);font-size:.85rem}
+<!-- Drawer -->
+<div class="drawer" id="drawer">
+  <div class="back" id="drawerBack"></div>
+  <aside class="panel">
+    <div class="item" data-nav="home">🏠 <strong>Inicio</strong></div>
+    <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
+    <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
+    <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
+    <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
+    <!-- (eliminado el mensaje de “Toca el logo 5×…”) -->
+  </aside>
+</div>
 /* Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
