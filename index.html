@@ -130,6 +130,10 @@ body.modal-open{overflow:hidden}
 .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .table th{background:var(--tint)}
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+
+/* Extra pequeños estilos para nuevas vistas */
+.kbd{font:12px/1.4 ui-monospace,monospace;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
+.small{font-size:.85rem}
 </style>
 </head>
 <body>
@@ -154,6 +158,11 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
+    <!-- Nuevas entradas cliente -->
+    <div class="item" data-nav="stay">🛎️ <strong>Mi estancia</strong></div>
+    <div class="item" data-nav="weather">🌤️ <strong>Clima</strong></div>
+    <div class="item" data-nav="pois">📍 <strong>Puntos útiles</strong></div>
+    <div class="item" data-nav="incidents">🛠️ <strong>Incidencias</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
   </aside>
 </div>
@@ -166,7 +175,7 @@ body.modal-open{overflow:hidden}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
+          <div class="badge" id="t-badge">Oyambre, Ramales, Ruiloba y Cardeo</div>
         </div>
       </div>
       <div class="tiles">
@@ -174,6 +183,10 @@ body.modal-open{overflow:hidden}
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
+        <!-- Nuevos tiles -->
+        <div class="tile" data-nav="stay"><div class="big">🛎️</div><div><strong id="t-st">Mi estancia</strong><div class="muted" id="t-st-sub">Wi-Fi · normas</div></div></div>
+        <div class="tile" data-nav="weather"><div class="big">🌤️</div><div><strong id="t-we">Clima</strong><div class="muted" id="t-we-sub">Hoy y previsión</div></div></div>
+        <div class="tile" data-nav="incidents"><div class="big">🛠️</div><div><strong id="t-in">Incidencias</strong><div class="muted" id="t-in-sub">Avísanos rápido</div></div></div>
       </div>
     </div>
 
@@ -208,7 +221,7 @@ body.modal-open{overflow:hidden}
 
       <article class="place">
         <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
-        <p class="muted" id="t-oy-hint">Todos los servicios · Frente al mar</p>
+        <p class="muted" id="t-oy-hint">Todos los servicios 1KM de la Playa Mascotas Bienvenidas</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942711461">Llamar</a>
@@ -220,7 +233,7 @@ body.modal-open{overflow:hidden}
 
       <article class="place">
         <h3 id="t-ra-title">Camping Ramales</h3>
-        <p class="muted" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
+        <p class="muted" id="t-ra-hint">Mascotas Bienvenidas · Montaña · Actividades · Piscina Cubierta</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34654463133">Llamar</a>
@@ -232,7 +245,7 @@ body.modal-open{overflow:hidden}
 
       <article class="place">
         <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
-        <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
+        <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas Bienvenidas</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942722124">Llamar</a>
@@ -244,7 +257,7 @@ body.modal-open{overflow:hidden}
 
       <article class="place">
         <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
-        <p class="muted" id="t-ca-hint">Apartamentos + Taberna</p>
+        <p class="muted" id="t-ca-hint">Apartamentos + Taberna · Mascotas Bienvenidas</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34664686158">Llamar</a>
@@ -280,6 +293,86 @@ body.modal-open{overflow:hidden}
     </div>
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
+
+  <!-- 🆕 MI ESTANCIA -->
+  <section id="view-stay" class="view">
+    <h2 id="t-stay-title">Mi estancia</h2>
+    <article class="card" style="min-width:unset">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div>
+          <div><b>Wi-Fi</b></div>
+          <div>SSID: <span id="wifiSsid">Pregunte en recepción la WIFI correcta</span></div>
+          <div>Clave: <span id="wifiPass" class="kbd">acobijo2025</span></div>
+          <div class="row" style="margin-top:6px">
+            <button class="btn" id="copyWifi">Sin Contraseña</button>
+          </div>
+        </div>
+        <div>
+          <div><b>Horarios clave</b></div>
+          <div>Recepción: <span id="recHours">09:00–21:00</span></div>
+          <div>Check-in: 15:00 · Check-out: 12:00</div>
+        </div>
+        <div>
+          <div><b>Normas rápidas</b></div>
+          <ul style="margin:8px 0 0 18px">
+            <li>Silencio: 00:00–08:00</li>
+            <li>Velocidad interior: 10 km/h</li>
+            <li>Mascotas con correa y recoger excrementos</li>
+          </ul>
+        </div>
+        <div>
+          <div><b>Emergencias</b></div>
+          <div>112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
+          <div class="row" style="margin-top:6px">
+            <a class="btn" href="tel:112">Llamar 112</a>
+            <a class="btn" href="tel:061">Llamar 061</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- 🆕 CLIMA -->
+  <section id="view-weather" class="view">
+    <h2>Clima</h2>
+    <article class="card" id="weatherCard">
+      <div class="small muted">Cargando previsión…</div>
+    </article>
+  </section>
+
+  <!-- 🆕 POIs -->
+  <section id="view-pois" class="view">
+    <h2>Puntos útiles</h2>
+    <div class="grid" id="poisGrid"></div>
+    <p class="muted">Activa la ubicación del dispositivo para calcular distancia/tiempo andando.</p>
+  </section>
+
+  <!-- 🆕 INCIDENCIAS -->
+  <section id="view-incidents" class="view">
+    <h2>Incidencias y peticiones</h2>
+    <article class="card" style="min-width:unset">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
+        <label>Título
+          <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42">
+        </label>
+        <label>Ubicación
+          <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona">
+        </label>
+        <label style="grid-column:1/-1">Detalle
+          <textarea id="iDetail" class="textarea" rows="4" placeholder="Cuéntanos brevemente el problema…"></textarea>
+        </label>
+        <label>Foto (opcional)
+          <input id="iPhoto" type="file" accept="image/*" class="input">
+        </label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="sendWhats">Enviar por WhatsApp</button>
+        <button class="btn" id="sendEmail">Enviar por Email</button>
+        <button class="btn" id="copyTxt">Copiar texto</button>
+      </div>
+      <p class="muted" style="margin-top:6px">Si lo permites, incluimos enlace de tu ubicación para acelerar la atención.</p>
+    </article>
+  </section>
 </main>
 
 <!-- Bottom nav -->
@@ -290,7 +383,7 @@ body.modal-open{overflow:hidden}
   <button class="navbtn" data-nav="schedules"><div class="ico">🕒</div><div id="n-sc">Horarios</div></button>
 </nav>
 
-<!-- ADMIN MODAL -->
+<!-- ADMIN MODAL (sin cambios estructurales) -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
@@ -432,14 +525,14 @@ document.addEventListener('DOMContentLoaded', function(){
   function $(sel){return document.querySelector(sel);}
   function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function safeUrl(u){var s=String(u||'').trim(); if(/^https?:\/\//i.test(s)||/^\/|^\.\.?\//.test(s)||/^data:image\//i.test(s)){return s.replace(/"/g,'%22');} return '';}
 
   /* ===== Tema claro/oscuro ===== */
   function detectTheme(){
     var saved = localStorage.getItem('theme');
     if(saved) return saved;
-    try{
-      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    }catch(e){}
+    try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){}
     return 'light';
   }
   function applyTheme(mode){
@@ -452,10 +545,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   var THEME = detectTheme();
   applyTheme(THEME);
-  on($('#themeBtn'),'click', function(){
-    THEME = (THEME==='dark') ? 'light' : 'dark';
-    applyTheme(THEME);
-  });
+  on($('#themeBtn'),'click', function(){ THEME = (THEME==='dark') ? 'light' : 'dark'; applyTheme(THEME); });
 
   /* ===== i18n ===== */
   var I18N = {
@@ -471,7 +561,13 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
         caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
-        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios"
+        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
+        /* Nuevas */
+        stayTitle:"Mi estancia", st:"Mi estancia", stSub:"Wi-Fi · normas",
+        weather:"Clima", we:"Clima", weSub:"Hoy y previsión",
+        incidents:"Incidencias", inSub:"Avísanos rápido",
+        fav:"⭐ Favorito", favOk:"⭐ Favorito ✓", addCal:"📅 Añadir a calendario",
+        copy:"Copiar", copied:"Copiado"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar",
@@ -485,7 +581,13 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
-        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules"
+        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
+        /* New */
+        stayTitle:"My stay", st:"My stay", stSub:"Wi-Fi · rules",
+        weather:"Weather", we:"Weather", weSub:"Today & forecast",
+        incidents:"Issues", inSub:"Contact us fast",
+        fav:"⭐ Favorite", favOk:"⭐ Favorite ✓", addCal:"📅 Add to calendar",
+        copy:"Copy", copied:"Copied"
     }
   };
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
@@ -502,6 +604,9 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
     t("schedNote",T.schedNote);
+    t("t-stay-title",T.stayTitle); t("t-st",T.st); t("t-st-sub",T.stSub);
+    t("t-we",T.we); t("t-we-sub",T.weSub);
+    t("t-in",T.incidents); t("t-in-sub",T.inSub);
     var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc');
     if(nh) nh.textContent=T.nHome; if(ne) ne.textContent=T.nEv; if(np) np.textContent=T.nPl; if(ns) ns.textContent=T.nSc;
     $all("[data-i18n-web]").forEach(function(e){e.textContent=T.web;});
@@ -516,7 +621,8 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc();
+      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG);
+      applyLang(); loadEvents(); renderAcc();
       var m=$('#langModal'); if(m) m.style.display='none';
     });
   });
@@ -541,22 +647,6 @@ document.addEventListener('DOMContentLoaded', function(){
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
-  /* ===== Seguridad de render (escapes) ===== */
-  function esc(s){
-    return String(s||'')
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;');
-  }
-  function safeUrl(u){
-    var s=String(u||'').trim();
-    if (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)){
-      return s.replace(/"/g,'%22');
-    }
-    return '';
-  }
-
   /* ===== Eventos (home + grid con filtros) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
   function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
@@ -570,6 +660,20 @@ document.addEventListener('DOMContentLoaded', function(){
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
+
+  function cardButtonsHTML(ev){
+    var T=I18N[LANG];
+    var rawTitle=i18nField(ev.titulo)||'(sin título)';
+    var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
+    var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
+    return '<div class="row" style="margin-top:6px">'
+      + '<button class="btn fav-btn" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'+esc(T.fav)+'</button>'
+      + '<button class="btn ics-btn" data-title="'+esc(rawTitle)+'" data-start="'+esc(ev.fecha||'')+'" data-loc="'+esc(rawPlace)+'">'+esc(T.addCal)+'</button>'
+      + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+      + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
+      + '</div>';
+  }
+
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
@@ -580,17 +684,16 @@ document.addEventListener('DOMContentLoaded', function(){
       var title=esc(rawTitle);
       var place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
-      return '<div class="card">'
+      return '<div class="card event" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
-        + '</div></div>';
+        + cardButtonsHTML(ev)
+        + '</div>';
     }).join('');
+    enhanceEventCards();
   }
+
   function renderEventsGrid(){
     var grid=$('#eventsGrid'), empty=$('#eventsEmpty'); if(!grid) return;
     var filtered = EVENTS.filter(function(ev){
@@ -606,17 +709,16 @@ document.addEventListener('DOMContentLoaded', function(){
       var title=esc(rawTitle);
       var place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
-      return '<div class="card" style="min-width:unset">'
+      return '<div class="card event" style="min-width:unset" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
-        + '</div></div>';
+        + cardButtonsHTML(ev)
+        + '</div>';
     }).join('');
+    enhanceEventCards();
   }
+
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
       .then(function(r){return r.json();})
@@ -718,15 +820,8 @@ document.addEventListener('DOMContentLoaded', function(){
     loadSchedulesAdmin();
   });
 
-  /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
-  function openAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
-  }
-  function closeAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
-  }
+  function openAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); } }
+  function closeAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); } }
   on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
@@ -810,14 +905,9 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminSortOrder'),'change', function(e){ ADMIN_SORT_ORDER=e.target.value||'asc'; renderAdminTable(); });
 
   function getRowValues(tr){
-    return {
-      dateLocal: tr.querySelector('.dt').value,
-      camping: tr.querySelector('.camp').value,
-      lugar: (tr.querySelector('.lugar').value||'').trim(),
-      titulo: (tr.querySelector('.titulo').value||'').trim(),
-      desc: (tr.querySelector('.desc').value||'').trim(),
-      img: (tr.querySelector('.img').value||'').trim()
-    };
+    return {dateLocal: tr.querySelector('.dt').value, camping: tr.querySelector('.camp').value,
+      lugar: (tr.querySelector('.lugar').value||'').trim(), titulo: (tr.querySelector('.titulo').value||'').trim(),
+      desc: (tr.querySelector('.desc').value||'').trim(), img: (tr.querySelector('.img').value||'').trim()};
   }
   function saveRow(tr,id){
     var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
@@ -872,9 +962,7 @@ document.addEventListener('DOMContentLoaded', function(){
         return fetch(u,{mode:'cors'}).then(function(res){return res.blob()}).then(function(blob){return blob.arrayBuffer()}).then(function(buf){
           var name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
         }).catch(function(){});
-      })).then(function(){
-        return zip.generateAsync({type:'blob'});
-      }).then(function(blob){
+      })).then(function(){ return zip.generateAsync({type:'blob'}); }).then(function(blob){
         var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
       });
     }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
@@ -997,12 +1085,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; }
   });
 
-  /* ===== Init ===== */
-  applyLang();
-  loadEvents();
-  loadSchedules();
-  renderAcc();
-
   /* ===== Deep linking para shortcuts del manifest ===== */
   (function deepLinking(){
     try{
@@ -1039,6 +1121,188 @@ document.addEventListener('DOMContentLoaded', function(){
     localStorage.setItem('admin_pin', v);
     alert('Contraseña guardada.');
   });
+
+  /* ==========================
+     🆕 FUNCIONES PRO CLIENTE
+     ========================== */
+
+  /* Config rápida */
+  const CLIENTE_CFG = {
+    wifi: { ssid: "GrupoACobijo", pass: "acobijo2025" },
+    receptionHours: "09:00–21:00",
+    contact: { whatsapp: "34675696212", email: "recepcion@grupoacobijo.es" },
+    coords: { oyambre: { lat:43.392, lon:-4.364 } },
+    pois: [
+      { name:"Recepción Oyambre", lat:43.392, lon:-4.364, gmaps:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" },
+      { name:"Playa de Oyambre", lat:43.391, lon:-4.375, gmaps:"https://maps.google.com/?q=Playa+de+Oyambre" },
+      { name:"El Cardeo", lat:43.386, lon:-4.402, gmaps:"https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera" }
+    ]
+  };
+
+  /* Mi estancia */
+  (function initStay(){
+    var ss=$('#wifiSsid'), pw=$('#wifiPass'), rh=$('#recHours');
+    if(ss) ss.textContent = CLIENTE_CFG.wifi.ssid;
+    if(pw) pw.textContent = CLIENTE_CFG.wifi.pass;
+    if(rh) rh.textContent = CLIENTE_CFG.receptionHours;
+    on($('#copyWifi'),'click', async function(){
+      try{ await navigator.clipboard.writeText(CLIENTE_CFG.wifi.pass); alert(I18N[LANG].copied); }catch(e){ alert('No se pudo copiar'); }
+    });
+  })();
+
+  /* Clima (Open-Meteo) */
+  async function loadWeather(){
+    var card = $('#weatherCard'); if(!card) return;
+    var lat=CLIENTE_CFG.coords.oyambre.lat, lon=CLIENTE_CFG.coords.oyambre.lon;
+    var url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMadrid`;
+    try{
+      var r=await fetch(url); var j=await r.json();
+      var t=Math.round(j.current?.temperature_2m ?? 0);
+      var w=Math.round(j.current?.wind_speed_10m ?? 0);
+      var tmax=Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
+      var tmin=Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
+      card.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">'
+        + '<div><div style="font-size:28px;font-weight:700">'+t+'°C</div>'
+        + '<div class="small muted">Max '+tmax+'° · Min '+tmin+'°</div></div>'
+        + '<div class="badge">Viento '+w+' km/h</div>'
+        + '</div>';
+    }catch(e){ card.innerHTML = '<div class="small muted">No se pudo cargar la previsión ahora mismo.</div>'; }
+  }
+  loadWeather();
+
+  /* POIs & distancias */
+  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;const dLat=toRad(b.lat-a.lat),dLon=toRad(b.lon-a.lon);
+    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(s1));}
+  async function renderPOIs(){
+    var grid=$('#poisGrid'); if(!grid) return;
+    grid.innerHTML='';
+    let here=null;
+    try{
+      here = await new Promise((res,rej)=>{
+        if(!navigator.geolocation) return rej();
+        navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude, lon:p.coords.longitude}), rej, {enableHighAccuracy:true, timeout:4000});
+      });
+    }catch(e){}
+    CLIENTE_CFG.pois.forEach(function(p){
+      const km = here ? haversineKm(here,p) : null;
+      const mins = km ? Math.round((km*1000)/(1.4*60)) : null; // paseo ~1.4 m/s
+      const card=document.createElement('div'); card.className='card'; card.style.minWidth='unset';
+      card.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">'
+        + '<div><div style="font-weight:700">'+esc(p.name)+'</div>'
+        + '<div class="muted">'+(km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible')+'</div></div>'
+        + '<a class="btn" target="_blank" rel="noopener" href="'+esc(p.gmaps)+'">Cómo llegar</a></div>';
+      grid.appendChild(card);
+    });
+  }
+  renderPOIs();
+
+  /* Incidencias / Peticiones */
+  function compressImage(file, maxW=1280, quality=0.7){
+    return new Promise((resolve,reject)=>{
+      const img=new Image(); const fr=new FileReader();
+      fr.onload=()=>{ img.src=fr.result; }; fr.onerror=reject;
+      img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
+        const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+        c.toBlob(b=>resolve(b),'image/jpeg',quality); };
+      if(file) fr.readAsDataURL(file); else resolve(null);
+    });
+  }
+  async function buildIncidentText(){
+    const t=($('#iTitle')||{}).value||''; const p=($('#iPlace')||{}).value||''; const d=($('#iDetail')||{}).value||'';
+    let locTxt='';
+    try{
+      const pos = await new Promise((res,rej)=>{
+        if(!navigator.geolocation) return rej();
+        navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
+      });
+      const {latitude,longitude}=pos.coords;
+      locTxt = '\nUbicación: https://maps.google.com/?q='+latitude+','+longitude;
+    }catch(e){}
+    return 'Incidencia/Petición'
+      + '\nTítulo: '+t
+      + '\nUbicación: '+p
+      + '\nDetalle: '+d
+      + locTxt;
+  }
+  on($('#sendWhats'),'click', async function(){
+    const txt=await buildIncidentText();
+    const num=CLIENTE_CFG.contact.whatsapp;
+    const url='https://wa.me/'+num+'?text='+encodeURIComponent(txt);
+    window.open(url,'_blank');
+  });
+  on($('#sendEmail'),'click', async function(){
+    const txt=await buildIncidentText();
+    const mail=CLIENTE_CFG.contact.email;
+    const url='mailto:'+mail+'?subject='+encodeURIComponent('Incidencia/Petición')+'&body='+encodeURIComponent(txt);
+    window.location.href=url;
+  });
+  on($('#copyTxt'),'click', async function(){
+    const txt=await buildIncidentText();
+    try{ await navigator.clipboard.writeText(txt); alert(I18N[LANG].copied); }catch(e){ alert('No se pudo copiar'); }
+  });
+  on($('#iPhoto'),'change', async function(e){
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    const b=await compressImage(f);
+    if(!b){ alert('No se pudo procesar la imagen.'); return; }
+    alert('Imagen optimizada. Adjúntala desde tu galería al enviar por WhatsApp/Email.');
+  });
+
+  /* Eventos: Favoritos + Calendario (.ics) */
+  function toICSTimestamp(d){ const pad=n=>String(n).padStart(2,'0');
+    return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
+  function icsFile(title, startISO, endISO, loc){
+    const now=new Date();
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//ES',
+      'BEGIN:VEVENT',
+      'UID:'+crypto.randomUUID()+'@grupoacobijo',
+      'DTSTAMP:'+toICSTimestamp(now),
+      'DTSTART:'+toICSTimestamp(new Date(startISO)),
+      'DTEND:'+toICSTimestamp(new Date(endISO)),
+      'SUMMARY:'+String(title).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')];
+    if(loc){ lines.push('LOCATION:'+String(loc).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')); }
+    lines.push('END:VEVENT','END:VCALENDAR');
+    return new Blob([lines.join('\r\n')], {type:'text/calendar'});
+  }
+  function enhanceEventCards(){
+    const T=I18N[LANG]; const FKEY='favEvents';
+    const favs=new Set(JSON.parse(localStorage.getItem(FKEY)||'[]'));
+
+    function paint(btn,id){ btn.textContent = favs.has(id)?T.favOk:T.fav; }
+
+    $all('.event .fav-btn').forEach(function(btn){
+      const id=btn.getAttribute('data-id') || (btn.closest('.event')?.getAttribute('data-start')||'') ;
+      if(!btn.dataset.wired){
+        btn.dataset.wired='1';
+        paint(btn,id);
+        on(btn,'click', function(){
+          if(favs.has(id)) favs.delete(id); else favs.add(id);
+          localStorage.setItem(FKEY, JSON.stringify(Array.from(favs)));
+          paint(btn,id);
+        });
+      }
+    });
+
+    $all('.event .ics-btn').forEach(function(btn){
+      if(btn.dataset.wired) return;
+      btn.dataset.wired='1';
+      on(btn,'click', function(){
+        const title=btn.getAttribute('data-title')||'Evento A Cobijo';
+        const startISO=btn.getAttribute('data-start');
+        const loc=btn.getAttribute('data-loc')||'';
+        const start=new Date(startISO);
+        const end=new Date(start.getTime()+60*60000); // 60 min por defecto
+        const blob=icsFile(title,start.toISOString(),end.toISOString(),loc);
+        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=title+'.ics';
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
+      });
+    });
+  }
+
+  /* ===== Init ===== */
+  applyLang();
+  loadEvents();
+  loadSchedules();
+  renderAcc();
 
 }); // DOMContentLoaded
 </script>
