@@ -350,7 +350,7 @@ body.dark .btn.mail{background:#0f1a2b;}
     <h2 id="t-stay-title">Mi estancia</h2>
     <article class="card" style="min-width:unset">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-        <label><b>Estoy alojado en</b>
+        <label><b id="t-stay-where">Estoy alojado en</b>
           <select id="stayCamp" class="input">
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
@@ -359,38 +359,38 @@ body.dark .btn.mail{background:#0f1a2b;}
           </select>
         </label>
         <div>
-          <div><b>Wi-Fi</b></div>
-          <div>SSID: <span id="wifiSsid">—</span></div>
-          <div>Clave: <span id="wifiPass" class="kbd">—</span></div>
-          <div class="row" style="margin-top:6px"><button class="btn" id="copyWifi">Copiar clave</button></div>
+          <div><b id="t-wifi">Wi-Fi</b></div>
+          <div><span id="t-ssid">SSID</span>: <span id="wifiSsid">—</span></div>
+          <div><span id="t-pass">Clave</span>: <span id="wifiPass" class="kbd">—</span></div>
+          <div class="row" style="margin-top:6px"><button class="btn" id="copyWifi"><span id="t-copy-pass">Copiar clave</span></button></div>
         </div>
         <div>
-          <div><b>Horarios clave</b></div>
-          <div>Recepción: <span id="recHours">—</span></div>
-          <div>Check-in: <span id="checkIn">—</span> · Check-out: <span id="checkOut">—</span></div>
+          <div><b id="t-key-hours">Horarios clave</b></div>
+          <div><span id="t-reception">Recepción</span>: <span id="recHours">—</span></div>
+          <div><span id="t-checkin">Check-in</span>: <span id="checkIn">—</span> · <span id="t-checkout">Check-out</span>: <span id="checkOut">—</span></div>
         </div>
         <div>
-          <div><b>Contacto rápido</b></div>
+          <div><b id="t-quick-contact">Contacto rápido</b></div>
           <div class="row" style="margin-top:6px; gap:8px; flex-wrap:wrap">
             <a class="btn" id="stayWhats" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn" id="stayEmail">Email</a>
-            <a class="btn" id="stayDirections" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" id="stayEmail"><span id="t-email">Email</span></a>
+            <a class="btn" id="stayDirections" target="_blank" rel="noopener"><span id="t-directions">Cómo llegar</span></a>
           </div>
         </div>
         <div>
-          <div><b>Normas rápidas</b></div>
+          <div><b id="t-rules">Normas rápidas</b></div>
           <ul style="margin:8px 0 0 18px">
-            <li>Silencio: 23:00–08:00</li>
-            <li>Velocidad interior: 10 km/h</li>
-            <li>Mascotas con correa y recoger excrementos</li>
+            <li id="t-rule-quiet">Silencio: 23:00–08:00</li>
+            <li id="t-rule-speed">Velocidad interior: 10 km/h</li>
+            <li id="t-rule-pets">Mascotas con correa y recoger excrementos</li>
           </ul>
         </div>
         <div>
-          <div><b>Emergencias</b></div>
-          <div>112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
+          <div><b id="t-emergencies">Emergencias</b></div>
+          <div id="t-emer-numbers">112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
           <div class="row" style="margin-top:6px">
-            <a class="btn" href="tel:112">Llamar 112</a>
-            <a class="btn" href="tel:061">Llamar 061</a>
+            <a class="btn" href="tel:112" id="t-call-112">Llamar 112</a>
+            <a class="btn" href="tel:061" id="t-call-061">Llamar 061</a>
           </div>
         </div>
       </div>
@@ -413,16 +413,16 @@ body.dark .btn.mail{background:#0f1a2b;}
 
   <!-- INCIDENCIAS -->
   <section id="view-incidents" class="view">
-    <h2>Incidencias y peticiones</h2>
+    <h2 id="t-incidents-title">Incidencias y peticiones</h2>
     <article class="card inc-card" style="min-width:unset">
       <div class="inc-head">
-        <div class="badge">🛠️ Atención al cliente</div>
-        <div class="muted">Cuéntanos qué ocurre y te atendemos.</div>
+        <div class="badge" id="t-inc-badge">🛠️ Atención al cliente</div>
+        <div class="muted" id="t-inc-lead">Cuéntanos qué ocurre y te atendemos.</div>
       </div>
 
       <div class="inc-grid">
         <div class="inc-field">
-          <span class="label-strong">Alojamiento</span>
+          <span class="label-strong" id="t-inc-lodging">Alojamiento</span>
           <select id="incCamp" class="input">
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
@@ -432,35 +432,35 @@ body.dark .btn.mail{background:#0f1a2b;}
         </div>
 
         <div class="inc-field">
-          <span class="label-strong">Título</span>
+          <span class="label-strong" id="t-inc-title">Título</span>
           <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42">
         </div>
 
         <div class="inc-field">
-          <span class="label-strong">Ubicación</span>
+          <span class="label-strong" id="t-inc-place">Ubicación</span>
           <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona">
         </div>
 
         <div class="inc-field" style="grid-column:1/-1">
-          <span class="label-strong">Detalle</span>
+          <span class="label-strong" id="t-inc-detail">Detalle</span>
           <textarea id="iDetail" class="textarea" rows="4" placeholder="Describe brevemente el problema…"></textarea>
         </div>
 
         <div class="inc-field">
-          <span class="label-strong">Foto (opcional)</span>
+          <span class="label-strong" id="t-inc-photo">Foto (opcional)</span>
           <input id="iPhoto" type="file" accept="image/*" class="input">
           <img id="iPreview" class="inc-prev" alt="Vista previa">
         </div>
       </div>
 
       <div class="inc-actions">
-        <button class="btn wa" id="sendWhats">Enviar por WhatsApp</button>
-        <button class="btn mail" id="sendEmail">Enviar por Email</button>
-        <button class="btn" id="copyTxt">Copiar texto</button>
+        <button class="btn wa" id="sendWhats"><span id="t-btn-send-wa">Enviar por WhatsApp</span></button>
+        <button class="btn mail" id="sendEmail"><span id="t-btn-send-mail">Enviar por Email</span></button>
+        <button class="btn" id="copyTxt"><span id="t-btn-copy">Copiar texto</span></button>
       </div>
 
       <p class="pill-target" id="iTarget"></p>
-      <p class="inc-note">Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.</p>
+      <p class="inc-note" id="t-inc-note">Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.</p>
     </article>
   </section>
 </main>
@@ -656,7 +656,7 @@ document.addEventListener('DOMContentLoaded', function(){
         eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
         fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana",
         cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp",
+        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp", email:"Email",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar",
         raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
@@ -668,7 +668,25 @@ document.addEventListener('DOMContentLoaded', function(){
         incidents:"Incidencias", inSub:"Avísanos rápido",
         fav:"⭐ Favorito", favOk:"⭐ Favorito ✓", addCal:"📅 Añadir a calendario",
         copy:"Copiar", copied:"Copiado",
-        nStay:"Mi estancia", nInc:"Incidencias"
+        nStay:"Mi estancia", nInc:"Incidencias",
+        // Mi estancia
+        stayWhere:"Estoy alojado en",
+        wifi:"Wi-Fi", ssid:"SSID", password:"Clave", copyPass:"Copiar clave",
+        keyHours:"Horarios clave", reception:"Recepción", checkin:"Check-in", checkout:"Check-out",
+        quickContact:"Contacto rápido", rules:"Normas rápidas",
+        ruleQuiet:"Silencio: 23:00–08:00", ruleSpeed:"Velocidad interior: 10 km/h", rulePets:"Mascotas con correa y recoger excrementos",
+        emergencies:"Emergencias", emerNumbers:"112 (general) · 061 (sanitaria) · 062 (Guardia Civil)",
+        contactSubject:"Consulta desde la app",
+        // Incidencias
+        incidentsTitle:"Incidencias y peticiones", incBadge:"🛠️ Atención al cliente",
+        incLead:"Cuéntanos qué ocurre y te atendemos.",
+        incLodging:"Alojamiento", incTitle:"Título", incPlace:"Ubicación", incDetail:"Detalle", incPhoto:"Foto (opcional)",
+        phTitle:"Ej.: Bombilla fundida en parcela 42", phPlace:"Parcela / Bungalow / Zona", phDetail:"Describe brevemente el problema…",
+        sendWhats:"Enviar por WhatsApp", sendEmail:"Enviar por Email", copyText:"Copiar texto",
+        targetWillSend:"Se enviará a {name}: WhatsApp +{wa} · {email}",
+        includeLocNote:"Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.",
+        errNeedText:"Añade al menos un título o un detalle para enviar.",
+        emailSubject:"Incidencia/Petición"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar",
@@ -676,7 +694,7 @@ document.addEventListener('DOMContentLoaded', function(){
         eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
         fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week",
         cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp",
+        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp", email:"Email",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea",
         raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities",
         heTitle:"El Helguero Campsite (Ruiloba)", heHint:"Nature · Family · Pets",
@@ -688,14 +706,148 @@ document.addEventListener('DOMContentLoaded', function(){
         incidents:"Issues", inSub:"Contact us fast",
         fav:"⭐ Favorite", favOk:"⭐ Favorite ✓", addCal:"📅 Add to calendar",
         copy:"Copy", copied:"Copied",
-        nStay:"My stay", nInc:"Issues"
+        nStay:"My stay", nInc:"Issues",
+        // My stay
+        stayWhere:"I'm staying at",
+        wifi:"Wi-Fi", ssid:"SSID", password:"Password", copyPass:"Copy password",
+        keyHours:"Key hours", reception:"Reception", checkin:"Check-in", checkout:"Check-out",
+        quickContact:"Quick contact", rules:"House rules",
+        ruleQuiet:"Quiet hours: 23:00–08:00", ruleSpeed:"Speed limit inside: 10 km/h", rulePets:"Pets on leash; pick up waste",
+        emergencies:"Emergencies", emerNumbers:"112 (general) · 061 (health) · 062 (Guardia Civil)",
+        contactSubject:"Query from the app",
+        // Incidents
+        incidentsTitle:"Issues & requests", incBadge:"🛠️ Customer support",
+        incLead:"Tell us what's happening and we'll help.",
+        incLodging:"Accommodation", incTitle:"Title", incPlace:"Location", incDetail:"Details", incPhoto:"Photo (optional)",
+        phTitle:"e.g., Light bulb out at pitch 42", phPlace:"Pitch / Bungalow / Area", phDetail:"Briefly describe the issue…",
+        sendWhats:"Send via WhatsApp", sendEmail:"Send via Email", copyText:"Copy text",
+        targetWillSend:"Will be sent to {name}: WhatsApp +{wa} · {email}",
+        includeLocNote:"If permitted, we'll include a link to your location to speed up assistance.",
+        errNeedText:"Add at least a title or some details to send.",
+        emailSubject:"Issue/Request"
+    },
+    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
+        ev:"Événements", evSub:"Quoi aujourd’hui", pl:"Campings", plSub:"Accès rapide", sc:"Horaires", scSub:"Réception · bar",
+        inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
+        eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
+        fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine",
+        cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Site web", call:"Appeler", directions:"Itinéraire", whatsapp:"WhatsApp", email:"Email",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Tous services · En bord de mer",
+        raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Famille · Animaux",
+        caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
+        schedNote:"Infos indicatives. Vérifiez à la réception selon la saison.",
+        nHome:"Accueil", nEv:"Événements", nPl:"Campings", nSc:"Horaires",
+        stayTitle:"Mon séjour", st:"Mon séjour", stSub:"Wi-Fi · règles",
+        weather:"Météo", we:"Météo", weSub:"Aujourd’hui & prévision",
+        incidents:"Incidents", inSub:"Contactez-nous rapidement",
+        fav:"⭐ Favori", favOk:"⭐ Favori ✓", addCal:"📅 Ajouter au calendrier",
+        copy:"Copier", copied:"Copié",
+        nStay:"Mon séjour", nInc:"Incidents",
+        // Mon séjour
+        stayWhere:"Je suis hébergé à",
+        wifi:"Wi-Fi", ssid:"SSID", password:"Mot de passe", copyPass:"Copier le mot de passe",
+        keyHours:"Horaires clés", reception:"Réception", checkin:"Check-in", checkout:"Check-out",
+        quickContact:"Contact rapide", rules:"Règles de la maison",
+        ruleQuiet:"Silence : 23:00–08:00", ruleSpeed:"Vitesse intérieure : 10 km/h", rulePets:"Animaux en laisse et ramasser",
+        emergencies:"Urgences", emerNumbers:"112 (général) · 061 (santé) · 062 (Garde civile)",
+        contactSubject:"Question depuis l’application",
+        // Incidents
+        incidentsTitle:"Incidents & demandes", incBadge:"🛠️ Service client",
+        incLead:"Décrivez-nous le problème et nous vous aidons.",
+        incLodging:"Hébergement", incTitle:"Titre", incPlace:"Emplacement", incDetail:"Détail", incPhoto:"Photo (optionnel)",
+        phTitle:"Ex. : Ampoule grillée à l’emplacement 42", phPlace:"Emplacement / Bungalow / Zone", phDetail:"Décrivez brièvement le problème…",
+        sendWhats:"Envoyer via WhatsApp", sendEmail:"Envoyer par email", copyText:"Copier le texte",
+        targetWillSend:"Sera envoyé à {name} : WhatsApp +{wa} · {email}",
+        includeLocNote:"Si vous l’autorisez, nous inclurons un lien vers votre position pour accélérer l’aide.",
+        errNeedText:"Ajoutez au moins un titre ou un détail pour envoyer.",
+        emailSubject:"Incident/Demande"
+    },
+    de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
+        ev:"Events", evSub:"Was gibt’s heute", pl:"Campingplätze", plSub:"Schnellzugriff", sc:"Zeiten", scSub:"Rezeption · Bar",
+        inst:"Installieren", instSub:"Zum Startbildschirm",
+        eventsTitle:"Events", schedulesTitle:"Zeiten", campingsTitle:"Unsere Campingplätze",
+        fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche",
+        cAll:"Alle Plätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Anrufen", directions:"Route", whatsapp:"WhatsApp", email:"E-Mail",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle Services · Am Meer",
+        raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
+        caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
+        schedNote:"Unverbindliche Infos. Saisonabhängige Änderungen an der Rezeption prüfen.",
+        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
+        stayTitle:"Mein Aufenthalt", st:"Mein Aufenthalt", stSub:"Wi-Fi · Regeln",
+        weather:"Wetter", we:"Wetter", weSub:"Heute & Vorhersage",
+        incidents:"Meldungen", inSub:"Schnell Kontakt",
+        fav:"⭐ Favorit", favOk:"⭐ Favorit ✓", addCal:"📅 Zum Kalender",
+        copy:"Kopieren", copied:"Kopiert",
+        nStay:"Mein Aufenthalt", nInc:"Meldungen",
+        // Mein Aufenthalt
+        stayWhere:"Ich bin untergebracht in",
+        wifi:"Wi-Fi", ssid:"SSID", password:"Passwort", copyPass:"Passwort kopieren",
+        keyHours:"Wichtige Zeiten", reception:"Rezeption", checkin:"Check-in", checkout:"Check-out",
+        quickContact:"Schnellkontakt", rules:"Hausregeln",
+        ruleQuiet:"Ruhezeiten: 23:00–08:00", ruleSpeed:"Fahrtempo innen: 10 km/h", rulePets:"Haustiere an der Leine, Kot entsorgen",
+        emergencies:"Notfälle", emerNumbers:"112 (allg.) · 061 (medizin.) · 062 (Guardia Civil)",
+        contactSubject:"Anfrage aus der App",
+        // Meldungen
+        incidentsTitle:"Meldungen & Wünsche", incBadge:"🛠️ Kundenservice",
+        incLead:"Sagen Sie uns kurz Bescheid – wir kümmern uns.",
+        incLodging:"Unterkunft", incTitle:"Titel", incPlace:"Ort", incDetail:"Details", incPhoto:"Foto (optional)",
+        phTitle:"Z. B.: Lampe defekt auf Parzelle 42", phPlace:"Parzelle / Bungalow / Bereich", phDetail:"Beschreiben Sie das Problem kurz…",
+        sendWhats:"Per WhatsApp senden", sendEmail:"Per E-Mail senden", copyText:"Text kopieren",
+        targetWillSend:"Wird an {name} gesendet: WhatsApp +{wa} · {email}",
+        includeLocNote:"Wenn erlaubt, fügen wir Ihren Standortlink hinzu, um schneller zu helfen.",
+        errNeedText:"Bitte geben Sie mindestens einen Titel oder Details ein.",
+        emailSubject:"Meldung/Wunsch"
+    },
+    nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
+        ev:"Evenementen", evSub:"Wat is er vandaag", pl:"Campings", plSub:"Snelle toegang", sc:"Tijden", scSub:"Receptie · bar",
+        inst:"Installeren", instSub:"Naar beginscherm",
+        eventsTitle:"Evenementen", schedulesTitle:"Tijden", campingsTitle:"Onze campings",
+        fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week",
+        cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Bellen", directions:"Route", whatsapp:"WhatsApp", email:"E-mail",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle services · Aan zee",
+        raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
+        caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
+        schedNote:"Indicatieve info. Check bij de receptie i.v.m. seizoenswijzigingen.",
+        nHome:"Start", nEv:"Events", nPl:"Campings", nSc:"Tijden",
+        stayTitle:"Mijn verblijf", st:"Mijn verblijf", stSub:"Wi-Fi · regels",
+        weather:"Weer", we:"Weer", weSub:"Vandaag & verwachting",
+        incidents:"Meldingen", inSub:"Snel contact",
+        fav:"⭐ Favoriet", favOk:"⭐ Favoriet ✓", addCal:"📅 Aan agenda toevoegen",
+        copy:"Kopiëren", copied:"Gekopieerd",
+        nStay:"Mijn verblijf", nInc:"Meldingen",
+        // Mijn verblijf
+        stayWhere:"Ik verblijf in",
+        wifi:"Wi-Fi", ssid:"SSID", password:"Wachtwoord", copyPass:"Wachtwoord kopiëren",
+        keyHours:"Belangrijke tijden", reception:"Receptie", checkin:"Check-in", checkout:"Check-out",
+        quickContact:"Snelle contact", rules:"Huisregels",
+        ruleQuiet:"Stilte: 23:00–08:00", ruleSpeed:"Snelheid op terrein: 10 km/u", rulePets:"Huisdieren aangelijnd; opruimen",
+        emergencies:"Noodgevallen", emerNumbers:"112 (alg.) · 061 (zorg) · 062 (Guardia Civil)",
+        contactSubject:"Vraag via de app",
+        // Meldingen
+        incidentsTitle:"Meldingen & verzoeken", incBadge:"🛠️ Klantenservice",
+        incLead:"Vertel wat er is; we helpen je.",
+        incLodging:"Accommodatie", incTitle:"Titel", incPlace:"Locatie", incDetail:"Details", incPhoto:"Foto (optioneel)",
+        phTitle:"Bijv.: Lamp stuk op plek 42", phPlace:"Plek / Bungalow / Zone", phDetail:"Beschrijf kort het probleem…",
+        sendWhats:"Versturen via WhatsApp", sendEmail:"Versturen via e-mail", copyText:"Tekst kopiëren",
+        targetWillSend:"Wordt verstuurd naar {name}: WhatsApp +{wa} · {email}",
+        includeLocNote:"Als toegestaan voegen we een link naar je locatie toe om sneller te helpen.",
+        errNeedText:"Voeg minstens een titel of detail toe om te versturen.",
+        emailSubject:"Melding/Verzoek"
     }
   };
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+
   function applyLang(){
     var T=I18N[LANG];
+    // generales
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub); t("t-pl",T.pl); t("t-pl-sub",T.plSub); t("t-sc",T.sc); t("t-sc-sub",T.scSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
@@ -709,13 +861,12 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-we",T.we); t("t-we-sub",T.weSub);
     t("t-in",T.incidents); t("t-in-sub",T.inSub);
 
-    // Bottom nav (nuevos ids)
+    // Bottom nav
     var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc'), nst=$('#n-st'), nin=$('#n-in');
     if(nh) nh.textContent=T.nHome;
     if(nst) nst.textContent=T.nStay||T.stayTitle||'Mi estancia';
     if(nin) nin.textContent=T.nInc||T.incidents||'Incidencias';
     if(ne) ne.textContent=T.nEv;
-    // (compat: si existieran np/ns)
     if(np) np.textContent=T.nPl;
     if(ns) ns.textContent=T.nSc;
 
@@ -724,6 +875,27 @@ document.addEventListener('DOMContentLoaded', function(){
     $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
     $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
     var lb=$('#langBtn'); if(lb){ lb.textContent='🌐 '+LANG.toUpperCase(); }
+
+    // ===== Mi estancia
+    t("t-stay-where",T.stayWhere);
+    t("t-wifi",T.wifi); t("t-ssid",T.ssid); t("t-pass",T.password); t("t-copy-pass",T.copyPass);
+    t("t-key-hours",T.keyHours); t("t-reception",T.reception); t("t-checkin",T.checkin); t("t-checkout",T.checkout);
+    t("t-quick-contact",T.quickContact);
+    t("t-email",T.email); t("t-directions",T.directions);
+    t("t-rules",T.rules); t("t-rule-quiet",T.ruleQuiet); t("t-rule-speed",T.ruleSpeed); t("t-rule-pets",T.rulePets);
+    t("t-emergencies",T.emergencies); t("t-emer-numbers",T.emerNumbers);
+    var c112=$('#t-call-112'); if(c112) c112.textContent=(T.call||'Call')+' 112';
+    var c061=$('#t-call-061'); if(c061) c061.textContent=(T.call||'Call')+' 061';
+
+    // ===== Incidencias
+    t("t-incidents-title",T.incidentsTitle);
+    t("t-inc-badge",T.incBadge); t("t-inc-lead",T.incLead);
+    t("t-inc-lodging",T.incLodging); t("t-inc-title",T.incTitle); t("t-inc-place",T.incPlace); t("t-inc-detail",T.incDetail); t("t-inc-photo",T.incPhoto);
+    $('#iTitle') && ($('#iTitle').placeholder = T.phTitle);
+    $('#iPlace') && ($('#iPlace').placeholder = T.phPlace);
+    $('#iDetail') && ($('#iDetail').placeholder = T.phDetail);
+    t("t-btn-send-wa",T.sendWhats); t("t-btn-send-mail",T.sendEmail); t("t-btn-copy",T.copyText);
+    t("t-inc-note",T.includeLocNote);
   }
   applyLang();
 
@@ -731,7 +903,8 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc(); loadWeatherAll();
+      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG);
+      applyLang(); loadEvents(); renderAcc(); loadWeatherAll(); updateIncidentTargetUI();
       var m=$('#langModal'); if(m) m.style.display='none'; });
   });
 
@@ -755,7 +928,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
-  /* ===== Eventos (home + grid con filtros) ===== */
+  /* ===== Eventos ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
   function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
   function categoryFor(dateStr){
@@ -842,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  /* ===== Horarios (schedules.json con fallback) ===== */
+  /* ===== Horarios ===== */
   var SCHEDULES_DEFAULT={
     oyambre:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
              en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00"},
@@ -877,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', function(){
     on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
   });
 
-  /* ===== Admin (tap x5 en logo + PIN) ===== */
+  /* ===== Admin (tap x5) ===== */
   (function adminActivator(){
     var logo=document.getElementById('logoTap'); var taps=0,timer=null;
     if(!logo) return;
@@ -937,7 +1110,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla (filtro/orden) ===== */
+  /* ===== Admin tabla ===== */
   var ADMIN_EVENTS=[];
   var ADMIN_FILTER_CAMP='all';
   var ADMIN_SORT_ORDER='asc';
@@ -1112,7 +1285,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'});
     var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
-  on($('#importSchedFile'),'click', function(e){ /* input visible solo click */ });
   on($('#importSchedFile'),'change', function(e){
     var f=e.target.files && e.target.files[0]; if(!f) return;
     f.text().then(function(txt){
@@ -1241,19 +1413,20 @@ document.addEventListener('DOMContentLoaded', function(){
       if(c!=='all' && x.getAttribute('data-camp')==='all') x.classList.remove('on');
     });
     renderEventsGrid();
+    updateIncidentTargetUI();
   }
   function updateStayUI(){
-    const campKey=currentCamp(); const cfg=CLIENTE_CFG.byCamp[campKey];
+    const campKey=currentCamp(); const cfg=CLIENTE_CFG.byCamp[campKey]; const T=I18N[LANG];
     var sel=$('#stayCamp'); if(sel && sel.value!==campKey) sel.value=campKey;
     $('#wifiSsid').textContent=cfg.wifi.ssid; $('#wifiPass').textContent=cfg.wifi.pass; $('#recHours').textContent=cfg.receptionHours;
     $('#checkIn').textContent=cfg.checkin; $('#checkOut').textContent=cfg.checkout;
     var w=$('#stayWhats'), e=$('#stayEmail'), d=$('#stayDirections');
     if(w) w.href='https://wa.me/'+cfg.contact.wa;
-    if(e) e.onclick=()=>{ const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent('Consulta desde la app'); location.href=url; };
+    if(e) e.onclick=()=>{ const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent(T.contactSubject||'Consulta desde la app'); location.href=url; };
     if(d) d.href=cfg.directions;
   }
   on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
-  on($('#copyWifi'),'click', async ()=>{ try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); } });
+  on($('#copyWifi'),'click', async ()=>{ const T=I18N[LANG]; try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert(T.copied||'Copiado'); }catch(e){ alert('No se pudo copiar'); } });
 
   /* ===== CLIMA por establecimiento ===== */
   function iconFor(code){
@@ -1312,7 +1485,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <div class="wx-mm">Max ${todayMax}° · Min ${todayMin}°</div>
             </div>
           </div>
-          <a class="btn" target="_blank" rel="noopener" href="${esc(CLIENTE_CFG.byCamp[campKey].directions)}">Cómo llegar</a>
+          <a class="btn" target="_blank" rel="noopener" href="${esc(CLIENTE_CFG.byCamp[campKey].directions)}">${esc(I18N[LANG].directions)}</a>
         </div>
 
         <div class="wx-3">
@@ -1380,7 +1553,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <div><div style="font-weight:700">${esc(p.name)}</div>
             <div class="muted">${km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible'}</div>
           </div>
-          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">Cómo llegar</a>
+          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">${esc(I18N[LANG].directions)}</a>
         </div>`;
       grid.appendChild(card);
     });
@@ -1396,7 +1569,10 @@ document.addEventListener('DOMContentLoaded', function(){
     const k = incidentCampKey();
     const cfg = CLIENTE_CFG.byCamp[k];
     const el = $('#iTarget');
-    if(el) el.textContent = `Se enviará a ${cfg.label}: WhatsApp +${cfg.contact.wa} · ${cfg.contact.email}`;
+    const T = I18N[LANG];
+    const msgTpl = (T.targetWillSend||'Will be sent to {name}: WhatsApp +{wa} · {email}')
+      .replace('{name}', cfg.label).replace('{wa}', cfg.contact.wa).replace('{email}', cfg.contact.email);
+    if(el) el.textContent = msgTpl;
   }
   (function initIncidentCamp(){
     const sel = $('#incCamp');
@@ -1405,6 +1581,7 @@ document.addEventListener('DOMContentLoaded', function(){
   })();
 
   async function buildIncidentText(){
+    const T = I18N[LANG];
     const t=($('#iTitle')||{}).value||''; 
     const p=($('#iPlace')||{}).value||''; 
     const d=($('#iDetail')||{}).value||'';
@@ -1417,20 +1594,21 @@ document.addEventListener('DOMContentLoaded', function(){
         if(!navigator.geolocation) return rej();
         navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
       });
-      locTxt = `\nUbicación: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+      locTxt = `\n${(T.directions||'Directions')}: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
     }catch(_){}
 
-    return `Incidencia/Petición
-Alojamiento: ${campLabel}
-Título: ${t}
-Ubicación: ${p}
-Detalle: ${d}${locTxt}`;
+    return `${T.emailSubject||'Incidencia/Petición'}
+${T.incLodging||'Alojamiento'}: ${campLabel}
+${T.incTitle||'Título'}: ${t}
+${T.incPlace||'Ubicación'}: ${p}
+${T.incDetail||'Detalle'}: ${d}${locTxt}`;
   }
 
   /* === WhatsApp robusto === */
   on($('#sendWhats'),'click', async ()=>{
+    const T = I18N[LANG];
     if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
-      alert('Añade al menos un título o un detalle para enviar.'); return;
+      alert(T.errNeedText||'Añade al menos un título o un detalle para enviar.'); return;
     }
     const txt = await buildIncidentText();
     const k   = incidentCampKey();
@@ -1451,18 +1629,23 @@ Detalle: ${d}${locTxt}`;
 
   /* === Email === */
   on($('#sendEmail'),'click', async ()=>{
+    const T = I18N[LANG];
     if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
-      alert('Añade al menos un título o un detalle para enviar.'); return;
+      alert(T.errNeedText||'Añade al menos un título o un detalle para enviar.'); return;
     }
     const txt = await buildIncidentText();
     const k   = incidentCampKey();
     const em  = (CLIENTE_CFG.byCamp[k].contact.email || '').trim();
-    const sub = 'Incidencia/Petición';
+    const sub = T.emailSubject || 'Incidencia/Petición';
     const mailto = `mailto:${encodeURIComponent(em)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(txt)}`;
     location.href = mailto;
   });
 
-  on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
+  on($('#copyTxt'),'click', async ()=>{
+    const T = I18N[LANG];
+    const txt=await buildIncidentText();
+    try{ await navigator.clipboard.writeText(txt); alert(T.copied||'Copiado'); }catch(_){ alert('No se pudo copiar'); }
+  });
 
   /* Foto: preview */
   on($('#iPhoto'),'change', async function(e){
