@@ -121,8 +121,8 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin button (solo en admin-on) */
-.admin-btn{ /* por compatibilidad, aunque lo controla la regla específica del drawer */ }
+/* Admin button (placeholder) */
+.admin-btn{}
 .muted{color:var(--muted);font-size:.9rem}
 
 /* Tabla admin simple */
@@ -136,26 +136,26 @@ body.modal-open{overflow:hidden}
 
 <!-- Topbar -->
 <header class="topbar">
-  <button id="menuBtn" class="burger">☰</button>
+  <button id="menuBtn" class="burger" aria-label="Abrir menú">☰</button>
   <div class="brand">
     <img src="assets/logo.png" alt="Grupo A Cobijo" id="logoTap">
     <h1 id="t-app">Grupo A Cobijo</h1>
   </div>
   <div style="flex:1"></div>
-  <button class="theme-btn" id="themeBtn" title="Tema">🌙</button>
-  <button class="lang-btn" id="langBtn">🌐 ES</button>
+  <button class="theme-btn" id="themeBtn" title="Tema" aria-label="Cambiar tema">🌙</button>
+  <button class="lang-btn" id="langBtn" aria-haspopup="dialog">🌐 ES</button>
 </header>
 
 <!-- Drawer -->
 <div class="drawer" id="drawer">
   <div class="back" id="drawerBack"></div>
-  <aside class="panel">
+  <aside class="panel" role="menu" aria-label="Navegación">
     <div class="item" data-nav="home">🏠 <strong>Inicio</strong></div>
     <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
-    <div class="muted">Toca el logo 5× para activar/desactivar Admin.</div>
+    <!-- (Pendiente ocultar texto guía) Eliminado según solicitud -->
   </aside>
 </div>
 
@@ -284,7 +284,7 @@ body.modal-open{overflow:hidden}
 </main>
 
 <!-- Bottom nav -->
-<nav class="navbar">
+<nav class="navbar" role="navigation" aria-label="Pestañas">
   <button class="navbtn active" data-nav="home"><div class="ico">🏠</div><div id="n-home">Inicio</div></button>
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
   <button class="navbtn" data-nav="places"><div class="ico">🏕️</div><div id="n-pl">Campings</div></button>
@@ -325,6 +325,28 @@ body.modal-open{overflow:hidden}
 
     <div class="card" style="margin-top:12px">
       <h4 style="margin:0 0 8px">Eventos actuales</h4>
+
+      <!-- Controles de filtro/orden -->
+      <div class="row" style="margin:6px 0">
+        <div style="flex:1;min-width:200px">
+          <label>Filtrar por camping</label>
+          <select id="adminFilterCamp" class="select">
+            <option value="all">Todos</option>
+            <option value="oyambre">oyambre</option>
+            <option value="ramales">ramales</option>
+            <option value="ruiloba">ruiloba</option>
+            <option value="cardeo">cardeo</option>
+          </select>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <label>Orden por fecha</label>
+          <select id="adminSortOrder" class="select">
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
+        </div>
+      </div>
+
       <div style="overflow:auto">
         <table class="table" id="eventsTable">
           <thead>
@@ -348,6 +370,20 @@ body.modal-open{overflow:hidden}
         <button id="pushEventsBtn" class="btn">💾 Guardar en GitHub (events.json)</button>
       </div>
       <p class="muted">El token no se sube a ningún servidor; queda en tu dispositivo (localStorage).</p>
+    </div>
+
+    <!-- Gestión de horarios -->
+    <div class="card" style="margin-top:12px">
+      <h4>Gestión de horarios (schedules.json)</h4>
+      <p class="muted">Edita el JSON de horarios. Acepta el formato: {"oyambre":{"es":"...","en":"..."},"ramales":...}</p>
+      <textarea id="schedJsonArea" class="textarea" rows="10" placeholder='Pegue aquí su schedules.json'></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="schedApplyBtn" class="btn">Aplicar cambios</button>
+        <button id="exportSchedBtn" class="btn">Descargar schedules.json</button>
+        <label class="btn" for="importSchedFile" style="cursor:pointer">Importar JSON</label>
+        <input id="importSchedFile" type="file" accept="application/json" style="display:none">
+        <button id="pushSchedBtn" class="btn">💾 Guardar en GitHub (schedules.json)</button>
+      </div>
     </div>
 
     <!-- Seguridad -->
@@ -474,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
     $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
     $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
+    var lb=$('#langBtn'); if(lb){ lb.textContent='🌐 '+LANG.toUpperCase(); }
   }
   applyLang();
 
@@ -481,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents();
+      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc();
       var m=$('#langModal'); if(m) m.style.display='none';
     });
   });
@@ -581,8 +618,8 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  /* ===== Horarios ===== */
-  var SCHEDULES={
+  /* ===== Horarios (schedules.json con fallback) ===== */
+  var SCHEDULES_DEFAULT={
     oyambre:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
              en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00"},
     ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
@@ -592,12 +629,26 @@ document.addEventListener('DOMContentLoaded', function(){
     cardeo:{es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
             en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00"}
   };
+  var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
+
   function renderAcc(){
     ['oyambre','ramales','ruiloba','cardeo'].forEach(function(k){
       var el=document.getElementById('acc-'+k);
-      if(el) el.innerHTML = SCHEDULES[k][LANG] || SCHEDULES[k].es;
+      if(!el) return;
+      var item=SCHEDULES[k]||SCHEDULES_DEFAULT[k]||{};
+      el.innerHTML = item[LANG] || item.es || '';
     });
   }
+
+  function loadSchedules(){
+    fetch('./schedules.json?v='+(Date.now()),{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('not ok'); return r.json(); })
+      .then(function(json){
+        if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); }
+      })
+      .catch(function(){ SCHEDULES=JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
+  }
+
   $all('.acc-h').forEach(function(h){
     on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
   });
@@ -632,6 +683,7 @@ document.addEventListener('DOMContentLoaded', function(){
           document.body.classList.add('admin-on');
           openAdminModal();
           loadEventsAdmin();
+          loadSchedulesAdmin();
           alert('Modo admin activado');
         }
       }
@@ -647,6 +699,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!document.body.classList.contains('admin-on')) return;
     openAdminModal();
     loadEventsAdmin();
+    loadSchedulesAdmin();
   });
 
   /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
@@ -662,13 +715,22 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla (simple) ===== */
+  /* ===== Admin tabla (simple + filtro/orden) ===== */
   var ADMIN_EVENTS=[];
+  var ADMIN_FILTER_CAMP='all';
+  var ADMIN_SORT_ORDER='asc';
+
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
   function isoFromLocal(dt){
-    var d=new Date(dt); var tz=-d.getTimezoneOffset(); var sign=tz>=0?'+':'-';
-    var hh=('0'+Math.floor(Math.abs(tz)/60)).slice(-2); var mm=('0'+(Math.abs(tz)%60)).slice(-2);
-    return d.toISOString().slice(0,19)+sign+hh+':'+mm;
+    // Corrige: formatear la hora local con offset real (no UTC + offset)
+    var d=new Date(dt);
+    if(isNaN(d.getTime())) return dt;
+    var tz=-d.getTimezoneOffset(), sign=tz>=0?'+':'-';
+    function pad(n){return ('0'+n).slice(-2);}
+    var yyyy=d.getFullYear(), mm=pad(d.getMonth()+1), dd=pad(d.getDate());
+    var hh=pad(d.getHours()), mi=pad(d.getMinutes()), ss=pad(d.getSeconds());
+    var oh=pad(Math.floor(Math.abs(tz)/60)), om=pad(Math.abs(tz)%60);
+    return yyyy+'-'+mm+'-'+dd+'T'+hh+':'+mi+':'+ss+sign+oh+':'+om;
   }
   function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
 
@@ -679,10 +741,22 @@ document.addEventListener('DOMContentLoaded', function(){
       .catch(function(){ ADMIN_EVENTS=[]; renderAdminTable(); });
     loadGhCfgToForm();
   }
+
   function renderAdminTable(){
     var tbody = $('#eventsTable tbody'); if(!tbody) return;
-    ADMIN_EVENTS.sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)});
-    tbody.innerHTML = ADMIN_EVENTS.map(function(ev){
+    var list = ADMIN_EVENTS.slice();
+
+    // Filtro por camping
+    if(ADMIN_FILTER_CAMP!=='all'){
+      list = list.filter(function(e){ return String(e.camping||'').toLowerCase()===ADMIN_FILTER_CAMP; });
+    }
+    // Orden
+    list.sort(function(a,b){
+      var da=new Date(a.fecha).getTime(), db=new Date(b.fecha).getTime();
+      return ADMIN_SORT_ORDER==='asc' ? (da-db) : (db-da);
+    });
+
+    tbody.innerHTML = list.map(function(ev){
       var titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
       var lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
       var dt=new Date(ev.fecha);
@@ -718,6 +792,10 @@ document.addEventListener('DOMContentLoaded', function(){
       on(tr.querySelector('.act-del'),'click', function(){ deleteRow(id); });
     });
   }
+
+  on($('#adminFilterCamp'),'change', function(e){ ADMIN_FILTER_CAMP=e.target.value||'all'; renderAdminTable(); });
+  on($('#adminSortOrder'),'change', function(e){ ADMIN_SORT_ORDER=e.target.value||'asc'; renderAdminTable(); });
+
   function getRowValues(tr){
     return {
       dateLocal: tr.querySelector('.dt').value,
@@ -768,10 +846,15 @@ document.addEventListener('DOMContentLoaded', function(){
     var blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
     var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
+
   on($('#exportZipBtn'),'click', function(){
     try{
       var zip=new JSZip();
+      // events.json
       zip.file('events.json', JSON.stringify(ADMIN_EVENTS,null,2));
+      // schedules.json
+      zip.file('schedules.json', JSON.stringify(SCHEDULES,null,2));
+      // imágenes de eventos
       var imgs=ADMIN_EVENTS.map(function(e){return e.imagen||e.image}).filter(Boolean);
       var folder=zip.folder('images'); var added={};
       Promise.all(imgs.map(function(u){
@@ -786,12 +869,39 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
   });
+
   on($('#importFile'),'change', function(e){
     var f=e.target.files && e.target.files[0]; if(!f) return;
     f.text().then(function(txt){
       var data=JSON.parse(txt); if(!Array.isArray(data)) throw new Error('El JSON debe ser un array');
       ADMIN_EVENTS=data; renderAdminTable();
     }).catch(function(err){ alert('No se pudo leer el JSON: '+err.message); }).finally(function(){ e.target.value=''; });
+  });
+
+  /* ===== Schedules Admin ===== */
+  function loadSchedulesAdmin(){
+    var area=$('#schedJsonArea'); if(!area) return;
+    try{ area.value=JSON.stringify(SCHEDULES,null,2); }catch(e){ area.value='{}'; }
+  }
+  on($('#schedApplyBtn'),'click', function(){
+    var area=$('#schedJsonArea'); if(!area) return;
+    try{
+      var obj=JSON.parse(area.value);
+      if(!obj || typeof obj!=='object') throw new Error('JSON inválido');
+      SCHEDULES=obj; renderAcc();
+      alert('Horarios aplicados en la app.');
+    }catch(err){ alert('No se pudo aplicar: '+err.message); }
+  });
+  on($('#exportSchedBtn'),'click', function(){
+    var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+  on($('#importSchedFile'),'change', function(e){
+    var f=e.target.files && e.target.files[0]; if(!f) return;
+    f.text().then(function(txt){
+      var data=JSON.parse(txt); if(!data || typeof data!=='object') throw new Error('JSON inválido');
+      SCHEDULES=data; renderAcc(); loadSchedulesAdmin();
+    }).catch(function(err){ alert('No se pudo leer schedules.json: '+err.message); }).finally(function(){ e.target.value=''; });
   });
 
   /* ===== GitHub API (PAT) ===== */
@@ -849,6 +959,27 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
   }
 
+  function saveSchedulesToGitHub(){
+    try{
+      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+      var sha=null;
+      ghGet('schedules.json', token).then(function(res){
+        if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
+        if(res.status===404){ return 404; }
+        return res.text().then(function(txt){ throw new Error('Error comprobando schedules.json: '+res.status+'\n'+txt); });
+      }).then(function(){
+        var jsonStr=JSON.stringify(SCHEDULES,null,2);
+        var content64=toB64(jsonStr);
+        var now=new Date().toISOString().slice(0,19).replace('T',' ');
+        return ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token);
+      }).then(function(res){
+        if(res.ok){ alert('✅ schedules.json subido correctamente.'); }
+        else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
+      }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
+    }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
+  }
+  on($('#pushSchedBtn'),'click', saveSchedulesToGitHub);
+
   /* ===== PWA install ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
@@ -857,10 +988,20 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Init ===== */
-  loadEvents(); renderAcc();
+  loadEvents();
+  loadSchedules();
+  renderAcc();
 
   /* ===== SW ===== */
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
+
+  /* ===== Guardar PIN admin ===== */
+  on($('#saveAdminPin'),'click', function(){
+    var v=($('#adminPinInput')||{}).value||'';
+    if(!v || v.length<4){ alert('Introduce al menos 4 caracteres.'); return; }
+    localStorage.setItem('admin_pin', v);
+    alert('Contraseña guardada.');
+  });
 
 }); // DOMContentLoaded
 </script>
