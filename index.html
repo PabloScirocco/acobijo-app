@@ -120,7 +120,7 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin button / helpers */
+/* Admin helpers */
 .muted{color:var(--muted);font-size:.9rem}
 
 /* Tabla admin simple */
@@ -154,6 +154,39 @@ body.dark .wx-card{
 body.dark .wx-chip{background:rgba(15,26,43,.6)}
 .wx-day{font-size:.88rem;color:var(--muted)}
 .wx-ico{font-size:22px;margin:4px 0}
+
+/* ===== Incidencias (visual azul) ===== */
+.inc-card{
+  background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(14,165,233,.08);
+  padding: 14px;
+}
+body.dark .inc-card{
+  background: linear-gradient(180deg,#11243c 0%, #0f1a2b 60%, #0b1220 100%);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.inc-head{display:flex;align-items:center;gap:10px;margin:-4px 0 10px 0;}
+.inc-head .badge{background:#eaf5ff;border-color:#cfe9ff;color:#063e63;font-weight:700;}
+body.dark .inc-head .badge{background:#0f2a46;border-color:#1a3f64;color:#bfe7ff;}
+.label-strong{display:block;font-weight:800;color:var(--brand-ink);margin-bottom:6px;}
+body.dark .label-strong{color:var(--brand-ink);}
+.inc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;}
+.inc-field{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;}
+body.dark .inc-field{background:#0f1a2b;}
+.inc-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.pill-target{
+  margin-top:8px;padding:10px 12px;border:1px solid var(--line);
+  background:#eef7ff;border-left:4px solid var(--brand);border-radius:12px;
+  color:#063e63;font-weight:600;
+}
+body.dark .pill-target{background:#10233a;color:#bfe7ff;}
+.btn.wa{background:var(--brand);border-color:var(--brand);color:#fff;}
+.btn.mail{background:#fff;border-color:#b7dbff;}
+body.dark .btn.mail{background:#0f1a2b;}
+.inc-note{color:var(--muted);margin-top:6px;}
+.inc-prev{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);border-radius:12px;background:#f2f6fb;display:none;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -381,32 +414,53 @@ body.dark .wx-chip{background:rgba(15,26,43,.6)}
   <!-- INCIDENCIAS -->
   <section id="view-incidents" class="view">
     <h2>Incidencias y peticiones</h2>
-    <article class="card" style="min-width:unset">
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
-        <label>Alojamiento
+    <article class="card inc-card" style="min-width:unset">
+      <div class="inc-head">
+        <div class="badge">🛠️ Atención al cliente</div>
+        <div class="muted">Cuéntanos qué ocurre y te atendemos.</div>
+      </div>
+
+      <div class="inc-grid">
+        <div class="inc-field">
+          <span class="label-strong">Alojamiento</span>
           <select id="incCamp" class="input">
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
             <option value="ruiloba">Ruiloba</option>
             <option value="cardeo">El Cardeo</option>
           </select>
-        </label>
+        </div>
 
-        <label>Título <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42"></label>
-        <label>Ubicación <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona"></label>
-        <label style="grid-column:1/-1">Detalle
-          <textarea id="iDetail" class="textarea" rows="4" placeholder="Cuéntanos brevemente el problema…"></textarea>
-        </label>
-        <label>Foto (opcional) <input id="iPhoto" type="file" accept="image/*" class="input"></label>
+        <div class="inc-field">
+          <span class="label-strong">Título</span>
+          <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42">
+        </div>
+
+        <div class="inc-field">
+          <span class="label-strong">Ubicación</span>
+          <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona">
+        </div>
+
+        <div class="inc-field" style="grid-column:1/-1">
+          <span class="label-strong">Detalle</span>
+          <textarea id="iDetail" class="textarea" rows="4" placeholder="Describe brevemente el problema…"></textarea>
+        </div>
+
+        <div class="inc-field">
+          <span class="label-strong">Foto (opcional)</span>
+          <input id="iPhoto" type="file" accept="image/*" class="input">
+          <img id="iPreview" class="inc-prev" alt="Vista previa">
+        </div>
       </div>
 
-      <div class="row" style="margin-top:10px">
-        <button class="btn" id="sendWhats">Enviar por WhatsApp</button>
-        <button class="btn" id="sendEmail">Enviar por Email</button>
+      <div class="inc-actions">
+        <button class="btn wa" id="sendWhats">Enviar por WhatsApp</button>
+        <button class="btn mail" id="sendEmail">Enviar por Email</button>
         <button class="btn" id="copyTxt">Copiar texto</button>
       </div>
-      <p class="muted small" id="iTarget" style="margin-top:6px"></p>
-      <p class="muted" style="margin-top:6px">Si lo permites, incluimos enlace de tu ubicación para acelerar la atención.</p>
+
+      <p class="pill-target" id="iTarget"></p>
+      <p class="inc-note">Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.</p>
     </article>
   </section>
 </main>
@@ -624,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function(){
         web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea",
         raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities",
-        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
+        heTitle:"El Helguero Campsite (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
@@ -1373,18 +1427,37 @@ Detalle: ${d}${locTxt}`;
     location.href=`mailto:${em}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`;
   });
   on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
+
+  /* Foto: preview + compresión ligera */
   on($('#iPhoto'),'change', async function(e){
-    const f=e.target.files && e.target.files[0]; if(!f) return;
-    const b=await (function compress(file,maxW=1280,q=0.7){ return new Promise((res,rej)=>{
-      const img=new Image(); const fr=new FileReader();
-      fr.onload=()=> img.src=fr.result; fr.onerror=rej;
-      img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
-        const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-        c.toBlob(b=>res(b),'image/jpeg',q); };
-      fr.readAsDataURL(file);
-    });})(f);
+    const f = e.target.files && e.target.files[0]; 
+    const prev = $('#iPreview');
+    if(prev) { prev.style.display='none'; prev.removeAttribute('src'); }
+    if(!f) return;
+
+    try{
+      const fr = new FileReader();
+      fr.onload = ()=>{ if(prev){ prev.src = fr.result; prev.style.display='block'; } };
+      fr.readAsDataURL(f);
+    }catch(_){}
+
+    const b = await (function compress(file,maxW=1280,q=0.7){ 
+      return new Promise((res,rej)=>{
+        const img=new Image(); const fr=new FileReader();
+        fr.onload=()=> img.src=fr.result; fr.onerror=rej;
+        img.onload=()=>{ 
+          const ratio=img.width>maxW?maxW/img.width:1; 
+          const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
+          const c=document.createElement('canvas'); c.width=w; c.height=h; 
+          const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+          c.toBlob(b=>res(b),'image/jpeg',q); 
+        };
+        fr.readAsDataURL(file);
+      });
+    })(f);
+
     if(!b){ alert('No se pudo procesar la imagen.'); return; }
-    alert('Imagen optimizada. Adjúntala desde tu galería al enviar por WhatsApp/Email.');
+    alert('Imagen optimizada. Al abrir WhatsApp/Email adjúntala si lo deseas desde tu galería.');
   });
 
   /* ===== Eventos: favoritos + .ics ===== */
