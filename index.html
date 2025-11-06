@@ -112,7 +112,7 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-beavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;
@@ -120,8 +120,7 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin button (placeholder) */
-.admin-btn{}
+/* Admin button */
 .muted{color:var(--muted);font-size:.9rem}
 
 /* Tabla admin simple */
@@ -130,9 +129,31 @@ body.modal-open{overflow:hidden}
 .table th{background:var(--tint)}
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 
-/* Extras */
+/* Small helpers */
 .kbd{font:12px/1.4 ui-monospace,monospace;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
 .small{font-size:.85rem}
+
+/* ===== Weather UI ===== */
+.wx-card{
+  background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(14,165,233,.08);
+}
+body.dark .wx-card{
+  background: linear-gradient(180deg,#11243c 0%, #0f1a2b 60%, #0b1220 100%);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.wx-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.wx-left{display:flex;align-items:center;gap:12px}
+.wx-icon{font-size:42px;line-height:1}
+.wx-temp{font-size:42px;font-weight:800}
+.wx-mm{color:var(--muted);font-size:.95rem}
+.wx-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.wx-chip{border:1px solid var(--line);background:rgba(255,255,255,.7);border-radius:14px;padding:10px;text-align:center}
+body.dark .wx-chip{background:rgba(15,26,43,.6)}
+.wx-day{font-size:.88rem;color:var(--muted)}
+.wx-ico{font-size:22px;margin:4px 0}
 </style>
 </head>
 <body>
@@ -291,7 +312,7 @@ body.modal-open{overflow:hidden}
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
 
-  <!-- 🆕 MI ESTANCIA -->
+  <!-- MI ESTANCIA -->
   <section id="view-stay" class="view">
     <h2 id="t-stay-title">Mi estancia</h2>
     <article class="card" style="min-width:unset">
@@ -343,21 +364,21 @@ body.modal-open{overflow:hidden}
     </article>
   </section>
 
-  <!-- 🆕 CLIMA (por establecimiento) -->
+  <!-- CLIMA -->
   <section id="view-weather" class="view">
     <h2>Clima</h2>
     <div class="grid" id="weatherWrap"></div>
     <p class="muted small" id="weatherNote">Fuente: Open-Meteo · Zona horaria: Europe/Madrid</p>
   </section>
 
-  <!-- 🆕 POIs -->
+  <!-- POIs -->
   <section id="view-pois" class="view">
     <h2>Puntos útiles</h2>
     <div class="grid" id="poisGrid"></div>
     <p class="muted">Activa la ubicación del dispositivo para calcular distancia/tiempo andando.</p>
   </section>
 
-  <!-- 🆕 INCIDENCIAS -->
+  <!-- INCIDENCIAS -->
   <section id="view-incidents" class="view">
     <h2>Incidencias y peticiones</h2>
     <article class="card" style="min-width:unset">
@@ -635,8 +656,7 @@ document.addEventListener('DOMContentLoaded', function(){
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
       LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc(); loadWeatherAll();
-      var m=$('#langModal'); if(m) m.style.display='none';
-    });
+      var m=$('#langModal'); if(m) m.style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -658,8 +678,6 @@ document.addEventListener('DOMContentLoaded', function(){
   var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
-
-  /* ===== Seguridad de render (escapes) ya definidas arriba ===== */
 
   /* ===== Eventos (home + grid con filtros) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
@@ -830,7 +848,7 @@ document.addEventListener('DOMContentLoaded', function(){
     loadSchedulesAdmin();
   });
 
-  /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
+  /* ===== Helpers modal admin ===== */
   function openAdminModal(){
     var modal=document.getElementById('adminModal');
     if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
@@ -1110,7 +1128,7 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ==========================
-     🆕 CONFIG “MI ESTANCIA”
+     CONFIG “MI ESTANCIA”
      ========================== */
   const CLIENTE_CFG = {
     defaultCamp: 'oyambre',
@@ -1140,7 +1158,6 @@ document.addEventListener('DOMContentLoaded', function(){
     updateStayUI();
     loadWeatherAll();
     renderPOIs();
-    // auto-filtro de eventos por camping elegido
     CAMP_FILTER=c;
     $all('[data-camp]').forEach(function(x){
       x.classList.toggle('on', x.getAttribute('data-camp')===c);
@@ -1161,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
   on($('#copyWifi'),'click', async ()=>{ try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); } });
 
-  /* ===== CLIMA por establecimiento (Open-Meteo) ===== */
+  /* ===== CLIMA por establecimiento ===== */
   function iconFor(code){
     code = Number(code)||0;
     if(code===0) return '☀️';
@@ -1178,7 +1195,7 @@ document.addEventListener('DOMContentLoaded', function(){
     try{ return new Intl.DateTimeFormat(LANG,{weekday:'short', day:'2-digit'}).format(new Date(dateStr)); }catch(_){ return dateStr; }
   }
   function skeletonCard(title){
-    return `<article class="card" style="min-width:unset">
+    return `<article class="card wx-card" style="min-width:unset">
       <div class="title">${esc(title)}</div>
       <div class="small muted">Cargando previsión…</div>
     </article>`;
@@ -1200,7 +1217,6 @@ document.addEventListener('DOMContentLoaded', function(){
       const nowC = j.current?.weather_code ?? 0;
       const todayMax = Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
       const todayMin = Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
-      const todayIcon = iconFor(nowC);
       const days = (j.daily?.time||[]).slice(1,4).map((d,idx)=>({
         date: d,
         code: j.daily?.weather_code?.[idx+1],
@@ -1208,28 +1224,31 @@ document.addEventListener('DOMContentLoaded', function(){
         tmin: Math.round(j.daily?.temperature_2m_min?.[idx+1] ?? 0)
       }));
 
+      el.classList.add('wx-card');
       el.innerHTML = `
-        <div class="title">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div style="font-size:28px">${todayIcon}</div>
+        <div class="wx-head">
+          <div class="wx-left">
+            <div class="wx-icon">${iconFor(nowC)}</div>
             <div>
-              <div style="font-size:28px;font-weight:700">${nowT}°C</div>
-              <div class="small muted">Max ${todayMax}° · Min ${todayMin}°</div>
+              <div style="font-weight:700">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
+              <div class="wx-temp">${nowT}°C</div>
+              <div class="wx-mm">Max ${todayMax}° · Min ${todayMin}°</div>
             </div>
           </div>
           <a class="btn" target="_blank" rel="noopener" href="${esc(CLIENTE_CFG.byCamp[campKey].directions)}">Cómo llegar</a>
         </div>
-        <div class="row" style="margin-top:10px;gap:8px">
+
+        <div class="wx-3">
           ${days.map(d=>`
-            <div style="border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:110px">
-              <div class="small muted">${esc(dayLabel(d.date))}</div>
-              <div style="font-size:20px;margin:4px 0">${iconFor(d.code)}</div>
+            <div class="wx-chip">
+              <div class="wx-day">${esc(dayLabel(d.date))}</div>
+              <div class="wx-ico">${iconFor(d.code)}</div>
               <div class="small">Max ${d.tmax}° · Min ${d.tmin}°</div>
             </div>
           `).join('')}
         </div>`;
     }catch(e){
+      el.classList.add('wx-card');
       el.innerHTML = `<div class="title">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
         <div class="small muted">No se pudo procesar la previsión.</div>`;
     }
@@ -1240,7 +1259,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const camps = Object.keys(CLIENTE_CFG.byCamp);
     camps.forEach(k=>{
       const card=document.createElement('div');
-      card.className='card'; card.style.minWidth='unset';
+      card.className='card wx-card';
       card.id='weather-'+k;
       card.innerHTML = skeletonCard(CLIENTE_CFG.byCamp[k].label);
       wrap.appendChild(card);
@@ -1357,7 +1376,7 @@ Detalle: ${d}${locTxt}`;
     });
   }
 
-  /* ===== Deep linking para shortcuts del manifest ===== */
+  /* ===== Deep linking ===== */
   (function deepLinking(){
     try{
       const params = new URLSearchParams(location.search);
