@@ -82,7 +82,7 @@ body.dark .card{background:#0f1a2b}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 
-/* Events filters */
+/* Filters */
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.35rem .7rem;cursor:pointer}
 body.dark .chip{background:#0f1a2b}
@@ -123,17 +123,17 @@ body.modal-open{overflow:hidden}
 /* Admin helpers */
 .muted{color:var(--muted);font-size:.9rem}
 
-/* Tabla admin simple */
+/* Tabla admin */
 .table{width:100%;border-collapse:collapse;font-size:.9rem}
 .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .table th{background:var(--tint)}
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 
-/* Small helpers */
+/* Helpers */
 .kbd{font:12px/1.4 ui-monospace,monospace;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
 .small{font-size:.85rem}
 
-/* ===== Weather UI ===== */
+/* Weather UI */
 .wx-card{
   background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
   border: 1px solid var(--line);
@@ -155,7 +155,7 @@ body.dark .wx-chip{background:rgba(15,26,43,.6)}
 .wx-day{font-size:.88rem;color:var(--muted)}
 .wx-ico{font-size:22px;margin:4px 0}
 
-/* ===== Incidencias (visual azul) ===== */
+/* Incidencias (visual azul) */
 .inc-card{
   background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
   border: 1px solid var(--line);
@@ -465,12 +465,12 @@ body.dark .btn.mail{background:#0f1a2b;}
   </section>
 </main>
 
-<!-- Bottom nav -->
+<!-- Bottom nav (Inicio · Mi estancia · Incidencias · Eventos) -->
 <nav class="navbar" role="navigation" aria-label="Pestañas">
   <button class="navbtn active" data-nav="home"><div class="ico">🏠</div><div id="n-home">Inicio</div></button>
+  <button class="navbtn" data-nav="stay"><div class="ico">🛎️</div><div id="n-st">Mi estancia</div></button>
+  <button class="navbtn" data-nav="incidents"><div class="ico">🛠️</div><div id="n-in">Incidencias</div></button>
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
-  <button class="navbtn" data-nav="places"><div class="ico">🏕️</div><div id="n-pl">Campings</div></button>
-  <button class="navbtn" data-nav="schedules"><div class="ico">🕒</div><div id="n-sc">Horarios</div></button>
 </nav>
 
 <!-- ADMIN MODAL -->
@@ -667,7 +667,8 @@ document.addEventListener('DOMContentLoaded', function(){
         weather:"Clima", we:"Clima", weSub:"Hoy y previsión",
         incidents:"Incidencias", inSub:"Avísanos rápido",
         fav:"⭐ Favorito", favOk:"⭐ Favorito ✓", addCal:"📅 Añadir a calendario",
-        copy:"Copiar", copied:"Copiado"
+        copy:"Copiar", copied:"Copiado",
+        nStay:"Mi estancia", nInc:"Incidencias"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar",
@@ -686,7 +687,8 @@ document.addEventListener('DOMContentLoaded', function(){
         weather:"Weather", we:"Weather", weSub:"Today & forecast",
         incidents:"Issues", inSub:"Contact us fast",
         fav:"⭐ Favorite", favOk:"⭐ Favorite ✓", addCal:"📅 Add to calendar",
-        copy:"Copy", copied:"Copied"
+        copy:"Copy", copied:"Copied",
+        nStay:"My stay", nInc:"Issues"
     }
   };
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
@@ -706,8 +708,17 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-stay-title",T.stayTitle); t("t-st",T.st); t("t-st-sub",T.stSub);
     t("t-we",T.we); t("t-we-sub",T.weSub);
     t("t-in",T.incidents); t("t-in-sub",T.inSub);
-    var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc');
-    if(nh) nh.textContent=T.nHome; if(ne) ne.textContent=T.nEv; if(np) np.textContent=T.nPl; if(ns) ns.textContent=T.nSc;
+
+    // Bottom nav (nuevos ids)
+    var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc'), nst=$('#n-st'), nin=$('#n-in');
+    if(nh) nh.textContent=T.nHome;
+    if(nst) nst.textContent=T.nStay||T.stayTitle||'Mi estancia';
+    if(nin) nin.textContent=T.nInc||T.incidents||'Incidencias';
+    if(ne) ne.textContent=T.nEv;
+    // (compat: si existieran np/ns)
+    if(np) np.textContent=T.nPl;
+    if(ns) ns.textContent=T.nSc;
+
     $all("[data-i18n-web]").forEach(function(e){e.textContent=T.web;});
     $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
     $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
@@ -1375,7 +1386,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  /* ===== Incidencias: selector de alojamiento y ruteo ===== */
+  /* ===== Incidencias: selector y ruteo ===== */
   function incidentCampKey(){
     const sel = $('#incCamp');
     const v = (sel && sel.value) ? sel.value : currentCamp();
@@ -1416,7 +1427,7 @@ Ubicación: ${p}
 Detalle: ${d}${locTxt}`;
   }
 
-  /* === WhatsApp robusto (misma pestaña + fallback) === */
+  /* === WhatsApp robusto === */
   on($('#sendWhats'),'click', async ()=>{
     if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
       alert('Añade al menos un título o un detalle para enviar.'); return;
@@ -1438,7 +1449,7 @@ Detalle: ${d}${locTxt}`;
     }
   });
 
-  /* === Email usando configuración actual === */
+  /* === Email === */
   on($('#sendEmail'),'click', async ()=>{
     if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
       alert('Añade al menos un título o un detalle para enviar.'); return;
@@ -1453,7 +1464,7 @@ Detalle: ${d}${locTxt}`;
 
   on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
 
-  /* Foto: preview + compresión ligera */
+  /* Foto: preview */
   on($('#iPhoto'),'change', async function(e){
     const f = e.target.files && e.target.files[0]; 
     const prev = $('#iPreview');
@@ -1465,24 +1476,6 @@ Detalle: ${d}${locTxt}`;
       fr.onload = ()=>{ if(prev){ prev.src = fr.result; prev.style.display='block'; } };
       fr.readAsDataURL(f);
     }catch(_){}
-
-    const b = await (function compress(file,maxW=1280,q=0.7){ 
-      return new Promise((res,rej)=>{
-        const img=new Image(); const fr=new FileReader();
-        fr.onload=()=> img.src=fr.result; fr.onerror=rej;
-        img.onload=()=>{ 
-          const ratio=img.width>maxW?maxW/img.width:1; 
-          const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
-          const c=document.createElement('canvas'); c.width=w; c.height=h; 
-          const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-          c.toBlob(b=>res(b),'image/jpeg',q); 
-        };
-        fr.readAsDataURL(file);
-      });
-    })(f);
-
-    if(!b){ alert('No se pudo procesar la imagen.'); return; }
-    alert('Imagen optimizada. Al abrir WhatsApp/Email adjúntala si lo deseas desde tu galería.');
   });
 
   /* ===== Eventos: favoritos + .ics ===== */
