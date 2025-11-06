@@ -130,7 +130,7 @@ body.modal-open{overflow:hidden}
 .table th{background:var(--tint)}
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 
-/* Extra pequeños estilos para nuevas vistas */
+/* Extras */
 .kbd{font:12px/1.4 ui-monospace,monospace;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
 .small{font-size:.85rem}
 </style>
@@ -157,7 +157,6 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
-    <!-- Nuevas entradas cliente -->
     <div class="item" data-nav="stay">🛎️ <strong>Mi estancia</strong></div>
     <div class="item" data-nav="weather">🌤️ <strong>Clima</strong></div>
     <div class="item" data-nav="pois">📍 <strong>Puntos útiles</strong></div>
@@ -182,7 +181,6 @@ body.modal-open{overflow:hidden}
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
-        <!-- Nuevos tiles -->
         <div class="tile" data-nav="stay"><div class="big">🛎️</div><div><strong id="t-st">Mi estancia</strong><div class="muted" id="t-st-sub">Wi-Fi · normas</div></div></div>
         <div class="tile" data-nav="weather"><div class="big">🌤️</div><div><strong id="t-we">Clima</strong><div class="muted" id="t-we-sub">Hoy y previsión</div></div></div>
         <div class="tile" data-nav="incidents"><div class="big">🛠️</div><div><strong id="t-in">Incidencias</strong><div class="muted" id="t-in-sub">Avísanos rápido</div></div></div>
@@ -293,10 +291,9 @@ body.modal-open{overflow:hidden}
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
 
-  <!-- 🆕 MI ESTANCIA (con selector de alojamiento) -->
+  <!-- 🆕 MI ESTANCIA -->
   <section id="view-stay" class="view">
     <h2 id="t-stay-title">Mi estancia</h2>
-
     <article class="card" style="min-width:unset">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <label><b>Estoy alojado en</b>
@@ -307,22 +304,17 @@ body.modal-open{overflow:hidden}
             <option value="cardeo">El Cardeo</option>
           </select>
         </label>
-
         <div>
           <div><b>Wi-Fi</b></div>
           <div>SSID: <span id="wifiSsid">—</span></div>
           <div>Clave: <span id="wifiPass" class="kbd">—</span></div>
-          <div class="row" style="margin-top:6px">
-            <button class="btn" id="copyWifi">Copiar clave</button>
-          </div>
+          <div class="row" style="margin-top:6px"><button class="btn" id="copyWifi">Copiar clave</button></div>
         </div>
-
         <div>
           <div><b>Horarios clave</b></div>
           <div>Recepción: <span id="recHours">—</span></div>
           <div>Check-in: <span id="checkIn">—</span> · Check-out: <span id="checkOut">—</span></div>
         </div>
-
         <div>
           <div><b>Contacto rápido</b></div>
           <div class="row" style="margin-top:6px; gap:8px; flex-wrap:wrap">
@@ -331,7 +323,6 @@ body.modal-open{overflow:hidden}
             <a class="btn" id="stayDirections" target="_blank" rel="noopener">Cómo llegar</a>
           </div>
         </div>
-
         <div>
           <div><b>Normas rápidas</b></div>
           <ul style="margin:8px 0 0 18px">
@@ -340,7 +331,6 @@ body.modal-open{overflow:hidden}
             <li>Mascotas con correa y recoger excrementos</li>
           </ul>
         </div>
-
         <div>
           <div><b>Emergencias</b></div>
           <div>112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
@@ -353,12 +343,11 @@ body.modal-open{overflow:hidden}
     </article>
   </section>
 
-  <!-- 🆕 CLIMA -->
+  <!-- 🆕 CLIMA (por establecimiento) -->
   <section id="view-weather" class="view">
     <h2>Clima</h2>
-    <article class="card" id="weatherCard">
-      <div class="small muted">Cargando previsión…</div>
-    </article>
+    <div class="grid" id="weatherWrap"></div>
+    <p class="muted small" id="weatherNote">Fuente: Open-Meteo · Zona horaria: Europe/Madrid</p>
   </section>
 
   <!-- 🆕 POIs -->
@@ -373,18 +362,12 @@ body.modal-open{overflow:hidden}
     <h2>Incidencias y peticiones</h2>
     <article class="card" style="min-width:unset">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
-        <label>Título
-          <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42">
-        </label>
-        <label>Ubicación
-          <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona">
-        </label>
+        <label>Título <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42"></label>
+        <label>Ubicación <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona"></label>
         <label style="grid-column:1/-1">Detalle
           <textarea id="iDetail" class="textarea" rows="4" placeholder="Cuéntanos brevemente el problema…"></textarea>
         </label>
-        <label>Foto (opcional)
-          <input id="iPhoto" type="file" accept="image/*" class="input">
-        </label>
+        <label>Foto (opcional) <input id="iPhoto" type="file" accept="image/*" class="input"></label>
       </div>
       <div class="row" style="margin-top:10px">
         <button class="btn" id="sendWhats">Enviar por WhatsApp</button>
@@ -547,13 +530,21 @@ document.addEventListener('DOMContentLoaded', function(){
   function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-  function safeUrl(u){var s=String(u||'').trim(); if(/^https?:\/\//i.test(s)||/^\/|^\.\.?\//.test(s)||/^data:image\//i.test(s)){return s.replace(/"/g,'%22');} return '';}
+  function safeUrl(u){
+    var s=String(u||'').trim();
+    if (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)){
+      return s.replace(/"/g,'%22');
+    }
+    return '';
+  }
 
   /* ===== Tema claro/oscuro ===== */
   function detectTheme(){
     var saved = localStorage.getItem('theme');
     if(saved) return saved;
-    try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){}
+    try{
+      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    }catch(e){}
     return 'light';
   }
   function applyTheme(mode){
@@ -566,7 +557,10 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   var THEME = detectTheme();
   applyTheme(THEME);
-  on($('#themeBtn'),'click', function(){ THEME = (THEME==='dark') ? 'light' : 'dark'; applyTheme(THEME); });
+  on($('#themeBtn'),'click', function(){
+    THEME = (THEME==='dark') ? 'light' : 'dark';
+    applyTheme(THEME);
+  });
 
   /* ===== i18n ===== */
   var I18N = {
@@ -583,7 +577,6 @@ document.addEventListener('DOMContentLoaded', function(){
         caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
-        /* Nuevas */
         stayTitle:"Mi estancia", st:"Mi estancia", stSub:"Wi-Fi · normas",
         weather:"Clima", we:"Clima", weSub:"Hoy y previsión",
         incidents:"Incidencias", inSub:"Avísanos rápido",
@@ -603,7 +596,6 @@ document.addEventListener('DOMContentLoaded', function(){
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
-        /* New */
         stayTitle:"My stay", st:"My stay", stSub:"Wi-Fi · rules",
         weather:"Weather", we:"Weather", weSub:"Today & forecast",
         incidents:"Issues", inSub:"Contact us fast",
@@ -642,8 +634,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG);
-      applyLang(); loadEvents(); renderAcc();
+      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc(); loadWeatherAll();
       var m=$('#langModal'); if(m) m.style.display='none';
     });
   });
@@ -661,12 +652,14 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#menuBtn'),'click', function(){ var d=$('#drawer'); if(d) d.classList.add('open'); });
   on($('#drawerBack'),'click', function(){ var d=$('#drawer'); if(d) d.classList.remove('open'); });
 
-  /* ===== Datos comunes para eventos/links ===== */
+  /* ===== Datos comunes ===== */
   var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
   var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
   var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
+
+  /* ===== Seguridad de render (escapes) ya definidas arriba ===== */
 
   /* ===== Eventos (home + grid con filtros) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
@@ -681,7 +674,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
-
   function cardButtonsHTML(ev){
     var T=I18N[LANG];
     var rawTitle=i18nField(ev.titulo)||'(sin título)';
@@ -694,7 +686,6 @@ document.addEventListener('DOMContentLoaded', function(){
       + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
       + '</div>';
   }
-
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
@@ -714,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     enhanceEventCards();
   }
-
   function renderEventsGrid(){
     var grid=$('#eventsGrid'), empty=$('#eventsEmpty'); if(!grid) return;
     var filtered = EVENTS.filter(function(ev){
@@ -739,7 +729,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     enhanceEventCards();
   }
-
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
       .then(function(r){return r.json();})
@@ -841,8 +830,15 @@ document.addEventListener('DOMContentLoaded', function(){
     loadSchedulesAdmin();
   });
 
-  function openAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); } }
-  function closeAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); } }
+  /* ===== Helpers modal admin (✕, backdrop, Escape) ===== */
+  function openAdminModal(){
+    var modal=document.getElementById('adminModal');
+    if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
+  }
+  function closeAdminModal(){
+    var modal=document.getElementById('adminModal');
+    if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
+  }
   on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
@@ -926,9 +922,14 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminSortOrder'),'change', function(e){ ADMIN_SORT_ORDER=e.target.value||'asc'; renderAdminTable(); });
 
   function getRowValues(tr){
-    return {dateLocal: tr.querySelector('.dt').value, camping: tr.querySelector('.camp').value,
-      lugar: (tr.querySelector('.lugar').value||'').trim(), titulo: (tr.querySelector('.titulo').value||'').trim(),
-      desc: (tr.querySelector('.desc').value||'').trim(), img: (tr.querySelector('.img').value||'').trim()};
+    return {
+      dateLocal: tr.querySelector('.dt').value,
+      camping: tr.querySelector('.camp').value,
+      lugar: (tr.querySelector('.lugar').value||'').trim(),
+      titulo: (tr.querySelector('.titulo').value||'').trim(),
+      desc: (tr.querySelector('.desc').value||'').trim(),
+      img: (tr.querySelector('.img').value||'').trim()
+    };
   }
   function saveRow(tr,id){
     var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
@@ -983,7 +984,9 @@ document.addEventListener('DOMContentLoaded', function(){
         return fetch(u,{mode:'cors'}).then(function(res){return res.blob()}).then(function(blob){return blob.arrayBuffer()}).then(function(buf){
           var name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
         }).catch(function(){});
-      })).then(function(){ return zip.generateAsync({type:'blob'}); }).then(function(blob){
+      })).then(function(){
+        return zip.generateAsync({type:'blob'});
+      }).then(function(blob){
         var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
       });
     }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
@@ -1106,6 +1109,254 @@ document.addEventListener('DOMContentLoaded', function(){
     if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; }
   });
 
+  /* ==========================
+     🆕 CONFIG “MI ESTANCIA”
+     ========================== */
+  const CLIENTE_CFG = {
+    defaultCamp: 'oyambre',
+    byCamp: {
+      oyambre: { label:'Oyambre', wifi:{ssid:'A Cobijo Oyambre', pass:'acobijo2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
+        contact:{ wa:'34675696212', email:'recepcion@oyambre.com' }, coords:{ lat:43.392, lon:-4.364 },
+        directions:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre',
+        pois:[{name:'Recepción Oyambre',lat:43.392,lon:-4.364,gmaps:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre'}] },
+      ramales: { label:'Ramales', wifi:{ssid:'Camping Ramales WiFi', pass:'ramales2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
+        contact:{ wa:'34654463133', email:'info@campingramales.com' }, coords:{ lat:43.260, lon:-3.460 },
+        directions:'https://maps.google.com/?q=Camping+Ramales',
+        pois:[{name:'Recepción Ramales',lat:43.260,lon:-3.460,gmaps:'https://maps.google.com/?q=Camping+Ramales'}] },
+      ruiloba: { label:'Ruiloba', wifi:{ssid:'El Helguero WiFi', pass:'helguero2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
+        contact:{ wa:'34652806564', email:'info@campingelhelguero.com' }, coords:{ lat:43.391, lon:-4.247 },
+        directions:'https://maps.google.com/?q=Camping+El+Helguero',
+        pois:[{name:'Recepción Ruiloba',lat:43.391,lon:-4.247,gmaps:'https://maps.google.com/?q=Camping+El+Helguero'}] },
+      cardeo: { label:'El Cardeo', wifi:{ssid:'El Cardeo WiFi', pass:'cardeo2025'}, receptionHours:'12:30–23:30', checkin:'16:00', checkout:'11:00',
+        contact:{ wa:'34664686158', email:'info@elcardeo.es' }, coords:{ lat:43.386, lon:-4.402 },
+        directions:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera',
+        pois:[{name:'Taberna El Cardeo',lat:43.386,lon:-4.402,gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera'}] }
+    }
+  };
+  function currentCamp(){ const c=(localStorage.getItem('stay_camp')||'').toLowerCase(); return CLIENTE_CFG.byCamp[c]?c:CLIENTE_CFG.defaultCamp; }
+  function setCamp(c){
+    if(!CLIENTE_CFG.byCamp[c]) return;
+    localStorage.setItem('stay_camp',c);
+    updateStayUI();
+    loadWeatherAll();
+    renderPOIs();
+    // auto-filtro de eventos por camping elegido
+    CAMP_FILTER=c;
+    $all('[data-camp]').forEach(function(x){
+      x.classList.toggle('on', x.getAttribute('data-camp')===c);
+      if(c!=='all' && x.getAttribute('data-camp')==='all') x.classList.remove('on');
+    });
+    renderEventsGrid();
+  }
+  function updateStayUI(){
+    const campKey=currentCamp(); const cfg=CLIENTE_CFG.byCamp[campKey];
+    var sel=$('#stayCamp'); if(sel && sel.value!==campKey) sel.value=campKey;
+    $('#wifiSsid').textContent=cfg.wifi.ssid; $('#wifiPass').textContent=cfg.wifi.pass; $('#recHours').textContent=cfg.receptionHours;
+    $('#checkIn').textContent=cfg.checkin; $('#checkOut').textContent=cfg.checkout;
+    var w=$('#stayWhats'), e=$('#stayEmail'), d=$('#stayDirections');
+    if(w) w.href='https://wa.me/'+cfg.contact.wa;
+    if(e) e.onclick=()=>{ const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent('Consulta desde la app'); location.href=url; };
+    if(d) d.href=cfg.directions;
+  }
+  on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
+  on($('#copyWifi'),'click', async ()=>{ try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); } });
+
+  /* ===== CLIMA por establecimiento (Open-Meteo) ===== */
+  function iconFor(code){
+    code = Number(code)||0;
+    if(code===0) return '☀️';
+    if([1,2].includes(code)) return '🌤️';
+    if(code===3) return '☁️';
+    if([45,48].includes(code)) return '🌫️';
+    if([51,53,55,56,57].includes(code)) return '🌦️';
+    if([61,63,65,80,81,82,66,67].includes(code)) return '🌧️';
+    if([71,73,75,77,85,86].includes(code)) return '❄️';
+    if([95,96,99].includes(code)) return '⛈️';
+    return '🌡️';
+  }
+  function dayLabel(dateStr){
+    try{ return new Intl.DateTimeFormat(LANG,{weekday:'short', day:'2-digit'}).format(new Date(dateStr)); }catch(_){ return dateStr; }
+  }
+  function skeletonCard(title){
+    return `<article class="card" style="min-width:unset">
+      <div class="title">${esc(title)}</div>
+      <div class="small muted">Cargando previsión…</div>
+    </article>`;
+  }
+  async function fetchWeather(lat, lon){
+    const params = new URLSearchParams({
+      latitude: lat, longitude: lon,
+      current: 'temperature_2m,weather_code',
+      daily: 'weather_code,temperature_2m_max,temperature_2m_min',
+      timezone: 'Europe/Madrid'
+    });
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?'+params.toString());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }
+  function renderWeatherCard(el, campKey, j){
+    try{
+      const nowT = Math.round(j.current?.temperature_2m ?? 0);
+      const nowC = j.current?.weather_code ?? 0;
+      const todayMax = Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
+      const todayMin = Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
+      const todayIcon = iconFor(nowC);
+      const days = (j.daily?.time||[]).slice(1,4).map((d,idx)=>({
+        date: d,
+        code: j.daily?.weather_code?.[idx+1],
+        tmax: Math.round(j.daily?.temperature_2m_max?.[idx+1] ?? 0),
+        tmin: Math.round(j.daily?.temperature_2m_min?.[idx+1] ?? 0)
+      }));
+
+      el.innerHTML = `
+        <div class="title">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="font-size:28px">${todayIcon}</div>
+            <div>
+              <div style="font-size:28px;font-weight:700">${nowT}°C</div>
+              <div class="small muted">Max ${todayMax}° · Min ${todayMin}°</div>
+            </div>
+          </div>
+          <a class="btn" target="_blank" rel="noopener" href="${esc(CLIENTE_CFG.byCamp[campKey].directions)}">Cómo llegar</a>
+        </div>
+        <div class="row" style="margin-top:10px;gap:8px">
+          ${days.map(d=>`
+            <div style="border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:110px">
+              <div class="small muted">${esc(dayLabel(d.date))}</div>
+              <div style="font-size:20px;margin:4px 0">${iconFor(d.code)}</div>
+              <div class="small">Max ${d.tmax}° · Min ${d.tmin}°</div>
+            </div>
+          `).join('')}
+        </div>`;
+    }catch(e){
+      el.innerHTML = `<div class="title">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
+        <div class="small muted">No se pudo procesar la previsión.</div>`;
+    }
+  }
+  async function loadWeatherAll(){
+    const wrap = $('#weatherWrap'); if(!wrap) return;
+    wrap.innerHTML = '';
+    const camps = Object.keys(CLIENTE_CFG.byCamp);
+    camps.forEach(k=>{
+      const card=document.createElement('div');
+      card.className='card'; card.style.minWidth='unset';
+      card.id='weather-'+k;
+      card.innerHTML = skeletonCard(CLIENTE_CFG.byCamp[k].label);
+      wrap.appendChild(card);
+    });
+    await Promise.all(camps.map(async (k)=>{
+      const el = $('#weather-'+k);
+      try{
+        const {lat,lon} = CLIENTE_CFG.byCamp[k].coords;
+        const j = await fetchWeather(lat,lon);
+        renderWeatherCard(el,k,j);
+      }catch(e){
+        el.innerHTML = `<div class="title">${esc(CLIENTE_CFG.byCamp[k].label)}</div>
+          <div class="small muted">No se pudo cargar la previsión ahora mismo.</div>`;
+      }
+    }));
+  }
+
+  /* ===== POIs ===== */
+  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;
+    const dLat=toRad(b.lat-a.lat), dLon=toRad(b.lon-a.lon);
+    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
+    return 2*R*Math.asin(Math.sqrt(s1));
+  }
+  async function renderPOIs(){
+    const grid = $('#poisGrid'); if(!grid) return;
+    grid.innerHTML = '';
+    const list = (CLIENTE_CFG.byCamp[currentCamp()]||{}).pois || [];
+    let here=null;
+    try{
+      here = await new Promise((res,rej)=>{
+        if(!navigator.geolocation) return rej();
+        navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude, lon:p.coords.longitude}), rej, {enableHighAccuracy:true, timeout:4000});
+      });
+    }catch(_){}
+    list.forEach(p=>{
+      const km = here ? haversineKm(here,p) : null;
+      const mins = km ? Math.round((km*1000)/(1.4*60)) : null;
+      const card=document.createElement('div'); card.className='card'; card.style.minWidth='unset';
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div><div style="font-weight:700">${esc(p.name)}</div>
+            <div class="muted">${km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible'}</div>
+          </div>
+          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">Cómo llegar</a>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  /* ===== Incidencias ===== */
+  async function buildIncidentText(){
+    const t=($('#iTitle')||{}).value||''; const p=($('#iPlace')||{}).value||''; const d=($('#iDetail')||{}).value||'';
+    let locTxt=''; try{
+      const pos = await new Promise((res,rej)=>{
+        if(!navigator.geolocation) return rej();
+        navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
+      });
+      locTxt = `\nUbicación: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+    }catch(_){}
+    const camp = CLIENTE_CFG.byCamp[currentCamp()].label;
+    return `Incidencia/Petición
+Alojamiento: ${camp}
+Título: ${t}
+Ubicación: ${p}
+Detalle: ${d}${locTxt}`;
+  }
+  on($('#sendWhats'),'click', async ()=>{ const txt=await buildIncidentText(); const wa=CLIENTE_CFG.byCamp[currentCamp()].contact.wa; window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(txt),'_blank'); });
+  on($('#sendEmail'),'click', async ()=>{ const txt=await buildIncidentText(); const em=CLIENTE_CFG.byCamp[currentCamp()].contact.email; location.href=`mailto:${em}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`; });
+  on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
+  on($('#iPhoto'),'change', async function(e){
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    const b=await (function compress(file,maxW=1280,q=0.7){ return new Promise((res,rej)=>{
+      const img=new Image(); const fr=new FileReader();
+      fr.onload=()=> img.src=fr.result; fr.onerror=rej;
+      img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
+        const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+        c.toBlob(b=>res(b),'image/jpeg',q); };
+      fr.readAsDataURL(file);
+    });})(f);
+    if(!b){ alert('No se pudo procesar la imagen.'); return; }
+    alert('Imagen optimizada. Adjúntala desde tu galería al enviar por WhatsApp/Email.');
+  });
+
+  /* ===== Eventos: favoritos + .ics ===== */
+  function toICSTimestamp(d){ const pad=n=>String(n).padStart(2,'0');
+    return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
+  function icsFile(title,startISO,endISO,loc){
+    const now=new Date();
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//ES',
+      'BEGIN:VEVENT','UID:'+crypto.randomUUID()+'@grupoacobijo','DTSTAMP:'+toICSTimestamp(now),
+      'DTSTART:'+toICSTimestamp(new Date(startISO)),'DTEND:'+toICSTimestamp(new Date(endISO)),
+      'SUMMARY:'+String(title).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')];
+    if(loc) lines.push('LOCATION:'+String(loc).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n'));
+    lines.push('END:VEVENT','END:VCALENDAR');
+    return new Blob([lines.join('\r\n')],{type:'text/calendar'});
+  }
+  function enhanceEventCards(){
+    const T=I18N[LANG]; const FKEY='favEvents'; const favs=new Set(JSON.parse(localStorage.getItem(FKEY)||'[]'));
+    function paint(btn,id){ btn.textContent=favs.has(id)?T.favOk:T.fav; }
+    $all('.event .fav-btn').forEach(function(btn){
+      const id=btn.getAttribute('data-id') || (btn.closest('.event')?.getAttribute('data-start')||'');
+      if(btn.dataset.wired) return; btn.dataset.wired='1'; paint(btn,id);
+      on(btn,'click', function(){ if(favs.has(id)) favs.delete(id); else favs.add(id); localStorage.setItem(FKEY,JSON.stringify(Array.from(favs))); paint(btn,id); });
+    });
+    $all('.event .ics-btn').forEach(function(btn){
+      if(btn.dataset.wired) return; btn.dataset.wired='1';
+      on(btn,'click', function(){
+        const title=btn.getAttribute('data-title')||'Evento A Cobijo';
+        const startISO=btn.getAttribute('data-start'); const loc=btn.getAttribute('data-loc')||'';
+        const start=new Date(startISO); const end=new Date(start.getTime()+60*60000);
+        const blob=icsFile(title,start.toISOString(),end.toISOString(),loc);
+        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=title+'.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
+      });
+    });
+  }
+
   /* ===== Deep linking para shortcuts del manifest ===== */
   (function deepLinking(){
     try{
@@ -1118,12 +1369,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       if (nav === 'places' && focus) {
         const mapIds = {oyambre:'t-oy-title', ramales:'t-ra-title', ruiloba:'t-he-title', cardeo:'t-ca-title'};
-        const f = String(focus).toLowerCase();
-        // (Opcional) sincroniza Mi estancia al abrir con focus
-        if (['oyambre','ramales','ruiloba','cardeo'].includes(f)) {
-          setCamp(f);
-        }
-        const targetId = mapIds[f];
+        const targetId = mapIds[String(focus).toLowerCase()];
         const el = targetId ? document.getElementById(targetId) : null;
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -1148,273 +1394,13 @@ document.addEventListener('DOMContentLoaded', function(){
     alert('Contraseña guardada.');
   });
 
-  /* ==========================
-     🆕 CONFIG y LÓGICA “MI ESTANCIA”
-     ========================== */
-  const CLIENTE_CFG = {
-    defaultCamp: 'oyambre',
-    byCamp: {
-      oyambre: {
-        label: 'Oyambre',
-        wifi: { ssid: 'Camping Oyambre', pass: 'Sin Contraseña' },
-        receptionHours: '08:30–22:00',
-        checkin: '15:00', checkout: '12:00',
-        contact: { wa: '34675696212', email: 'recepcion@oyambre.com' },
-        coords: { lat: 43.392, lon: -4.364 },
-        directions: 'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre',
-        pois: [
-          { name:'Recepción Oyambre', lat:43.392, lon:-4.364, gmaps:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre' },
-          { name:'Playa de Oyambre', lat:43.391, lon:-4.375, gmaps:'https://maps.google.com/?q=Playa+de+Oyambre' },
-          { name:'El Cardeo', lat:43.386, lon:-4.402, gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera' }
-        ]
-      },
-      ramales: {
-        label: 'Ramales',
-        wifi: { ssid: 'Camping Ramales', pass: 'Ramales2021' },
-        receptionHours: '09:00–21:00',
-        checkin: '15:00', checkout: '12:00',
-        contact: { wa: '34654463133', email: 'info@campingramales.com' },
-        coords: { lat: 43.260, lon: -3.460 },
-        directions: 'https://maps.google.com/?q=Camping+Ramales',
-        pois: [
-          { name:'Recepción Ramales', lat:43.260, lon:-3.460, gmaps:'https://maps.google.com/?q=Camping+Ramales' }
-        ]
-      },
-      ruiloba: {
-        label: 'Ruiloba',
-        wifi: { ssid: 'El Helguero WiFi', pass: 'helguero2025' },
-        receptionHours: '09:00–21:00',
-        checkin: '15:00', checkout: '12:00',
-        contact: { wa: '34652806564', email: 'info@campingelhelguero.com' },
-        coords: { lat: 43.391, lon: -4.247 },
-        directions: 'https://maps.google.com/?q=Camping+El+Helguero',
-        pois: [
-          { name:'Recepción Ruiloba', lat:43.391, lon:-4.247, gmaps:'https://maps.google.com/?q=Camping+El+Helguero' }
-        ]
-      },
-      cardeo: {
-        label: 'El Cardeo',
-        wifi: { ssid: 'El Cardeo WiFi', pass: 'cardeo2025' },
-        receptionHours: '12:30–23:30',
-        checkin: '16:00', checkout: '11:00',
-        contact: { wa: '34664686158', email: 'info@elcardeo.es' },
-        coords: { lat: 43.386, lon: -4.402 },
-        directions: 'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera',
-        pois: [
-          { name:'Taberna El Cardeo', lat:43.386, lon:-4.402, gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera' }
-        ]
-      }
-    }
-  };
-
-  function currentCamp(){
-    const c = (localStorage.getItem('stay_camp') || '').toLowerCase();
-    return CLIENTE_CFG.byCamp[c] ? c : CLIENTE_CFG.defaultCamp;
-  }
-  function setCamp(c){
-    if(!CLIENTE_CFG.byCamp[c]) return;
-    localStorage.setItem('stay_camp', c);
-    updateStayUI();
-    loadWeather();
-    renderPOIs();
-  }
-
-  /* === Mi estancia: hidratar UI según camp === */
-  function updateStayUI(){
-    const campKey = currentCamp();
-    const cfg = CLIENTE_CFG.byCamp[campKey];
-    const sel = document.getElementById('stayCamp');
-    if (sel && sel.value !== campKey) sel.value = campKey;
-
-    const ss=$('#wifiSsid'), pw=$('#wifiPass'), rh=$('#recHours');
-    const ci=$('#checkIn'), co=$('#checkOut');
-    if(ss) ss.textContent = cfg.wifi.ssid;
-    if(pw) pw.textContent = cfg.wifi.pass;
-    if(rh) rh.textContent = cfg.receptionHours;
-    if(ci) ci.textContent = cfg.checkin;
-    if(co) co.textContent = cfg.checkout;
-
-    const w=$('#stayWhats'), e=$('#stayEmail'), d=$('#stayDirections');
-    if(w){ w.href = 'https://wa.me/'+cfg.contact.wa; }
-    if(e){
-      e.onclick = function(){
-        const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent('Consulta desde la app');
-        window.location.href=url;
-      };
-    }
-    if(d){ d.href = cfg.directions; }
-  }
-  on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
-  on($('#copyWifi'),'click', async function(){
-    try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); }
-  });
-
-  /* === Clima: usa el camp seleccionado === */
-  async function loadWeather(){
-    const card = $('#weatherCard'); if(!card) return;
-    const {coords} = CLIENTE_CFG.byCamp[currentCamp()];
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMadrid`;
-    try{
-      const r = await fetch(url); const j = await r.json();
-      const t = Math.round(j.current?.temperature_2m ?? 0);
-      const w = Math.round(j.current?.wind_speed_10m ?? 0);
-      const tmax = Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
-      const tmin = Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
-      card.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-          <div><div style="font-size:28px;font-weight:700">${t}°C</div>
-          <div class="small muted">Max ${tmax}° · Min ${tmin}°</div></div>
-          <div class="badge">Viento ${w} km/h</div>
-        </div>`;
-    }catch(e){
-      card.innerHTML = `<div class="small muted">No se pudo cargar la previsión ahora mismo.</div>`;
-    }
-  }
-
-  /* === POIs: usa la lista del camp seleccionado === */
-  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;
-    const dLat=toRad(b.lat-a.lat), dLon=toRad(b.lon-a.lon);
-    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
-    return 2*R*Math.asin(Math.sqrt(s1));
-  }
-  async function renderPOIs(){
-    const grid = $('#poisGrid'); if(!grid) return;
-    grid.innerHTML = '';
-    const list = (CLIENTE_CFG.byCamp[currentCamp()]||{}).pois || [];
-    let here=null;
-    try{
-      here = await new Promise((res,rej)=>{
-        if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(
-          p=>res({lat:p.coords.latitude, lon:p.coords.longitude}),
-          rej,
-          {enableHighAccuracy:true, timeout:4000}
-        );
-      });
-    }catch(_){}
-    list.forEach(p=>{
-      const km = here ? haversineKm(here,p) : null;
-      const mins = km ? Math.round((km*1000)/(1.4*60)) : null;
-      const card=document.createElement('div'); card.className='card'; card.style.minWidth='unset';
-      card.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-          <div>
-            <div style="font-weight:700">${esc(p.name)}</div>
-            <div class="muted">${km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible'}</div>
-          </div>
-          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">Cómo llegar</a>
-        </div>`;
-      grid.appendChild(card);
-    });
-  }
-
-  /* === Incidencias: envía al contacto del camp seleccionado === */
-  async function buildIncidentText(){
-    const t=($('#iTitle')||{}).value||''; const p=($('#iPlace')||{}).value||''; const d=($('#iDetail')||{}).value||'';
-    let locTxt='';
-    try{
-      const pos = await new Promise((res,rej)=>{
-        if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
-      });
-      const { latitude, longitude } = pos.coords;
-      locTxt = `\nUbicación: https://maps.google.com/?q=${latitude},${longitude}`;
-    }catch(_){}
-    const camp = CLIENTE_CFG.byCamp[currentCamp()].label;
-    return `Incidencia/Petición
-Alojamiento: ${camp}
-Título: ${t}
-Ubicación: ${p}
-Detalle: ${d}${locTxt}`;
-  }
-  on($('#sendWhats'),'click', async ()=>{
-    const txt = await buildIncidentText();
-    const { wa } = CLIENTE_CFG.byCamp[currentCamp()].contact;
-    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(txt)}`,'_blank');
-  });
-  on($('#sendEmail'),'click', async ()=>{
-    const txt = await buildIncidentText();
-    const { email } = CLIENTE_CFG.byCamp[currentCamp()].contact;
-    const url = `mailto:${email}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`;
-    window.location.href = url;
-  });
-  on($('#copyTxt'),'click', async function(){
-    const txt=await buildIncidentText();
-    try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); }
-  });
-  on($('#iPhoto'),'change', async function(e){
-    const f=e.target.files && e.target.files[0]; if(!f) return;
-    const b=await (function compressImage(file, maxW=1280, quality=0.7){
-      return new Promise((resolve,reject)=>{
-        const img=new Image(); const fr=new FileReader();
-        fr.onload=()=>{ img.src=fr.result; }; fr.onerror=reject;
-        img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
-          const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-          c.toBlob(b=>resolve(b),'image/jpeg',quality); };
-        if(file) fr.readAsDataURL(file); else resolve(null);
-      });
-    })(f);
-    if(!b){ alert('No se pudo procesar la imagen.'); return; }
-    alert('Imagen optimizada. Adjúntala desde tu galería al enviar por WhatsApp/Email.');
-  });
-
-  /* === Eventos: Favoritos + Calendario (.ics) === */
-  function toICSTimestamp(d){ const pad=n=>String(n).padStart(2,'0');
-    return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
-  function icsFile(title, startISO, endISO, loc){
-    const now=new Date();
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//ES',
-      'BEGIN:VEVENT',
-      'UID:'+crypto.randomUUID()+'@grupoacobijo',
-      'DTSTAMP:'+toICSTimestamp(now),
-      'DTSTART:'+toICSTimestamp(new Date(startISO)),
-      'DTEND:'+toICSTimestamp(new Date(endISO)),
-      'SUMMARY:'+String(title).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')];
-    if(loc){ lines.push('LOCATION:'+String(loc).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')); }
-    lines.push('END:VEVENT','END:VCALENDAR');
-    return new Blob([lines.join('\r\n')], {type:'text/calendar'});
-  }
-  function enhanceEventCards(){
-    const T=I18N[LANG]; const FKEY='favEvents';
-    const favs=new Set(JSON.parse(localStorage.getItem(FKEY)||'[]'));
-
-    function paint(btn,id){ btn.textContent = favs.has(id)?T.favOk:T.fav; }
-
-    $all('.event .fav-btn').forEach(function(btn){
-      const id=btn.getAttribute('data-id') || (btn.closest('.event')?.getAttribute('data-start')||'') ;
-      if(!btn.dataset.wired){
-        btn.dataset.wired='1';
-        paint(btn,id);
-        on(btn,'click', function(){
-          if(favs.has(id)) favs.delete(id); else favs.add(id);
-          localStorage.setItem(FKEY, JSON.stringify(Array.from(favs)));
-          paint(btn,id);
-        });
-      }
-    });
-
-    $all('.event .ics-btn').forEach(function(btn){
-      if(btn.dataset.wired) return;
-      btn.dataset.wired='1';
-      on(btn,'click', function(){
-        const title=btn.getAttribute('data-title')||'Evento A Cobijo';
-        const startISO=btn.getAttribute('data-start');
-        const loc=btn.getAttribute('data-loc')||'';
-        const start=new Date(startISO);
-        const end=new Date(start.getTime()+60*60000); // 60 min por defecto
-        const blob=icsFile(title,start.toISOString(),end.toISOString(),loc);
-        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=title+'.ics';
-        document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
-      });
-    });
-  }
-
   /* ===== Init ===== */
+  applyLang();
   updateStayUI();
   loadEvents();
   loadSchedules();
   renderAcc();
-  loadWeather();
+  loadWeatherAll();
   renderPOIs();
 
 }); // DOMContentLoaded
