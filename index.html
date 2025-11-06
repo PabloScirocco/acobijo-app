@@ -1101,6 +1101,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'});
     var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   });
+  on($('#importSchedFile'),'click', function(e){ /* input visible solo click */ });
   on($('#importSchedFile'),'change', function(e){
     var f=e.target.files && e.target.files[0]; if(!f) return;
     f.text().then(function(txt){
@@ -1199,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', function(){
     defaultCamp: 'oyambre',
     byCamp: {
       oyambre: { label:'Oyambre', wifi:{ssid:'A Cobijo Oyambre', pass:'acobijo2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
-        contact:{ wa:'34675696212', email:'recepcion@oyambre.com' }, coords:{ lat:43.392, lon:-4.364 },
+        contact:{ wa:'34675696212', email:'camping@oyambre.com' }, coords:{ lat:43.392, lon:-4.364 },
         directions:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre',
         pois:[{name:'Recepción Oyambre',lat:43.392,lon:-4.364,gmaps:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre'}] },
       ramales: { label:'Ramales', wifi:{ssid:'Camping Ramales WiFi', pass:'ramales2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
@@ -1414,18 +1415,42 @@ Título: ${t}
 Ubicación: ${p}
 Detalle: ${d}${locTxt}`;
   }
+
+  /* === WhatsApp robusto (misma pestaña + fallback) === */
   on($('#sendWhats'),'click', async ()=>{
-    const txt=await buildIncidentText();
-    const k = incidentCampKey();
-    const wa=CLIENTE_CFG.byCamp[k].contact.wa;
-    window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(txt),'_blank');
+    if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
+      alert('Añade al menos un título o un detalle para enviar.'); return;
+    }
+    const txt = await buildIncidentText();
+    const k   = incidentCampKey();
+    const ph  = (CLIENTE_CFG.byCamp[k].contact.wa || '').replace(/\D/g,'');
+    const wa1 = 'https://wa.me/'+ph+'?text='+encodeURIComponent(txt);
+    const wa2 = 'https://api.whatsapp.com/send?phone='+ph+'&text='+encodeURIComponent(txt);
+    try{
+      location.href = wa1;
+      setTimeout(function(){
+        if(document.visibilityState === 'visible'){
+          location.href = wa2;
+        }
+      }, 1200);
+    }catch(e){
+      location.href = wa2;
+    }
   });
+
+  /* === Email usando configuración actual === */
   on($('#sendEmail'),'click', async ()=>{
-    const txt=await buildIncidentText();
-    const k = incidentCampKey();
-    const em=CLIENTE_CFG.byCamp[k].contact.email;
-    location.href=`mailto:${em}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`;
+    if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
+      alert('Añade al menos un título o un detalle para enviar.'); return;
+    }
+    const txt = await buildIncidentText();
+    const k   = incidentCampKey();
+    const em  = (CLIENTE_CFG.byCamp[k].contact.email || '').trim();
+    const sub = 'Incidencia/Petición';
+    const mailto = `mailto:${encodeURIComponent(em)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(txt)}`;
+    location.href = mailto;
   });
+
   on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
 
   /* Foto: preview + compresión ligera */
