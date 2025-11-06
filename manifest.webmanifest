@@ -8,6 +8,8 @@
   "start_url": "./?pwa=1",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "launch_handler": { "client_mode": "navigate-existing" },
   "background_color": "#ffffff",
   "theme_color": "#0ea5e9",
   "orientation": "portrait-primary",
@@ -17,12 +19,12 @@
     { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "shortcuts": [
-    { "name": "Eventos",  "short_name": "Eventos",  "url": "./#eventos",  "description": "Ver eventos del grupo" },
-    { "name": "Horarios", "short_name": "Horarios", "url": "./#horarios", "description": "Ver horarios por camping" },
-    { "name": "Oyambre",  "short_name": "Oyambre",  "url": "./#oyambre",  "description": "Accesos y mapa de Oyambre" },
-    { "name": "Ramales",  "short_name": "Ramales",  "url": "./#ramales",  "description": "Accesos y mapa de Ramales" },
-    { "name": "Ruiloba",  "short_name": "Ruiloba",  "url": "./#ruiloba",  "description": "Accesos y mapa de Ruiloba" },
-    { "name": "El Cardeo","short_name": "Cardeo",   "url": "./#cardeo",   "description": "Accesos y mapa de El Cardeo" }
+    { "name": "Eventos",  "short_name": "Eventos",  "url": "./?nav=events",                    "description": "Ver eventos del grupo" },
+    { "name": "Horarios", "short_name": "Horarios", "url": "./?nav=schedules",                 "description": "Ver horarios por camping" },
+    { "name": "Oyambre",  "short_name": "Oyambre",  "url": "./?nav=places&focus=oyambre",      "description": "Accesos y mapa de Oyambre" },
+    { "name": "Ramales",  "short_name": "Ramales",  "url": "./?nav=places&focus=ramales",      "description": "Accesos y mapa de Ramales" },
+    { "name": "Ruiloba",  "short_name": "Ruiloba",  "url": "./?nav=places&focus=ruiloba",      "description": "Accesos y mapa de Ruiloba" },
+    { "name": "El Cardeo","short_name": "Cardeo",   "url": "./?nav=places&focus=cardeo",       "description": "Accesos y mapa de El Cardeo" }
   ],
   "prefer_related_applications": false
 }
