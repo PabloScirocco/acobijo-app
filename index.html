@@ -155,7 +155,6 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
-    <!-- (Pendiente ocultar texto guía) Eliminado según solicitud -->
   </aside>
 </div>
 
@@ -326,7 +325,6 @@ body.modal-open{overflow:hidden}
     <div class="card" style="margin-top:12px">
       <h4 style="margin:0 0 8px">Eventos actuales</h4>
 
-      <!-- Controles de filtro/orden -->
       <div class="row" style="margin:6px 0">
         <div style="flex:1;min-width:200px">
           <label>Filtrar por camping</label>
@@ -375,7 +373,7 @@ body.modal-open{overflow:hidden}
     <!-- Gestión de horarios -->
     <div class="card" style="margin-top:12px">
       <h4>Gestión de horarios (schedules.json)</h4>
-      <p class="muted">Edita el JSON de horarios. Acepta el formato: {"oyambre":{"es":"...","en":"..."},"ramales":...}</p>
+      <p class="muted">Formato: {"oyambre":{"es":"...","en":"..."},"ramales":...}</p>
       <textarea id="schedJsonArea" class="textarea" rows="10" placeholder='Pegue aquí su schedules.json'></textarea>
       <div class="row" style="margin-top:10px">
         <button id="schedApplyBtn" class="btn">Aplicar cambios</button>
@@ -419,13 +417,13 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
-<!-- JSZip (solo se usa al pulsar ZIP) -->
+<!-- JSZip -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
-  /* ===== Estado admin al cargar + PIN por defecto ===== */
+  /* ===== Estado admin + PIN por defecto ===== */
   localStorage.setItem('admin','0');
   document.body.classList.remove('admin-on');
   if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
@@ -543,6 +541,22 @@ document.addEventListener('DOMContentLoaded', function(){
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
+  /* ===== Seguridad de render (escapes) ===== */
+  function esc(s){
+    return String(s||'')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+  function safeUrl(u){
+    var s=String(u||'').trim();
+    if (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)){
+      return s.replace(/"/g,'%22');
+    }
+    return '';
+  }
+
   /* ===== Eventos (home + grid con filtros) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
   function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
@@ -561,17 +575,19 @@ document.addEventListener('DOMContentLoaded', function(){
     var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
     if(!next.length){ wrap.innerHTML='<div class="muted">Sin eventos por ahora.</div>'; return; }
     wrap.innerHTML = next.map(function(ev){
-      var title=i18nField(ev.titulo)||'(sin título)';
-      var place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var img=ev.imagen||ev.image||'';
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
+      var rawTitle=i18nField(ev.titulo)||'(sin título)';
+      var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
+      var title=esc(rawTitle);
+      var place=esc(rawPlace);
+      var img=safeUrl(ev.imagen||ev.image||'');
+      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
       return '<div class="card">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
         + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+wa+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
+          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
         + '</div></div>';
     }).join('');
   }
@@ -585,17 +601,19 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!filtered.length){ grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
     if(empty) empty.style.display='none';
     grid.innerHTML = filtered.map(function(ev){
-      var title=i18nField(ev.titulo)||'(sin título)';
-      var place=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var img=ev.imagen||ev.image||'';
-      var wa=waLink(ev.camping,'Hola, consulta sobre “'+title+'” en '+place+'.');
+      var rawTitle=i18nField(ev.titulo)||'(sin título)';
+      var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
+      var title=esc(rawTitle);
+      var place=esc(rawPlace);
+      var img=safeUrl(ev.imagen||ev.image||'');
+      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
       return '<div class="card" style="min-width:unset">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
         + '<div class="row" style="margin-top:6px">'
-          + (wa?'<a class="btn" href="'+wa+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-          + '<a class="btn" href="'+(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
+          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
         + '</div></div>';
     }).join('');
   }
@@ -689,12 +707,10 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
 
-    /* Arranque siempre sin admin */
     localStorage.setItem('admin','0');
     document.body.classList.remove('admin-on');
   })();
 
-  /* Abrir admin solo si eres admin */
   on($('#openAdmin'), 'click', function(){
     if(!document.body.classList.contains('admin-on')) return;
     openAdminModal();
@@ -715,14 +731,13 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla (simple + filtro/orden) ===== */
+  /* ===== Admin tabla (filtro/orden) ===== */
   var ADMIN_EVENTS=[];
   var ADMIN_FILTER_CAMP='all';
   var ADMIN_SORT_ORDER='asc';
 
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
   function isoFromLocal(dt){
-    // Corrige: formatear la hora local con offset real (no UTC + offset)
     var d=new Date(dt);
     if(isNaN(d.getTime())) return dt;
     var tz=-d.getTimezoneOffset(), sign=tz>=0?'+':'-';
@@ -746,11 +761,9 @@ document.addEventListener('DOMContentLoaded', function(){
     var tbody = $('#eventsTable tbody'); if(!tbody) return;
     var list = ADMIN_EVENTS.slice();
 
-    // Filtro por camping
     if(ADMIN_FILTER_CAMP!=='all'){
       list = list.filter(function(e){ return String(e.camping||'').toLowerCase()===ADMIN_FILTER_CAMP; });
     }
-    // Orden
     list.sort(function(a,b){
       var da=new Date(a.fecha).getTime(), db=new Date(b.fecha).getTime();
       return ADMIN_SORT_ORDER==='asc' ? (da-db) : (db-da);
@@ -762,8 +775,8 @@ document.addEventListener('DOMContentLoaded', function(){
       var dt=new Date(ev.fecha);
       var val = dt.getFullYear()+'-'+('0'+(dt.getMonth()+1)).slice(-2)+'-'+('0'+dt.getDate()).slice(-2)+'T'+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2);
       return '<tr data-id="'+ev.id+'">'
-        + '<td class="muted">'+ev.id+'</td>'
-        + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+dt.toLocaleString()+'</div></td>'
+        + '<td class="muted">'+esc(ev.id)+'</td>'
+        + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+esc(dt.toLocaleString())+'</div></td>'
         + '<td>'
           + '<select class="select camp">'
             + '<option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option>'
@@ -771,12 +784,12 @@ document.addEventListener('DOMContentLoaded', function(){
             + '<option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option>'
             + '<option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option>'
           + '</select>'
-          + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+lugarES.replace(/"/g,'&quot;')+'">'
+          + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+esc(lugarES)+'">'
         + '</td>'
         + '<td>'
-          + '<input class="input titulo" placeholder="Título (ES)" value="'+titleES.replace(/"/g,'&quot;')+'">'
-          + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+(((ev.descripcion&&ev.descripcion.es)||'').replace(/</g,'&lt;'))+'</textarea>'
-          + '<input class="input img" placeholder="Imagen (URL)" value="'+((ev.imagen||ev.image||'').replace(/"/g,'&quot;'))+'" style="margin-top:6px">'
+          + '<input class="input titulo" placeholder="Título (ES)" value="'+esc(titleES)+'">'
+          + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+esc(((ev.descripcion&&ev.descripcion.es)||''))+'</textarea>'
+          + '<input class="input img" placeholder="Imagen (URL)" value="'+esc((ev.imagen||ev.image||''))+'" style="margin-top:6px">'
         + '</td>'
         + '<td style="min-width:220px">'
           + '<button class="btn act-save">Guardar</button> '
@@ -850,11 +863,8 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#exportZipBtn'),'click', function(){
     try{
       var zip=new JSZip();
-      // events.json
       zip.file('events.json', JSON.stringify(ADMIN_EVENTS,null,2));
-      // schedules.json
       zip.file('schedules.json', JSON.stringify(SCHEDULES,null,2));
-      // imágenes de eventos
       var imgs=ADMIN_EVENTS.map(function(e){return e.imagen||e.image}).filter(Boolean);
       var folder=zip.folder('images'); var added={};
       Promise.all(imgs.map(function(u){
@@ -988,22 +998,22 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Init ===== */
+  applyLang();
   loadEvents();
   loadSchedules();
   renderAcc();
-  <script>
+
+  /* ===== Deep linking para shortcuts del manifest ===== */
   (function deepLinking(){
     try{
       const params = new URLSearchParams(location.search);
       const nav = params.get('nav');
-      const focus = params.get('focus'); // oyambre | ramales | ruiloba | cardeo
+      const focus = params.get('focus');
       if (nav) {
-        // usa el router existente
-        const btn = document.querySelector('.navbtn[data-nav="'+nav+'"]');
-        if (btn) btn.click(); else { /* fallback */ }
+        const btn = document.querySelector('.navbtn[data-nav="'+nav+'"]') || document.querySelector('[data-nav="'+nav+'"]');
+        if (btn) btn.click();
       }
       if (nav === 'places' && focus) {
-        // desplaza al bloque del camping correspondiente
         const mapIds = {oyambre:'t-oy-title', ramales:'t-ra-title', ruiloba:'t-he-title', cardeo:'t-ca-title'};
         const targetId = mapIds[String(focus).toLowerCase()];
         const el = targetId ? document.getElementById(targetId) : null;
@@ -1011,10 +1021,16 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     }catch(e){}
   })();
-</script>
 
   /* ===== SW ===== */
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./service-worker.js');
+    navigator.serviceWorker.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SW_ACTIVE') {
+        console.log('PWA actualizada a', e.data.version);
+      }
+    });
+  }
 
   /* ===== Guardar PIN admin ===== */
   on($('#saveAdminPin'),'click', function(){
