@@ -1,19 +1,5 @@
 [
   {
-    "id": "ev-halloween-en-cardeo-cardeo-2025-10-3121",
-    "fecha": "2025-10-31T20:00:00+01:00",
-    "camping": "cardeo",
-    "titulo": {
-      "es": "Halloween en Cardeo"
-    },
-    "descripcion": {
-      "es": "Xx"
-    },
-    "lugar": {
-      "es": "El Cardeo"
-    }
-  },
-  {
     "id": "ev-nochebuena-ramales-2025",
     "fecha": "2025-12-24T21:00:00+01:00",
     "camping": "ramales",
@@ -38,20 +24,5 @@
       "de": "Camping Ramales",
       "nl": "Camping Ramales"
     }
-  },
-  {
-    "id": "ev-aa-oyambre-2025-11-2010",
-    "fecha": "2025-11-20T10:27:00+01:00",
-    "camping": "oyambre",
-    "titulo": {
-      "es": "Aa"
-    },
-    "descripcion": {
-      "es": "Bxbx"
-    },
-    "lugar": {
-      "es": "Camping Oyambre"
-    },
-    "imagen": "https://share.google/g91FChkCMj57ycPRV"
   }
 ]
