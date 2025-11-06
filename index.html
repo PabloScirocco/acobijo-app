@@ -45,7 +45,7 @@ body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
 .drawer .muted{color:var(--muted);font-size:.85rem}
-/* 🔒 Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
+/* 🔒 Ocultar admin por defecto; mostrar SOLO en admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
@@ -112,7 +112,7 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-beavior:contain;
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;
@@ -120,7 +120,7 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin button */
+/* Admin button / helpers */
 .muted{color:var(--muted);font-size:.9rem}
 
 /* Tabla admin simple */
@@ -383,6 +383,15 @@ body.dark .wx-chip{background:rgba(15,26,43,.6)}
     <h2>Incidencias y peticiones</h2>
     <article class="card" style="min-width:unset">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
+        <label>Alojamiento
+          <select id="incCamp" class="input">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </label>
+
         <label>Título <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42"></label>
         <label>Ubicación <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona"></label>
         <label style="grid-column:1/-1">Detalle
@@ -390,11 +399,13 @@ body.dark .wx-chip{background:rgba(15,26,43,.6)}
         </label>
         <label>Foto (opcional) <input id="iPhoto" type="file" accept="image/*" class="input"></label>
       </div>
+
       <div class="row" style="margin-top:10px">
         <button class="btn" id="sendWhats">Enviar por WhatsApp</button>
         <button class="btn" id="sendEmail">Enviar por Email</button>
         <button class="btn" id="copyTxt">Copiar texto</button>
       </div>
+      <p class="muted small" id="iTarget" style="margin-top:6px"></p>
       <p class="muted" style="margin-top:6px">Si lo permites, incluimos enlace de tu ubicación para acelerar la atención.</p>
     </article>
   </section>
@@ -1309,25 +1320,58 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  /* ===== Incidencias ===== */
+  /* ===== Incidencias: selector de alojamiento y ruteo ===== */
+  function incidentCampKey(){
+    const sel = $('#incCamp');
+    const v = (sel && sel.value) ? sel.value : currentCamp();
+    return CLIENTE_CFG.byCamp[v] ? v : currentCamp();
+  }
+  function updateIncidentTargetUI(){
+    const k = incidentCampKey();
+    const cfg = CLIENTE_CFG.byCamp[k];
+    const el = $('#iTarget');
+    if(el) el.textContent = `Se enviará a ${cfg.label}: WhatsApp +${cfg.contact.wa} · ${cfg.contact.email}`;
+  }
+  (function initIncidentCamp(){
+    const sel = $('#incCamp');
+    if(sel){ sel.value = currentCamp(); on(sel,'change', updateIncidentTargetUI); }
+    updateIncidentTargetUI();
+  })();
+
   async function buildIncidentText(){
-    const t=($('#iTitle')||{}).value||''; const p=($('#iPlace')||{}).value||''; const d=($('#iDetail')||{}).value||'';
-    let locTxt=''; try{
+    const t=($('#iTitle')||{}).value||''; 
+    const p=($('#iPlace')||{}).value||''; 
+    const d=($('#iDetail')||{}).value||'';
+    const k = incidentCampKey();
+    const campLabel = CLIENTE_CFG.byCamp[k].label;
+
+    let locTxt=''; 
+    try{
       const pos = await new Promise((res,rej)=>{
         if(!navigator.geolocation) return rej();
         navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
       });
       locTxt = `\nUbicación: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
     }catch(_){}
-    const camp = CLIENTE_CFG.byCamp[currentCamp()].label;
+
     return `Incidencia/Petición
-Alojamiento: ${camp}
+Alojamiento: ${campLabel}
 Título: ${t}
 Ubicación: ${p}
 Detalle: ${d}${locTxt}`;
   }
-  on($('#sendWhats'),'click', async ()=>{ const txt=await buildIncidentText(); const wa=CLIENTE_CFG.byCamp[currentCamp()].contact.wa; window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(txt),'_blank'); });
-  on($('#sendEmail'),'click', async ()=>{ const txt=await buildIncidentText(); const em=CLIENTE_CFG.byCamp[currentCamp()].contact.email; location.href=`mailto:${em}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`; });
+  on($('#sendWhats'),'click', async ()=>{
+    const txt=await buildIncidentText();
+    const k = incidentCampKey();
+    const wa=CLIENTE_CFG.byCamp[k].contact.wa;
+    window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(txt),'_blank');
+  });
+  on($('#sendEmail'),'click', async ()=>{
+    const txt=await buildIncidentText();
+    const k = incidentCampKey();
+    const em=CLIENTE_CFG.byCamp[k].contact.email;
+    location.href=`mailto:${em}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`;
+  });
   on($('#copyTxt'),'click', async ()=>{ const txt=await buildIncidentText(); try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(_){ alert('No se pudo copiar'); } });
   on($('#iPhoto'),'change', async function(e){
     const f=e.target.files && e.target.files[0]; if(!f) return;
