@@ -991,6 +991,27 @@ document.addEventListener('DOMContentLoaded', function(){
   loadEvents();
   loadSchedules();
   renderAcc();
+  <script>
+  (function deepLinking(){
+    try{
+      const params = new URLSearchParams(location.search);
+      const nav = params.get('nav');
+      const focus = params.get('focus'); // oyambre | ramales | ruiloba | cardeo
+      if (nav) {
+        // usa el router existente
+        const btn = document.querySelector('.navbtn[data-nav="'+nav+'"]');
+        if (btn) btn.click(); else { /* fallback */ }
+      }
+      if (nav === 'places' && focus) {
+        // desplaza al bloque del camping correspondiente
+        const mapIds = {oyambre:'t-oy-title', ramales:'t-ra-title', ruiloba:'t-he-title', cardeo:'t-ca-title'};
+        const targetId = mapIds[String(focus).toLowerCase()];
+        const el = targetId ? document.getElementById(targetId) : null;
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }catch(e){}
+  })();
+</script>
 
   /* ===== SW ===== */
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./service-worker.js'); }
