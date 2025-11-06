@@ -15,10 +15,12 @@
 :root{
   --bg:#ffffff; --ink:#0a1a2a; --muted:#6b7280; --line:#e6eef7;
   --brand:#0ea5e9; --brand-ink:#063e63; --card:#f7fbff; --tint:#eef7ff;
+  --blue-50:#f0f7ff; --blue-100:#e4f1ff; --blue-200:#cfe7ff; --blue-300:#b7dcff; --blue-600:#1b78c9;
 }
 body.dark{
   --bg:#0b1220; --ink:#e8eef7; --muted:#8fa2bd; --line:#1e2a40;
   --brand:#22b2ff; --brand-ink:#bfe7ff; --card:#111a2a; --tint:#0f1a2b;
+  --blue-50:#0d1626; --blue-100:#0f1a2b; --blue-200:#0f2139; --blue-300:#11304f; --blue-600:#5fc2ff;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -45,7 +47,7 @@ body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
 .drawer .muted{color:var(--muted);font-size:.85rem}
-/* 🔒 Ocultar admin por defecto; mostrar SOLO en admin-on */
+/* 🔒 Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
@@ -82,7 +84,7 @@ body.dark .card{background:#0f1a2b}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 
-/* Filters */
+/* Events filters */
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.35rem .7rem;cursor:pointer}
 body.dark .chip{background:#0f1a2b}
@@ -103,7 +105,29 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Bottom nav */
+/* Weather (Mi estancia) */
+.weather-wrap{border:1px solid var(--line);border-radius:16px;padding:14px;background:linear-gradient(180deg,var(--blue-50),#fff)}
+body.dark .weather-wrap{background:linear-gradient(180deg,var(--blue-100),#0f1a2b)}
+.weather-today{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--blue-100);border:1px solid var(--line);border-radius:14px;padding:14px}
+.weather-today .temp{font-size:2.4rem;font-weight:800}
+.weather-today .right{display:flex;gap:16px;align-items:center}
+.weather-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.mini-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+body.dark .mini-card{background:#0f1a2b}
+.mini-card .d{font-weight:700}
+.mini-card .ico{font-size:1.2rem}
+
+/* Incidencias */
+.inc-wrap{border:1px solid var(--line);border-radius:16px;padding:14px;background:linear-gradient(180deg,var(--blue-50),#fff)}
+.inc-group{margin-bottom:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+body.dark .inc-group{background:#0f1a2b}
+.inc-title{font-weight:800;color:var(--blue-600);margin:0 0 6px}
+.label{font-weight:700;margin-bottom:4px;display:block}
+.input,.select,.textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+body.dark .input, body.dark .select, body.dark .textarea{background:#0f1a2b;color:var(--ink)}
+.hint{color:var(--muted);font-size:.85rem}
+
+/* Bottom nav (4 botones) */
 .navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
@@ -120,73 +144,10 @@ body.dark .modal{background:#0f1a2b}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin helpers */
-.muted{color:var(--muted);font-size:.9rem}
-
-/* Tabla admin */
+/* Admin table */
 .table{width:100%;border-collapse:collapse;font-size:.9rem}
 .table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .table th{background:var(--tint)}
-.input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
-
-/* Helpers */
-.kbd{font:12px/1.4 ui-monospace,monospace;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
-.small{font-size:.85rem}
-
-/* Weather UI */
-.wx-card{
-  background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(14,165,233,.08);
-}
-body.dark .wx-card{
-  background: linear-gradient(180deg,#11243c 0%, #0f1a2b 60%, #0b1220 100%);
-  box-shadow: 0 10px 24px rgba(0,0,0,.35);
-}
-.wx-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.wx-left{display:flex;align-items:center;gap:12px}
-.wx-icon{font-size:42px;line-height:1}
-.wx-temp{font-size:42px;font-weight:800}
-.wx-mm{color:var(--muted);font-size:.95rem}
-.wx-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.wx-chip{border:1px solid var(--line);background:rgba(255,255,255,.7);border-radius:14px;padding:10px;text-align:center}
-body.dark .wx-chip{background:rgba(15,26,43,.6)}
-.wx-day{font-size:.88rem;color:var(--muted)}
-.wx-ico{font-size:22px;margin:4px 0}
-
-/* Incidencias (visual azul) */
-.inc-card{
-  background: linear-gradient(180deg,#eaf5ff 0%, #f7fbff 60%, #ffffff 100%);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(14,165,233,.08);
-  padding: 14px;
-}
-body.dark .inc-card{
-  background: linear-gradient(180deg,#11243c 0%, #0f1a2b 60%, #0b1220 100%);
-  box-shadow: 0 10px 24px rgba(0,0,0,.35);
-}
-.inc-head{display:flex;align-items:center;gap:10px;margin:-4px 0 10px 0;}
-.inc-head .badge{background:#eaf5ff;border-color:#cfe9ff;color:#063e63;font-weight:700;}
-body.dark .inc-head .badge{background:#0f2a46;border-color:#1a3f64;color:#bfe7ff;}
-.label-strong{display:block;font-weight:800;color:var(--brand-ink);margin-bottom:6px;}
-body.dark .label-strong{color:var(--brand-ink);}
-.inc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;}
-.inc-field{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;}
-body.dark .inc-field{background:#0f1a2b;}
-.inc-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
-.pill-target{
-  margin-top:8px;padding:10px 12px;border:1px solid var(--line);
-  background:#eef7ff;border-left:4px solid var(--brand);border-radius:12px;
-  color:#063e63;font-weight:600;
-}
-body.dark .pill-target{background:#10233a;color:#bfe7ff;}
-.btn.wa{background:var(--brand);border-color:var(--brand);color:#fff;}
-.btn.mail{background:#fff;border-color:#b7dbff;}
-body.dark .btn.mail{background:#0f1a2b;}
-.inc-note{color:var(--muted);margin-top:6px;}
-.inc-prev{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);border-radius:12px;background:#f2f6fb;display:none;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -208,13 +169,11 @@ body.dark .btn.mail{background:#0f1a2b;}
   <div class="back" id="drawerBack"></div>
   <aside class="panel" role="menu" aria-label="Navegación">
     <div class="item" data-nav="home">🏠 <strong>Inicio</strong></div>
+    <div class="item" data-nav="stay">🧳 <strong>Mi estancia</strong></div>
+    <div class="item" data-nav="incidents">🆘 <strong>Incidencias</strong></div>
     <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
-    <div class="item" data-nav="stay">🛎️ <strong>Mi estancia</strong></div>
-    <div class="item" data-nav="weather">🌤️ <strong>Clima</strong></div>
-    <div class="item" data-nav="pois">📍 <strong>Puntos útiles</strong></div>
-    <div class="item" data-nav="incidents">🛠️ <strong>Incidencias</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
   </aside>
 </div>
@@ -235,14 +194,118 @@ body.dark .btn.mail{background:#0f1a2b;}
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
-        <div class="tile" data-nav="stay"><div class="big">🛎️</div><div><strong id="t-st">Mi estancia</strong><div class="muted" id="t-st-sub">Wi-Fi · normas</div></div></div>
-        <div class="tile" data-nav="weather"><div class="big">🌤️</div><div><strong id="t-we">Clima</strong><div class="muted" id="t-we-sub">Hoy y previsión</div></div></div>
-        <div class="tile" data-nav="incidents"><div class="big">🛠️</div><div><strong id="t-in">Incidencias</strong><div class="muted" id="t-in-sub">Avísanos rápido</div></div></div>
       </div>
     </div>
 
     <h3 style="margin:14px 4px 8px">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
+  </section>
+
+  <!-- MI ESTANCIA -->
+  <section id="view-stay" class="view">
+    <h2 id="t-stay-title">Mi estancia</h2>
+
+    <div class="row" style="margin:8px 0">
+      <div style="flex:1;min-width:220px">
+        <label class="label" id="t-stay-which">Selecciona tu alojamiento</label>
+        <select id="staySelect" class="select">
+          <option value="oyambre">Oyambre</option>
+          <option value="ramales">Ramales</option>
+          <option value="ruiloba">Ruiloba</option>
+          <option value="cardeo">El Cardeo</option>
+        </select>
+        <p class="hint" id="t-stay-hint">Guardamos tu elección en este dispositivo.</p>
+      </div>
+    </div>
+
+    <div class="row" style="margin:8px 0;gap:10px">
+      <a class="btn" id="stayCallBtn" target="_blank" rel="noopener">📞 Llamar</a>
+      <a class="btn" id="stayWhatsBtn" target="_blank" rel="noopener">🟢 WhatsApp</a>
+      <a class="btn" id="stayEmailBtn" target="_blank" rel="noopener">✉️ Email</a>
+      <a class="btn" id="stayGoBtn" target="_blank" rel="noopener">🧭 Cómo llegar</a>
+    </div>
+
+    <div class="weather-wrap" style="margin-top:10px">
+      <h3 style="margin:0 0 8px" id="t-weather-title">Clima</h3>
+      <div id="weatherBox">
+        <div class="weather-today">
+          <div>
+            <div id="w-place" style="font-weight:700;margin-bottom:4px">—</div>
+            <div id="w-desc" class="hint">—</div>
+          </div>
+          <div class="right">
+            <div id="w-ico" style="font-size:2rem">⛅</div>
+            <div class="temp"><span id="w-now">—</span>°</div>
+            <div style="text-align:right">
+              <div class="hint" id="t-max">Máx</div>
+              <div><b id="w-max">—</b>°</div>
+            </div>
+            <div style="text-align:right">
+              <div class="hint" id="t-min">Mín</div>
+              <div><b id="w-min">—</b>°</div>
+            </div>
+          </div>
+        </div>
+        <div class="weather-mini">
+          <div class="mini-card"><div class="d" id="d1">—</div><div class="ico" id="i1">⛅</div><div><span id="x1">—</span>° / <span id="n1">—</span>°</div></div>
+          <div class="mini-card"><div class="d" id="d2">—</div><div class="ico" id="i2">⛅</div><div><span id="x2">—</span>° / <span id="n2">—</span>°</div></div>
+          <div class="mini-card"><div class="d" id="d3">—</div><div class="ico" id="i3">⛅</div><div><span id="x3">—</span>° / <span id="n3">—</span>°</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc" style="margin-top:12px">
+      <div class="acc-item open">
+        <div class="acc-h">🕒 <strong id="t-stay-hours">Horarios del alojamiento</strong> <span>▼</span></div>
+        <div class="acc-b"><div id="stayHours"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCIDENCIAS -->
+  <section id="view-incidents" class="view">
+    <h2 id="t-inc-title">Incidencias</h2>
+    <div class="inc-wrap">
+      <div class="inc-group">
+        <p class="inc-title" id="t-inc-where">¿En qué alojamiento estás?</p>
+        <select id="incPlace" class="select">
+          <option value="oyambre">Oyambre</option>
+          <option value="ramales">Ramales</option>
+          <option value="ruiloba">Ruiloba</option>
+          <option value="cardeo">El Cardeo</option>
+        </select>
+      </div>
+
+      <div class="inc-group">
+        <p class="inc-title" id="t-inc-contact">¿Cómo quieres contactar?</p>
+        <div class="row">
+          <label><input type="radio" name="incMethod" value="whatsapp" checked> WhatsApp</label>
+          <label style="margin-left:14px"><input type="radio" name="incMethod" value="email"> Email</label>
+        </div>
+        <p class="hint" id="t-inc-hint">Se abre WhatsApp o tu app de correo con el mensaje preparado.</p>
+      </div>
+
+      <div class="inc-group">
+        <label class="label" for="incType" id="t-inc-type">Tipo de incidencia</label>
+        <select id="incType" class="select">
+          <option value="alojamiento">Alojamiento</option>
+          <option value="mantenimiento">Mantenimiento</option>
+          <option value="limpieza">Limpieza</option>
+          <option value="restauracion">Restauración</option>
+          <option value="otros">Otros</option>
+        </select>
+      </div>
+
+      <div class="inc-group">
+        <label class="label" for="incMsg" id="t-inc-msg">Describe brevemente el problema</label>
+        <textarea id="incMsg" rows="5" class="textarea" placeholder="Ej.: No funciona el agua caliente en la ducha."></textarea>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <button class="btn primary" id="incSendBtn">Enviar</button>
+        <button class="btn" id="incClearBtn">Limpiar</button>
+      </div>
+    </div>
   </section>
 
   <!-- EVENTOS -->
@@ -270,7 +333,7 @@ body.dark .btn.mail{background:#0f1a2b;}
     <h2 id="t-campings-title">Nuestros campings</h2>
     <div class="grid">
 
-      <article class="place" data-camp="oyambre">
+      <article class="place">
         <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
         <p class="muted" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
@@ -282,7 +345,7 @@ body.dark .btn.mail{background:#0f1a2b;}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place" data-camp="ramales">
+      <article class="place">
         <h3 id="t-ra-title">Camping Ramales</h3>
         <p class="muted" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
@@ -294,7 +357,7 @@ body.dark .btn.mail{background:#0f1a2b;}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place" data-camp="ruiloba">
+      <article class="place">
         <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
         <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
@@ -306,7 +369,7 @@ body.dark .btn.mail{background:#0f1a2b;}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place" data-camp="cardeo">
+      <article class="place">
         <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
         <p class="muted" id="t-ca-hint">Apartamentos + Taberna</p>
         <div class="row">
@@ -344,132 +407,13 @@ body.dark .btn.mail{background:#0f1a2b;}
     </div>
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
-
-  <!-- MI ESTANCIA -->
-  <section id="view-stay" class="view">
-    <h2 id="t-stay-title">Mi estancia</h2>
-    <article class="card" style="min-width:unset">
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-        <label><b id="t-stay-where">Estoy alojado en</b>
-          <select id="stayCamp" class="input">
-            <option value="oyambre">Oyambre</option>
-            <option value="ramales">Ramales</option>
-            <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
-          </select>
-        </label>
-        <div>
-          <div><b id="t-wifi">Wi-Fi</b></div>
-          <div><span id="t-ssid">SSID</span>: <span id="wifiSsid">—</span></div>
-          <div><span id="t-pass">Clave</span>: <span id="wifiPass" class="kbd">—</span></div>
-          <div class="row" style="margin-top:6px"><button class="btn" id="copyWifi"><span id="t-copy-pass">Copiar clave</span></button></div>
-        </div>
-        <div>
-          <div><b id="t-key-hours">Horarios clave</b></div>
-          <div><span id="t-reception">Recepción</span>: <span id="recHours">—</span></div>
-          <div><span id="t-checkin">Check-in</span>: <span id="checkIn">—</span> · <span id="t-checkout">Check-out</span>: <span id="checkOut">—</span></div>
-        </div>
-        <div>
-          <div><b id="t-quick-contact">Contacto rápido</b></div>
-          <div class="row" style="margin-top:6px; gap:8px; flex-wrap:wrap">
-            <a class="btn" id="stayWhats" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn" id="stayEmail"><span id="t-email">Email</span></a>
-            <a class="btn" id="stayDirections" target="_blank" rel="noopener"><span id="t-directions">Cómo llegar</span></a>
-          </div>
-        </div>
-        <div>
-          <div><b id="t-rules">Normas rápidas</b></div>
-          <ul style="margin:8px 0 0 18px">
-            <li id="t-rule-quiet">Silencio: 23:00–08:00</li>
-            <li id="t-rule-speed">Velocidad interior: 10 km/h</li>
-            <li id="t-rule-pets">Mascotas con correa y recoger excrementos</li>
-          </ul>
-        </div>
-        <div>
-          <div><b id="t-emergencies">Emergencias</b></div>
-          <div id="t-emer-numbers">112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
-          <div class="row" style="margin-top:6px">
-            <a class="btn" href="tel:112" id="t-call-112">Llamar 112</a>
-            <a class="btn" href="tel:061" id="t-call-061">Llamar 061</a>
-          </div>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- CLIMA -->
-  <section id="view-weather" class="view">
-    <h2>Clima</h2>
-    <div class="grid" id="weatherWrap"></div>
-    <p class="muted small" id="weatherNote">Fuente: Open-Meteo · Zona horaria: Europe/Madrid</p>
-  </section>
-
-  <!-- POIs -->
-  <section id="view-pois" class="view">
-    <h2>Puntos útiles</h2>
-    <div class="grid" id="poisGrid"></div>
-    <p class="muted">Activa la ubicación del dispositivo para calcular distancia/tiempo andando.</p>
-  </section>
-
-  <!-- INCIDENCIAS -->
-  <section id="view-incidents" class="view">
-    <h2 id="t-incidents-title">Incidencias y peticiones</h2>
-    <article class="card inc-card" style="min-width:unset">
-      <div class="inc-head">
-        <div class="badge" id="t-inc-badge">🛠️ Atención al cliente</div>
-        <div class="muted" id="t-inc-lead">Cuéntanos qué ocurre y te atendemos.</div>
-      </div>
-
-      <div class="inc-grid">
-        <div class="inc-field">
-          <span class="label-strong" id="t-inc-lodging">Alojamiento</span>
-          <select id="incCamp" class="input">
-            <option value="oyambre">Oyambre</option>
-            <option value="ramales">Ramales</option>
-            <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
-          </select>
-        </div>
-
-        <div class="inc-field">
-          <span class="label-strong" id="t-inc-title">Título</span>
-          <input id="iTitle" class="input" placeholder="Ej.: Bombilla fundida en parcela 42">
-        </div>
-
-        <div class="inc-field">
-          <span class="label-strong" id="t-inc-place">Ubicación</span>
-          <input id="iPlace" class="input" placeholder="Parcela / Bungalow / Zona">
-        </div>
-
-        <div class="inc-field" style="grid-column:1/-1">
-          <span class="label-strong" id="t-inc-detail">Detalle</span>
-          <textarea id="iDetail" class="textarea" rows="4" placeholder="Describe brevemente el problema…"></textarea>
-        </div>
-
-        <div class="inc-field">
-          <span class="label-strong" id="t-inc-photo">Foto (opcional)</span>
-          <input id="iPhoto" type="file" accept="image/*" class="input">
-          <img id="iPreview" class="inc-prev" alt="Vista previa">
-        </div>
-      </div>
-
-      <div class="inc-actions">
-        <button class="btn wa" id="sendWhats"><span id="t-btn-send-wa">Enviar por WhatsApp</span></button>
-        <button class="btn mail" id="sendEmail"><span id="t-btn-send-mail">Enviar por Email</span></button>
-        <button class="btn" id="copyTxt"><span id="t-btn-copy">Copiar texto</span></button>
-      </div>
-
-      <p class="pill-target" id="iTarget"></p>
-      <p class="inc-note" id="t-inc-note">Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.</p>
-    </article>
-  </section>
 </main>
 
-<!-- Bottom nav (Inicio · Mi estancia · Incidencias · Eventos) -->
+<!-- Bottom nav -->
 <nav class="navbar" role="navigation" aria-label="Pestañas">
   <button class="navbtn active" data-nav="home"><div class="ico">🏠</div><div id="n-home">Inicio</div></button>
-  <button class="navbtn" data-nav="stay"><div class="ico">🛎️</div><div id="n-st">Mi estancia</div></button>
-  <button class="navbtn" data-nav="incidents"><div class="ico">🛠️</div><div id="n-in">Incidencias</div></button>
+  <button class="navbtn" data-nav="stay"><div class="ico">🧳</div><div id="n-stay">Mi estancia</div></button>
+  <button class="navbtn" data-nav="incidents"><div class="ico">🆘</div><div id="n-inc">Incidencias</div></button>
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
 </nav>
 
@@ -624,13 +568,11 @@ document.addEventListener('DOMContentLoaded', function(){
     return '';
   }
 
-  /* ===== Tema claro/oscuro ===== */
+  /* ===== Tema ===== */
   function detectTheme(){
     var saved = localStorage.getItem('theme');
     if(saved) return saved;
-    try{
-      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    }catch(e){}
+    try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){}
     return 'light';
   }
   function applyTheme(mode){
@@ -643,10 +585,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   var THEME = detectTheme();
   applyTheme(THEME);
-  on($('#themeBtn'),'click', function(){
-    THEME = (THEME==='dark') ? 'light' : 'dark';
-    applyTheme(THEME);
-  });
+  on($('#themeBtn'),'click', function(){ THEME = (THEME==='dark') ? 'light' : 'dark'; applyTheme(THEME); });
 
   /* ===== i18n ===== */
   var I18N = {
@@ -656,37 +595,17 @@ document.addEventListener('DOMContentLoaded', function(){
         eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
         fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana",
         cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp", email:"Email",
+        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar",
         raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
         caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
-        stayTitle:"Mi estancia", st:"Mi estancia", stSub:"Wi-Fi · normas",
-        weather:"Clima", we:"Clima", weSub:"Hoy y previsión",
-        incidents:"Incidencias", inSub:"Avísanos rápido",
-        fav:"⭐ Favorito", favOk:"⭐ Favorito ✓", addCal:"📅 Añadir a calendario",
-        copy:"Copiar", copied:"Copiado",
-        nStay:"Mi estancia", nInc:"Incidencias",
-        // Mi estancia
-        stayWhere:"Estoy alojado en",
-        wifi:"Wi-Fi", ssid:"SSID", password:"Clave", copyPass:"Copiar clave",
-        keyHours:"Horarios clave", reception:"Recepción", checkin:"Check-in", checkout:"Check-out",
-        quickContact:"Contacto rápido", rules:"Normas rápidas",
-        ruleQuiet:"Silencio: 23:00–08:00", ruleSpeed:"Velocidad interior: 10 km/h", rulePets:"Mascotas con correa y recoger excrementos",
-        emergencies:"Emergencias", emerNumbers:"112 (general) · 061 (sanitaria) · 062 (Guardia Civil)",
-        contactSubject:"Consulta desde la app",
-        // Incidencias
-        incidentsTitle:"Incidencias y peticiones", incBadge:"🛠️ Atención al cliente",
-        incLead:"Cuéntanos qué ocurre y te atendemos.",
-        incLodging:"Alojamiento", incTitle:"Título", incPlace:"Ubicación", incDetail:"Detalle", incPhoto:"Foto (opcional)",
-        phTitle:"Ej.: Bombilla fundida en parcela 42", phPlace:"Parcela / Bungalow / Zona", phDetail:"Describe brevemente el problema…",
-        sendWhats:"Enviar por WhatsApp", sendEmail:"Enviar por Email", copyText:"Copiar texto",
-        targetWillSend:"Se enviará a {name}: WhatsApp +{wa} · {email}",
-        includeLocNote:"Si lo permites, incluiremos un enlace con tu ubicación para acelerar la atención.",
-        errNeedText:"Añade al menos un título o un detalle para enviar.",
-        emailSubject:"Incidencia/Petición"
+        stayTitle:"Mi estancia", stayWhich:"Selecciona tu alojamiento", stayHint:"Guardamos tu elección en este dispositivo.",
+        weatherTitle:"Clima", max:"Máx", min:"Mín", stayHours:"Horarios del alojamiento",
+        incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?", incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
+        incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar",
@@ -694,160 +613,24 @@ document.addEventListener('DOMContentLoaded', function(){
         eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
         fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week",
         cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp", email:"Email",
+        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea",
         raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities",
-        heTitle:"El Helguero Campsite (Ruiloba)", heHint:"Nature · Family · Pets",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
-        stayTitle:"My stay", st:"My stay", stSub:"Wi-Fi · rules",
-        weather:"Weather", we:"Weather", weSub:"Today & forecast",
-        incidents:"Issues", inSub:"Contact us fast",
-        fav:"⭐ Favorite", favOk:"⭐ Favorite ✓", addCal:"📅 Add to calendar",
-        copy:"Copy", copied:"Copied",
-        nStay:"My stay", nInc:"Issues",
-        // My stay
-        stayWhere:"I'm staying at",
-        wifi:"Wi-Fi", ssid:"SSID", password:"Password", copyPass:"Copy password",
-        keyHours:"Key hours", reception:"Reception", checkin:"Check-in", checkout:"Check-out",
-        quickContact:"Quick contact", rules:"House rules",
-        ruleQuiet:"Quiet hours: 23:00–08:00", ruleSpeed:"Speed limit inside: 10 km/h", rulePets:"Pets on leash; pick up waste",
-        emergencies:"Emergencies", emerNumbers:"112 (general) · 061 (health) · 062 (Guardia Civil)",
-        contactSubject:"Query from the app",
-        // Incidents
-        incidentsTitle:"Issues & requests", incBadge:"🛠️ Customer support",
-        incLead:"Tell us what's happening and we'll help.",
-        incLodging:"Accommodation", incTitle:"Title", incPlace:"Location", incDetail:"Details", incPhoto:"Photo (optional)",
-        phTitle:"e.g., Light bulb out at pitch 42", phPlace:"Pitch / Bungalow / Area", phDetail:"Briefly describe the issue…",
-        sendWhats:"Send via WhatsApp", sendEmail:"Send via Email", copyText:"Copy text",
-        targetWillSend:"Will be sent to {name}: WhatsApp +{wa} · {email}",
-        includeLocNote:"If permitted, we'll include a link to your location to speed up assistance.",
-        errNeedText:"Add at least a title or some details to send.",
-        emailSubject:"Issue/Request"
-    },
-    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
-        ev:"Événements", evSub:"Quoi aujourd’hui", pl:"Campings", plSub:"Accès rapide", sc:"Horaires", scSub:"Réception · bar",
-        inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
-        eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
-        fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine",
-        cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Site web", call:"Appeler", directions:"Itinéraire", whatsapp:"WhatsApp", email:"Email",
-        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Tous services · En bord de mer",
-        raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités",
-        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Famille · Animaux",
-        caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
-        schedNote:"Infos indicatives. Vérifiez à la réception selon la saison.",
-        nHome:"Accueil", nEv:"Événements", nPl:"Campings", nSc:"Horaires",
-        stayTitle:"Mon séjour", st:"Mon séjour", stSub:"Wi-Fi · règles",
-        weather:"Météo", we:"Météo", weSub:"Aujourd’hui & prévision",
-        incidents:"Incidents", inSub:"Contactez-nous rapidement",
-        fav:"⭐ Favori", favOk:"⭐ Favori ✓", addCal:"📅 Ajouter au calendrier",
-        copy:"Copier", copied:"Copié",
-        nStay:"Mon séjour", nInc:"Incidents",
-        // Mon séjour
-        stayWhere:"Je suis hébergé à",
-        wifi:"Wi-Fi", ssid:"SSID", password:"Mot de passe", copyPass:"Copier le mot de passe",
-        keyHours:"Horaires clés", reception:"Réception", checkin:"Check-in", checkout:"Check-out",
-        quickContact:"Contact rapide", rules:"Règles de la maison",
-        ruleQuiet:"Silence : 23:00–08:00", ruleSpeed:"Vitesse intérieure : 10 km/h", rulePets:"Animaux en laisse et ramasser",
-        emergencies:"Urgences", emerNumbers:"112 (général) · 061 (santé) · 062 (Garde civile)",
-        contactSubject:"Question depuis l’application",
-        // Incidents
-        incidentsTitle:"Incidents & demandes", incBadge:"🛠️ Service client",
-        incLead:"Décrivez-nous le problème et nous vous aidons.",
-        incLodging:"Hébergement", incTitle:"Titre", incPlace:"Emplacement", incDetail:"Détail", incPhoto:"Photo (optionnel)",
-        phTitle:"Ex. : Ampoule grillée à l’emplacement 42", phPlace:"Emplacement / Bungalow / Zone", phDetail:"Décrivez brièvement le problème…",
-        sendWhats:"Envoyer via WhatsApp", sendEmail:"Envoyer par email", copyText:"Copier le texte",
-        targetWillSend:"Sera envoyé à {name} : WhatsApp +{wa} · {email}",
-        includeLocNote:"Si vous l’autorisez, nous inclurons un lien vers votre position pour accélérer l’aide.",
-        errNeedText:"Ajoutez au moins un titre ou un détail pour envoyer.",
-        emailSubject:"Incident/Demande"
-    },
-    de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
-        ev:"Events", evSub:"Was gibt’s heute", pl:"Campingplätze", plSub:"Schnellzugriff", sc:"Zeiten", scSub:"Rezeption · Bar",
-        inst:"Installieren", instSub:"Zum Startbildschirm",
-        eventsTitle:"Events", schedulesTitle:"Zeiten", campingsTitle:"Unsere Campingplätze",
-        fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche",
-        cAll:"Alle Plätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Website", call:"Anrufen", directions:"Route", whatsapp:"WhatsApp", email:"E-Mail",
-        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle Services · Am Meer",
-        raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten",
-        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
-        caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
-        schedNote:"Unverbindliche Infos. Saisonabhängige Änderungen an der Rezeption prüfen.",
-        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
-        stayTitle:"Mein Aufenthalt", st:"Mein Aufenthalt", stSub:"Wi-Fi · Regeln",
-        weather:"Wetter", we:"Wetter", weSub:"Heute & Vorhersage",
-        incidents:"Meldungen", inSub:"Schnell Kontakt",
-        fav:"⭐ Favorit", favOk:"⭐ Favorit ✓", addCal:"📅 Zum Kalender",
-        copy:"Kopieren", copied:"Kopiert",
-        nStay:"Mein Aufenthalt", nInc:"Meldungen",
-        // Mein Aufenthalt
-        stayWhere:"Ich bin untergebracht in",
-        wifi:"Wi-Fi", ssid:"SSID", password:"Passwort", copyPass:"Passwort kopieren",
-        keyHours:"Wichtige Zeiten", reception:"Rezeption", checkin:"Check-in", checkout:"Check-out",
-        quickContact:"Schnellkontakt", rules:"Hausregeln",
-        ruleQuiet:"Ruhezeiten: 23:00–08:00", ruleSpeed:"Fahrtempo innen: 10 km/h", rulePets:"Haustiere an der Leine, Kot entsorgen",
-        emergencies:"Notfälle", emerNumbers:"112 (allg.) · 061 (medizin.) · 062 (Guardia Civil)",
-        contactSubject:"Anfrage aus der App",
-        // Meldungen
-        incidentsTitle:"Meldungen & Wünsche", incBadge:"🛠️ Kundenservice",
-        incLead:"Sagen Sie uns kurz Bescheid – wir kümmern uns.",
-        incLodging:"Unterkunft", incTitle:"Titel", incPlace:"Ort", incDetail:"Details", incPhoto:"Foto (optional)",
-        phTitle:"Z. B.: Lampe defekt auf Parzelle 42", phPlace:"Parzelle / Bungalow / Bereich", phDetail:"Beschreiben Sie das Problem kurz…",
-        sendWhats:"Per WhatsApp senden", sendEmail:"Per E-Mail senden", copyText:"Text kopieren",
-        targetWillSend:"Wird an {name} gesendet: WhatsApp +{wa} · {email}",
-        includeLocNote:"Wenn erlaubt, fügen wir Ihren Standortlink hinzu, um schneller zu helfen.",
-        errNeedText:"Bitte geben Sie mindestens einen Titel oder Details ein.",
-        emailSubject:"Meldung/Wunsch"
-    },
-    nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
-        ev:"Evenementen", evSub:"Wat is er vandaag", pl:"Campings", plSub:"Snelle toegang", sc:"Tijden", scSub:"Receptie · bar",
-        inst:"Installeren", instSub:"Naar beginscherm",
-        eventsTitle:"Evenementen", schedulesTitle:"Tijden", campingsTitle:"Onze campings",
-        fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week",
-        cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Website", call:"Bellen", directions:"Route", whatsapp:"WhatsApp", email:"E-mail",
-        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle services · Aan zee",
-        raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten",
-        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
-        caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
-        schedNote:"Indicatieve info. Check bij de receptie i.v.m. seizoenswijzigingen.",
-        nHome:"Start", nEv:"Events", nPl:"Campings", nSc:"Tijden",
-        stayTitle:"Mijn verblijf", st:"Mijn verblijf", stSub:"Wi-Fi · regels",
-        weather:"Weer", we:"Weer", weSub:"Vandaag & verwachting",
-        incidents:"Meldingen", inSub:"Snel contact",
-        fav:"⭐ Favoriet", favOk:"⭐ Favoriet ✓", addCal:"📅 Aan agenda toevoegen",
-        copy:"Kopiëren", copied:"Gekopieerd",
-        nStay:"Mijn verblijf", nInc:"Meldingen",
-        // Mijn verblijf
-        stayWhere:"Ik verblijf in",
-        wifi:"Wi-Fi", ssid:"SSID", password:"Wachtwoord", copyPass:"Wachtwoord kopiëren",
-        keyHours:"Belangrijke tijden", reception:"Receptie", checkin:"Check-in", checkout:"Check-out",
-        quickContact:"Snelle contact", rules:"Huisregels",
-        ruleQuiet:"Stilte: 23:00–08:00", ruleSpeed:"Snelheid op terrein: 10 km/u", rulePets:"Huisdieren aangelijnd; opruimen",
-        emergencies:"Noodgevallen", emerNumbers:"112 (alg.) · 061 (zorg) · 062 (Guardia Civil)",
-        contactSubject:"Vraag via de app",
-        // Meldingen
-        incidentsTitle:"Meldingen & verzoeken", incBadge:"🛠️ Klantenservice",
-        incLead:"Vertel wat er is; we helpen je.",
-        incLodging:"Accommodatie", incTitle:"Titel", incPlace:"Locatie", incDetail:"Details", incPhoto:"Foto (optioneel)",
-        phTitle:"Bijv.: Lamp stuk op plek 42", phPlace:"Plek / Bungalow / Zone", phDetail:"Beschrijf kort het probleem…",
-        sendWhats:"Versturen via WhatsApp", sendEmail:"Versturen via e-mail", copyText:"Tekst kopiëren",
-        targetWillSend:"Wordt verstuurd naar {name}: WhatsApp +{wa} · {email}",
-        includeLocNote:"Als toegestaan voegen we een link naar je locatie toe om sneller te helpen.",
-        errNeedText:"Voeg minstens een titel of detail toe om te versturen.",
-        emailSubject:"Melding/Verzoek"
+        stayTitle:"My stay", stayWhich:"Choose your accommodation", stayHint:"We store your choice on this device.",
+        weatherTitle:"Weather", max:"Max", min:"Min", stayHours:"Accommodation opening hours",
+        incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?", incHint:"We open WhatsApp or your email app with a prefilled message.",
+        incType:"Type of issue", incMsg:"Briefly describe the problem"
     }
   };
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
-
   function applyLang(){
     var T=I18N[LANG];
-    // generales
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub); t("t-pl",T.pl); t("t-pl-sub",T.plSub); t("t-sc",T.sc); t("t-sc-sub",T.scSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
@@ -857,45 +640,17 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
     t("schedNote",T.schedNote);
-    t("t-stay-title",T.stayTitle); t("t-st",T.st); t("t-st-sub",T.stSub);
-    t("t-we",T.we); t("t-we-sub",T.weSub);
-    t("t-in",T.incidents); t("t-in-sub",T.inSub);
-
-    // Bottom nav
-    var nh=$('#n-home'), ne=$('#n-ev'), np=$('#n-pl'), ns=$('#n-sc'), nst=$('#n-st'), nin=$('#n-in');
-    if(nh) nh.textContent=T.nHome;
-    if(nst) nst.textContent=T.nStay||T.stayTitle||'Mi estancia';
-    if(nin) nin.textContent=T.nInc||T.incidents||'Incidencias';
-    if(ne) ne.textContent=T.nEv;
-    if(np) np.textContent=T.nPl;
-    if(ns) ns.textContent=T.nSc;
-
+    t("t-stay-title",T.stayTitle); t("t-stay-which",T.stayWhich); t("t-stay-hint",T.stayHint);
+    t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min); t("t-stay-hours",T.stayHours);
+    t("t-inc-title",T.incTitle); t("t-inc-where",T.incWhere); t("t-inc-contact",T.incContact); t("t-inc-hint",T.incHint);
+    t("t-inc-type",T.incType); t("t-inc-msg",T.incMsg);
+    var nh=$('#n-home'), ns=$('#n-stay'), ni=$('#n-inc'), ne=$('#n-ev');
+    if(nh) nh.textContent=T.nHome; if(ns) ns.textContent=T.stayTitle; if(ni) ni.textContent=T.incTitle; if(ne) ne.textContent=T.nEv;
     $all("[data-i18n-web]").forEach(function(e){e.textContent=T.web;});
     $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
     $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
     $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
     var lb=$('#langBtn'); if(lb){ lb.textContent='🌐 '+LANG.toUpperCase(); }
-
-    // ===== Mi estancia
-    t("t-stay-where",T.stayWhere);
-    t("t-wifi",T.wifi); t("t-ssid",T.ssid); t("t-pass",T.password); t("t-copy-pass",T.copyPass);
-    t("t-key-hours",T.keyHours); t("t-reception",T.reception); t("t-checkin",T.checkin); t("t-checkout",T.checkout);
-    t("t-quick-contact",T.quickContact);
-    t("t-email",T.email); t("t-directions",T.directions);
-    t("t-rules",T.rules); t("t-rule-quiet",T.ruleQuiet); t("t-rule-speed",T.ruleSpeed); t("t-rule-pets",T.rulePets);
-    t("t-emergencies",T.emergencies); t("t-emer-numbers",T.emerNumbers);
-    var c112=$('#t-call-112'); if(c112) c112.textContent=(T.call||'Call')+' 112';
-    var c061=$('#t-call-061'); if(c061) c061.textContent=(T.call||'Call')+' 061';
-
-    // ===== Incidencias
-    t("t-incidents-title",T.incidentsTitle);
-    t("t-inc-badge",T.incBadge); t("t-inc-lead",T.incLead);
-    t("t-inc-lodging",T.incLodging); t("t-inc-title",T.incTitle); t("t-inc-place",T.incPlace); t("t-inc-detail",T.incDetail); t("t-inc-photo",T.incPhoto);
-    $('#iTitle') && ($('#iTitle').placeholder = T.phTitle);
-    $('#iPlace') && ($('#iPlace').placeholder = T.phPlace);
-    $('#iDetail') && ($('#iDetail').placeholder = T.phDetail);
-    t("t-btn-send-wa",T.sendWhats); t("t-btn-send-mail",T.sendEmail); t("t-btn-copy",T.copyText);
-    t("t-inc-note",T.includeLocNote);
   }
   applyLang();
 
@@ -903,9 +658,9 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
   $all('.lang-option').forEach(function(b){
     on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG);
-      applyLang(); loadEvents(); renderAcc(); loadWeatherAll(); updateIncidentTargetUI();
-      var m=$('#langModal'); if(m) m.style.display='none'; });
+      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc(); renderStay();
+      var m=$('#langModal'); if(m) m.style.display='none';
+    });
   });
 
   /* ===== Navegación ===== */
@@ -915,20 +670,20 @@ document.addEventListener('DOMContentLoaded', function(){
     $all('.navbtn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-nav')===id); });
     var dr=$('#drawer'); if(dr) dr.classList.remove('open');
   }
-  $all('[data-nav]').forEach(function(el){
-    on(el,'click', function(){ showView(el.getAttribute('data-nav')); });
-  });
+  $all('[data-nav]').forEach(function(el){ on(el,'click', function(){ showView(el.getAttribute('data-nav')); }); });
   on($('#menuBtn'),'click', function(){ var d=$('#drawer'); if(d) d.classList.add('open'); });
   on($('#drawerBack'),'click', function(){ var d=$('#drawer'); if(d) d.classList.remove('open'); });
 
   /* ===== Datos comunes ===== */
   var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
   var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+  var PHONES={oyambre:"+34942711461",ramales:"+34654463133",ruiloba:"+34942722124",cardeo:"+34664686158"};
   var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
+  var EMAILS={oyambre:"camping@oyambre.com",ramales:"info@campingramales.com",ruiloba:"info@campingelhelguero.com",cardeo:"info@elcardeo.es"};
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
-  function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
+  function waLink(num,message){return 'https://wa.me/'+num+'?text='+encodeURIComponent(message||'');}
 
-  /* ===== Eventos ===== */
+  /* ===== Eventos (home + grid con filtros) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
   function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
   function categoryFor(dateStr){
@@ -941,18 +696,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
-  function cardButtonsHTML(ev){
-    var T=I18N[LANG];
-    var rawTitle=i18nField(ev.titulo)||'(sin título)';
-    var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-    var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
-    return '<div class="row" style="margin-top:6px">'
-      + '<button class="btn fav-btn" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'+esc(T.fav)+'</button>'
-      + '<button class="btn ics-btn" data-title="'+esc(rawTitle)+'" data-start="'+esc(ev.fecha||'')+'" data-loc="'+esc(rawPlace)+'">'+esc(T.addCal)+'</button>'
-      + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
-      + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
-      + '</div>';
-  }
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
@@ -963,14 +706,16 @@ document.addEventListener('DOMContentLoaded', function(){
       var title=esc(rawTitle);
       var place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      return '<div class="card event" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'
+      var wa=WHATSAPP[String(ev.camping||'').toLowerCase()]?waLink(WHATSAPP[String(ev.camping||'').toLowerCase()],'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.'):null;
+      return '<div class="card">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + cardButtonsHTML(ev)
-        + '</div>';
+        + '<div class="row" style="margin-top:6px">'
+          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
+        + '</div></div>';
     }).join('');
-    enhanceEventCards();
   }
   function renderEventsGrid(){
     var grid=$('#eventsGrid'), empty=$('#eventsEmpty'); if(!grid) return;
@@ -987,14 +732,16 @@ document.addEventListener('DOMContentLoaded', function(){
       var title=esc(rawTitle);
       var place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      return '<div class="card event" style="min-width:unset" data-id="'+esc(ev.id||'')+'" data-start="'+esc(ev.fecha||'')+'">'
+      var wa=WHATSAPP[String(ev.camping||'').toLowerCase()]?waLink(WHATSAPP[String(ev.camping||'').toLowerCase()],'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.'):null;
+      return '<div class="card" style="min-width:unset">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
-        + cardButtonsHTML(ev)
-        + '</div>';
+        + '<div class="row" style="margin-top:6px">'
+          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          + '<a class="btn" href="'+esc(PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#')+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
+        + '</div></div>';
     }).join('');
-    enhanceEventCards();
   }
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
@@ -1015,10 +762,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  /* ===== Horarios ===== */
+  /* ===== Horarios (schedules.json con fallback) ===== */
   var SCHEDULES_DEFAULT={
-    oyambre:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:30<br><b>Piscina (verano)</b>: 10:00–20:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:30<br><b>Pool (summer)</b>: 10:00–20:00"},
+    oyambre:{
+      es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)",
+      en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)"
+    },
     ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
              en:"<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00"},
     ruiloba:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
@@ -1040,17 +789,13 @@ document.addEventListener('DOMContentLoaded', function(){
   function loadSchedules(){
     fetch('./schedules.json?v='+(Date.now()),{cache:'no-store'})
       .then(function(r){ if(!r.ok) throw new Error('not ok'); return r.json(); })
-      .then(function(json){
-        if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); }
-      })
+      .then(function(json){ if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); } })
       .catch(function(){ SCHEDULES=JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
   }
 
-  $all('.acc-h').forEach(function(h){
-    on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); });
-  });
+  $all('.acc-h').forEach(function(h){ on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); }); });
 
-  /* ===== Admin (tap x5) ===== */
+  /* ===== Admin (tap x5 en logo + PIN) ===== */
   (function adminActivator(){
     var logo=document.getElementById('logoTap'); var taps=0,timer=null;
     if(!logo) return;
@@ -1062,8 +807,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var entered = window.prompt('Introduce la contraseña de admin:','');
       if(entered===null) return false;
       if(entered===stored) return true;
-      alert('Contraseña incorrecta');
-      return false;
+      alert('Contraseña incorrecta'); return false;
     }
 
     on(logo,'click', function(){
@@ -1071,17 +815,11 @@ document.addEventListener('DOMContentLoaded', function(){
       if(taps>=5){
         taps=0;
         if(isAdminOn()){
-          localStorage.setItem('admin','0');
-          document.body.classList.remove('admin-on');
-          alert('Modo admin desactivado');
+          localStorage.setItem('admin','0'); document.body.classList.remove('admin-on'); alert('Modo admin desactivado');
         }else{
           if(!askForPin()) return;
-          localStorage.setItem('admin','1');
-          document.body.classList.add('admin-on');
-          openAdminModal();
-          loadEventsAdmin();
-          loadSchedulesAdmin();
-          alert('Modo admin activado');
+          localStorage.setItem('admin','1'); document.body.classList.add('admin-on');
+          openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin(); alert('Modo admin activado');
         }
       }
     });
@@ -1092,28 +830,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
   on($('#openAdmin'), 'click', function(){
     if(!document.body.classList.contains('admin-on')) return;
-    openAdminModal();
-    loadEventsAdmin();
-    loadSchedulesAdmin();
+    openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin();
   });
 
   /* ===== Helpers modal admin ===== */
-  function openAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); }
-  }
-  function closeAdminModal(){
-    var modal=document.getElementById('adminModal');
-    if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); }
-  }
+  function openAdminModal(){ var modal=document.getElementById('adminModal'); if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); } }
+  function closeAdminModal(){ var modal=document.getElementById('adminModal'); if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); } }
   on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
 
-  /* ===== Admin tabla ===== */
-  var ADMIN_EVENTS=[];
-  var ADMIN_FILTER_CAMP='all';
-  var ADMIN_SORT_ORDER='asc';
+  /* ===== Admin tabla (filtro/orden) ===== */
+  var ADMIN_EVENTS=[]; var ADMIN_FILTER_CAMP='all'; var ADMIN_SORT_ORDER='asc';
 
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
   function isoFromLocal(dt){
@@ -1140,13 +868,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var tbody = $('#eventsTable tbody'); if(!tbody) return;
     var list = ADMIN_EVENTS.slice();
 
-    if(ADMIN_FILTER_CAMP!=='all'){
-      list = list.filter(function(e){ return String(e.camping||'').toLowerCase()===ADMIN_FILTER_CAMP; });
-    }
-    list.sort(function(a,b){
-      var da=new Date(a.fecha).getTime(), db=new Date(b.fecha).getTime();
-      return ADMIN_SORT_ORDER==='asc' ? (da-db) : (db-da);
-    });
+    if(ADMIN_FILTER_CAMP!=='all'){ list = list.filter(function(e){ return String(e.camping||'').toLowerCase()===ADMIN_FILTER_CAMP; }); }
+    list.sort(function(a,b){ var da=new Date(a.fecha).getTime(), db=new Date(b.fecha).getTime(); return ADMIN_SORT_ORDER==='asc' ? (da-db) : (db-da); });
 
     tbody.innerHTML = list.map(function(ev){
       var titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
@@ -1251,9 +974,8 @@ document.addEventListener('DOMContentLoaded', function(){
         return fetch(u,{mode:'cors'}).then(function(res){return res.blob()}).then(function(blob){return blob.arrayBuffer()}).then(function(buf){
           var name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
         }).catch(function(){});
-      })).then(function(){
-        return zip.generateAsync({type:'blob'});
-      }).then(function(blob){
+      })).then(function(){ return zip.generateAsync({type:'blob'}); })
+      .then(function(blob){
         var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
       });
     }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
@@ -1372,343 +1094,127 @@ document.addEventListener('DOMContentLoaded', function(){
   /* ===== PWA install ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
-  on($('#installTile'),'click', function(){
-    if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; }
-  });
+  on($('#installTile'),'click', function(){ if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; } });
 
-  /* ==========================
-     CONFIG “MI ESTANCIA”
-     ========================== */
-  const CLIENTE_CFG = {
-    defaultCamp: 'oyambre',
-    byCamp: {
-      oyambre: { label:'Oyambre', wifi:{ssid:'A Cobijo Oyambre', pass:'acobijo2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
-        contact:{ wa:'34675696212', email:'camping@oyambre.com' }, coords:{ lat:43.392, lon:-4.364 },
-        directions:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre',
-        pois:[{name:'Recepción Oyambre',lat:43.392,lon:-4.364,gmaps:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre'}] },
-      ramales: { label:'Ramales', wifi:{ssid:'Camping Ramales WiFi', pass:'ramales2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
-        contact:{ wa:'34654463133', email:'info@campingramales.com' }, coords:{ lat:43.260, lon:-3.460 },
-        directions:'https://maps.google.com/?q=Camping+Ramales',
-        pois:[{name:'Recepción Ramales',lat:43.260,lon:-3.460,gmaps:'https://maps.google.com/?q=Camping+Ramales'}] },
-      ruiloba: { label:'Ruiloba', wifi:{ssid:'El Helguero WiFi', pass:'helguero2025'}, receptionHours:'09:00–21:00', checkin:'15:00', checkout:'12:00',
-        contact:{ wa:'34652806564', email:'info@campingelhelguero.com' }, coords:{ lat:43.391, lon:-4.247 },
-        directions:'https://maps.google.com/?q=Camping+El+Helguero',
-        pois:[{name:'Recepción Ruiloba',lat:43.391,lon:-4.247,gmaps:'https://maps.google.com/?q=Camping+El+Helguero'}] },
-      cardeo: { label:'El Cardeo', wifi:{ssid:'El Cardeo WiFi', pass:'cardeo2025'}, receptionHours:'12:30–23:30', checkin:'16:00', checkout:'11:00',
-        contact:{ wa:'34664686158', email:'info@elcardeo.es' }, coords:{ lat:43.386, lon:-4.402 },
-        directions:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera',
-        pois:[{name:'Taberna El Cardeo',lat:43.386,lon:-4.402,gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera'}] }
-    }
+  /* ===== Stay (Mi estancia) ===== */
+  var GEO={
+    oyambre:{lat:43.390, lon:-4.373},
+    ramales:{lat:43.261, lon:-3.465},
+    ruiloba:{lat:43.389, lon:-4.277},
+    cardeo:{lat:43.388, lon:-4.276}
   };
-  function currentCamp(){ const c=(localStorage.getItem('stay_camp')||'').toLowerCase(); return CLIENTE_CFG.byCamp[c]?c:CLIENTE_CFG.defaultCamp; }
-  function setCamp(c){
-    if(!CLIENTE_CFG.byCamp[c]) return;
-    localStorage.setItem('stay_camp',c);
-    updateStayUI();
-    loadWeatherAll();
-    renderPOIs();
-    CAMP_FILTER=c;
-    $all('[data-camp]').forEach(function(x){
-      x.classList.toggle('on', x.getAttribute('data-camp')===c);
-      if(c!=='all' && x.getAttribute('data-camp')==='all') x.classList.remove('on');
-    });
-    renderEventsGrid();
-    updateIncidentTargetUI();
+  function humanCode(w){ // Open-Meteo weather codes
+    var c=Number(w);
+    if([0].includes(c)) return {txt:{es:"Despejado",en:"Clear"}, ico:"☀️"};
+    if([1,2,3].includes(c)) return {txt:{es:"Nubes y claros",en:"Partly cloudy"}, ico:"⛅"};
+    if([45,48].includes(c)) return {txt:{es:"Niebla",en:"Fog"}, ico:"🌫️"};
+    if([51,53,55,56,57].includes(c)) return {txt:{es:"Llovizna",en:"Drizzle"}, ico:"🌦️"};
+    if([61,63,65,80,81,82].includes(c)) return {txt:{es:"Lluvia",en:"Rain"}, ico:"🌧️"};
+    if([71,73,75,77,85,86].includes(c)) return {txt:{es:"Nieve",en:"Snow"}, ico:"❄️"};
+    if([95,96,99].includes(c)) return {txt:{es:"Tormenta",en:"Thunderstorm"}, ico:"⛈️"};
+    return {txt:{es:"—",en:"—"}, ico:"⛅"};
   }
-  function updateStayUI(){
-    const campKey=currentCamp(); const cfg=CLIENTE_CFG.byCamp[campKey]; const T=I18N[LANG];
-    var sel=$('#stayCamp'); if(sel && sel.value!==campKey) sel.value=campKey;
-    $('#wifiSsid').textContent=cfg.wifi.ssid; $('#wifiPass').textContent=cfg.wifi.pass; $('#recHours').textContent=cfg.receptionHours;
-    $('#checkIn').textContent=cfg.checkin; $('#checkOut').textContent=cfg.checkout;
-    var w=$('#stayWhats'), e=$('#stayEmail'), d=$('#stayDirections');
-    if(w) w.href='https://wa.me/'+cfg.contact.wa;
-    if(e) e.onclick=()=>{ const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent(T.contactSubject||'Consulta desde la app'); location.href=url; };
-    if(d) d.href=cfg.directions;
-  }
-  on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
-  on($('#copyWifi'),'click', async ()=>{ const T=I18N[LANG]; try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert(T.copied||'Copiado'); }catch(e){ alert('No se pudo copiar'); } });
-
-  /* ===== CLIMA por establecimiento ===== */
-  function iconFor(code){
-    code = Number(code)||0;
-    if(code===0) return '☀️';
-    if([1,2].includes(code)) return '🌤️';
-    if(code===3) return '☁️';
-    if([45,48].includes(code)) return '🌫️';
-    if([51,53,55,56,57].includes(code)) return '🌦️';
-    if([61,63,65,80,81,82,66,67].includes(code)) return '🌧️';
-    if([71,73,75,77,85,86].includes(code)) return '❄️';
-    if([95,96,99].includes(code)) return '⛈️';
-    return '🌡️';
-  }
-  function dayLabel(dateStr){
-    try{ return new Intl.DateTimeFormat(LANG,{weekday:'short', day:'2-digit'}).format(new Date(dateStr)); }catch(_){ return dateStr; }
-  }
-  function skeletonCard(title){
-    return `<article class="card wx-card" style="min-width:unset">
-      <div class="title">${esc(title)}</div>
-      <div class="small muted">Cargando previsión…</div>
-    </article>`;
-  }
-  async function fetchWeather(lat, lon){
-    const params = new URLSearchParams({
-      latitude: lat, longitude: lon,
-      current: 'temperature_2m,weather_code',
-      daily: 'weather_code,temperature_2m_max,temperature_2m_min',
-      timezone: 'Europe/Madrid'
-    });
-    const r = await fetch('https://api.open-meteo.com/v1/forecast?'+params.toString());
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    return r.json();
-  }
-  function renderWeatherCard(el, campKey, j){
+  function fmtDay(str){
     try{
-      const nowT = Math.round(j.current?.temperature_2m ?? 0);
-      const nowC = j.current?.weather_code ?? 0;
-      const todayMax = Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
-      const todayMin = Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
-      const days = (j.daily?.time||[]).slice(1,4).map((d,idx)=>({
-        date: d,
-        code: j.daily?.weather_code?.[idx+1],
-        tmax: Math.round(j.daily?.temperature_2m_max?.[idx+1] ?? 0),
-        tmin: Math.round(j.daily?.temperature_2m_min?.[idx+1] ?? 0)
-      }));
-
-      el.classList.add('wx-card');
-      el.innerHTML = `
-        <div class="wx-head">
-          <div class="wx-left">
-            <div class="wx-icon">${iconFor(nowC)}</div>
-            <div>
-              <div style="font-weight:700">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
-              <div class="wx-temp">${nowT}°C</div>
-              <div class="wx-mm">Max ${todayMax}° · Min ${todayMin}°</div>
-            </div>
-          </div>
-          <a class="btn" target="_blank" rel="noopener" href="${esc(CLIENTE_CFG.byCamp[campKey].directions)}">${esc(I18N[LANG].directions)}</a>
-        </div>
-
-        <div class="wx-3">
-          ${days.map(d=>`
-            <div class="wx-chip">
-              <div class="wx-day">${esc(dayLabel(d.date))}</div>
-              <div class="wx-ico">${iconFor(d.code)}</div>
-              <div class="small">Max ${d.tmax}° · Min ${d.tmin}°</div>
-            </div>
-          `).join('')}
-        </div>`;
-    }catch(e){
-      el.classList.add('wx-card');
-      el.innerHTML = `<div class="title">${esc(CLIENTE_CFG.byCamp[campKey].label)}</div>
-        <div class="small muted">No se pudo procesar la previsión.</div>`;
-    }
+      var d=new Date(str+'T12:00:00'); // asegurar TZ
+      return new Intl.DateTimeFormat(LANG,{weekday:'short'}).format(d);
+    }catch(e){ return str; }
   }
-  async function loadWeatherAll(){
-    const wrap = $('#weatherWrap'); if(!wrap) return;
-    wrap.innerHTML = '';
-    const camps = Object.keys(CLIENTE_CFG.byCamp);
-    camps.forEach(k=>{
-      const card=document.createElement('div');
-      card.className='card wx-card';
-      card.id='weather-'+k;
-      card.innerHTML = skeletonCard(CLIENTE_CFG.byCamp[k].label);
-      wrap.appendChild(card);
-    });
-    await Promise.all(camps.map(async (k)=>{
-      const el = $('#weather-'+k);
-      try{
-        const {lat,lon} = CLIENTE_CFG.byCamp[k].coords;
-        const j = await fetchWeather(lat,lon);
-        renderWeatherCard(el,k,j);
-      }catch(e){
-        el.innerHTML = `<div class="title">${esc(CLIENTE_CFG.byCamp[k].label)}</div>
-          <div class="small muted">No se pudo cargar la previsión ahora mismo.</div>`;
-      }
-    }));
+  function setStayButtons(camp){
+    var tel=PHONES[camp], wa=WHATSAPP[camp], mail=EMAILS[camp], maps=PLACE_LINK[camp];
+    var msg="Hola, soy cliente alojado en "+PLACE_LABEL[camp]+".";
+    var call=$('#stayCallBtn'), w=$('#stayWhatsBtn'), e=$('#stayEmailBtn'), g=$('#stayGoBtn');
+    if(call) call.href='tel:'+tel;
+    if(w) w.href=waLink(wa,msg);
+    if(e) e.href='mailto:'+mail+'?subject='+encodeURIComponent('Consulta desde la App')+'&body='+encodeURIComponent(msg);
+    if(g) g.href=maps;
   }
-
-  /* ===== POIs ===== */
-  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;
-    const dLat=toRad(b.lat-a.lat), dLon=toRad(b.lon-a.lon);
-    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
-    return 2*R*Math.asin(Math.sqrt(s1));
-  }
-  async function renderPOIs(){
-    const grid = $('#poisGrid'); if(!grid) return;
-    grid.innerHTML = '';
-    const list = (CLIENTE_CFG.byCamp[currentCamp()]||{}).pois || [];
-    let here=null;
-    try{
-      here = await new Promise((res,rej)=>{
-        if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude, lon:p.coords.longitude}), rej, {enableHighAccuracy:true, timeout:4000});
+  function renderStay(){
+    var camp=(localStorage.getItem('myStay')||'oyambre');
+    var sel=$('#staySelect'); if(sel) sel.value=camp;
+    setStayButtons(camp);
+    // horas
+    var hoursBox=$('#stayHours'); if(hoursBox){ var item=SCHEDULES[camp]||SCHEDULES_DEFAULT[camp]||{}; hoursBox.innerHTML=item[LANG]||item.es||''; }
+    // clima
+    var geo=GEO[camp]; if(!geo){ return; }
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+geo.lat+'&longitude='+geo.lon+'&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
+    fetch(url).then(function(r){return r.json();}).then(function(j){
+      var nowT=Math.round(j.current.temperature_2m), nowC=humanCode(j.current.weather_code);
+      $('#w-now').textContent=nowT;
+      $('#w-ico').textContent=nowC.ico;
+      $('#w-place').textContent=PLACE_LABEL[camp];
+      $('#w-desc').textContent = (nowC.txt[LANG]||nowC.txt.es);
+      // diarios (0=today, 1..3)
+      $('#w-max').textContent = Math.round(j.daily.temperature_2m_max[0]);
+      $('#w-min').textContent = Math.round(j.daily.temperature_2m_min[0]);
+      ['1','2','3'].forEach(function(i,idx){
+        var wcode=j.daily.weather_code[idx+1];
+        var hc=humanCode(wcode);
+        $('#i'+i).textContent=hc.ico;
+        $('#x'+i).textContent=Math.round(j.daily.temperature_2m_max[idx+1]);
+        $('#n'+i).textContent=Math.round(j.daily.temperature_2m_min[idx+1]);
+        $('#d'+i).textContent=fmtDay(j.daily.time[idx+1]);
       });
-    }catch(_){}
-    list.forEach(p=>{
-      const km = here ? haversineKm(here,p) : null;
-      const mins = km ? Math.round((km*1000)/(1.4*60)) : null;
-      const card=document.createElement('div'); card.className='card'; card.style.minWidth='unset';
-      card.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-          <div><div style="font-weight:700">${esc(p.name)}</div>
-            <div class="muted">${km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible'}</div>
-          </div>
-          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">${esc(I18N[LANG].directions)}</a>
-        </div>`;
-      grid.appendChild(card);
+    }).catch(function(){
+      ['w-now','w-max','w-min','d1','d2','d3','x1','x2','x3','n1','n2','n3','w-place','w-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='—'; });
     });
   }
+  on($('#staySelect'),'change', function(e){
+    var v=e.target.value||'oyambre';
+    localStorage.setItem('myStay', v);
+    renderStay();
+    // Sync selección también en incidencias por comodidad
+    var incSel=$('#incPlace'); if(incSel) incSel.value=v;
+  });
 
-  /* ===== Incidencias: selector y ruteo ===== */
-  function incidentCampKey(){
-    const sel = $('#incCamp');
-    const v = (sel && sel.value) ? sel.value : currentCamp();
-    return CLIENTE_CFG.byCamp[v] ? v : currentCamp();
+  // inic selección por defecto si no existe
+  if(!localStorage.getItem('myStay')) localStorage.setItem('myStay','oyambre');
+
+  /* ===== Incidencias ===== */
+  function incMessage(place, type, msg){
+    var head="Incidencia - "+type+"\nAlojamiento: "+PLACE_LABEL[place]+"\n";
+    var body=(msg||'').trim();
+    return head+"\n"+body;
   }
-  function updateIncidentTargetUI(){
-    const k = incidentCampKey();
-    const cfg = CLIENTE_CFG.byCamp[k];
-    const el = $('#iTarget');
-    const T = I18N[LANG];
-    const msgTpl = (T.targetWillSend||'Will be sent to {name}: WhatsApp +{wa} · {email}')
-      .replace('{name}', cfg.label).replace('{wa}', cfg.contact.wa).replace('{email}', cfg.contact.email);
-    if(el) el.textContent = msgTpl;
-  }
-  (function initIncidentCamp(){
-    const sel = $('#incCamp');
-    if(sel){ sel.value = currentCamp(); on(sel,'change', updateIncidentTargetUI); }
-    updateIncidentTargetUI();
-  })();
-
-  async function buildIncidentText(){
-    const T = I18N[LANG];
-    const t=($('#iTitle')||{}).value||''; 
-    const p=($('#iPlace')||{}).value||''; 
-    const d=($('#iDetail')||{}).value||'';
-    const k = incidentCampKey();
-    const campLabel = CLIENTE_CFG.byCamp[k].label;
-
-    let locTxt=''; 
-    try{
-      const pos = await new Promise((res,rej)=>{
-        if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
-      });
-      locTxt = `\n${(T.directions||'Directions')}: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-    }catch(_){}
-
-    return `${T.emailSubject||'Incidencia/Petición'}
-${T.incLodging||'Alojamiento'}: ${campLabel}
-${T.incTitle||'Título'}: ${t}
-${T.incPlace||'Ubicación'}: ${p}
-${T.incDetail||'Detalle'}: ${d}${locTxt}`;
-  }
-
-  /* === WhatsApp robusto === */
-  on($('#sendWhats'),'click', async ()=>{
-    const T = I18N[LANG];
-    if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
-      alert(T.errNeedText||'Añade al menos un título o un detalle para enviar.'); return;
-    }
-    const txt = await buildIncidentText();
-    const k   = incidentCampKey();
-    const ph  = (CLIENTE_CFG.byCamp[k].contact.wa || '').replace(/\D/g,'');
-    const wa1 = 'https://wa.me/'+ph+'?text='+encodeURIComponent(txt);
-    const wa2 = 'https://api.whatsapp.com/send?phone='+ph+'&text='+encodeURIComponent(txt);
-    try{
-      location.href = wa1;
-      setTimeout(function(){
-        if(document.visibilityState === 'visible'){
-          location.href = wa2;
-        }
-      }, 1200);
-    }catch(e){
-      location.href = wa2;
+  on($('#incSendBtn'),'click', function(){
+    var place=($('#incPlace')||{}).value||localStorage.getItem('myStay')||'oyambre';
+    var type=($('#incType')||{}).value||'otros';
+    var msg=($('#incMsg')||{}).value||'';
+    var method=(document.querySelector('input[name="incMethod"]:checked')||{}).value||'whatsapp';
+    if(method==='whatsapp'){
+      var phone=WHATSAPP[place];
+      var url=waLink(phone, incMessage(place,type,msg));
+      window.open(url,'_blank','noopener');
+    }else{
+      var mail=EMAILS[place];
+      var subject='Incidencia - '+type+' ('+PLACE_LABEL[place]+')';
+      var url='mailto:'+mail+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(incMessage(place,type,msg));
+      window.location.href=url;
     }
   });
-
-  /* === Email === */
-  on($('#sendEmail'),'click', async ()=>{
-    const T = I18N[LANG];
-    if(!$('#iTitle').value.trim() && !$('#iDetail').value.trim()){
-      alert(T.errNeedText||'Añade al menos un título o un detalle para enviar.'); return;
-    }
-    const txt = await buildIncidentText();
-    const k   = incidentCampKey();
-    const em  = (CLIENTE_CFG.byCamp[k].contact.email || '').trim();
-    const sub = T.emailSubject || 'Incidencia/Petición';
-    const mailto = `mailto:${encodeURIComponent(em)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(txt)}`;
-    location.href = mailto;
+  on($('#incClearBtn'),'click', function(){
+    var t=$('#incMsg'); if(t) t.value='';
   });
 
-  on($('#copyTxt'),'click', async ()=>{
-    const T = I18N[LANG];
-    const txt=await buildIncidentText();
-    try{ await navigator.clipboard.writeText(txt); alert(T.copied||'Copiado'); }catch(_){ alert('No se pudo copiar'); }
-  });
+  // Si ya había estancia guardada, precargar Incidencias
+  var initialStay=(localStorage.getItem('myStay')||'oyambre');
+  var incSel=$('#incPlace'); if(incSel) incSel.value=initialStay;
 
-  /* Foto: preview */
-  on($('#iPhoto'),'change', async function(e){
-    const f = e.target.files && e.target.files[0]; 
-    const prev = $('#iPreview');
-    if(prev) { prev.style.display='none'; prev.removeAttribute('src'); }
-    if(!f) return;
-
-    try{
-      const fr = new FileReader();
-      fr.onload = ()=>{ if(prev){ prev.src = fr.result; prev.style.display='block'; } };
-      fr.readAsDataURL(f);
-    }catch(_){}
-  });
-
-  /* ===== Eventos: favoritos + .ics ===== */
-  function toICSTimestamp(d){ const pad=n=>String(n).padStart(2,'0');
-    return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
-  function icsFile(title,startISO,endISO,loc){
-    const now=new Date();
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//ES',
-      'BEGIN:VEVENT','UID:'+crypto.randomUUID()+'@grupoacobijo','DTSTAMP:'+toICSTimestamp(now),
-      'DTSTART:'+toICSTimestamp(new Date(startISO)),'DTEND:'+toICSTimestamp(new Date(endISO)),
-      'SUMMARY:'+String(title).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n')];
-    if(loc) lines.push('LOCATION:'+String(loc).replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n'));
-    lines.push('END:VEVENT','END:VCALENDAR');
-    return new Blob([lines.join('\r\n')],{type:'text/calendar'});
-  }
-  function enhanceEventCards(){
-    const T=I18N[LANG]; const FKEY='favEvents'; const favs=new Set(JSON.parse(localStorage.getItem(FKEY)||'[]'));
-    function paint(btn,id){ btn.textContent=favs.has(id)?T.favOk:T.fav; }
-    $all('.event .fav-btn').forEach(function(btn){
-      const id=btn.getAttribute('data-id') || (btn.closest('.event')?.getAttribute('data-start')||'');
-      if(btn.dataset.wired) return; btn.dataset.wired='1'; paint(btn,id);
-      on(btn,'click', function(){ if(favs.has(id)) favs.delete(id); else favs.add(id); localStorage.setItem(FKEY,JSON.stringify(Array.from(favs))); paint(btn,id); });
-    });
-    $all('.event .ics-btn').forEach(function(btn){
-      if(btn.dataset.wired) return; btn.dataset.wired='1';
-      on(btn,'click', function(){
-        const title=btn.getAttribute('data-title')||'Evento A Cobijo';
-        const startISO=btn.getAttribute('data-start'); const loc=btn.getAttribute('data-loc')||'';
-        const start=new Date(startISO); const end=new Date(start.getTime()+60*60000);
-        const blob=icsFile(title,start.toISOString(),end.toISOString(),loc);
-        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=title+'.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
-      });
-    });
-  }
+  /* ===== Init ===== */
+  applyLang();
+  loadEvents();
+  loadSchedules();
+  renderAcc();
+  renderStay();
 
   /* ===== Deep linking ===== */
   (function deepLinking(){
     try{
       const params = new URLSearchParams(location.search);
       const nav = params.get('nav');
-      const focus = params.get('focus');
       if (nav) {
         const btn = document.querySelector('.navbtn[data-nav="'+nav+'"]') || document.querySelector('[data-nav="'+nav+'"]');
         if (btn) btn.click();
-      }
-      if (nav === 'places' && focus) {
-        const mapIds = {oyambre:'t-oy-title', ramales:'t-ra-title', ruiloba:'t-he-title', cardeo:'t-ca-title'};
-        const targetId = mapIds[String(focus).toLowerCase()];
-        const el = targetId ? document.getElementById(targetId) : null;
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }catch(e){}
   })();
@@ -1730,15 +1236,6 @@ ${T.incDetail||'Detalle'}: ${d}${locTxt}`;
     localStorage.setItem('admin_pin', v);
     alert('Contraseña guardada.');
   });
-
-  /* ===== Init ===== */
-  applyLang();
-  updateStayUI();
-  loadEvents();
-  loadSchedules();
-  renderAcc();
-  loadWeatherAll();
-  renderPOIs();
 
 }); // DOMContentLoaded
 </script>
