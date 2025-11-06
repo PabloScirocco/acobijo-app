@@ -115,7 +115,6 @@ body.dark .navbar{background:#0f1a2b}
 .modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
-/* ✕ mejorada */
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;
   font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
 .close:active{transform:scale(.95)}
@@ -175,7 +174,7 @@ body.modal-open{overflow:hidden}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">Oyambre, Ramales, Ruiloba y Cardeo</div>
+          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
         </div>
       </div>
       <div class="tiles">
@@ -219,9 +218,9 @@ body.modal-open{overflow:hidden}
     <h2 id="t-campings-title">Nuestros campings</h2>
     <div class="grid">
 
-      <article class="place">
+      <article class="place" data-camp="oyambre">
         <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
-        <p class="muted" id="t-oy-hint">Todos los servicios 1KM de la Playa Mascotas Bienvenidas</p>
+        <p class="muted" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942711461">Llamar</a>
@@ -231,9 +230,9 @@ body.modal-open{overflow:hidden}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="place" data-camp="ramales">
         <h3 id="t-ra-title">Camping Ramales</h3>
-        <p class="muted" id="t-ra-hint">Mascotas Bienvenidas · Montaña · Actividades · Piscina Cubierta</p>
+        <p class="muted" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34654463133">Llamar</a>
@@ -243,9 +242,9 @@ body.modal-open{overflow:hidden}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="place" data-camp="ruiloba">
         <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
-        <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas Bienvenidas</p>
+        <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942722124">Llamar</a>
@@ -255,9 +254,9 @@ body.modal-open{overflow:hidden}
         <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="place" data-camp="cardeo">
         <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
-        <p class="muted" id="t-ca-hint">Apartamentos + Taberna · Mascotas Bienvenidas</p>
+        <p class="muted" id="t-ca-hint">Apartamentos + Taberna</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34664686158">Llamar</a>
@@ -294,32 +293,54 @@ body.modal-open{overflow:hidden}
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
 
-  <!-- 🆕 MI ESTANCIA -->
+  <!-- 🆕 MI ESTANCIA (con selector de alojamiento) -->
   <section id="view-stay" class="view">
     <h2 id="t-stay-title">Mi estancia</h2>
+
     <article class="card" style="min-width:unset">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <label><b>Estoy alojado en</b>
+          <select id="stayCamp" class="input">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </label>
+
         <div>
           <div><b>Wi-Fi</b></div>
-          <div>SSID: <span id="wifiSsid">Pregunte en recepción la WIFI correcta</span></div>
-          <div>Clave: <span id="wifiPass" class="kbd">acobijo2025</span></div>
+          <div>SSID: <span id="wifiSsid">—</span></div>
+          <div>Clave: <span id="wifiPass" class="kbd">—</span></div>
           <div class="row" style="margin-top:6px">
-            <button class="btn" id="copyWifi">Sin Contraseña</button>
+            <button class="btn" id="copyWifi">Copiar clave</button>
           </div>
         </div>
+
         <div>
           <div><b>Horarios clave</b></div>
-          <div>Recepción: <span id="recHours">09:00–21:00</span></div>
-          <div>Check-in: 15:00 · Check-out: 12:00</div>
+          <div>Recepción: <span id="recHours">—</span></div>
+          <div>Check-in: <span id="checkIn">—</span> · Check-out: <span id="checkOut">—</span></div>
         </div>
+
+        <div>
+          <div><b>Contacto rápido</b></div>
+          <div class="row" style="margin-top:6px; gap:8px; flex-wrap:wrap">
+            <a class="btn" id="stayWhats" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn" id="stayEmail">Email</a>
+            <a class="btn" id="stayDirections" target="_blank" rel="noopener">Cómo llegar</a>
+          </div>
+        </div>
+
         <div>
           <div><b>Normas rápidas</b></div>
           <ul style="margin:8px 0 0 18px">
-            <li>Silencio: 00:00–08:00</li>
+            <li>Silencio: 23:00–08:00</li>
             <li>Velocidad interior: 10 km/h</li>
             <li>Mascotas con correa y recoger excrementos</li>
           </ul>
         </div>
+
         <div>
           <div><b>Emergencias</b></div>
           <div>112 (general) · 061 (sanitaria) · 062 (Guardia Civil)</div>
@@ -383,7 +404,7 @@ body.modal-open{overflow:hidden}
   <button class="navbtn" data-nav="schedules"><div class="ico">🕒</div><div id="n-sc">Horarios</div></button>
 </nav>
 
-<!-- ADMIN MODAL (sin cambios estructurales) -->
+<!-- ADMIN MODAL -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
@@ -640,7 +661,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#menuBtn'),'click', function(){ var d=$('#drawer'); if(d) d.classList.add('open'); });
   on($('#drawerBack'),'click', function(){ var d=$('#drawer'); if(d) d.classList.remove('open'); });
 
-  /* ===== Datos comunes ===== */
+  /* ===== Datos comunes para eventos/links ===== */
   var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
   var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
   var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
@@ -1097,7 +1118,12 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       if (nav === 'places' && focus) {
         const mapIds = {oyambre:'t-oy-title', ramales:'t-ra-title', ruiloba:'t-he-title', cardeo:'t-ca-title'};
-        const targetId = mapIds[String(focus).toLowerCase()];
+        const f = String(focus).toLowerCase();
+        // (Opcional) sincroniza Mi estancia al abrir con focus
+        if (['oyambre','ramales','ruiloba','cardeo'].includes(f)) {
+          setCamp(f);
+        }
+        const targetId = mapIds[f];
         const el = targetId ? document.getElementById(targetId) : null;
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -1123,90 +1149,166 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ==========================
-     🆕 FUNCIONES PRO CLIENTE
+     🆕 CONFIG y LÓGICA “MI ESTANCIA”
      ========================== */
-
-  /* Config rápida */
   const CLIENTE_CFG = {
-    wifi: { ssid: "GrupoACobijo", pass: "acobijo2025" },
-    receptionHours: "09:00–21:00",
-    contact: { whatsapp: "34675696212", email: "recepcion@grupoacobijo.es" },
-    coords: { oyambre: { lat:43.392, lon:-4.364 } },
-    pois: [
-      { name:"Recepción Oyambre", lat:43.392, lon:-4.364, gmaps:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" },
-      { name:"Playa de Oyambre", lat:43.391, lon:-4.375, gmaps:"https://maps.google.com/?q=Playa+de+Oyambre" },
-      { name:"El Cardeo", lat:43.386, lon:-4.402, gmaps:"https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera" }
-    ]
+    defaultCamp: 'oyambre',
+    byCamp: {
+      oyambre: {
+        label: 'Oyambre',
+        wifi: { ssid: 'Camping Oyambre', pass: 'Sin Contraseña' },
+        receptionHours: '08:30–22:00',
+        checkin: '15:00', checkout: '12:00',
+        contact: { wa: '34675696212', email: 'recepcion@oyambre.com' },
+        coords: { lat: 43.392, lon: -4.364 },
+        directions: 'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre',
+        pois: [
+          { name:'Recepción Oyambre', lat:43.392, lon:-4.364, gmaps:'https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre' },
+          { name:'Playa de Oyambre', lat:43.391, lon:-4.375, gmaps:'https://maps.google.com/?q=Playa+de+Oyambre' },
+          { name:'El Cardeo', lat:43.386, lon:-4.402, gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera' }
+        ]
+      },
+      ramales: {
+        label: 'Ramales',
+        wifi: { ssid: 'Camping Ramales', pass: 'Ramales2021' },
+        receptionHours: '09:00–21:00',
+        checkin: '15:00', checkout: '12:00',
+        contact: { wa: '34654463133', email: 'info@campingramales.com' },
+        coords: { lat: 43.260, lon: -3.460 },
+        directions: 'https://maps.google.com/?q=Camping+Ramales',
+        pois: [
+          { name:'Recepción Ramales', lat:43.260, lon:-3.460, gmaps:'https://maps.google.com/?q=Camping+Ramales' }
+        ]
+      },
+      ruiloba: {
+        label: 'Ruiloba',
+        wifi: { ssid: 'El Helguero WiFi', pass: 'helguero2025' },
+        receptionHours: '09:00–21:00',
+        checkin: '15:00', checkout: '12:00',
+        contact: { wa: '34652806564', email: 'info@campingelhelguero.com' },
+        coords: { lat: 43.391, lon: -4.247 },
+        directions: 'https://maps.google.com/?q=Camping+El+Helguero',
+        pois: [
+          { name:'Recepción Ruiloba', lat:43.391, lon:-4.247, gmaps:'https://maps.google.com/?q=Camping+El+Helguero' }
+        ]
+      },
+      cardeo: {
+        label: 'El Cardeo',
+        wifi: { ssid: 'El Cardeo WiFi', pass: 'cardeo2025' },
+        receptionHours: '12:30–23:30',
+        checkin: '16:00', checkout: '11:00',
+        contact: { wa: '34664686158', email: 'info@elcardeo.es' },
+        coords: { lat: 43.386, lon: -4.402 },
+        directions: 'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera',
+        pois: [
+          { name:'Taberna El Cardeo', lat:43.386, lon:-4.402, gmaps:'https://maps.google.com/?q=El+Cardeo+San+Vicente+de+la+Barquera' }
+        ]
+      }
+    }
   };
 
-  /* Mi estancia */
-  (function initStay(){
-    var ss=$('#wifiSsid'), pw=$('#wifiPass'), rh=$('#recHours');
-    if(ss) ss.textContent = CLIENTE_CFG.wifi.ssid;
-    if(pw) pw.textContent = CLIENTE_CFG.wifi.pass;
-    if(rh) rh.textContent = CLIENTE_CFG.receptionHours;
-    on($('#copyWifi'),'click', async function(){
-      try{ await navigator.clipboard.writeText(CLIENTE_CFG.wifi.pass); alert(I18N[LANG].copied); }catch(e){ alert('No se pudo copiar'); }
-    });
-  })();
-
-  /* Clima (Open-Meteo) */
-  async function loadWeather(){
-    var card = $('#weatherCard'); if(!card) return;
-    var lat=CLIENTE_CFG.coords.oyambre.lat, lon=CLIENTE_CFG.coords.oyambre.lon;
-    var url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMadrid`;
-    try{
-      var r=await fetch(url); var j=await r.json();
-      var t=Math.round(j.current?.temperature_2m ?? 0);
-      var w=Math.round(j.current?.wind_speed_10m ?? 0);
-      var tmax=Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
-      var tmin=Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
-      card.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">'
-        + '<div><div style="font-size:28px;font-weight:700">'+t+'°C</div>'
-        + '<div class="small muted">Max '+tmax+'° · Min '+tmin+'°</div></div>'
-        + '<div class="badge">Viento '+w+' km/h</div>'
-        + '</div>';
-    }catch(e){ card.innerHTML = '<div class="small muted">No se pudo cargar la previsión ahora mismo.</div>'; }
+  function currentCamp(){
+    const c = (localStorage.getItem('stay_camp') || '').toLowerCase();
+    return CLIENTE_CFG.byCamp[c] ? c : CLIENTE_CFG.defaultCamp;
   }
-  loadWeather();
+  function setCamp(c){
+    if(!CLIENTE_CFG.byCamp[c]) return;
+    localStorage.setItem('stay_camp', c);
+    updateStayUI();
+    loadWeather();
+    renderPOIs();
+  }
 
-  /* POIs & distancias */
-  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;const dLat=toRad(b.lat-a.lat),dLon=toRad(b.lon-a.lon);
-    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(s1));}
+  /* === Mi estancia: hidratar UI según camp === */
+  function updateStayUI(){
+    const campKey = currentCamp();
+    const cfg = CLIENTE_CFG.byCamp[campKey];
+    const sel = document.getElementById('stayCamp');
+    if (sel && sel.value !== campKey) sel.value = campKey;
+
+    const ss=$('#wifiSsid'), pw=$('#wifiPass'), rh=$('#recHours');
+    const ci=$('#checkIn'), co=$('#checkOut');
+    if(ss) ss.textContent = cfg.wifi.ssid;
+    if(pw) pw.textContent = cfg.wifi.pass;
+    if(rh) rh.textContent = cfg.receptionHours;
+    if(ci) ci.textContent = cfg.checkin;
+    if(co) co.textContent = cfg.checkout;
+
+    const w=$('#stayWhats'), e=$('#stayEmail'), d=$('#stayDirections');
+    if(w){ w.href = 'https://wa.me/'+cfg.contact.wa; }
+    if(e){
+      e.onclick = function(){
+        const url='mailto:'+cfg.contact.email+'?subject='+encodeURIComponent('Consulta desde la app');
+        window.location.href=url;
+      };
+    }
+    if(d){ d.href = cfg.directions; }
+  }
+  on($('#stayCamp'),'change', (ev)=> setCamp(ev.target.value));
+  on($('#copyWifi'),'click', async function(){
+    try{ await navigator.clipboard.writeText((CLIENTE_CFG.byCamp[currentCamp()]||{}).wifi.pass||''); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); }
+  });
+
+  /* === Clima: usa el camp seleccionado === */
+  async function loadWeather(){
+    const card = $('#weatherCard'); if(!card) return;
+    const {coords} = CLIENTE_CFG.byCamp[currentCamp()];
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMadrid`;
+    try{
+      const r = await fetch(url); const j = await r.json();
+      const t = Math.round(j.current?.temperature_2m ?? 0);
+      const w = Math.round(j.current?.wind_speed_10m ?? 0);
+      const tmax = Math.round(j.daily?.temperature_2m_max?.[0] ?? 0);
+      const tmin = Math.round(j.daily?.temperature_2m_min?.[0] ?? 0);
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <div><div style="font-size:28px;font-weight:700">${t}°C</div>
+          <div class="small muted">Max ${tmax}° · Min ${tmin}°</div></div>
+          <div class="badge">Viento ${w} km/h</div>
+        </div>`;
+    }catch(e){
+      card.innerHTML = `<div class="small muted">No se pudo cargar la previsión ahora mismo.</div>`;
+    }
+  }
+
+  /* === POIs: usa la lista del camp seleccionado === */
+  function haversineKm(a,b){const R=6371,toRad=x=>x*Math.PI/180;
+    const dLat=toRad(b.lat-a.lat), dLon=toRad(b.lon-a.lon);
+    const s1=Math.sin(dLat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;
+    return 2*R*Math.asin(Math.sqrt(s1));
+  }
   async function renderPOIs(){
-    var grid=$('#poisGrid'); if(!grid) return;
-    grid.innerHTML='';
+    const grid = $('#poisGrid'); if(!grid) return;
+    grid.innerHTML = '';
+    const list = (CLIENTE_CFG.byCamp[currentCamp()]||{}).pois || [];
     let here=null;
     try{
       here = await new Promise((res,rej)=>{
         if(!navigator.geolocation) return rej();
-        navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude, lon:p.coords.longitude}), rej, {enableHighAccuracy:true, timeout:4000});
+        navigator.geolocation.getCurrentPosition(
+          p=>res({lat:p.coords.latitude, lon:p.coords.longitude}),
+          rej,
+          {enableHighAccuracy:true, timeout:4000}
+        );
       });
-    }catch(e){}
-    CLIENTE_CFG.pois.forEach(function(p){
+    }catch(_){}
+    list.forEach(p=>{
       const km = here ? haversineKm(here,p) : null;
-      const mins = km ? Math.round((km*1000)/(1.4*60)) : null; // paseo ~1.4 m/s
+      const mins = km ? Math.round((km*1000)/(1.4*60)) : null;
       const card=document.createElement('div'); card.className='card'; card.style.minWidth='unset';
-      card.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">'
-        + '<div><div style="font-weight:700">'+esc(p.name)+'</div>'
-        + '<div class="muted">'+(km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible')+'</div></div>'
-        + '<a class="btn" target="_blank" rel="noopener" href="'+esc(p.gmaps)+'">Cómo llegar</a></div>';
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div>
+            <div style="font-weight:700">${esc(p.name)}</div>
+            <div class="muted">${km?km.toFixed(2)+' km · ~'+mins+' min a pie':'Distancia no disponible'}</div>
+          </div>
+          <a class="btn" target="_blank" rel="noopener" href="${esc(p.gmaps)}">Cómo llegar</a>
+        </div>`;
       grid.appendChild(card);
     });
   }
-  renderPOIs();
 
-  /* Incidencias / Peticiones */
-  function compressImage(file, maxW=1280, quality=0.7){
-    return new Promise((resolve,reject)=>{
-      const img=new Image(); const fr=new FileReader();
-      fr.onload=()=>{ img.src=fr.result; }; fr.onerror=reject;
-      img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
-        const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-        c.toBlob(b=>resolve(b),'image/jpeg',quality); };
-      if(file) fr.readAsDataURL(file); else resolve(null);
-    });
-  }
+  /* === Incidencias: envía al contacto del camp seleccionado === */
   async function buildIncidentText(){
     const t=($('#iTitle')||{}).value||''; const p=($('#iPlace')||{}).value||''; const d=($('#iDetail')||{}).value||'';
     let locTxt='';
@@ -1215,39 +1317,48 @@ document.addEventListener('DOMContentLoaded', function(){
         if(!navigator.geolocation) return rej();
         navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true, timeout:4000});
       });
-      const {latitude,longitude}=pos.coords;
-      locTxt = '\nUbicación: https://maps.google.com/?q='+latitude+','+longitude;
-    }catch(e){}
-    return 'Incidencia/Petición'
-      + '\nTítulo: '+t
-      + '\nUbicación: '+p
-      + '\nDetalle: '+d
-      + locTxt;
+      const { latitude, longitude } = pos.coords;
+      locTxt = `\nUbicación: https://maps.google.com/?q=${latitude},${longitude}`;
+    }catch(_){}
+    const camp = CLIENTE_CFG.byCamp[currentCamp()].label;
+    return `Incidencia/Petición
+Alojamiento: ${camp}
+Título: ${t}
+Ubicación: ${p}
+Detalle: ${d}${locTxt}`;
   }
-  on($('#sendWhats'),'click', async function(){
-    const txt=await buildIncidentText();
-    const num=CLIENTE_CFG.contact.whatsapp;
-    const url='https://wa.me/'+num+'?text='+encodeURIComponent(txt);
-    window.open(url,'_blank');
+  on($('#sendWhats'),'click', async ()=>{
+    const txt = await buildIncidentText();
+    const { wa } = CLIENTE_CFG.byCamp[currentCamp()].contact;
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(txt)}`,'_blank');
   });
-  on($('#sendEmail'),'click', async function(){
-    const txt=await buildIncidentText();
-    const mail=CLIENTE_CFG.contact.email;
-    const url='mailto:'+mail+'?subject='+encodeURIComponent('Incidencia/Petición')+'&body='+encodeURIComponent(txt);
-    window.location.href=url;
+  on($('#sendEmail'),'click', async ()=>{
+    const txt = await buildIncidentText();
+    const { email } = CLIENTE_CFG.byCamp[currentCamp()].contact;
+    const url = `mailto:${email}?subject=${encodeURIComponent('Incidencia/Petición')}&body=${encodeURIComponent(txt)}`;
+    window.location.href = url;
   });
   on($('#copyTxt'),'click', async function(){
     const txt=await buildIncidentText();
-    try{ await navigator.clipboard.writeText(txt); alert(I18N[LANG].copied); }catch(e){ alert('No se pudo copiar'); }
+    try{ await navigator.clipboard.writeText(txt); alert('Copiado'); }catch(e){ alert('No se pudo copiar'); }
   });
   on($('#iPhoto'),'change', async function(e){
     const f=e.target.files && e.target.files[0]; if(!f) return;
-    const b=await compressImage(f);
+    const b=await (function compressImage(file, maxW=1280, quality=0.7){
+      return new Promise((resolve,reject)=>{
+        const img=new Image(); const fr=new FileReader();
+        fr.onload=()=>{ img.src=fr.result; }; fr.onerror=reject;
+        img.onload=()=>{ const ratio=img.width>maxW?maxW/img.width:1; const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);
+          const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+          c.toBlob(b=>resolve(b),'image/jpeg',quality); };
+        if(file) fr.readAsDataURL(file); else resolve(null);
+      });
+    })(f);
     if(!b){ alert('No se pudo procesar la imagen.'); return; }
     alert('Imagen optimizada. Adjúntala desde tu galería al enviar por WhatsApp/Email.');
   });
 
-  /* Eventos: Favoritos + Calendario (.ics) */
+  /* === Eventos: Favoritos + Calendario (.ics) === */
   function toICSTimestamp(d){ const pad=n=>String(n).padStart(2,'0');
     return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
   function icsFile(title, startISO, endISO, loc){
@@ -1299,10 +1410,12 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   /* ===== Init ===== */
-  applyLang();
+  updateStayUI();
   loadEvents();
   loadSchedules();
   renderAcc();
+  loadWeather();
+  renderPOIs();
 
 }); // DOMContentLoaded
 </script>
