@@ -15,12 +15,12 @@
 :root{
   --bg:#ffffff; --ink:#0a1a2a; --muted:#6b7280; --line:#e6eef7;
   --brand:#0ea5e9; --brand-ink:#063e63; --card:#f7fbff; --tint:#eef7ff;
-  --blue-50:#f0f7ff; --blue-100:#e4f1ff; --blue-200:#cfe7ff; --blue-300:#b7dcff; --blue-600:#1b78c9;
+  --wx1:#e9f6ff; --wx2:#d9efff; --wx3:#cce7ff; --wx4:#bfe0ff;
 }
 body.dark{
   --bg:#0b1220; --ink:#e8eef7; --muted:#8fa2bd; --line:#1e2a40;
   --brand:#22b2ff; --brand-ink:#bfe7ff; --card:#111a2a; --tint:#0f1a2b;
-  --blue-50:#0d1626; --blue-100:#0f1a2b; --blue-200:#0f2139; --blue-300:#11304f; --blue-600:#5fc2ff;
+  --wx1:#0f1f35; --wx2:#102640; --wx3:#0f2b4a; --wx4:#0c3156;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -47,11 +47,11 @@ body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
 .drawer .muted{color:var(--muted);font-size:.85rem}
-/* 🔒 Ocultar admin en el menú por defecto; mostrar SOLO en admin-on */
+/* 🔒 Admin oculto por defecto; visible con admin-on */
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
-/* Views */
+/* Main, views */
 main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
@@ -80,24 +80,14 @@ body.dark .card{background:#0f1a2b}
 .card .title{font-weight:700;margin-top:6px}
 .card .meta{font-size:.85rem;color:var(--muted)}
 .row{display:flex;flex-wrap:wrap;gap:6px}
-.btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.4rem .6rem;cursor:pointer;font-weight:600;color:var(--ink)}
+.btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink)}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 
-/* Events filters */
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.35rem .7rem;cursor:pointer}
-body.dark .chip{background:#0f1a2b}
-.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+/* Grids */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 
-/* Campings */
-.place{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
-.place h3{margin:0 0 2px}
-.map{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-.map iframe{width:100%;height:100%;border:0; background:#fff}
-
-/* Schedules (accordion) */
+/* Accordeon horarios */
 .acc{display:flex;flex-direction:column;gap:8px}
 .acc-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 body.dark .acc-item{background:#0f1a2b}
@@ -105,29 +95,7 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Weather (Mi estancia) */
-.weather-wrap{border:1px solid var(--line);border-radius:16px;padding:14px;background:linear-gradient(180deg,var(--blue-50),#fff)}
-body.dark .weather-wrap{background:linear-gradient(180deg,var(--blue-100),#0f1a2b)}
-.weather-today{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--blue-100);border:1px solid var(--line);border-radius:14px;padding:14px}
-.weather-today .temp{font-size:2.4rem;font-weight:800}
-.weather-today .right{display:flex;gap:16px;align-items:center}
-.weather-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.mini-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
-body.dark .mini-card{background:#0f1a2b}
-.mini-card .d{font-weight:700}
-.mini-card .ico{font-size:1.2rem}
-
-/* Incidencias */
-.inc-wrap{border:1px solid var(--line);border-radius:16px;padding:14px;background:linear-gradient(180deg,var(--blue-50),#fff)}
-.inc-group{margin-bottom:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
-body.dark .inc-group{background:#0f1a2b}
-.inc-title{font-weight:800;color:var(--blue-600);margin:0 0 6px}
-.label{font-weight:700;margin-bottom:4px;display:block}
-.input,.select,.textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
-body.dark .input, body.dark .select, body.dark .textarea{background:#0f1a2b;color:var(--ink)}
-.hint{color:var(--muted);font-size:.85rem}
-
-/* Bottom nav (4 botones) */
+/* Bottom nav (4) */
 .navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
@@ -139,15 +107,25 @@ body.dark .navbar{background:#0f1a2b}
 .modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
-.close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;
-  font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
+.close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
 .close:active{transform:scale(.95)}
 body.modal-open{overflow:hidden}
 
-/* Admin table */
-.table{width:100%;border-collapse:collapse;font-size:.9rem}
-.table th,.table td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
-.table th{background:var(--tint)}
+/* Inputs */
+.input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.textarea{min-height:96px}
+
+/* Weather (Mi estancia) */
+.wx{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--wx2),var(--wx1));padding:12px}
+.wx-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.wx-today{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:linear-gradient(180deg,var(--wx4),var(--wx2));border:1px solid var(--line);border-radius:14px;padding:10px}
+.wx-ico{font-size:2.2rem}
+.wx-deg{font-size:2rem;font-weight:800}
+.wx-minmax{font-size:.9rem;color:var(--muted)}
+.wx-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.wx-day{border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;background:linear-gradient(180deg,var(--wx2),var(--wx1))}
+.wx-day .d{font-weight:700}
+.wx-day .t{font-size:.9rem}
 </style>
 </head>
 <body>
@@ -168,13 +146,14 @@ body.modal-open{overflow:hidden}
 <div class="drawer" id="drawer">
   <div class="back" id="drawerBack"></div>
   <aside class="panel" role="menu" aria-label="Navegación">
-    <div class="item" data-nav="home">🏠 <strong>Inicio</strong></div>
-    <div class="item" data-nav="stay">🧳 <strong>Mi estancia</strong></div>
-    <div class="item" data-nav="incidents">🆘 <strong>Incidencias</strong></div>
-    <div class="item" data-nav="events">📅 <strong>Eventos</strong></div>
-    <div class="item" data-nav="places">🏕️ <strong>Campings</strong></div>
-    <div class="item" data-nav="schedules">🕒 <strong>Horarios</strong></div>
+    <div class="item" data-nav="home">🏠 <strong id="d-home">Inicio</strong></div>
+    <div class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></div>
+    <div class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></div>
+    <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
+    <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
+    <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
+    <div class="muted" id="drawerHint">Elige sección</div>
   </aside>
 </div>
 
@@ -191,119 +170,102 @@ body.modal-open{overflow:hidden}
       </div>
       <div class="tiles">
         <div class="tile" data-nav="events"><div class="big">📅</div><div><strong id="t-ev">Eventos</strong><div class="muted" id="t-ev-sub">Qué hay hoy</div></div></div>
+        <div class="tile" data-nav="stay"><div class="big">🧳</div><div><strong id="t-stay">Mi estancia</strong><div class="muted" id="t-stay-sub">Contactos, clima, horarios</div></div></div>
+        <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
     </div>
 
-    <h3 style="margin:14px 4px 8px">Próximos eventos</h3>
+    <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
   </section>
 
   <!-- MI ESTANCIA -->
   <section id="view-stay" class="view">
     <h2 id="t-stay-title">Mi estancia</h2>
+    <p class="muted" id="t-stay-hint">Guardamos tu elección en este dispositivo.</p>
 
-    <div class="row" style="margin:8px 0">
-      <div style="flex:1;min-width:220px">
-        <label class="label" id="t-stay-which">Selecciona tu alojamiento</label>
-        <select id="staySelect" class="select">
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div>
+        <label for="stayPlace" style="font-weight:700" id="t-stay-which">Selecciona tu alojamiento</label>
+        <select id="stayPlace" class="select">
           <option value="oyambre">Oyambre</option>
           <option value="ramales">Ramales</option>
           <option value="ruiloba">Ruiloba</option>
           <option value="cardeo">El Cardeo</option>
         </select>
-        <p class="hint" id="t-stay-hint">Guardamos tu elección en este dispositivo.</p>
+      </div>
+      <div class="row" style="align-items:flex-end">
+        <button id="stayWeb" class="btn">Web</button>
+        <a id="stayCall" class="btn" target="_blank" rel="noopener">Llamar</a>
+        <a id="stayWA" class="btn" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="stayEmail" class="btn" target="_blank" rel="noopener">Email</a>
+        <a id="stayDir" class="btn" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
     </div>
 
-    <div class="row" style="margin:8px 0;gap:10px">
-      <a class="btn" id="stayCallBtn" target="_blank" rel="noopener">📞 Llamar</a>
-      <a class="btn" id="stayWhatsBtn" target="_blank" rel="noopener">🟢 WhatsApp</a>
-      <a class="btn" id="stayEmailBtn" target="_blank" rel="noopener">✉️ Email</a>
-      <a class="btn" id="stayGoBtn" target="_blank" rel="noopener">🧭 Cómo llegar</a>
+    <div class="card" style="margin-top:12px">
+      <h3 id="t-stay-hours">Horarios del alojamiento</h3>
+      <div id="stayHours"></div>
     </div>
 
-    <div class="weather-wrap" style="margin-top:10px">
-      <h3 style="margin:0 0 8px" id="t-weather-title">Clima</h3>
-      <div id="weatherBox">
-        <div class="weather-today">
-          <div>
-            <div id="w-place" style="font-weight:700;margin-bottom:4px">—</div>
-            <div id="w-desc" class="hint">—</div>
-          </div>
-          <div class="right">
-            <div id="w-ico" style="font-size:2rem">⛅</div>
-            <div class="temp"><span id="w-now">—</span>°</div>
-            <div style="text-align:right">
-              <div class="hint" id="t-max">Máx</div>
-              <div><b id="w-max">—</b>°</div>
-            </div>
-            <div style="text-align:right">
-              <div class="hint" id="t-min">Mín</div>
-              <div><b id="w-min">—</b>°</div>
-            </div>
-          </div>
-        </div>
-        <div class="weather-mini">
-          <div class="mini-card"><div class="d" id="d1">—</div><div class="ico" id="i1">⛅</div><div><span id="x1">—</span>° / <span id="n1">—</span>°</div></div>
-          <div class="mini-card"><div class="d" id="d2">—</div><div class="ico" id="i2">⛅</div><div><span id="x2">—</span>° / <span id="n2">—</span>°</div></div>
-          <div class="mini-card"><div class="d" id="d3">—</div><div class="ico" id="i3">⛅</div><div><span id="x3">—</span>° / <span id="n3">—</span>°</div></div>
+    <div class="wx" style="margin-top:12px" id="stayWeather">
+      <div class="wx-h">
+        <h3 id="t-weather-title" style="margin:0">Clima</h3>
+        <div class="muted" id="wxPlaceLabel">—</div>
+      </div>
+      <div class="wx-today">
+        <div class="wx-ico" id="wxIco">☀️</div>
+        <div>
+          <div class="wx-deg"><span id="wxNow">--</span>°</div>
+          <div class="wx-minmax"><span id="t-max">Máx</span>: <span id="wxMax">--</span>° · <span id="t-min">Mín</span>: <span id="wxMin">--</span>°</div>
+          <div class="muted" id="wxDesc">—</div>
         </div>
       </div>
-    </div>
-
-    <div class="acc" style="margin-top:12px">
-      <div class="acc-item open">
-        <div class="acc-h">🕒 <strong id="t-stay-hours">Horarios del alojamiento</strong> <span>▼</span></div>
-        <div class="acc-b"><div id="stayHours"></div></div>
+      <div class="wx-3">
+        <div class="wx-day"><div class="d" id="d1">—</div><div class="i" id="i1">☀️</div><div class="t" id="t1">--/--°</div></div>
+        <div class="wx-day"><div class="d" id="d2">—</div><div class="i" id="i2">☀️</div><div class="t" id="t2">--/--°</div></div>
+        <div class="wx-day"><div class="d" id="d3">—</div><div class="i" id="i3">☀️</div><div class="t" id="t3">--/--°</div></div>
       </div>
     </div>
   </section>
 
   <!-- INCIDENCIAS -->
   <section id="view-incidents" class="view">
-    <h2 id="t-inc-title">Incidencias</h2>
-    <div class="inc-wrap">
-      <div class="inc-group">
-        <p class="inc-title" id="t-inc-where">¿En qué alojamiento estás?</p>
-        <select id="incPlace" class="select">
-          <option value="oyambre">Oyambre</option>
-          <option value="ramales">Ramales</option>
-          <option value="ruiloba">Ruiloba</option>
-          <option value="cardeo">El Cardeo</option>
-        </select>
-      </div>
+    <h2 id="i-title">Incidencias</h2>
+    <p class="muted" id="i-hint">Se abre WhatsApp o tu app de correo con el mensaje preparado.</p>
 
-      <div class="inc-group">
-        <p class="inc-title" id="t-inc-contact">¿Cómo quieres contactar?</p>
-        <div class="row">
-          <label><input type="radio" name="incMethod" value="whatsapp" checked> WhatsApp</label>
-          <label style="margin-left:14px"><input type="radio" name="incMethod" value="email"> Email</label>
+    <div class="card" style="background:var(--tint)">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div>
+          <label style="font-weight:700" for="incPlace" id="i-where">¿En qué alojamiento estás?</label>
+          <select id="incPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
         </div>
-        <p class="hint" id="t-inc-hint">Se abre WhatsApp o tu app de correo con el mensaje preparado.</p>
+        <div>
+          <label style="font-weight:700" for="incType" id="i-type">Tipo de incidencia</label>
+          <select id="incType" class="select">
+            <option value="Luz">Luz</option>
+            <option value="Agua">Agua</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Ruido">Ruido</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
       </div>
-
-      <div class="inc-group">
-        <label class="label" for="incType" id="t-inc-type">Tipo de incidencia</label>
-        <select id="incType" class="select">
-          <option value="alojamiento">Alojamiento</option>
-          <option value="mantenimiento">Mantenimiento</option>
-          <option value="limpieza">Limpieza</option>
-          <option value="restauracion">Restauración</option>
-          <option value="otros">Otros</option>
-        </select>
+      <div style="margin-top:10px">
+        <label style="font-weight:700" for="incMsg" id="i-msg">Describe brevemente el problema</label>
+        <textarea id="incMsg" class="textarea" placeholder="Ej.: Sin luz en la parcela 24, desde las 21:15..."></textarea>
       </div>
-
-      <div class="inc-group">
-        <label class="label" for="incMsg" id="t-inc-msg">Describe brevemente el problema</label>
-        <textarea id="incMsg" rows="5" class="textarea" placeholder="Ej.: No funciona el agua caliente en la ducha."></textarea>
-      </div>
-
-      <div class="row" style="margin-top:8px">
-        <button class="btn primary" id="incSendBtn">Enviar</button>
-        <button class="btn" id="incClearBtn">Limpiar</button>
+      <div class="row" style="margin-top:10px">
+        <a id="incWA" class="btn primary" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="incEmail" class="btn" target="_blank" rel="noopener">Email</a>
       </div>
     </div>
   </section>
@@ -311,29 +273,28 @@ body.modal-open{overflow:hidden}
   <!-- EVENTOS -->
   <section id="view-events" class="view">
     <h2 id="t-events-title">Eventos</h2>
-    <div class="filters">
-      <button class="chip on" data-filter="all" id="f-all">Todos</button>
-      <button class="chip" data-filter="today" id="f-today">Hoy</button>
-      <button class="chip" data-filter="tomorrow" id="f-tomorrow">Mañana</button>
-      <button class="chip" data-filter="week" id="f-week">Esta semana</button>
+    <div class="row" style="gap:8px;margin:10px 0">
+      <button class="btn chip on" data-filter="all" id="f-all">Todos</button>
+      <button class="btn chip" data-filter="today" id="f-today">Hoy</button>
+      <button class="btn chip" data-filter="tomorrow" id="f-tomorrow">Mañana</button>
+      <button class="btn chip" data-filter="week" id="f-week">Esta semana</button>
     </div>
-    <div class="filters">
-      <button class="chip on" data-camp="all" id="c-all">Todos los campings</button>
-      <button class="chip" data-camp="oyambre" id="c-oy">Oyambre</button>
-      <button class="chip" data-camp="ramales" id="c-ra">Ramales</button>
-      <button class="chip" data-camp="ruiloba" id="c-he">Ruiloba</button>
-      <button class="chip" data-camp="cardeo" id="c-ca">El Cardeo</button>
+    <div class="row" style="gap:8px;margin:6px 0">
+      <button class="btn chip on" data-camp="all" id="c-all">Todos los campings</button>
+      <button class="btn chip" data-camp="oyambre" id="c-oy">Oyambre</button>
+      <button class="btn chip" data-camp="ramales" id="c-ra">Ramales</button>
+      <button class="btn chip" data-camp="ruiloba" id="c-he">Ruiloba</button>
+      <button class="btn chip" data-camp="cardeo" id="c-ca">El Cardeo</button>
     </div>
     <div id="eventsGrid" class="grid"></div>
     <p class="muted" id="eventsEmpty" style="display:none">Sin eventos por ahora.</p>
   </section>
 
-  <!-- CAMPINGS -->
+  <!-- CAMPINGS (acceso desde drawer y home) -->
   <section id="view-places" class="view">
     <h2 id="t-campings-title">Nuestros campings</h2>
     <div class="grid">
-
-      <article class="place">
+      <article class="card" style="min-width:unset">
         <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
         <p class="muted" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
@@ -342,10 +303,9 @@ body.modal-open{overflow:hidden}
           <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Caravaning+Playa+de+Oyambre&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="card" style="min-width:unset">
         <h3 id="t-ra-title">Camping Ramales</h3>
         <p class="muted" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
@@ -354,10 +314,9 @@ body.modal-open{overflow:hidden}
           <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+Ramales&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="card" style="min-width:unset">
         <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
         <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
@@ -366,10 +325,9 @@ body.modal-open{overflow:hidden}
           <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Camping+El+Helguero&output=embed" loading="lazy"></iframe></div>
       </article>
 
-      <article class="place">
+      <article class="card" style="min-width:unset">
         <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
         <p class="muted" id="t-ca-hint">Apartamentos + Taberna</p>
         <div class="row">
@@ -378,38 +336,24 @@ body.modal-open{overflow:hidden}
           <a class="btn" data-i18n-directions href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <div class="map"><iframe src="https://www.google.com/maps?q=Apartamentos+El+Cardeo&output=embed" loading="lazy"></iframe></div>
       </article>
-
     </div>
   </section>
 
-  <!-- HORARIOS -->
+  <!-- HORARIOS (acceso desde drawer y home) -->
   <section id="view-schedules" class="view">
     <h2 id="t-schedules-title">Horarios</h2>
     <div class="acc" id="acc">
-      <div class="acc-item">
-        <div class="acc-h" data-acc="oyambre">Oyambre <span>▼</span></div>
-        <div class="acc-b" id="acc-oyambre"></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-h" data-acc="ramales">Ramales <span>▼</span></div>
-        <div class="acc-b" id="acc-ramales"></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-h" data-acc="ruiloba">Ruiloba <span>▼</span></div>
-        <div class="acc-b" id="acc-ruiloba"></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-h" data-acc="cardeo">El Cardeo <span>▼</span></div>
-        <div class="acc-b" id="acc-cardeo"></div>
-      </div>
+      <div class="acc-item"><div class="acc-h" data-acc="oyambre">Oyambre <span>▼</span></div><div class="acc-b" id="acc-oyambre"></div></div>
+      <div class="acc-item"><div class="acc-h" data-acc="ramales">Ramales <span>▼</span></div><div class="acc-b" id="acc-ramales"></div></div>
+      <div class="acc-item"><div class="acc-h" data-acc="ruiloba">Ruiloba <span>▼</span></div><div class="acc-b" id="acc-ruiloba"></div></div>
+      <div class="acc-item"><div class="acc-h" data-acc="cardeo">El Cardeo <span>▼</span></div><div class="acc-b" id="acc-cardeo"></div></div>
     </div>
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada.</p>
   </section>
 </main>
 
-<!-- Bottom nav -->
+<!-- Bottom nav (4) -->
 <nav class="navbar" role="navigation" aria-label="Pestañas">
   <button class="navbtn active" data-nav="home"><div class="ico">🏠</div><div id="n-home">Inicio</div></button>
   <button class="navbtn" data-nav="stay"><div class="ico">🧳</div><div id="n-stay">Mi estancia</div></button>
@@ -417,7 +361,7 @@ body.modal-open{overflow:hidden}
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
 </nav>
 
-<!-- ADMIN MODAL -->
+<!-- ADMIN MODAL (igual que versión previa, resumido pero funcional) -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
@@ -441,9 +385,8 @@ body.modal-open{overflow:hidden}
         <div style="grid-column:1/-1"><label>Descripción (ES)</label><textarea id="evDesc" class="textarea" rows="3" placeholder="Ej: Música en directo."></textarea></div>
       </div>
       <div class="row" style="margin-top:10px">
-        <button id="addEventBtn" class="btn">Agregar a la lista</button>
+        <button id="addEventBtn" class="btn">Agregar</button>
         <button id="exportEventsBtn" class="btn">Descargar events.json</button>
-        <button id="exportZipBtn" class="btn">Descargar copia (ZIP)</button>
         <label class="btn" for="importFile" style="cursor:pointer">Importar JSON</label>
         <input id="importFile" type="file" accept="application/json" style="display:none">
       </div>
@@ -451,85 +394,42 @@ body.modal-open{overflow:hidden}
 
     <div class="card" style="margin-top:12px">
       <h4 style="margin:0 0 8px">Eventos actuales</h4>
-
-      <div class="row" style="margin:6px 0">
-        <div style="flex:1;min-width:200px">
-          <label>Filtrar por camping</label>
-          <select id="adminFilterCamp" class="select">
-            <option value="all">Todos</option>
-            <option value="oyambre">oyambre</option>
-            <option value="ramales">ramales</option>
-            <option value="ruiloba">ruiloba</option>
-            <option value="cardeo">cardeo</option>
-          </select>
-        </div>
-        <div style="flex:1;min-width:200px">
-          <label>Orden por fecha</label>
-          <select id="adminSortOrder" class="select">
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </select>
-        </div>
-      </div>
-
       <div style="overflow:auto">
-        <table class="table" id="eventsTable">
-          <thead>
-            <tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th><th>Acciones</th></tr>
-          </thead>
+        <table class="table" id="eventsTable" style="width:100%;border-collapse:collapse">
+          <thead><tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th><th>Acciones</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
-      <p class="muted">Pulsa “Descargar events.json” y súbelo a GitHub, o usa la subida directa más abajo.</p>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h4>Gestión de horarios (schedules.json)</h4>
+      <textarea id="schedJsonArea" class="textarea" rows="8" placeholder='Pegue aquí su schedules.json'></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="schedApplyBtn" class="btn">Aplicar</button>
+        <button id="exportSchedBtn" class="btn">Descargar schedules.json</button>
+        <label class="btn" for="importSchedFile" style="cursor:pointer">Importar JSON</label>
+        <input id="importSchedFile" type="file" accept="application/json" style="display:none">
+      </div>
     </div>
 
     <div class="card" style="margin-top:12px">
       <h4>Config GitHub</h4>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
-        <div><label>Repositorio (owner/repo)</label><input id="ghRepo" class="input" placeholder="owner/repo"></div>
+        <div><label>Repositorio</label><input id="ghRepo" class="input" placeholder="owner/repo"></div>
         <div><label>Branch</label><input id="ghBranch" class="input" placeholder="main" value="main"></div>
-        <div style="grid-column:1/-1"><label>Token (solo se guarda en este dispositivo)</label><input id="ghToken" class="input" placeholder="github_pat_..." autocomplete="off"></div>
+        <div style="grid-column:1/-1"><label>Token (se guarda en este dispositivo)</label><input id="ghToken" class="input" placeholder="github_pat_..." autocomplete="off"></div>
       </div>
       <div class="row" style="margin-top:10px">
         <button id="saveGhCfg" class="btn">Guardar configuración</button>
-        <button id="pushEventsBtn" class="btn">💾 Guardar en GitHub (events.json)</button>
-      </div>
-      <p class="muted">El token no se sube a ningún servidor; queda en tu dispositivo (localStorage).</p>
-    </div>
-
-    <!-- Gestión de horarios -->
-    <div class="card" style="margin-top:12px">
-      <h4>Gestión de horarios (schedules.json)</h4>
-      <p class="muted">Formato: {"oyambre":{"es":"...","en":"..."},"ramales":...}</p>
-      <textarea id="schedJsonArea" class="textarea" rows="10" placeholder='Pegue aquí su schedules.json'></textarea>
-      <div class="row" style="margin-top:10px">
-        <button id="schedApplyBtn" class="btn">Aplicar cambios</button>
-        <button id="exportSchedBtn" class="btn">Descargar schedules.json</button>
-        <label class="btn" for="importSchedFile" style="cursor:pointer">Importar JSON</label>
-        <input id="importSchedFile" type="file" accept="application/json" style="display:none">
-        <button id="pushSchedBtn" class="btn">💾 Guardar en GitHub (schedules.json)</button>
+        <button id="pushEventsBtn" class="btn">💾 Subir events.json</button>
+        <button id="pushSchedBtn" class="btn">💾 Subir schedules.json</button>
       </div>
     </div>
-
-    <!-- Seguridad -->
-    <div class="card" style="margin-top:12px">
-      <h4>Seguridad</h4>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
-        <div>
-          <label>Nueva contraseña admin</label>
-          <input id="adminPinInput" class="input" placeholder="Mín. 4 caracteres">
-        </div>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <button id="saveAdminPin" class="btn">Guardar contraseña</button>
-      </div>
-      <p class="muted">Se guarda SOLO en este dispositivo (localStorage). Se pedirá al activar admin con 5 toques.</p>
-    </div>
-
   </div>
 </div>
 
-<!-- Idiomas modal -->
+<!-- Idiomas -->
 <div class="backdrop" id="langModal">
   <div class="modal">
     <button id="closeLang" class="close" aria-label="Cerrar">✕</button>
@@ -550,7 +450,7 @@ body.modal-open{overflow:hidden}
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
-  /* ===== Estado admin + PIN por defecto ===== */
+  /* ===== Estado admin + PIN ===== */
   localStorage.setItem('admin','0');
   document.body.classList.remove('admin-on');
   if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
@@ -560,130 +460,209 @@ document.addEventListener('DOMContentLoaded', function(){
   function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-  function safeUrl(u){
-    var s=String(u||'').trim();
-    if (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)){
-      return s.replace(/"/g,'%22');
-    }
-    return '';
-  }
+  function safeUrl(u){var s=String(u||'').trim(); return (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)) ? s.replace(/"/g,'%22') : ''; }
+  function pad2(n){return ('0'+n).slice(-2);}
 
   /* ===== Tema ===== */
-  function detectTheme(){
-    var saved = localStorage.getItem('theme');
-    if(saved) return saved;
-    try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){}
-    return 'light';
-  }
-  function applyTheme(mode){
-    document.body.classList.toggle('dark', mode==='dark');
-    var themeBtn = $('#themeBtn');
-    if(themeBtn) themeBtn.textContent = mode==='dark' ? '☀️' : '🌙';
-    localStorage.setItem('theme', mode);
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute('content', mode==='dark' ? '#0b1220' : '#0ea5e9');
-  }
-  var THEME = detectTheme();
-  applyTheme(THEME);
-  on($('#themeBtn'),'click', function(){ THEME = (THEME==='dark') ? 'light' : 'dark'; applyTheme(THEME); });
+  function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
+  function applyTheme(m){ document.body.classList.toggle('dark', m==='dark'); var b=$('#themeBtn'); if(b) b.textContent=m==='dark'?'☀️':'🌙'; localStorage.setItem('theme',m); var meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');}
+  var THEME=detectTheme(); applyTheme(THEME);
+  on($('#themeBtn'),'click', function(){ THEME=(THEME==='dark')?'light':'dark'; applyTheme(THEME); });
 
-  /* ===== i18n ===== */
+  /* ===== I18N ===== */
   var I18N = {
     es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
-        ev:"Eventos", evSub:"Qué hay hoy", pl:"Campings", plSub:"Accesos rápidos", sc:"Horarios", scSub:"Recepción · bar",
+        ev:"Eventos", evSub:"Qué hay hoy",
+        pl:"Campings", plSub:"Accesos rápidos",
+        sc:"Horarios", scSub:"Recepción · bar",
         inst:"Instalar", instSub:"Añadir a inicio",
         eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
         fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana",
         cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp",
+        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp", email:"Email",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar",
         raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
         caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
-        stayTitle:"Mi estancia", stayWhich:"Selecciona tu alojamiento", stayHint:"Guardamos tu elección en este dispositivo.",
-        weatherTitle:"Clima", max:"Máx", min:"Mín", stayHours:"Horarios del alojamiento",
-        incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?", incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
-        incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema"
+        dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", drawerHint:"Elige sección",
+        nextEvents:"Próximos eventos",
+        stay:"Mi estancia", staySub:"Contactos, clima, horarios",
+        stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
+        stayHours:"Horarios del alojamiento",
+        weatherTitle:"Clima", max:"Máx", min:"Mín",
+        incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?",
+        incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
+        incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
-        ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar",
+        ev:"Events", evSub:"What's on today",
+        pl:"Campsites", plSub:"Quick access",
+        sc:"Schedules", scSub:"Reception · bar",
         inst:"Install", instSub:"Add to Home",
         eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
         fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week",
         cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
-        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp",
+        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp", email:"Email",
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea",
         raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
-        stayTitle:"My stay", stayWhich:"Choose your accommodation", stayHint:"We store your choice on this device.",
-        weatherTitle:"Weather", max:"Max", min:"Min", stayHours:"Accommodation opening hours",
-        incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?", incHint:"We open WhatsApp or your email app with a prefilled message.",
-        incType:"Type of issue", incMsg:"Briefly describe the problem"
+        dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", drawerHint:"Choose a section",
+        nextEvents:"Upcoming events",
+        stay:"My stay", staySub:"Contacts, weather, schedules",
+        stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
+        stayHours:"Accommodation opening hours",
+        weatherTitle:"Weather", max:"Max", min:"Min",
+        incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?",
+        incHint:"We open WhatsApp or your email app with a prefilled message.",
+        incType:"Type of issue", incMsg:"Briefly describe the problem",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email"
+    },
+    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
+        ev:"Événements", evSub:"Aujourd’hui",
+        pl:"Campings", plSub:"Accès rapide",
+        sc:"Horaires", scSub:"Réception · bar",
+        inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
+        eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
+        fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine",
+        cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Site web", call:"Appeler", directions:"Itinéraire", whatsapp:"WhatsApp", email:"Email",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Tous les services · Face à la mer",
+        raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
+        caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
+        schedNote:"Infos indicatives. Vérifiez à la réception.",
+        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
+        dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", drawerHint:"Choisissez une section",
+        nextEvents:"Événements à venir",
+        stay:"Mon séjour", staySub:"Contacts, météo, horaires",
+        stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
+        stayHours:"Horaires de l’hébergement",
+        weatherTitle:"Météo", max:"Max", min:"Min",
+        incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
+        incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
+        incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email"
+    },
+    de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
+        ev:"Events", evSub:"Heute",
+        pl:"Campingplätze", plSub:"Schnellzugriff",
+        sc:"Zeiten", scSub:"Rezeption · Bar",
+        inst:"Installieren", instSub:"Zum Startbildschirm",
+        eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze",
+        fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche",
+        cAll:"Alle Campingplätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Anrufen", directions:"Route", whatsapp:"WhatsApp", email:"E-Mail",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle Services · Am Meer",
+        raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
+        caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
+        schedNote:"Unverbindliche Infos. Änderungen an der Rezeption.",
+        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
+        dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", drawerHint:"Bereich wählen",
+        nextEvents:"Kommende Events",
+        stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
+        stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
+        stayHours:"Öffnungszeiten der Unterkunft",
+        weatherTitle:"Wetter", max:"Max", min:"Min",
+        incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
+        incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
+        incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
+        incBtnWA:"WhatsApp", incBtnEmail:"E-Mail"
+    },
+    nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
+        ev:"Evenementen", evSub:"Vandaag",
+        pl:"Campings", plSub:"Snelle toegang",
+        sc:"Openingstijden", scSub:"Receptie · bar",
+        inst:"Installeren", instSub:"Toevoegen aan beginscherm",
+        eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings",
+        fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week",
+        cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Bellen", directions:"Route", whatsapp:"WhatsApp", email:"E-mail",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle services · Aan zee",
+        raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
+        caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
+        schedNote:"Indicatieve info. Informeer bij de receptie.",
+        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
+        dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", drawerHint:"Kies een sectie",
+        nextEvents:"Aankomende evenementen",
+        stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
+        stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
+        stayHours:"Openingstijden van de accommodatie",
+        weatherTitle:"Weer", max:"Max", min:"Min",
+        incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
+        incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
+        incType:"Type incident", incMsg:"Beschrijf kort het probleem",
+        incBtnWA:"WhatsApp", incBtnEmail:"E-mail"
     }
   };
+
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
   function applyLang(){
     var T=I18N[LANG];
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
-    t("t-ev",T.ev); t("t-ev-sub",T.evSub); t("t-pl",T.pl); t("t-pl-sub",T.plSub); t("t-sc",T.sc); t("t-sc-sub",T.scSub);
+    t("t-ev",T.ev); t("t-ev-sub",T.evSub);
+    t("t-pl",T.pl); t("t-pl-sub",T.plSub);
+    t("t-sc",T.sc); t("t-sc-sub",T.scSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
     t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-campings-title",T.campingsTitle);
     t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek);
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote);
-    t("t-stay-title",T.stayTitle); t("t-stay-which",T.stayWhich); t("t-stay-hint",T.stayHint);
-    t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min); t("t-stay-hours",T.stayHours);
-    t("t-inc-title",T.incTitle); t("t-inc-where",T.incWhere); t("t-inc-contact",T.incContact); t("t-inc-hint",T.incHint);
-    t("t-inc-type",T.incType); t("t-inc-msg",T.incMsg);
-    var nh=$('#n-home'), ns=$('#n-stay'), ni=$('#n-inc'), ne=$('#n-ev');
-    if(nh) nh.textContent=T.nHome; if(ns) ns.textContent=T.stayTitle; if(ni) ni.textContent=T.incTitle; if(ne) ne.textContent=T.nEv;
-    $all("[data-i18n-web]").forEach(function(e){e.textContent=T.web;});
-    $all("[data-i18n-call]").forEach(function(e){e.textContent=T.call;});
-    $all("[data-i18n-directions]").forEach(function(e){e.textContent=T.directions;});
-    $all("[data-i18n-whatsapp]").forEach(function(e){e.textContent=T.whatsapp;});
-    var lb=$('#langBtn'); if(lb){ lb.textContent='🌐 '+LANG.toUpperCase(); }
+    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
+    var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
+
+    // Drawer / Home tiles
+    t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
+    t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
+    t("t-stay",T.stay); t("t-stay-sub",T.staySub);
+
+    // Stay & Weather
+    t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
+    t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
+
+    // Incidents
+    t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
+    var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
   }
   applyLang();
 
-  on($('#langBtn'),'click', function(){ var m=$('#langModal'); if(m) m.style.display='flex'; });
-  on($('#closeLang'),'click', function(e){ e.preventDefault(); var m=$('#langModal'); if(m) m.style.display='none'; });
+  on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
+  on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){
-      LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); loadEvents(); renderAcc(); renderStay();
-      var m=$('#langModal'); if(m) m.style.display='none';
-    });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
   function showView(id){
-    $all('.view').forEach(function(v){ v.classList.remove('active'); });
+    $all('.view').forEach(v=>v.classList.remove('active'));
     var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
-    $all('.navbtn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-nav')===id); });
-    var dr=$('#drawer'); if(dr) dr.classList.remove('open');
+    $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
+    $('#drawer').classList.remove('open');
   }
-  $all('[data-nav]').forEach(function(el){ on(el,'click', function(){ showView(el.getAttribute('data-nav')); }); });
-  on($('#menuBtn'),'click', function(){ var d=$('#drawer'); if(d) d.classList.add('open'); });
-  on($('#drawerBack'),'click', function(){ var d=$('#drawer'); if(d) d.classList.remove('open'); });
+  $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
+
+  on($('#menuBtn'),'click', function(){ $('#drawer').classList.add('open'); });
+  on($('#drawerBack'),'click', function(){ $('#drawer').classList.remove('open'); });
 
   /* ===== Datos comunes ===== */
   var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
   var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
-  var PHONES={oyambre:"+34942711461",ramales:"+34654463133",ruiloba:"+34942722124",cardeo:"+34664686158"};
   var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
+  var PHONES={oyambre:"+34942711461",ramales:"+34654463133",ruiloba:"+34942722124",cardeo:"+34664686158"};
+  var WEB={oyambre:"https://www.oyambre.com",ramales:"https://www.campingramales.com",ruiloba:"https://www.campingelhelguero.com",cardeo:"https://www.elcardeo.es"};
   var EMAILS={oyambre:"camping@oyambre.com",ramales:"info@campingramales.com",ruiloba:"info@campingelhelguero.com",cardeo:"info@elcardeo.es"};
-  function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
-  function waLink(num,message){return 'https://wa.me/'+num+'?text='+encodeURIComponent(message||'');}
 
-  /* ===== Eventos (home + grid con filtros) ===== */
+  /* ===== Eventos ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
   function whenFmt(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } }
   function categoryFor(dateStr){
@@ -696,17 +675,19 @@ document.addEventListener('DOMContentLoaded', function(){
     if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
+  function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
+  function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
+
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
-    var next=EVENTS.slice().sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)}).slice(0,6);
+    var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
     if(!next.length){ wrap.innerHTML='<div class="muted">Sin eventos por ahora.</div>'; return; }
     wrap.innerHTML = next.map(function(ev){
       var rawTitle=i18nField(ev.titulo)||'(sin título)';
       var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var title=esc(rawTitle);
-      var place=esc(rawPlace);
+      var title=esc(rawTitle), place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      var wa=WHATSAPP[String(ev.camping||'').toLowerCase()]?waLink(WHATSAPP[String(ev.camping||'').toLowerCase()],'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.'):null;
+      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
       return '<div class="card">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
@@ -723,16 +704,15 @@ document.addEventListener('DOMContentLoaded', function(){
       var byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
       var byCamp = CAMP_FILTER==='all' ? true : (String(ev.camping||'').toLowerCase()===CAMP_FILTER);
       return byDate && byCamp;
-    }).sort(function(a,b){return new Date(a.fecha)-new Date(b.fecha)});
+    }).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
     if(!filtered.length){ grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
     if(empty) empty.style.display='none';
     grid.innerHTML = filtered.map(function(ev){
       var rawTitle=i18nField(ev.titulo)||'(sin título)';
       var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
-      var title=esc(rawTitle);
-      var place=esc(rawPlace);
+      var title=esc(rawTitle), place=esc(rawPlace);
       var img=safeUrl(ev.imagen||ev.image||'');
-      var wa=WHATSAPP[String(ev.camping||'').toLowerCase()]?waLink(WHATSAPP[String(ev.camping||'').toLowerCase()],'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.'):null;
+      var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
       return '<div class="card" style="min-width:unset">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
@@ -745,38 +725,24 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(data){ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
-      .catch(function(){ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
+      .then(r=>r.json()).then(data=>{ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
+      .catch(()=>{ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
   }
-  $all('[data-filter]').forEach(function(ch){
-    on(ch,'click', function(){
-      $all('[data-filter]').forEach(function(x){x.classList.remove('on');});
-      ch.classList.add('on'); DATE_FILTER=ch.getAttribute('data-filter')||'all'; renderEventsGrid();
-    });
-  });
-  $all('[data-camp]').forEach(function(ch){
-    on(ch,'click', function(){
-      $all('[data-camp]').forEach(function(x){x.classList.remove('on');});
-      ch.classList.add('on'); CAMP_FILTER=ch.getAttribute('data-camp')||'all'; renderEventsGrid();
-    });
-  });
+  $all('[data-filter]').forEach(ch=>on(ch,'click', function(){ $all('[data-filter]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); DATE_FILTER=ch.getAttribute('data-filter')||'all'; renderEventsGrid(); }));
+  $all('[data-camp]').forEach(ch=>on(ch,'click', function(){ $all('[data-camp]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); CAMP_FILTER=ch.getAttribute('data-camp')||'all'; renderEventsGrid(); }));
 
-  /* ===== Horarios (schedules.json con fallback) ===== */
+  /* ===== Horarios ===== */
   var SCHEDULES_DEFAULT={
-    oyambre:{
-      es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)",
-      en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)"
-    },
+    oyambre:{es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)",
+             en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)"},
     ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00"},
+             en:"<b>Reception</b>: 09:00–21:00<br><b>Bar</b>: 09:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00"},
     ruiloba:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
-             en:"<b>Reception</b>: 9:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"},
+             en:"<b>Reception</b>: 09:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"},
     cardeo:{es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
             en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00"}
   };
   var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
-
   function renderAcc(){
     ['oyambre','ramales','ruiloba','cardeo'].forEach(function(k){
       var el=document.getElementById('acc-'+k);
@@ -785,36 +751,111 @@ document.addEventListener('DOMContentLoaded', function(){
       el.innerHTML = item[LANG] || item.es || '';
     });
   }
-
   function loadSchedules(){
     fetch('./schedules.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw new Error('not ok'); return r.json(); })
-      .then(function(json){ if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); } })
-      .catch(function(){ SCHEDULES=JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); });
+      .then(r=>{ if(!r.ok) throw 0; return r.json(); })
+      .then(json=>{ if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); renderStayHours(); }})
+      .catch(()=>{ SCHEDULES=JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); renderStayHours(); });
+  }
+  $all('.acc-h').forEach(h=>on(h,'click', function(){ h.parentElement.classList.toggle('open'); }));
+
+  /* ===== Mi estancia (contactos + horarios + clima) ===== */
+  var STAY = localStorage.getItem('stay_place') || 'oyambre';
+  var COORDS = {
+    oyambre:{lat:43.393, lon:-4.352},   // aprox Playa de Oyambre
+    ramales:{lat:43.263, lon:-3.465},   // Ramales de la Victoria
+    ruiloba:{lat:43.387, lon:-4.264},   // Ruiloba
+    cardeo:{lat:43.391, lon:-4.274}     // aprox El Cardeo (Ruiloba/Alfoz)
+  };
+  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); }
+  function renderStayContacts(){
+    var T=I18N[LANG], place=STAY;
+    $('#stayPlace').value=place;
+    var web=WEB[place], tel=PHONES[place], wa=WHATSAPP[place], mail=EMAILS[place], dir=PLACE_LINK[place];
+    $('#stayWeb').textContent=T.web; $('#stayWeb').onclick=function(){ location.href=web; };
+    var call=$('#stayCall'); call.textContent=T.call; call.href='tel:'+tel;
+    var waBtn=$('#stayWA'); waBtn.textContent=T.whatsapp; waBtn.href='https://wa.me/'+wa+'?text='+encodeURIComponent('Hola, soy cliente alojado en '+PLACE_LABEL[place]+'.');
+    var em=$('#stayEmail'); em.textContent=T.email; em.href='mailto:'+mail+'?subject='+encodeURIComponent('Consulta - '+PLACE_LABEL[place])+'&body='+encodeURIComponent('Hola,\n\nSoy cliente alojado en '+PLACE_LABEL[place]+'.\n\nGracias.');
+    var dr=$('#stayDir'); dr.textContent=T.directions; dr.href=dir;
+    $('#wxPlaceLabel').textContent=PLACE_LABEL[place];
+  }
+  function renderStayHours(){
+    var cont=$('#stayHours'); if(!cont) return;
+    var item=(SCHEDULES[STAY]||SCHEDULES_DEFAULT[STAY]||{});
+    cont.innerHTML = item[LANG] || item.es || '';
   }
 
-  $all('.acc-h').forEach(function(h){ on(h,'click', function(){ var item=h.parentElement; item.classList.toggle('open'); }); });
+  // Weather mapping
+  function codeToEmoji(code){
+    // Open-Meteo WMO codes simplified
+    if([0].includes(code)) return '☀️';
+    if([1,2].includes(code)) return '🌤️';
+    if([3].includes(code)) return '☁️';
+    if([45,48].includes(code)) return '🌫️';
+    if([51,53,55,56,57].includes(code)) return '🌦️';
+    if([61,63,65,80,81,82].includes(code)) return '🌧️';
+    if([66,67,71,73,75,77,85,86].includes(code)) return '❄️';
+    if([95,96,99].includes(code)) return '⛈️';
+    return '🌡️';
+  }
+  function wd(d){ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short'}).format(new Date(d)); }catch(e){ return d; } }
+  function renderWeather(data){
+    if(!data) return;
+    $('#wxIco').textContent = codeToEmoji(data.current.weather_code);
+    $('#wxNow').textContent = Math.round(data.current.temperature_2m);
+    $('#wxMax').textContent = Math.round(data.daily.temperature_2m_max[0]);
+    $('#wxMin').textContent = Math.round(data.daily.temperature_2m_min[0]);
+    $('#wxDesc').textContent = wd(data.daily.time[0]);
+    // next 3 days
+    for(var i=1;i<=3;i++){
+      $('#d'+i).textContent = wd(data.daily.time[i]);
+      $('#i'+i).textContent = codeToEmoji(data.daily.weather_code[i]);
+      $('#t'+i).textContent = Math.round(data.daily.temperature_2m_max[i])+'/'+Math.round(data.daily.temperature_2m_min[i])+'°';
+    }
+  }
+  function fetchWeather(place){
+    var c=COORDS[place]||COORDS.oyambre;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+'&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
+    fetch(url).then(r=>r.json()).then(renderWeather).catch(function(){ /* silencio */ });
+  }
 
-  /* ===== Admin (tap x5 en logo + PIN) ===== */
+  function updateStayUI(){ renderStayContacts(); renderStayHours(); fetchWeather(STAY); }
+  on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
+
+  /* ===== Incidencias ===== */
+  function buildIncMsg(){
+    var T=I18N[LANG], type=$('#incType').value||'Otros', msg=$('#incMsg').value||'';
+    var now=new Date(); var stamp = now.toLocaleString();
+    var header = '['+T.incTitle+'] '+type+' · '+PLACE_LABEL[STAY];
+    var body = 'Hola,\n\nTengo una incidencia: '+type+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
+    return {subject:header, body:body};
+  }
+  function updateIncUI(){
+    $('#incPlace').value=STAY;
+    var mail=EMAILS[STAY], wa=WHATSAPP[STAY];
+    var m=buildIncMsg();
+    $('#incWA').href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
+    $('#incEmail').href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
+  }
+  on($('#incPlace'),'change', function(e){ setStayPlace(e.target.value); });
+  on($('#incType'),'change', updateIncUI);
+  on($('#incMsg'),'input', updateIncUI);
+
+  /* ===== Admin (activar con 5 toques en el logo) ===== */
   (function adminActivator(){
-    var logo=document.getElementById('logoTap'); var taps=0,timer=null;
-    if(!logo) return;
-
-    function isAdminOn(){ return document.body.classList.contains('admin-on'); }
+    var logo=$('#logoTap'); var taps=0,timer=null;
     function askForPin(){
-      var stored = localStorage.getItem('admin_pin');
-      if(!stored){ stored='311974'; localStorage.setItem('admin_pin', stored); }
+      var stored = localStorage.getItem('admin_pin') || '311974';
       var entered = window.prompt('Introduce la contraseña de admin:','');
       if(entered===null) return false;
       if(entered===stored) return true;
       alert('Contraseña incorrecta'); return false;
     }
-
     on(logo,'click', function(){
       taps++; clearTimeout(timer); timer=setTimeout(function(){taps=0},1000);
       if(taps>=5){
         taps=0;
-        if(isAdminOn()){
+        if(document.body.classList.contains('admin-on')){
           localStorage.setItem('admin','0'); document.body.classList.remove('admin-on'); alert('Modo admin desactivado');
         }else{
           if(!askForPin()) return;
@@ -823,81 +864,41 @@ document.addEventListener('DOMContentLoaded', function(){
         }
       }
     });
-
-    localStorage.setItem('admin','0');
-    document.body.classList.remove('admin-on');
   })();
 
-  on($('#openAdmin'), 'click', function(){
-    if(!document.body.classList.contains('admin-on')) return;
-    openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin();
-  });
-
-  /* ===== Helpers modal admin ===== */
-  function openAdminModal(){ var modal=document.getElementById('adminModal'); if(modal){ modal.style.display='flex'; document.body.classList.add('modal-open'); } }
-  function closeAdminModal(){ var modal=document.getElementById('adminModal'); if(modal){ modal.style.display='none'; document.body.classList.remove('modal-open'); } }
+  function openAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); } }
+  function closeAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); } }
   on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
   on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
+  on($('#openAdmin'),'click', function(){ if(!document.body.classList.contains('admin-on')) return; openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin(); });
 
-  /* ===== Admin tabla (filtro/orden) ===== */
-  var ADMIN_EVENTS=[]; var ADMIN_FILTER_CAMP='all'; var ADMIN_SORT_ORDER='asc';
-
+  var ADMIN_EVENTS=[];
   function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
-  function isoFromLocal(dt){
-    var d=new Date(dt);
-    if(isNaN(d.getTime())) return dt;
-    var tz=-d.getTimezoneOffset(), sign=tz>=0?'+':'-';
-    function pad(n){return ('0'+n).slice(-2);}
-    var yyyy=d.getFullYear(), mm=pad(d.getMonth()+1), dd=pad(d.getDate());
-    var hh=pad(d.getHours()), mi=pad(d.getMinutes()), ss=pad(d.getSeconds());
-    var oh=pad(Math.floor(Math.abs(tz)/60)), om=pad(Math.abs(tz)%60);
-    return yyyy+'-'+mm+'-'+dd+'T'+hh+':'+mi+':'+ss+sign+oh+':'+om;
-  }
-  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
+  function isoFromLocal(dt){ var d=new Date(dt); if(isNaN(d.getTime())) return dt; var tz=-d.getTimezoneOffset(),sign=tz>=0?'+':'-'; function p(n){return ('0'+n).slice(-2);} return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+sign+p(Math.floor(Math.abs(tz)/60))+':'+p(Math.abs(tz)%60); }
 
   function loadEventsAdmin(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(function(r){return r.json();})
-      .then(function(data){ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
-      .catch(function(){ ADMIN_EVENTS=[]; renderAdminTable(); });
+      .then(r=>r.json()).then(data=>{ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
+      .catch(()=>{ ADMIN_EVENTS=[]; renderAdminTable(); });
     loadGhCfgToForm();
   }
-
   function renderAdminTable(){
     var tbody = $('#eventsTable tbody'); if(!tbody) return;
-    var list = ADMIN_EVENTS.slice();
-
-    if(ADMIN_FILTER_CAMP!=='all'){ list = list.filter(function(e){ return String(e.camping||'').toLowerCase()===ADMIN_FILTER_CAMP; }); }
-    list.sort(function(a,b){ var da=new Date(a.fecha).getTime(), db=new Date(b.fecha).getTime(); return ADMIN_SORT_ORDER==='asc' ? (da-db) : (db-da); });
-
-    tbody.innerHTML = list.map(function(ev){
+    tbody.innerHTML = ADMIN_EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(function(ev){
       var titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
       var lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
       var dt=new Date(ev.fecha);
-      var val = dt.getFullYear()+'-'+('0'+(dt.getMonth()+1)).slice(-2)+'-'+('0'+dt.getDate()).slice(-2)+'T'+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2);
+      var val = dt.getFullYear()+'-'+pad2(dt.getMonth()+1)+'-'+pad2(dt.getDate())+'T'+pad2(dt.getHours())+':'+pad2(dt.getMinutes());
       return '<tr data-id="'+ev.id+'">'
-        + '<td class="muted">'+esc(ev.id)+'</td>'
+        + '<td class="muted" style="white-space:nowrap">'+esc(ev.id)+'</td>'
         + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+esc(dt.toLocaleString())+'</div></td>'
-        + '<td>'
-          + '<select class="select camp">'
-            + '<option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option>'
-            + '<option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option>'
-            + '<option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option>'
-            + '<option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option>'
-          + '</select>'
-          + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+esc(lugarES)+'">'
-        + '</td>'
-        + '<td>'
-          + '<input class="input titulo" placeholder="Título (ES)" value="'+esc(titleES)+'">'
-          + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+esc(((ev.descripcion&&ev.descripcion.es)||''))+'</textarea>'
-          + '<input class="input img" placeholder="Imagen (URL)" value="'+esc((ev.imagen||ev.image||''))+'" style="margin-top:6px">'
-        + '</td>'
-        + '<td style="min-width:220px">'
-          + '<button class="btn act-save">Guardar</button> '
-          + '<button class="btn act-dup">Duplicar</button> '
-          + '<button class="btn act-del">Borrar</button>'
-        + '</td>'
+        + '<td><select class="select camp"><option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option><option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option><option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option><option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option></select>'
+        + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+esc(lugarES)+'"></td>'
+        + '<td><input class="input titulo" placeholder="Título (ES)" value="'+esc(titleES)+'">'
+        + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+esc(((ev.descripcion&&ev.descripcion.es)||''))+'</textarea>'
+        + '<input class="input img" placeholder="Imagen (URL)" value="'+esc((ev.imagen||ev.image||''))+'" style="margin-top:6px"></td>'
+        + '<td style="min-width:220px"><button class="btn act-save">Guardar</button> <button class="btn act-dup">Duplicar</button> <button class="btn act-del">Borrar</button></td>'
       + '</tr>';
     }).join('');
     $all('#eventsTable tbody tr').forEach(function(tr){
@@ -907,10 +908,6 @@ document.addEventListener('DOMContentLoaded', function(){
       on(tr.querySelector('.act-del'),'click', function(){ deleteRow(id); });
     });
   }
-
-  on($('#adminFilterCamp'),'change', function(e){ ADMIN_FILTER_CAMP=e.target.value||'all'; renderAdminTable(); });
-  on($('#adminSortOrder'),'change', function(e){ ADMIN_SORT_ORDER=e.target.value||'asc'; renderAdminTable(); });
-
   function getRowValues(tr){
     return {
       dateLocal: tr.querySelector('.dt').value,
@@ -921,9 +918,10 @@ document.addEventListener('DOMContentLoaded', function(){
       img: (tr.querySelector('.img').value||'').trim()
     };
   }
+  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
   function saveRow(tr,id){
     var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
-    var idx=ADMIN_EVENTS.findIndex(function(e){return e.id===id;}); if(idx<0) return;
+    var idx=ADMIN_EVENTS.findIndex(e=>e.id===id); if(idx<0) return;
     ADMIN_EVENTS[idx].fecha=isoFromLocal(v.dateLocal);
     ADMIN_EVENTS[idx].camping=v.camping;
     ADMIN_EVENTS[idx].titulo={es:v.titulo};
@@ -933,293 +931,74 @@ document.addEventListener('DOMContentLoaded', function(){
     renderAdminTable();
   }
   function duplicateRow(id){
-    var o=ADMIN_EVENTS.find(function(e){return e.id===id;}); if(!o) return;
+    var o=ADMIN_EVENTS.find(e=>e.id===id); if(!o) return;
     var titleES=(o.titulo&&o.titulo.es)||''; var newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
     var copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
   }
-  function deleteRow(id){
-    if(!confirm('¿Borrar este evento?')) return;
-    ADMIN_EVENTS = ADMIN_EVENTS.filter(function(e){return e.id!==id}); renderAdminTable();
-  }
+  function deleteRow(id){ if(!confirm('¿Borrar este evento?')) return; ADMIN_EVENTS = ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
 
-  on($('#addEventBtn'),'click', function(){
-    var title=$('#evTitle').value.trim();
-    var date=$('#evDate').value;
-    var place=$('#evPlace').value;
-    var lugar=$('#evLugar').value.trim() || defaultLugar(place);
-    var img=$('#evImg').value.trim();
-    var desc=$('#evDesc').value.trim();
-    if(!title||!date||!place){alert('Rellena título, fecha y alojamiento.');return;}
-    var id='ev-'+slug(title)+'-'+place+'-'+date.replace(/[:T]/g,'').slice(0,12);
-    var obj={id:id,fecha:isoFromLocal(date),camping:place,titulo:{es:title},descripcion:{es:desc},lugar:{es:lugar}};
-    if(img) obj.imagen=img;
-    ADMIN_EVENTS.push(obj); renderAdminTable();
-    ['#evTitle','#evDate','#evLugar','#evImg','#evDesc'].forEach(function(s){var el=$(s); if(el) el.value='';});
-  });
+  /* Schedules admin */
+  function loadSchedulesAdmin(){ var a=$('#schedJsonArea'); if(!a) return; try{ a.value=JSON.stringify(SCHEDULES,null,2); }catch(e){ a.value='{}'; } }
+  on($('#schedApplyBtn'),'click', function(){ var a=$('#schedJsonArea'); try{ var obj=JSON.parse(a.value); if(!obj||typeof obj!=='object') throw 0; SCHEDULES=obj; renderAcc(); renderStayHours(); alert('Horarios aplicados.'); }catch(e){ alert('JSON inválido.'); } });
+  on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+  on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
 
-  on($('#exportEventsBtn'),'click', function(){
-    var blob=new Blob([JSON.stringify(ADMIN_EVENTS,null,2)],{type:'application/json'});
-    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='events.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  });
-
-  on($('#exportZipBtn'),'click', function(){
-    try{
-      var zip=new JSZip();
-      zip.file('events.json', JSON.stringify(ADMIN_EVENTS,null,2));
-      zip.file('schedules.json', JSON.stringify(SCHEDULES,null,2));
-      var imgs=ADMIN_EVENTS.map(function(e){return e.imagen||e.image}).filter(Boolean);
-      var folder=zip.folder('images'); var added={};
-      Promise.all(imgs.map(function(u){
-        if(added[u]) return Promise.resolve();
-        return fetch(u,{mode:'cors'}).then(function(res){return res.blob()}).then(function(blob){return blob.arrayBuffer()}).then(function(buf){
-          var name=(u.split('/').pop()||'image').split('?')[0]; folder.file(name,buf); added[u]=true;
-        }).catch(function(){});
-      })).then(function(){ return zip.generateAsync({type:'blob'}); })
-      .then(function(blob){
-        var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='backup_acobijo.zip'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-      });
-    }catch(e){ alert('No se pudo generar la copia de seguridad.'); }
-  });
-
-  on($('#importFile'),'change', function(e){
-    var f=e.target.files && e.target.files[0]; if(!f) return;
-    f.text().then(function(txt){
-      var data=JSON.parse(txt); if(!Array.isArray(data)) throw new Error('El JSON debe ser un array');
-      ADMIN_EVENTS=data; renderAdminTable();
-    }).catch(function(err){ alert('No se pudo leer el JSON: '+err.message); }).finally(function(){ e.target.value=''; });
-  });
-
-  /* ===== Schedules Admin ===== */
-  function loadSchedulesAdmin(){
-    var area=$('#schedJsonArea'); if(!area) return;
-    try{ area.value=JSON.stringify(SCHEDULES,null,2); }catch(e){ area.value='{}'; }
-  }
-  on($('#schedApplyBtn'),'click', function(){
-    var area=$('#schedJsonArea'); if(!area) return;
-    try{
-      var obj=JSON.parse(area.value);
-      if(!obj || typeof obj!=='object') throw new Error('JSON inválido');
-      SCHEDULES=obj; renderAcc();
-      alert('Horarios aplicados en la app.');
-    }catch(err){ alert('No se pudo aplicar: '+err.message); }
-  });
-  on($('#exportSchedBtn'),'click', function(){
-    var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'});
-    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  });
-  on($('#importSchedFile'),'change', function(e){
-    var f=e.target.files && e.target.files[0]; if(!f) return;
-    f.text().then(function(txt){
-      var data=JSON.parse(txt); if(!data || typeof data!=='object') throw new Error('JSON inválido');
-      SCHEDULES=data; renderAcc(); loadSchedulesAdmin();
-    }).catch(function(err){ alert('No se pudo leer schedules.json: '+err.message); }).finally(function(){ e.target.value=''; });
-  });
-
-  /* ===== GitHub API (PAT) ===== */
+  /* GitHub minimal (manual) */
   var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
-  function loadGhCfgToForm(){
-    var repoEl=$('#ghRepo'), branchEl=$('#ghBranch'), tokenEl=$('#ghToken');
-    if(!repoEl||!branchEl||!tokenEl) return;
-    repoEl.value=localStorage.getItem(GH_KEYS.repo)||'';
-    branchEl.value=localStorage.getItem(GH_KEYS.branch)||'main';
-    tokenEl.value=localStorage.getItem(GH_KEYS.token)||'';
-  }
-  function saveGhCfgFromForm(){
-    var repoEl=$('#ghRepo'), branchEl=$('#ghBranch'), tokenEl=$('#ghToken');
-    if(!repoEl||!branchEl||!tokenEl) return;
-    localStorage.setItem(GH_KEYS.repo, (repoEl.value||'').trim());
-    localStorage.setItem(GH_KEYS.branch, (branchEl.value||'').trim()||'main');
-    var t=(tokenEl.value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token, t);
-    alert('Configuración guardada en este dispositivo.');
-  }
-  function ghGet(path, token){
-    var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
-    var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch);
-    return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}});
-  }
-  function ghPut(path, contentBase64, message, sha, token){
-    var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main';
-    var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path);
-    var body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha;
-    return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)});
-  }
+  function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
+  function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); var t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
+  function ghGet(path, token){ var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch); return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}}); }
+  function ghPut(path, contentBase64, message, sha, token){ var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); var body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
   function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
-
   on($('#saveGhCfg'),'click', saveGhCfgFromForm);
-  on($('#pushEventsBtn'),'click', saveEventsToGitHub);
-  on($('#openAdmin'),'click', loadGhCfgToForm);
-
-  function saveEventsToGitHub(){
+  on($('#pushEventsBtn'),'click', function(){
     try{
-      if(!ADMIN_EVENTS.length){ alert('No hay eventos en la lista. Primero añádelos o importa JSON.'); return; }
-      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+      if(!ADMIN_EVENTS.length){ alert('No hay eventos.'); return; }
+      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      ghGet('events.json', token).then(function(res){
-        if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
-        if(res.status===404){ return 404; }
-        return res.text().then(function(txt){ throw new Error('Error comprobando events.json: '+res.status+'\n'+txt); });
-      }).then(function(){
-        var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
-        var content64=toB64(jsonStr);
-        var now=new Date().toISOString().slice(0,19).replace('T',' ');
-        return ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token);
-      }).then(function(res){
-        if(res.ok){ alert('✅ events.json subido correctamente.'); }
-        else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
-      }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
-    }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
-  }
-
-  function saveSchedulesToGitHub(){
+      ghGet('events.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
+      var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
+      var content64=toB64(jsonStr);
+      var now=new Date().toISOString().slice(0,19).replace('T',' ');
+      ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
+  });
+  on($('#pushSchedBtn'),'click', function(){
     try{
-      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token en "Config GitHub".');return;}
+      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      ghGet('schedules.json', token).then(function(res){
-        if(res.status===200){ return res.json().then(function(data){ sha=data.sha; return 200; }); }
-        if(res.status===404){ return 404; }
-        return res.text().then(function(txt){ throw new Error('Error comprobando schedules.json: '+res.status+'\n'+txt); });
-      }).then(function(){
-        var jsonStr=JSON.stringify(SCHEDULES,null,2);
-        var content64=toB64(jsonStr);
-        var now=new Date().toISOString().slice(0,19).replace('T',' ');
-        return ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token);
-      }).then(function(res){
-        if(res.ok){ alert('✅ schedules.json subido correctamente.'); }
-        else { return res.text().then(function(txt){ alert('❌ Error subiendo a GitHub: '+res.status+'\n'+txt); }); }
-      }).catch(function(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); });
-    }catch(err){ alert('❌ Excepción subiendo a GitHub: '+err.message); }
-  }
-  on($('#pushSchedBtn'),'click', saveSchedulesToGitHub);
+      ghGet('schedules.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
+      var jsonStr=JSON.stringify(SCHEDULES,null,2);
+      var content64=toB64(jsonStr);
+      var now=new Date().toISOString().slice(0,19).replace('T',' ');
+      ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ schedules.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
+  });
 
   /* ===== PWA install ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
   on($('#installTile'),'click', function(){ if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; } });
 
-  /* ===== Stay (Mi estancia) ===== */
-  var GEO={
-    oyambre:{lat:43.390, lon:-4.373},
-    ramales:{lat:43.261, lon:-3.465},
-    ruiloba:{lat:43.389, lon:-4.277},
-    cardeo:{lat:43.388, lon:-4.276}
-  };
-  function humanCode(w){ // Open-Meteo weather codes
-    var c=Number(w);
-    if([0].includes(c)) return {txt:{es:"Despejado",en:"Clear"}, ico:"☀️"};
-    if([1,2,3].includes(c)) return {txt:{es:"Nubes y claros",en:"Partly cloudy"}, ico:"⛅"};
-    if([45,48].includes(c)) return {txt:{es:"Niebla",en:"Fog"}, ico:"🌫️"};
-    if([51,53,55,56,57].includes(c)) return {txt:{es:"Llovizna",en:"Drizzle"}, ico:"🌦️"};
-    if([61,63,65,80,81,82].includes(c)) return {txt:{es:"Lluvia",en:"Rain"}, ico:"🌧️"};
-    if([71,73,75,77,85,86].includes(c)) return {txt:{es:"Nieve",en:"Snow"}, ico:"❄️"};
-    if([95,96,99].includes(c)) return {txt:{es:"Tormenta",en:"Thunderstorm"}, ico:"⛈️"};
-    return {txt:{es:"—",en:"—"}, ico:"⛅"};
-  }
-  function fmtDay(str){
-    try{
-      var d=new Date(str+'T12:00:00'); // asegurar TZ
-      return new Intl.DateTimeFormat(LANG,{weekday:'short'}).format(d);
-    }catch(e){ return str; }
-  }
-  function setStayButtons(camp){
-    var tel=PHONES[camp], wa=WHATSAPP[camp], mail=EMAILS[camp], maps=PLACE_LINK[camp];
-    var msg="Hola, soy cliente alojado en "+PLACE_LABEL[camp]+".";
-    var call=$('#stayCallBtn'), w=$('#stayWhatsBtn'), e=$('#stayEmailBtn'), g=$('#stayGoBtn');
-    if(call) call.href='tel:'+tel;
-    if(w) w.href=waLink(wa,msg);
-    if(e) e.href='mailto:'+mail+'?subject='+encodeURIComponent('Consulta desde la App')+'&body='+encodeURIComponent(msg);
-    if(g) g.href=maps;
-  }
-  function renderStay(){
-    var camp=(localStorage.getItem('myStay')||'oyambre');
-    var sel=$('#staySelect'); if(sel) sel.value=camp;
-    setStayButtons(camp);
-    // horas
-    var hoursBox=$('#stayHours'); if(hoursBox){ var item=SCHEDULES[camp]||SCHEDULES_DEFAULT[camp]||{}; hoursBox.innerHTML=item[LANG]||item.es||''; }
-    // clima
-    var geo=GEO[camp]; if(!geo){ return; }
-    var url='https://api.open-meteo.com/v1/forecast?latitude='+geo.lat+'&longitude='+geo.lon+'&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
-    fetch(url).then(function(r){return r.json();}).then(function(j){
-      var nowT=Math.round(j.current.temperature_2m), nowC=humanCode(j.current.weather_code);
-      $('#w-now').textContent=nowT;
-      $('#w-ico').textContent=nowC.ico;
-      $('#w-place').textContent=PLACE_LABEL[camp];
-      $('#w-desc').textContent = (nowC.txt[LANG]||nowC.txt.es);
-      // diarios (0=today, 1..3)
-      $('#w-max').textContent = Math.round(j.daily.temperature_2m_max[0]);
-      $('#w-min').textContent = Math.round(j.daily.temperature_2m_min[0]);
-      ['1','2','3'].forEach(function(i,idx){
-        var wcode=j.daily.weather_code[idx+1];
-        var hc=humanCode(wcode);
-        $('#i'+i).textContent=hc.ico;
-        $('#x'+i).textContent=Math.round(j.daily.temperature_2m_max[idx+1]);
-        $('#n'+i).textContent=Math.round(j.daily.temperature_2m_min[idx+1]);
-        $('#d'+i).textContent=fmtDay(j.daily.time[idx+1]);
-      });
-    }).catch(function(){
-      ['w-now','w-max','w-min','d1','d2','d3','x1','x2','x3','n1','n2','n3','w-place','w-desc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='—'; });
-    });
-  }
-  on($('#staySelect'),'change', function(e){
-    var v=e.target.value||'oyambre';
-    localStorage.setItem('myStay', v);
-    renderStay();
-    // Sync selección también en incidencias por comodidad
-    var incSel=$('#incPlace'); if(incSel) incSel.value=v;
-  });
-
-  // inic selección por defecto si no existe
-  if(!localStorage.getItem('myStay')) localStorage.setItem('myStay','oyambre');
-
-  /* ===== Incidencias ===== */
-  function incMessage(place, type, msg){
-    var head="Incidencia - "+type+"\nAlojamiento: "+PLACE_LABEL[place]+"\n";
-    var body=(msg||'').trim();
-    return head+"\n"+body;
-  }
-  on($('#incSendBtn'),'click', function(){
-    var place=($('#incPlace')||{}).value||localStorage.getItem('myStay')||'oyambre';
-    var type=($('#incType')||{}).value||'otros';
-    var msg=($('#incMsg')||{}).value||'';
-    var method=(document.querySelector('input[name="incMethod"]:checked')||{}).value||'whatsapp';
-    if(method==='whatsapp'){
-      var phone=WHATSAPP[place];
-      var url=waLink(phone, incMessage(place,type,msg));
-      window.open(url,'_blank','noopener');
-    }else{
-      var mail=EMAILS[place];
-      var subject='Incidencia - '+type+' ('+PLACE_LABEL[place]+')';
-      var url='mailto:'+mail+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(incMessage(place,type,msg));
-      window.location.href=url;
-    }
-  });
-  on($('#incClearBtn'),'click', function(){
-    var t=$('#incMsg'); if(t) t.value='';
-  });
-
-  // Si ya había estancia guardada, precargar Incidencias
-  var initialStay=(localStorage.getItem('myStay')||'oyambre');
-  var incSel=$('#incPlace'); if(incSel) incSel.value=initialStay;
-
   /* ===== Init ===== */
-  applyLang();
-  loadEvents();
+  // Establecer textos de botones en Stay según idioma
+  $('#stayWeb').textContent=I18N[LANG].web;
+  $('#stayCall').textContent=I18N[LANG].call;
+  $('#stayWA').textContent=I18N[LANG].whatsapp;
+  $('#stayEmail').textContent=I18N[LANG].email;
+  $('#stayDir').textContent=I18N[LANG].directions;
+
+  // Selecciones iniciales (Mi estancia / Incidencias)
+  $('#stayPlace').value=STAY;
+  $('#incPlace').value=STAY;
+
   loadSchedules();
+  loadEvents();
   renderAcc();
-  renderStay();
+  updateStayUI();
+  updateIncUI();
 
-  /* ===== Deep linking ===== */
-  (function deepLinking(){
-    try{
-      const params = new URLSearchParams(location.search);
-      const nav = params.get('nav');
-      if (nav) {
-        const btn = document.querySelector('.navbtn[data-nav="'+nav+'"]') || document.querySelector('[data-nav="'+nav+'"]');
-        if (btn) btn.click();
-      }
-    }catch(e){}
-  })();
-
-  /* ===== SW ===== */
+  /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('./service-worker.js');
     navigator.serviceWorker.addEventListener('message', (e) => {
@@ -1228,14 +1007,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   }
-
-  /* ===== Guardar PIN admin ===== */
-  on($('#saveAdminPin'),'click', function(){
-    var v=($('#adminPinInput')||{}).value||'';
-    if(!v || v.length<4){ alert('Introduce al menos 4 caracteres.'); return; }
-    localStorage.setItem('admin_pin', v);
-    alert('Contraseña guardada.');
-  });
 
 }); // DOMContentLoaded
 </script>
