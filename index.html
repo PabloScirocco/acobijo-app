@@ -54,7 +54,7 @@ body.dark .drawer .panel{background:#0f1a2b}
 main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
-@keyframes fade{from{opacity:.6;transform:translateY(4px)} to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:.6;transform:translateY(4px)} to{opacity:1;transform:none)}
 
 /* Home */
 .hero{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:
@@ -79,9 +79,14 @@ body.dark .card{background:#0f1a2b}
 .card .title{font-weight:700;margin-top:6px}
 .card .meta{font-size:.85rem;color:var(--muted)}
 .row{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Buttons */
 .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink)}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.sm{padding:.32rem .5rem;font-size:.82rem}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
+body.dark .btn.ghost{background:transparent}
 
 /* Grids */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
@@ -364,7 +369,7 @@ body.modal-open{overflow:hidden}
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
 </nav>
 
-<!-- Admin modal (igual que versión anterior, recortado por espacio) -->
+<!-- Admin modal -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
@@ -702,15 +707,11 @@ document.addEventListener('DOMContentLoaded', function(){
       var desc=i18nField(ev.descripcion)||'';
       var loc=i18nField(ev.lugar)|| (PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'');
       var start=new Date(ev.fecha);
-      var end=new Date(start.getTime()+90*60000); // 90 min por defecto
+      var end=new Date(start.getTime()+90*60000); // 90 min
       var uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app';
       var now=new Date();
       var ics = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Grupo A Cobijo//Customer App//ES',
-        'CALSCALE:GREGORIAN',
-        'METHOD:PUBLISH',
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//Customer App//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH',
         'BEGIN:VEVENT',
         'UID:'+icsEscape(uid),
         'DTSTAMP:'+dtToICS(now),
@@ -732,6 +733,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
 
+  // 👉 HOME: Priorizar ⭐ y 📆; añadir Cómo llegar (ghost + sm)
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
@@ -743,14 +745,18 @@ document.addEventListener('DOMContentLoaded', function(){
       var img=safeUrl(ev.imagen||ev.image||'');
       var wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
       var favStar = isFav(ev.id) ? '★' : '☆';
+      var dir = PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#';
       return '<div class="card">'
         + (img?'<img src="'+img+'" alt="'+title+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
         + '<div class="title">'+title+'</div>'
         + '<div class="meta">'+whenFmt(ev.fecha)+' · '+place+'</div>'
         + '<div class="row" style="margin-top:6px">'
+          // Botones principales (más visibles)
           + '<button class="btn fav-btn" data-id="'+esc(ev.id)+'" title="'+esc(I18N[LANG].fav)+'">'+favStar+' '+I18N[LANG].fav+'</button>'
           + '<button class="btn ics-btn" data-id="'+esc(ev.id)+'">📆 '+I18N[LANG].addCal+'</button>'
-          + (wa?'<a class="btn" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          // Acciones secundarias (más pequeñas y “ghost”)
+          + (wa?'<a class="btn ghost sm" href="'+esc(wa)+'" target="_blank" rel="noopener">'+I18N[LANG].whatsapp+'</a>':'')
+          + '<a class="btn ghost sm" href="'+esc(dir)+'" target="_blank" rel="noopener">'+I18N[LANG].directions+'</a>'
         + '</div></div>';
     }).join('');
     bindEventActionButtons(wrap);
@@ -802,7 +808,6 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     });
   }
-  // Helper to allow query within given scope (polyfill)
   (function(){
     var _all = $all;
     $all = function(sel, scope){
