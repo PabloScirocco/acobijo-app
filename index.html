@@ -53,7 +53,7 @@ body.dark .drawer .panel{background:#0f1a2b}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
 /* Main, views */
-main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
+main{padding:12px 12px 86px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
 @keyframes fade{ from{opacity:.6; transform:translateY(4px);} to{opacity:1; transform:none;} }
@@ -90,8 +90,9 @@ body.dark .btn.ghost{background:transparent}
 /* Grids */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 
-/* Chips */
+/* Chips & badges */
 .chip{border-radius:999px}
+.badge{display:inline-block;border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:.15rem .5rem;font-size:.78rem;color:var(--muted);margin-right:6px}
 
 /* Accordeon horarios */
 .acc{display:flex;flex-direction:column;gap:8px}
@@ -101,8 +102,8 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Bottom nav (4) */
-.navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
+/* Bottom nav (5) */
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
 .navbtn.active{color:var(--brand-ink);font-weight:700}
@@ -171,6 +172,7 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></div>
     <div class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></div>
     <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
+    <div class="item" data-nav="essentials">🗺️ <strong id="d-ess">Imprescindibles</strong></div>
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item" id="drawerInstall">ℹ️ <strong id="d-inst">Cómo instalar</strong></div>
@@ -195,7 +197,8 @@ body.modal-open{overflow:hidden}
         <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
-        <!-- Instalar / Cómo instalar: SIEMPRE visible -->
+        <div class="tile" data-nav="essentials"><div class="big">🗺️</div><div><strong id="t-ess">Imprescindibles</strong><div class="muted" id="t-ess-sub">Qué ver y hacer</div></div></div>
+        <!-- Instalar -->
         <div class="tile" id="installTile"><div class="big" id="instIcon">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
     </div>
@@ -314,6 +317,13 @@ body.modal-open{overflow:hidden}
     <p class="muted" id="eventsEmpty" style="display:none">Sin eventos por ahora.</p>
   </section>
 
+  <!-- IMPRESCINDIBLES -->
+  <section id="view-essentials" class="view">
+    <h2 id="t-ess-title">Imprescindibles en Cantabria</h2>
+    <p class="muted" id="t-ess-intro">Selección de planes clave con explicación y consejos.</p>
+    <div id="essGrid" class="grid"></div>
+  </section>
+
   <!-- CAMPINGS -->
   <section id="view-places" class="view">
     <h2 id="t-campings-title">Nuestros campings</h2>
@@ -377,15 +387,16 @@ body.modal-open{overflow:hidden}
   </section>
 </main>
 
-<!-- Bottom nav -->
+<!-- Bottom nav (ahora con 5 pestañas) -->
 <nav class="navbar" role="navigation" aria-label="Pestañas">
   <button class="navbtn active" data-nav="home"><div class="ico">🏠</div><div id="n-home">Inicio</div></button>
   <button class="navbtn" data-nav="stay"><div class="ico">🧳</div><div id="n-stay">Mi estancia</div></button>
   <button class="navbtn" data-nav="incidents"><div class="ico">🆘</div><div id="n-inc">Incidencias</div></button>
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
+  <button class="navbtn" data-nav="essentials"><div class="ico">🗺️</div><div id="n-ess">Imprescindibles</div></button>
 </nav>
 
-<!-- Admin modal -->
+<!-- Admin modal (igual que antes) -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
@@ -515,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function pad2(n){return ('0'+n).slice(-2);}
   function h(id, html){ var el=document.getElementById(id); if(el) el.innerHTML = html; }
 
-  /* ===== PWA install prompt var (usada por banner y modal) ===== */
+  /* ===== PWA install prompt var ===== */
   var deferredPrompt = null;
 
   /* ===== Tema ===== */
@@ -530,6 +541,10 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Eventos", evSub:"Qué hay hoy",
         pl:"Campings", plSub:"Accesos rápidos",
         sc:"Horarios", scSub:"Recepción · bar",
+        ess:"Imprescindibles", essSub:"Qué ver y hacer",
+        essTitle:"Imprescindibles en Cantabria", essIntro:"Selección de planes clave con explicación y consejos.",
+        badgeDuration:"Duración", badgeSeason:"Mejor momento", badgeKids:"Ideal con niños",
+        seeMap:"Ver en mapa",
         inst:"Instalar", instSub:"Añadir a inicio", instInfo:"Cómo instalar", instNow:"Instalar ahora",
         instBanner:"Añade esta app a tu pantalla de inicio",
         instBannerSub:"Acceso directo y modo pantalla completa",
@@ -543,8 +558,8 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
         caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taverna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
-        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
-        dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", drawerHint:"Elige sección",
+        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios", nEss:"Imprescindibles",
+        dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", dEss:"Imprescindibles", drawerHint:"Elige sección",
         nextEvents:"Próximos eventos",
         stay:"Mi estancia", staySub:"Contactos, clima, horarios",
         stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
@@ -565,6 +580,10 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Events", evSub:"What's on today",
         pl:"Campsites", plSub:"Quick access",
         sc:"Schedules", scSub:"Reception · bar",
+        ess:"Essentials", essSub:"What to see & do",
+        essTitle:"Cantabria essentials", essIntro:"Handpicked must-do plans with tips.",
+        badgeDuration:"Duration", badgeSeason:"Best time", badgeKids:"Great with kids",
+        seeMap:"View on map",
         inst:"Install", instSub:"Add to Home", instInfo:"How to install", instNow:"Install now",
         instBanner:"Add this app to your Home screen",
         instBannerSub:"Quick access & full-window mode",
@@ -578,8 +597,8 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
-        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
-        dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", drawerHint:"Choose a section",
+        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules", nEss:"Essentials",
+        dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", dEss:"Essentials", drawerHint:"Choose a section",
         nextEvents:"Upcoming events",
         stay:"My stay", staySub:"Contacts, weather, schedules",
         stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
@@ -600,6 +619,10 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Événements", evSub:"Aujourd’hui",
         pl:"Campings", plSub:"Accès rapide",
         sc:"Horaires", scSub:"Réception · bar",
+        ess:"Incontournables", essSub:"À voir & à faire",
+        essTitle:"Incontournables en Cantabrie", essIntro:"Sélection de plans essentiels avec conseils.",
+        badgeDuration:"Durée", badgeSeason:"Meilleur moment", badgeKids:"Idéal avec enfants",
+        seeMap:"Voir sur la carte",
         inst:"Installer", instSub:"Ajouter à l’accueil", instInfo:"Comment installer", instNow:"Installer maintenant",
         instBanner:"Ajoutez cette app à votre écran d’accueil",
         instBannerSub:"Accès rapide et fenêtre dédiée",
@@ -613,20 +636,17 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
         caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
         schedNote:"Infos indicatives. Vérifiez à la réception.",
-        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
-        dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", drawerHint:"Choisissez une section",
+        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires", nEss:"Incont.",
+        dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", dEss:"Incontournables", drawerHint:"Choisissez une section",
         nextEvents:"Événements à venir",
         stay:"Mon séjour", staySub:"Contacts, météo, horaires",
-        stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
-        stayHours:"Horaires de l’hébergement",
         weatherTitle:"Météo", max:"Max", min:"Min",
         incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
         incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
         incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:{electricity:"Électricité", water:"Eau", cleaning:"Ménage", noise:"Bruit", other:"Autres"},
         instHelpTitle:"Ajouter l’app à l’accueil",
-        instHelpIntro:"Suivez ces étapes selon votre appareil :",
+        instHelpIntro:"Suivez ces étapes selon votre appareil:",
         instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>Dans Safari, touchez <b>Partager</b>.</li><li>Choisissez <b>Ajouter à l’écran d’accueil</b>.</li><li>Appuyez sur <b>Ajouter</b>.</li></ol>',
         instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>Dans Chrome, touchez <b>⋮</b>.</li><li>Choisissez <b>Ajouter à l’écran d’accueil</b> ou <b>Installer l’app</b>.</li><li>Confirmez <b>Installer</b>.</li></ol>',
         instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Cliquez sur l’icône <b>Installer</b> dans la barre d’adresse.</li><li>Ou <b>⋮ → Plus d’outils → Créer un raccourci…</b></li><li>Cochez <b>Ouvrir comme une fenêtre</b> puis créez.</li></ol>',
@@ -635,6 +655,10 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Events", evSub:"Heute",
         pl:"Campingplätze", plSub:"Schnellzugriff",
         sc:"Zeiten", scSub:"Rezeption · Bar",
+        ess:"Highlights", essSub:"Sehen & Erleben",
+        essTitle:"Highlights in Kantabrien", essIntro:"Ausgewählte Must-dos mit Tipps.",
+        badgeDuration:"Dauer", badgeSeason:"Beste Zeit", badgeKids:"Kinderfreundlich",
+        seeMap:"Auf Karte ansehen",
         inst:"Installieren", instSub:"Zum Startbildschirm", instInfo:"Installationshilfe", instNow:"Jetzt installieren",
         instBanner:"Füge diese App deinem Startbildschirm hinzu",
         instBannerSub:"Schneller Zugriff und Fenster-Modus",
@@ -648,18 +672,15 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
         caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
         schedNote:"Unverbindliche Infos. Änderungen an der Rezeption.",
-        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
-        dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", drawerHint:"Bereich wählen",
+        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten", nEss:"Highlights",
+        dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", dEss:"Highlights", drawerHint:"Bereich wählen",
         nextEvents:"Kommende Events",
         stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
-        stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
-        stayHours:"Öffnungszeiten der Unterkunft",
         weatherTitle:"Wetter", max:"Max", min:"Min",
         incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
         incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
         incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
         incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
-        incTypes:{electricity:"Strom", water:"Wasser", cleaning:"Reinigung", noise:"Lärm", other:"Sonstiges"},
         instHelpTitle:"App zum Startbildschirm hinzufügen",
         instHelpIntro:"Folge je nach Gerät diesen Schritten:",
         instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>In Safari auf <b>Teilen</b> tippen.</li><li><b>Zum Home-Bildschirm</b> wählen.</li><li><b>Hinzufügen</b> tippen.</li></ol>',
@@ -670,6 +691,10 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Evenementen", evSub:"Vandaag",
         pl:"Campings", plSub:"Snelle toegang",
         sc:"Openingstijden", scSub:"Receptie · bar",
+        ess:"Aanraders", essSub:"Wat zien & doen",
+        essTitle:"Aanraders in Cantabrië", essIntro:"Geselecteerde must-do’s met tips.",
+        badgeDuration:"Duur", badgeSeason:"Beste tijd", badgeKids:"Leuk met kinderen",
+        seeMap:"Bekijk op kaart",
         inst:"Installeren", instSub:"Aan beginscherm", instInfo:"Installatiehulp", instNow:"Nu installeren",
         instBanner:"Voeg deze app toe aan je beginscherm",
         instBannerSub:"Snelle toegang en venstermodus",
@@ -683,18 +708,15 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
         caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
         schedNote:"Indicatieve info. Informeer bij de receptie.",
-        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
-        dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", drawerHint:"Kies een sectie",
+        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden", nEss:"Aanraders",
+        dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", dEss:"Aanraders", drawerHint:"Kies een sectie",
         nextEvents:"Aankomende evenementen",
         stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
-        stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
-        stayHours:"Openingstijden van de accommodatie",
         weatherTitle:"Weer", max:"Max", min:"Min",
         incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
         incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
         incType:"Type incident", incMsg:"Beschrijf kort het probleem",
         incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
-        incTypes:{electricity:"Elektriciteit", water:"Water", cleaning:"Schoonmaak", noise:"Lawaai", other:"Overig"},
         instHelpTitle:"App aan beginscherm toevoegen",
         instHelpIntro:"Volg deze stappen afhankelijk van je apparaat:",
         instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>In Safari tik op <b>Delen</b>.</li><li>Kies <b>Zet op beginscherm</b>.</li><li>Tik op <b>Voeg toe</b>.</li></ol>',
@@ -712,7 +734,9 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
     t("t-pl",T.pl); t("t-pl-sub",T.plSub);
     t("t-sc",T.sc); t("t-sc-sub",T.scSub);
-    // Instalar / Cómo instalar
+    t("t-ess",T.ess); t("t-ess-sub",T.essSub);
+    t("t-ess-title",T.essTitle); t("t-ess-intro",T.essIntro);
+    // Instalar
     t("t-inst", isStandalone()?T.instInfo:T.inst);
     t("t-inst-sub", T.instSub);
     t("d-inst", T.instInfo);
@@ -725,9 +749,9 @@ document.addEventListener('DOMContentLoaded', function(){
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
+    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv); t("n-ess",T.nEss);
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
-    t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
+    t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc); t("d-ess",T.dEss);
     t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
     t("t-stay",T.stay); t("t-stay-sub",T.staySub);
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
@@ -745,10 +769,13 @@ document.addEventListener('DOMContentLoaded', function(){
     // Tipos de incidencia traducidos
     buildIncTypeOptions();
 
-    // Botones de instalación
+    // Botón instalar
     var b1=$('#installNowBtn'); if(b1) b1.textContent=T.instNow;
     updateInstallTile();
     updateInstallBanner();
+
+    // Re-render imprescindibles con el idioma
+    renderEssentials();
   }
   applyLang();
 
@@ -1189,6 +1216,150 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ '+err.message); }
   });
 
+  /* ===== IMPRESCINDIBLES: datos + render ===== */
+  var ESSENTIALS = [
+    { id:'cabarceno',
+      title:{es:'Parque de la Naturaleza de Cabárceno', en:'Cabárceno Nature Park', fr:'Parc de la Nature de Cabárceno', de:'Naturpark Cabárceno', nl:'Natuurpark Cabárceno'},
+      desc:{es:'Un espectáculo de fauna en semilibertad en una antigua mina. Ideal con niños. Recorre en coche y para en miradores.',
+            en:'Wildlife in semi-freedom across a former mine. Great with kids. Drive through and stop at viewpoints.',
+            fr:'Faune en semi-liberté dans une ancienne mine. Parfait avec enfants. Parcours en voiture avec belvédères.',
+            de:'Tierpark in Halbfreiheit in einer ehemaligen Mine. Super mit Kindern. Mit dem Auto fahren und Aussichtspunkte ansteuern.',
+            nl:'Dieren in semi-vrijheid in een oude mijn. Erg leuk met kinderen. Rijden en stoppen bij uitkijkpunten.'},
+      map:'https://maps.app.goo.gl/6z3W7dXk3m6R6h6C9',
+      duration:{es:'4–6 h', en:'4–6 h', fr:'4–6 h', de:'4–6 Std', nl:'4–6 u'},
+      season:{es:'Todo el año', en:'Year-round', fr:'Toute l’année', de:'Ganzjährig', nl:'Hele jaar'},
+      kids:true
+    },
+    { id:'fuente-de',
+      title:{es:'Teleférico de Fuente Dé (Picos de Europa)', en:'Fuente Dé Cable Car (Picos de Europa)', fr:'Téléphérique de Fuente Dé (Picos de Europa)', de:'Seilbahn Fuente Dé (Picos de Europa)', nl:'Kabelbaan Fuente Dé (Picos de Europa)'},
+      desc:{es:'Sube 753 m en 4 min hasta el Mirador del Cable. Lleva abrigo y mira la meteo: si hay nubes, mejor mañanas claras.',
+            en:'Rise 753 m in 4 min to “Mirador del Cable”. Bring a jacket and check weather; clear mornings are best.',
+            fr:'Montée de 753 m en 4 min au “Mirador del Cable”. Prévoyez une veste et vérifiez la météo.',
+            de:'753 m in 4 Min zum „Mirador del Cable“. Jacke mitnehmen, Wetter prüfen – am besten morgens klar.',
+            nl:'753 m stijging in 4 min naar “Mirador del Cable”. Jas mee en weer checken; beste in de ochtend.'},
+      map:'https://maps.app.goo.gl/qm8m8yW7S1Q6J9sS6',
+      duration:{es:'2–4 h', en:'2–4 h', fr:'2–4 h', de:'2–4 Std', nl:'2–4 u'},
+      season:{es:'Primavera–otoño', en:'Spring–autumn', fr:'Printemps–automne', de:'Frühling–Herbst', nl:'Lente–herfst'},
+      kids:true
+    },
+    { id:'soplao',
+      title:{es:'Cueva El Soplao', en:'El Soplao Cave', fr:'Grotte El Soplao', de:'Höhle El Soplao', nl:'Grot El Soplao'},
+      desc:{es:'Formaciones únicas (excéntricas). Recomendable reservar. Temperatura fresca todo el año: lleva una chaqueta.',
+            en:'Unique formations (helictites). Booking recommended. Cool inside year-round: bring a light jacket.',
+            fr:'Formations uniques (excentriques). Réservation conseillée. Frais toute l’année: prenez une veste.',
+            de:'Einzigartige Formationen (Heliktiten). Reservieren empfohlen. Kühl – leichte Jacke mitnehmen.',
+            nl:'Unieke formaties (helictieten). Reserveren aanbevolen. Koel binnen; neem een jas mee.'},
+      map:'https://maps.app.goo.gl/3J8zC1E4iE1q9Kde7',
+      duration:{es:'1,5–2 h', en:'1.5–2 h', fr:'1,5–2 h', de:'1,5–2 Std', nl:'1,5–2 u'},
+      season:{es:'Todo el año', en:'Year-round', fr:'Toute l’année', de:'Ganzjährig', nl:'Hele jaar'},
+      kids:true
+    },
+    { id:'altamira-santillana',
+      title:{es:'Museo de Altamira + Santillana del Mar', en:'Altamira Museum + Santillana del Mar', fr:'Musée d’Altamira + Santillana del Mar', de:'Altamira-Museum + Santillana del Mar', nl:'Altamira Museum + Santillana del Mar'},
+      desc:{es:'Visita la Neocueva y pasea por el casco de “la villa de las tres mentiras”. Combina con helado y artesanía.',
+            en:'Visit the Neo-Cave then stroll Santillana’s medieval streets. Nice combo with ice cream and crafts.',
+            fr:'Visitez la Néogrotte puis flânez dans Santillana. Parfait avec une glace et artisanat.',
+            de:'Neo-Höhle besuchen und durch Santillanas Gassen bummeln. Perfekt mit Eis & Handwerk.',
+            nl:'Bezoek de Neo-grot en wandel door Santillana. Leuk met ijs en ambacht.'},
+      map:'https://maps.app.goo.gl/TB8Q3TjU9Q1oC3hG8',
+      duration:{es:'2–3 h', en:'2–3 h', fr:'2–3 h', de:'2–3 Std', nl:'2–3 u'},
+      season:{es:'Todo el año', en:'Year-round', fr:'Toute l’année', de:'Ganzjährig', nl:'Hele jaar'},
+      kids:true
+    },
+    { id:'comillas-capricho',
+      title:{es:'Comillas: El Capricho, Sobrellano y playa de Oyambre', en:'Comillas: Gaudí’s Capricho, Sobrellano & Oyambre beach', fr:'Comillas: El Capricho, Sobrellano & plage d’Oyambre', de:'Comillas: El Capricho, Sobrellano & Strand Oyambre', nl:'Comillas: El Capricho, Sobrellano & Oyambre'},
+      desc:{es:'Arquitectura modernista y palaciega, y atardecer en Oyambre. Compra entradas con antelación en temporada.',
+            en:'Modernist & palatial gems; finish with Oyambre sunset. Pre-book tickets in high season.',
+            fr:'Architecture moderniste et palais; coucher de soleil à Oyambre. Billets à l’avance en saison.',
+            de:'Modernismus & Palastarchitektur; Sonnenuntergang in Oyambre. In der Saison vorbuchen.',
+            nl:'Modernistische en paleisarchitectuur; zonsondergang in Oyambre. Hoogseizoen: vooraf boeken.'},
+      map:'https://maps.app.goo.gl/uh4Fj2aQH2wLrXBL6',
+      duration:{es:'3–4 h', en:'3–4 h', fr:'3–4 h', de:'3–4 Std', nl:'3–4 u'},
+      season:{es:'Primavera–verano', en:'Spring–summer', fr:'Printemps–été', de:'Frühling–Sommer', nl:'Lente–zomer'},
+      kids:true
+    },
+    { id:'santander-bahia',
+      title:{es:'Santander: Centro Botín + paseo por la bahía', en:'Santander: Botín Center + bay walk', fr:'Santander: Centre Botín + baie', de:'Santander: Botín-Zentrum + Buchtspaziergang', nl:'Santander: Botín Centrum + baai'},
+      desc:{es:'Arquitectura sobre el mar, jardines de Pereda y posible barquito por la bahía. Perfecto medio día.',
+            en:'Sea-side architecture, Pereda gardens and optional bay boat. Great half-day plan.',
+            fr:'Architecture sur la mer, jardins Pereda et bateau dans la baie. Idéal demi-journée.',
+            de:'Architektur am Meer, Pereda-Gärten und ggf. Bootstour. Perfekt für einen halben Tag.',
+            nl:'Architectuur aan zee, Pereda-tuinen en evt. boottocht. Perfect voor een halve dag.'},
+      map:'https://maps.app.goo.gl/y2iD6C4wPr1CkQ6h9',
+      duration:{es:'2–4 h', en:'2–4 h', fr:'2–4 h', de:'2–4 Std', nl:'2–4 u'},
+      season:{es:'Todo el año', en:'Year-round', fr:'Toute l’année', de:'Ganzjährig', nl:'Hele jaar'},
+      kids:true
+    },
+    { id:'san-vicente',
+      title:{es:'San Vicente de la Barquera & Puente de la Maza', en:'San Vicente de la Barquera & Puente de la Maza', fr:'San Vicente de la Barquera & pont de la Maza', de:'San Vicente de la Barquera & Puente de la Maza', nl:'San Vicente de la Barquera & Puente de la Maza'},
+      desc:{es:'Villas marineras con marismas y vistas a Picos. Marisco local y paseo por el castillo.',
+            en:'Seaside town with marshlands and Picos views. Local seafood and castle walk.',
+            fr:'Bourg maritime avec marais et vue sur les Pics. Fruits de mer et château.',
+            de:'Küstenort mit Marschland und Picos-Blick. Meeresfrüchte & Burg.',
+            nl:'Kustplaats met kwelders en Picos-uitzicht. Zeevruchten & kasteel.'},
+      map:'https://maps.app.goo.gl/3x5mQw8Gf5NqG8uP6',
+      duration:{es:'2–3 h', en:'2–3 h', fr:'2–3 h', de:'2–3 Std', nl:'2–3 u'},
+      season:{es:'Primavera–verano', en:'Spring–summer', fr:'Printemps–été', de:'Frühling–Sommer', nl:'Lente–zomer'},
+      kids:true
+    },
+    { id:'somo-surf',
+      title:{es:'Surf en Somo / Sardinero / Oyambre', en:'Surf in Somo / Sardinero / Oyambre', fr:'Surf à Somo / Sardinero / Oyambre', de:'Surfen in Somo / Sardinero / Oyambre', nl:'Surfen in Somo / Sardinero / Oyambre'},
+      desc:{es:'Escuelas para todos los niveles. Consulta mareas/viento. En verano reserva clase con antelación.',
+            en:'Schools for all levels. Check tides/wind. In summer pre-book lessons.',
+            fr:'Écoles pour tous niveaux. Vérifiez marées/vent. En été réservez.',
+            de:'Surfschulen für alle Levels. Gezeiten/Wind prüfen. Im Sommer vorbuchen.',
+            nl:'Surfscholen voor elk niveau. Check getij/wind. In zomer vooraf boeken.'},
+      map:'https://maps.app.goo.gl/6rR8yZpG2mC5QqvC7',
+      duration:{es:'2–3 h', en:'2–3 h', fr:'2–3 h', de:'2–3 Std', nl:'2–3 u'},
+      season:{es:'Primavera–verano', en:'Spring–summer', fr:'Printemps–été', de:'Frühling–Sommer', nl:'Lente–zomer'},
+      kids:true
+    },
+    { id:'santona-buciero',
+      title:{es:'Santoña, anchoas y faro (Monte Buciero)*', en:'Santoña anchovies & lighthouse (Mt. Buciero)*', fr:'Santoña: anchois & phare (Mont Buciero)*', de:'Santoña: Anchovis & Leuchtturm (Monte Buciero)*', nl:'Santoña: ansjovis & vuurtoren (Mt. Buciero)*'},
+      desc:{es:'Ruta con vistas espectaculares (muchas escaleras). Alternativa suave: paseo marítimo y visita conserveras.',
+            en:'Scenic hike with many stairs. Softer option: promenade + anchovy canneries.',
+            fr:'Rando panoramique (beaucoup d’escaliers). Option douce: promenade + conserveries.',
+            de:'Aussichtsreiche Wanderung (viele Stufen). Leichte Option: Promenade & Konserven.',
+            nl:'Uitzichtvolle hike (veel trappen). Milder: boulevard + conservenfabrieken.'},
+      map:'https://maps.app.goo.gl/2rYb1eC6k8bC1t8v8',
+      duration:{es:'3–4 h', en:'3–4 h', fr:'3–4 h', de:'3–4 Std', nl:'3–4 u'},
+      season:{es:'Primavera–otoño', en:'Spring–autumn', fr:'Printemps–automne', de:'Frühling–Herbst', nl:'Lente–herfst'},
+      kids:false
+    },
+    { id:'liebana-potes',
+      title:{es:'Liébana: Potes & Monasterio de Santo Toribio', en:'Liébana: Potes & Santo Toribio Monastery', fr:'Liébana: Potes & monastère de Santo Toribio', de:'Liébana: Potes & Kloster Santo Toribio', nl:'Liébana: Potes & klooster Santo Toribio'},
+      desc:{es:'Pueblo con sabor y miradores de montaña. Gastronomía lebaniega (cocido).',
+            en:'Characterful town with mountain viewpoints. Local stew “cocido lebaniego”.',
+            fr:'Village de caractère et points de vue. Spécialités locales (cocido).',
+            de:'Dorf mit Bergblicken. Regionale Küche (Cocido).',
+            nl:'Dorp met berguitzichten. Lokale stoofpot (cocido).'},
+      map:'https://maps.app.goo.gl/9o7bC6i2n2rXJ6jP7',
+      duration:{es:'3–4 h', en:'3–4 h', fr:'3–4 h', de:'3–4 Std', nl:'3–4 u'},
+      season:{es:'Todo el año', en:'Year-round', fr:'Toute l’année', de:'Ganzjährig', nl:'Hele jaar'},
+      kids:true
+    }
+  ];
+
+  function renderEssentials(){
+    var grid=$('#essGrid'); if(!grid) return;
+    var T=I18N[LANG];
+    grid.innerHTML = ESSENTIALS.map(function(it){
+      var title=i18nField(it.title), desc=i18nField(it.desc);
+      var dur=i18nField(it.duration), sea=i18nField(it.season);
+      var kids = it.kids ? '👨‍👩‍👧 ' + T.badgeKids : '⚠️  ' + T.badgeKids;
+      return '<article class="card" style="min-width:unset">'
+        + '<div class="title">'+esc(title)+'</div>'
+        + '<p class="muted">'+esc(desc)+'</p>'
+        + '<p>'
+          + '<span class="badge">🕒 '+esc(T.badgeDuration)+': '+esc(dur)+'</span>'
+          + '<span class="badge">📅 '+esc(T.badgeSeason)+': '+esc(sea)+'</span>'
+          + '<span class="badge">'+esc(kids)+'</span>'
+        + '</p>'
+        + '<div class="row"><a class="btn" target="_blank" rel="noopener" href="'+esc(it.map)+'">🗺️ '+esc(T.seeMap)+'</a></div>'
+      + '</article>';
+    }).join('');
+  }
+
   /* ===== PWA install: tile + modal + MINI BANNER ===== */
   function isStandalone(){
     try{
@@ -1309,6 +1480,7 @@ document.addEventListener('DOMContentLoaded', function(){
   updateIncUI();
   updateInstallTile();
   updateInstallBanner();
+  renderEssentials();
 
   /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
