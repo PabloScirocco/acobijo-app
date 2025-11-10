@@ -56,10 +56,7 @@ body.dark .drawer .panel{background:#0f1a2b}
 main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
-@keyframes fade{
-  from {opacity:.6; transform: translateY(4px);}
-  to   {opacity:1;  transform: none;}
-}
+@keyframes fade{ from{opacity:.6; transform:translateY(4px);} to{opacity:1; transform:none;} }
 
 /* Home */
 .hero{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:
@@ -113,7 +110,7 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-beavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
@@ -135,6 +132,21 @@ body.modal-open{overflow:hidden}
 .wx-day{border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;background:linear-gradient(180deg,var(--wx2),var(--wx1))}
 .wx-day .d{font-weight:700}
 .wx-day .t{font-size:.9rem}
+
+/* MINI INSTALL BANNER */
+.mini-banner{
+  display:none;
+  margin:10px 2px 2px;
+  padding:10px 12px;
+  border:1px dashed var(--line);
+  border-radius:14px;
+  background:var(--tint);
+  align-items:center;
+  gap:10px;
+}
+.mini-banner .txt{flex:1; font-weight:600}
+.mini-banner .muted{font-weight:400}
+.mini-banner .x{border:none;background:transparent;color:var(--muted);font-size:1.2rem;cursor:pointer}
 </style>
 </head>
 <body>
@@ -161,6 +173,7 @@ body.modal-open{overflow:hidden}
     <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
+    <div class="item" id="drawerInstall">ℹ️ <strong id="d-inst">Cómo instalar</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
     <div class="muted" id="drawerHint">Elige sección</div>
   </aside>
@@ -174,7 +187,6 @@ body.modal-open{overflow:hidden}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <!-- badge eliminado -->
         </div>
       </div>
       <div class="tiles">
@@ -183,8 +195,16 @@ body.modal-open{overflow:hidden}
         <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
-        <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
+        <!-- Instalar / Cómo instalar: SIEMPRE visible -->
+        <div class="tile" id="installTile"><div class="big" id="instIcon">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
+    </div>
+
+    <!-- MINI BANNER DE INSTALACIÓN -->
+    <div id="installBanner" class="mini-banner" role="region" aria-label="Instalar app">
+      <div class="txt"><span id="instBannerText">Añade esta app a tu pantalla de inicio</span><div class="muted" id="instBannerSub"></div></div>
+      <button id="installBannerBtn" class="btn primary">Instalar ahora</button>
+      <button id="installBannerClose" class="x" aria-label="Cerrar">✕</button>
     </div>
 
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
@@ -259,13 +279,7 @@ body.modal-open{overflow:hidden}
         </div>
         <div>
           <label style="font-weight:700" for="incType" id="i-type">Tipo de incidencia</label>
-          <select id="incType" class="select">
-            <option value="electricity">Electricidad</option>
-            <option value="water">Agua</option>
-            <option value="cleaning">Limpieza</option>
-            <option value="noise">Ruido</option>
-            <option value="other">Otros</option>
-          </select>
+          <select id="incType" class="select"></select>
         </div>
       </div>
       <div style="margin-top:10px">
@@ -458,7 +472,7 @@ body.modal-open{overflow:hidden}
 <div class="backdrop" id="installHelpModal">
   <div class="modal">
     <button id="closeInstallHelp" class="close" aria-label="Cerrar">✕</button>
-    <h3 id="instHelpTitle">Añadir la app al inicio</h3>
+    <h3 id="instHelpTitle">Añadir la app a tu pantalla de inicio</h3>
     <p id="instHelpIntro">Sigue estos pasos según tu dispositivo:</p>
 
     <div class="card" style="margin-top:8px">
@@ -475,10 +489,13 @@ body.modal-open{overflow:hidden}
       <h4>Ordenador (Chrome/Edge)</h4>
       <div id="instHelpDesktop"></div>
     </div>
+
+    <div class="row" style="margin-top:12px">
+      <button id="installNowBtn" class="btn primary" style="display:none">Instalar ahora</button>
+    </div>
   </div>
 </div>
 
-<!-- JSZip (por si en el futuro reponemos ZIP backup) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
@@ -498,6 +515,9 @@ document.addEventListener('DOMContentLoaded', function(){
   function pad2(n){return ('0'+n).slice(-2);}
   function h(id, html){ var el=document.getElementById(id); if(el) el.innerHTML = html; }
 
+  /* ===== PWA install prompt var (usada por banner y modal) ===== */
+  var deferredPrompt = null;
+
   /* ===== Tema ===== */
   function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
   function applyTheme(m){ document.body.classList.toggle('dark', m==='dark'); var b=$('#themeBtn'); if(b) b.textContent=m==='dark'?'☀️':'🌙'; localStorage.setItem('theme',m); var meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');}
@@ -506,11 +526,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== I18N ===== */
   var I18N = {
-    es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
+    es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",
         ev:"Eventos", evSub:"Qué hay hoy",
         pl:"Campings", plSub:"Accesos rápidos",
         sc:"Horarios", scSub:"Recepción · bar",
-        inst:"Instalar", instSub:"Añadir a inicio",
+        inst:"Instalar", instSub:"Añadir a inicio", instInfo:"Cómo instalar", instNow:"Instalar ahora",
+        instBanner:"Añade esta app a tu pantalla de inicio",
+        instBannerSub:"Acceso directo y modo pantalla completa",
         eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
         fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana", fFav:"Favoritos",
         cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
@@ -532,20 +554,20 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
         incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        // Tipos de incidencia
         incTypes:{electricity:"Electricidad", water:"Agua", cleaning:"Limpieza", noise:"Ruido", other:"Otros"},
-        // Ayuda instalación
-        instHelpTitle:"Añadir la app al inicio",
+        instHelpTitle:"Añadir la app a tu pantalla de inicio",
         instHelpIntro:"Sigue estos pasos según tu dispositivo:",
         instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>En Safari, toca <b>Compartir</b> (icono cuadrado con flecha).</li><li>Elige <b>Añadir a pantalla de inicio</b>.</li><li>Pulsa <b>Añadir</b>.</li></ol>',
         instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>En Chrome, toca <b>⋮</b> (arriba derecha).</li><li>Elige <b>Añadir a pantalla de inicio</b> o <b>Instalar app</b>.</li><li>Confirma <b>Instalar</b>.</li></ol>',
         instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Pulsa el icono <b>Instalar</b> de la barra de direcciones.</li><li>O ve a <b>⋮ → Más herramientas → Crear acceso directo…</b></li><li>Marca <b>Abrir como ventana</b> y crea.</li></ol>',
     },
-    en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
+    en:{app:"Grupo A Cobijo",hello:"Welcome!",
         ev:"Events", evSub:"What's on today",
         pl:"Campsites", plSub:"Quick access",
         sc:"Schedules", scSub:"Reception · bar",
-        inst:"Install", instSub:"Add to Home",
+        inst:"Install", instSub:"Add to Home", instInfo:"How to install", instNow:"Install now",
+        instBanner:"Add this app to your Home screen",
+        instBannerSub:"Quick access & full-window mode",
         eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
         fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week", fFav:"Favorites",
         cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
@@ -574,11 +596,13 @@ document.addEventListener('DOMContentLoaded', function(){
         instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>In Chrome, tap <b>⋮</b>.</li><li>Select <b>Add to Home screen</b> or <b>Install app</b>.</li><li>Confirm <b>Install</b>.</li></ol>',
         instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Click the <b>Install</b> icon in the address bar.</li><li>Or go to <b>⋮ → More tools → Create shortcut…</b></li><li>Check <b>Open as window</b> and create.</li></ol>',
     },
-    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
+    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",
         ev:"Événements", evSub:"Aujourd’hui",
         pl:"Campings", plSub:"Accès rapide",
         sc:"Horaires", scSub:"Réception · bar",
-        inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
+        inst:"Installer", instSub:"Ajouter à l’accueil", instInfo:"Comment installer", instNow:"Installer maintenant",
+        instBanner:"Ajoutez cette app à votre écran d’accueil",
+        instBannerSub:"Accès rapide et fenêtre dédiée",
         eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
         fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine", fFav:"Favoris",
         cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
@@ -607,11 +631,13 @@ document.addEventListener('DOMContentLoaded', function(){
         instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>Dans Chrome, touchez <b>⋮</b>.</li><li>Choisissez <b>Ajouter à l’écran d’accueil</b> ou <b>Installer l’app</b>.</li><li>Confirmez <b>Installer</b>.</li></ol>',
         instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Cliquez sur l’icône <b>Installer</b> dans la barre d’adresse.</li><li>Ou <b>⋮ → Plus d’outils → Créer un raccourci…</b></li><li>Cochez <b>Ouvrir comme une fenêtre</b> puis créez.</li></ol>',
     },
-    de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
+    de:{app:"Grupo A Cobijo",hello:"Willkommen!",
         ev:"Events", evSub:"Heute",
         pl:"Campingplätze", plSub:"Schnellzugriff",
         sc:"Zeiten", scSub:"Rezeption · Bar",
-        inst:"Installieren", instSub:"Zum Startbildschirm",
+        inst:"Installieren", instSub:"Zum Startbildschirm", instInfo:"Installationshilfe", instNow:"Jetzt installieren",
+        instBanner:"Füge diese App deinem Startbildschirm hinzu",
+        instBannerSub:"Schneller Zugriff und Fenster-Modus",
         eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze",
         fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche", fFav:"Favoriten",
         cAll:"Alle Campingplätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
@@ -640,11 +666,13 @@ document.addEventListener('DOMContentLoaded', function(){
         instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>In Chrome auf <b>⋮</b> tippen.</li><li><b>Zum Startbildschirm hinzufügen</b> oder <b>App installieren</b> wählen.</li><li><b>Installieren</b> bestätigen.</li></ol>',
         instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li><b>Installieren</b>-Symbol in der Adressleiste klicken.</li><li>Oder <b>⋮ → Weitere Tools → Verknüpfung erstellen…</b></li><li><b>Als Fenster öffnen</b> anhaken und erstellen.</li></ol>',
     },
-    nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
+    nl:{app:"Grupo A Cobijo",hello:"Welkom!",
         ev:"Evenementen", evSub:"Vandaag",
         pl:"Campings", plSub:"Snelle toegang",
         sc:"Openingstijden", scSub:"Receptie · bar",
-        inst:"Installeren", instSub:"Toevoegen aan beginscherm",
+        inst:"Installeren", instSub:"Aan beginscherm", instInfo:"Installatiehulp", instNow:"Nu installeren",
+        instBanner:"Voeg deze app toe aan je beginscherm",
+        instBannerSub:"Snelle toegang en venstermodus",
         eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings",
         fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week", fFav:"Favorieten",
         cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
@@ -684,7 +712,14 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
     t("t-pl",T.pl); t("t-pl-sub",T.plSub);
     t("t-sc",T.sc); t("t-sc-sub",T.scSub);
-    t("t-inst",T.inst); t("t-inst-sub",T.instSub);
+    // Instalar / Cómo instalar
+    t("t-inst", isStandalone()?T.instInfo:T.inst);
+    t("t-inst-sub", T.instSub);
+    t("d-inst", T.instInfo);
+    // Mini banner
+    t("instBannerText", T.instBanner);
+    var bSub=document.getElementById('instBannerSub'); if(bSub) bSub.textContent = T.instBannerSub || '';
+    // Titulares varias secciones
     t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-campings-title",T.campingsTitle);
     t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); var ff=document.getElementById('f-fav'); if(ff) ff.textContent=T.fFav;
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
@@ -700,7 +735,7 @@ document.addEventListener('DOMContentLoaded', function(){
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
 
-    // I18N Ayuda de instalación
+    // Ayuda instalación
     t("instHelpTitle", T.instHelpTitle);
     t("instHelpIntro", T.instHelpIntro);
     h("instHelpIOS", T.instHelpIOS);
@@ -709,6 +744,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // Tipos de incidencia traducidos
     buildIncTypeOptions();
+
+    // Botones de instalación
+    var b1=$('#installNowBtn'); if(b1) b1.textContent=T.instNow;
+    updateInstallTile();
+    updateInstallBanner();
   }
   applyLang();
 
@@ -728,6 +768,8 @@ document.addEventListener('DOMContentLoaded', function(){
   $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
   on($('#menuBtn'),'click', function(){ $('#drawer').classList.add('open'); });
   on($('#drawerBack'),'click', function(){ $('#drawer').classList.remove('open'); });
+  // Drawer -> ayuda instalación
+  on($('#drawerInstall'),'click', function(){ openInstallHelp(); });
 
   /* ===== Datos comunes ===== */
   var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
@@ -1104,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   function duplicateRow(id){
     var o=ADMIN_EVENTS.find(e=>e.id===id); if(!o) return;
-    var titleES=(o.titulo&&o.titulo.es)||''; var newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
+    var titleES=(o.titulo&&o.titulo.es)||''; var newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(0,8);
     var copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
   }
   function deleteRow(id){ if(!confirm('¿Borrar este evento?')) return; ADMIN_EVENTS = ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
@@ -1147,16 +1189,76 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ '+err.message); }
   });
 
-  /* ===== PWA install: ayuda modal en vez de prompt ===== */
-  var deferredPrompt=null;
-  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
+  /* ===== PWA install: tile + modal + MINI BANNER ===== */
+  function isStandalone(){
+    try{
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }catch(_){ return false; }
+  }
 
-  // Abrir ayuda al pulsar "Instalar"
-  on($('#installTile'),'click', function(){
-    var m = $('#installHelpModal');
-    if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); }
+  function updateInstallTile(){
+    var T=I18N[LANG];
+    var installed = isStandalone();
+    var icon = $('#instIcon');
+    var title = $('#t-inst');
+    var sub = $('#t-inst-sub');
+    if(icon) icon.textContent = installed ? 'ℹ️' : '⬇️';
+    if(title) title.textContent = installed ? T.instInfo : T.inst;
+    if(sub) sub.textContent = T.instSub;
+    var btn = $('#installNowBtn');
+    if(btn) btn.style.display = (!installed && deferredPrompt) ? 'inline-block' : 'none';
+  }
+
+  function shouldShowBanner(){
+    return !isStandalone() && !localStorage.getItem('dismiss_install_banner');
+  }
+  function updateInstallBanner(){
+    var b=$('#installBanner'); if(!b) return;
+    var T=I18N[LANG];
+    if(shouldShowBanner()){
+      b.style.display='flex';
+      var btn=$('#installBannerBtn');
+      if(btn) btn.textContent = deferredPrompt ? T.instNow : T.instInfo;
+    }else{
+      b.style.display='none';
+    }
+  }
+  on($('#installBannerClose'),'click', function(){
+    localStorage.setItem('dismiss_install_banner','1');
+    updateInstallBanner();
   });
-  // Cerrar ayuda
+  on($('#installBannerBtn'),'click', async function(){
+    if(deferredPrompt){
+      try{
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        updateInstallTile();
+        if(choice && choice.outcome==='accepted'){
+          localStorage.setItem('dismiss_install_banner','1');
+          updateInstallBanner();
+          alert('Gracias. Se está instalando la app.');
+        }
+      }catch(_){}
+    }else{
+      openInstallHelp();
+    }
+  });
+
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    deferredPrompt = e;
+    updateInstallTile();
+    updateInstallBanner();
+  });
+
+  function openInstallHelp(){
+    var m = $('#installHelpModal');
+    if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); updateInstallTile(); }
+  }
+  on($('#installTile'),'click', openInstallHelp);
+  on($('#drawerInstall'),'click', function(){ $('#drawer').classList.remove('open'); openInstallHelp(); });
+
   on($('#closeInstallHelp'),'click', function(e){
     e.preventDefault();
     var m = $('#installHelpModal');
@@ -1169,15 +1271,28 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  // Ocultar tile si ya está instalada
-  function hideInstallTileIfStandalone(){
+  on($('#installNowBtn'),'click', async function(){
     try{
-      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if(isStandalone){ var tile=$('#installTile'); if(tile) tile.style.display='none'; }
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      updateInstallTile();
+      if(choiceResult && choiceResult.outcome === 'accepted'){
+        localStorage.setItem('dismiss_install_banner','1');
+        updateInstallBanner();
+        alert('✅ App instalada. Puedes abrirla desde tu pantalla de inicio.');
+      }
     }catch(_){}
-  }
-  hideInstallTileIfStandalone();
-  window.addEventListener('appinstalled', hideInstallTileIfStandalone);
+  });
+
+  window.addEventListener('appinstalled', function(){
+    deferredPrompt = null;
+    updateInstallTile();
+    localStorage.setItem('dismiss_install_banner','1');
+    updateInstallBanner();
+    alert('✅ App instalada. Puedes abrirla desde tu pantalla de inicio.');
+  });
 
   /* ===== Init ===== */
   $('#stayWeb').textContent=I18N[LANG].web;
@@ -1186,15 +1301,14 @@ document.addEventListener('DOMContentLoaded', function(){
   $('#stayEmail').textContent=I18N[LANG].email;
   $('#stayDir').textContent=I18N[LANG].directions;
 
-  $('#stayPlace').value=STAY;
-  $('#incPlace').value=STAY;
-
   loadSchedules();
   loadEvents();
   renderAcc();
   updateStayUI();
   buildIncTypeOptions();
   updateIncUI();
+  updateInstallTile();
+  updateInstallBanner();
 
   /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
