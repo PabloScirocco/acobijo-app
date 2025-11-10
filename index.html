@@ -67,8 +67,6 @@ main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
 .hero-inner{display:flex;align-items:center;gap:14px;padding:16px}
 .hero h2{margin:0;font-size:1.3rem}
-.badge{display:inline-flex;gap:.4rem;align-items:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:.25rem .6rem;font-size:.8rem;color:var(--muted)}
-body.dark .badge{background:#0f1a2b}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
   align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
@@ -176,7 +174,7 @@ body.modal-open{overflow:hidden}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
+          <!-- badge eliminado -->
         </div>
       </div>
       <div class="tiles">
@@ -261,8 +259,13 @@ body.modal-open{overflow:hidden}
         </div>
         <div>
           <label style="font-weight:700" for="incType" id="i-type">Tipo de incidencia</label>
-          <!-- Poblado dinámicamente por JS según idioma -->
-          <select id="incType" class="select"></select>
+          <select id="incType" class="select">
+            <option value="electricity">Electricidad</option>
+            <option value="water">Agua</option>
+            <option value="cleaning">Limpieza</option>
+            <option value="noise">Ruido</option>
+            <option value="other">Otros</option>
+          </select>
         </div>
       </div>
       <div style="margin-top:10px">
@@ -451,6 +454,30 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
+<!-- Ayuda para instalar la app -->
+<div class="backdrop" id="installHelpModal">
+  <div class="modal">
+    <button id="closeInstallHelp" class="close" aria-label="Cerrar">✕</button>
+    <h3 id="instHelpTitle">Añadir la app al inicio</h3>
+    <p id="instHelpIntro">Sigue estos pasos según tu dispositivo:</p>
+
+    <div class="card" style="margin-top:8px">
+      <h4>iPhone/iPad (Safari)</h4>
+      <div id="instHelpIOS"></div>
+    </div>
+
+    <div class="card" style="margin-top:8px">
+      <h4>Android (Chrome)</h4>
+      <div id="instHelpAndroid"></div>
+    </div>
+
+    <div class="card" style="margin-top:8px">
+      <h4>Ordenador (Chrome/Edge)</h4>
+      <div id="instHelpDesktop"></div>
+    </div>
+  </div>
+</div>
+
 <!-- JSZip (por si en el futuro reponemos ZIP backup) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
@@ -469,6 +496,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
   function safeUrl(u){var s=String(u||'').trim(); return (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)) ? s.replace(/"/g,'%22') : ''; }
   function pad2(n){return ('0'+n).slice(-2);}
+  function h(id, html){ var el=document.getElementById(id); if(el) el.innerHTML = html; }
 
   /* ===== Tema ===== */
   function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
@@ -504,7 +532,14 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
         incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:{electricity:"Electricidad", water:"Agua", cleaning:"Limpieza", noise:"Ruido", other:"Otros"}
+        // Tipos de incidencia
+        incTypes:{electricity:"Electricidad", water:"Agua", cleaning:"Limpieza", noise:"Ruido", other:"Otros"},
+        // Ayuda instalación
+        instHelpTitle:"Añadir la app al inicio",
+        instHelpIntro:"Sigue estos pasos según tu dispositivo:",
+        instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>En Safari, toca <b>Compartir</b> (icono cuadrado con flecha).</li><li>Elige <b>Añadir a pantalla de inicio</b>.</li><li>Pulsa <b>Añadir</b>.</li></ol>',
+        instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>En Chrome, toca <b>⋮</b> (arriba derecha).</li><li>Elige <b>Añadir a pantalla de inicio</b> o <b>Instalar app</b>.</li><li>Confirma <b>Instalar</b>.</li></ol>',
+        instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Pulsa el icono <b>Instalar</b> de la barra de direcciones.</li><li>O ve a <b>⋮ → Más herramientas → Crear acceso directo…</b></li><li>Marca <b>Abrir como ventana</b> y crea.</li></ol>',
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today",
@@ -532,7 +567,12 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"We open WhatsApp or your email app with a prefilled message.",
         incType:"Type of issue", incMsg:"Briefly describe the problem",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:{electricity:"Electricity", water:"Water", cleaning:"Cleaning", noise:"Noise", other:"Other"}
+        incTypes:{electricity:"Electricity", water:"Water", cleaning:"Cleaning", noise:"Noise", other:"Other"},
+        instHelpTitle:"Add the app to Home",
+        instHelpIntro:"Follow these steps depending on your device:",
+        instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>In Safari, tap <b>Share</b>.</li><li>Select <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>.</li></ol>',
+        instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>In Chrome, tap <b>⋮</b>.</li><li>Select <b>Add to Home screen</b> or <b>Install app</b>.</li><li>Confirm <b>Install</b>.</li></ol>',
+        instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Click the <b>Install</b> icon in the address bar.</li><li>Or go to <b>⋮ → More tools → Create shortcut…</b></li><li>Check <b>Open as window</b> and create.</li></ol>',
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
         ev:"Événements", evSub:"Aujourd’hui",
@@ -560,7 +600,12 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
         incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:{electricity:"Électricité", water:"Eau", cleaning:"Nettoyage", noise:"Bruit", other:"Autres"}
+        incTypes:{electricity:"Électricité", water:"Eau", cleaning:"Ménage", noise:"Bruit", other:"Autres"},
+        instHelpTitle:"Ajouter l’app à l’accueil",
+        instHelpIntro:"Suivez ces étapes selon votre appareil :",
+        instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>Dans Safari, touchez <b>Partager</b>.</li><li>Choisissez <b>Ajouter à l’écran d’accueil</b>.</li><li>Appuyez sur <b>Ajouter</b>.</li></ol>',
+        instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>Dans Chrome, touchez <b>⋮</b>.</li><li>Choisissez <b>Ajouter à l’écran d’accueil</b> ou <b>Installer l’app</b>.</li><li>Confirmez <b>Installer</b>.</li></ol>',
+        instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Cliquez sur l’icône <b>Installer</b> dans la barre d’adresse.</li><li>Ou <b>⋮ → Plus d’outils → Créer un raccourci…</b></li><li>Cochez <b>Ouvrir comme une fenêtre</b> puis créez.</li></ol>',
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
         ev:"Events", evSub:"Heute",
@@ -588,7 +633,12 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
         incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
         incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
-        incTypes:{electricity:"Strom", water:"Wasser", cleaning:"Reinigung", noise:"Lärm", other:"Sonstiges"}
+        incTypes:{electricity:"Strom", water:"Wasser", cleaning:"Reinigung", noise:"Lärm", other:"Sonstiges"},
+        instHelpTitle:"App zum Startbildschirm hinzufügen",
+        instHelpIntro:"Folge je nach Gerät diesen Schritten:",
+        instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>In Safari auf <b>Teilen</b> tippen.</li><li><b>Zum Home-Bildschirm</b> wählen.</li><li><b>Hinzufügen</b> tippen.</li></ol>',
+        instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>In Chrome auf <b>⋮</b> tippen.</li><li><b>Zum Startbildschirm hinzufügen</b> oder <b>App installieren</b> wählen.</li><li><b>Installieren</b> bestätigen.</li></ol>',
+        instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li><b>Installieren</b>-Symbol in der Adressleiste klicken.</li><li>Oder <b>⋮ → Weitere Tools → Verknüpfung erstellen…</b></li><li><b>Als Fenster öffnen</b> anhaken und erstellen.</li></ol>',
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
         ev:"Evenementen", evSub:"Vandaag",
@@ -616,7 +666,12 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
         incType:"Type incident", incMsg:"Beschrijf kort het probleem",
         incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
-        incTypes:{electricity:"Elektriciteit", water:"Water", cleaning:"Schoonmaak", noise:"Lawaai", other:"Overig"}
+        incTypes:{electricity:"Elektriciteit", water:"Water", cleaning:"Schoonmaak", noise:"Lawaai", other:"Overig"},
+        instHelpTitle:"App aan beginscherm toevoegen",
+        instHelpIntro:"Volg deze stappen afhankelijk van je apparaat:",
+        instHelpIOS:'<ol style="margin:0;padding-left:18px"><li>In Safari tik op <b>Delen</b>.</li><li>Kies <b>Zet op beginscherm</b>.</li><li>Tik op <b>Voeg toe</b>.</li></ol>',
+        instHelpAndroid:'<ol style="margin:0;padding-left:18px"><li>In Chrome tik op <b>⋮</b>.</li><li>Kies <b>Toevoegen aan beginscherm</b> of <b>App installeren</b>.</li><li>Bevestig <b>Installeren</b>.</li></ol>',
+        instHelpDesktop:'<ol style="margin:0;padding-left:18px"><li>Klik op het <b>Installeren</b>-pictogram in de adresbalk.</li><li>Of <b>⋮ → Meer hulpprogramma’s → Snelkoppeling maken…</b></li><li>Vink <b>Als venster openen</b> aan en maak.</li></ol>',
     }
   };
 
@@ -625,7 +680,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
   function applyLang(){
     var T=I18N[LANG];
-    t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
+    t("t-app",T.app); t("t-hello",T.hello);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
     t("t-pl",T.pl); t("t-pl-sub",T.plSub);
     t("t-sc",T.sc); t("t-sc-sub",T.scSub);
@@ -645,44 +700,23 @@ document.addEventListener('DOMContentLoaded', function(){
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
 
-    // 👉 popular tipos de incidencia según idioma
-    populateIncTypes();
+    // I18N Ayuda de instalación
+    t("instHelpTitle", T.instHelpTitle);
+    t("instHelpIntro", T.instHelpIntro);
+    h("instHelpIOS", T.instHelpIOS);
+    h("instHelpAndroid", T.instHelpAndroid);
+    h("instHelpDesktop", T.instHelpDesktop);
+
+    // Tipos de incidencia traducidos
+    buildIncTypeOptions();
   }
   applyLang();
 
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){
-      LANG=b.getAttribute('data-lang');
-      localStorage.setItem('lang',LANG);
-      applyLang();
-      // por si acaso (ya se llama en applyLang)
-      populateIncTypes();
-      renderAcc();
-      loadEvents();
-      updateStayUI();
-      updateIncUI();
-      $('#langModal').style.display='none';
-    });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); $('#langModal').style.display='none'; });
   });
-
-  // ===== Poblar select de tipos de incidencia =====
-  function populateIncTypes(){
-    var sel = document.getElementById('incType');
-    if(!sel) return;
-    var order = ['electricity','water','cleaning','noise','other'];
-    var types = (I18N[LANG] && I18N[LANG].incTypes) || {};
-    var prev = sel.value;
-    sel.innerHTML = '';
-    order.forEach(function(k){
-      var opt = document.createElement('option');
-      opt.value = k;
-      opt.textContent = types[k] || k;
-      sel.appendChild(opt);
-    });
-    if(prev && order.includes(prev)) sel.value = prev;
-  }
 
   /* ===== Navegación ===== */
   function showView(id){
@@ -726,14 +760,8 @@ document.addEventListener('DOMContentLoaded', function(){
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
   // ICS helpers
-  function dtToICS(dt){ // UTC Zulu
-    var d=new Date(dt);
-    return d.getUTCFullYear()
-      + pad2(d.getUTCMonth()+1)
-      + pad2(d.getUTCDate())+'T'
-      + pad2(d.getUTCHours())
-      + pad2(d.getUTCMinutes())
-      + pad2(d.getUTCSeconds())+'Z';
+  function dtToICS(dt){ var d=new Date(dt);
+    return d.getUTCFullYear()+ pad2(d.getUTCMonth()+1)+ pad2(d.getUTCDate())+'T'+ pad2(d.getUTCHours())+ pad2(d.getUTCMinutes())+ pad2(d.getUTCSeconds())+'Z';
   }
   function icsEscape(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
   function downloadICS(ev){
@@ -742,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var desc=i18nField(ev.descripcion)||'';
       var loc=i18nField(ev.lugar)|| (PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'');
       var start=new Date(ev.fecha);
-      var end=new Date(start.getTime()+90*60000); // 90 min
+      var end=new Date(start.getTime()+90*60000);
       var uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app';
       var now=new Date();
       var ics = [
@@ -768,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
 
-  // 👉 HOME: Priorizar ⭐ y 📆; añadir Cómo llegar (ghost + sm)
+  // HOME slider
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
@@ -864,14 +892,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Horarios ===== */
   var SCHEDULES_DEFAULT={
-    oyambre:{es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)",
-             en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)"},
-    ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: 9:00–23:30<br><b>Piscina (verano)</b>: 11:00–20:00",
-             en:"<b>Reception</b>: 09:00–21:00<br><b>Bar</b>: 09:00–23:30<br><b>Pool (summer)</b>: 11:00–20:00"},
-    ruiloba:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Restaurante</b>: 13:00–16:00 / 20:00–23:00",
-             en:"<b>Reception</b>: 09:00–21:00<br><b>Restaurant</b>: 13:00–16:00 / 20:00–23:00"},
-    cardeo:{es:"<b>Taberna</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartamentos</b>: check-in 16:00, check-out 11:00",
-            en:"<b>Tavern</b>: 12:30–16:00 / 19:30–23:30<br><b>Apartments</b>: check-in 16:00, check-out 11:00"}
+    oyambre:{es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><b>Check-in parcelas</b>: 13:00<br><b>Check-in alojamientos</b>: 17:00<br><b>Check-out</b>: 12:00",
+             en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Check-in pitches</b>: 13:00<br><b>Check-in accommodations</b>: 17:00<br><b>Check-out</b>: 12:00"},
+    ramales:{es:"<b>Recepción</b>: 9:00–21:00<br><b>Bar</b>: Lu–Vi 17:00–22:00; Sá–Do 08:30–22:00<br><b>Restaurante</b>: Lu–Vi 19:00–22:00; Sá–Do 13:30–15:00 / 19:00–22:00<br><b>Piscina</b>: 09:30–20:30<br><b>Check-in parcelas</b>: 12:00<br><b>Check-in alojamientos</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Barrera de entrada</b>: 08:00–23:59 (circulación prohibida 00:00–08:00)",
+             en:"<b>Reception</b>: 09:00–21:00<br><b>Café/Bar</b>: Mon–Fri 17:00–22:00; Sat–Sun 08:30–22:00<br><b>Restaurant</b>: Mon–Fri 19:00–22:00; Sat–Sun 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Check-in pitches</b>: 12:00<br><b>Check-in accommodations</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)"},
+    ruiloba:{es:"<b>Recepción</b>: 08:30–22:00<br><b>Piscinas (toda la temporada)</b>: 09:00–21:00<br><b>Cafetería</b>: 08:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Lavandería</b>: 24 horas<br><b>Barrera de entrada</b>: 08:00–23:59 (circulación prohibida 00:00–08:00)<br><b>Tienda</b>: consultar en la cafetería<br><b>Check-in parcelas</b>: 13:00<br><b>Check-in alojamientos</b>: 17:00<br><b>Check-out</b>: 12:00",
+             en:"<b>Reception</b>: 08:30–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Laundry</b>: 24h<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Shop</b>: ask at the café<br><b>Check-in pitches</b>: 13:00<br><b>Check-in accommodations</b>: 17:00<br><b>Check-out</b>: 12:00"},
+    cardeo:{es:"<b>Taberna</b>: 08:30–23:00<br><b>Restaurante (fines de semana)</b>: 13:30–15:30 / 20:00–22:30<br><b>Apartamentos</b>: check-in 16:00, check-out 12:00<br><small class=\"muted\">Horarios orientativos, pueden variar según fechas.</small>",
+            en:"<b>Tavern</b>: 08:30–23:00<br><b>Restaurant (weekends)</b>: 13:30–15:30 / 20:00–22:30<br><b>Apartments</b>: check-in 16:00, check-out 12:00<br><small class=\"muted\">Indicative times; they may vary depending on dates.</small>"}
   };
   var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
   function renderAcc(){
@@ -888,7 +916,7 @@ document.addEventListener('DOMContentLoaded', function(){
       .then(json=>{ if(json && typeof json==='object'){ SCHEDULES=json; renderAcc(); renderStayHours(); }})
       .catch(()=>{ SCHEDULES=JSON.parse(JSON.stringify(SCHEDULES_DEFAULT)); renderAcc(); renderStayHours(); });
   }
-  $all('.acc-h').forEach(h=>on(h,'click', function(){ h.parentElement.classList.toggle('open'); }));
+  $all('.acc-h').forEach(hh=>on(hh,'click', function(){ hh.parentElement.classList.toggle('open'); }));
 
   /* ===== Mi estancia (contactos + horarios + clima) ===== */
   var STAY = localStorage.getItem('stay_place') || 'oyambre';
@@ -951,14 +979,27 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
 
   /* ===== Incidencias ===== */
+  function buildIncTypeOptions(){
+    var sel=$('#incType'); if(!sel) return;
+    var T=I18N[LANG].incTypes;
+    var current = sel.value || 'electricity';
+    var opts = [
+      ['electricity', T.electricity],
+      ['water', T.water],
+      ['cleaning', T.cleaning],
+      ['noise', T.noise],
+      ['other', T.other]
+    ];
+    sel.innerHTML = opts.map(function(p){ return '<option value="'+p[0]+'">'+esc(p[1])+'</option>'; }).join('');
+    sel.value = current && opts.some(o=>o[0]===current) ? current : 'electricity';
+  }
+
   function buildIncMsg(){
-    var T = I18N[LANG];
-    var code = ($('#incType') && $('#incType').value) || 'other';
-    var label = (T.incTypes && T.incTypes[code]) || code;
-    var msg = ($('#incMsg') && $('#incMsg').value) || '';
+    var T=I18N[LANG], types=T.incTypes, code=$('#incType').value||'other', msg=$('#incMsg').value||'';
+    var typeLabel = types[code] || types.other;
     var now=new Date(); var stamp = now.toLocaleString();
-    var header = '['+T.incTitle+'] '+label+' · '+PLACE_LABEL[STAY];
-    var body = 'Hola,\n\nTengo una incidencia: '+label+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
+    var header = '['+T.incTitle+'] '+typeLabel+' · '+PLACE_LABEL[STAY];
+    var body = 'Hola,\n\nTengo una incidencia: '+typeLabel+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
     return {subject:header, body:body};
   }
   function updateIncUI(){
@@ -1106,10 +1147,37 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ '+err.message); }
   });
 
-  /* ===== PWA install ===== */
+  /* ===== PWA install: ayuda modal en vez de prompt ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
-  on($('#installTile'),'click', function(){ if(deferredPrompt){ try{ deferredPrompt.prompt(); if(deferredPrompt.userChoice){ deferredPrompt.userChoice.then(function(){}); } }catch(e){} deferredPrompt=null; } });
+
+  // Abrir ayuda al pulsar "Instalar"
+  on($('#installTile'),'click', function(){
+    var m = $('#installHelpModal');
+    if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); }
+  });
+  // Cerrar ayuda
+  on($('#closeInstallHelp'),'click', function(e){
+    e.preventDefault();
+    var m = $('#installHelpModal');
+    if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); }
+  });
+  on($('#installHelpModal'),'click', function(e){
+    if(e.target && e.target.id==='installHelpModal'){
+      e.currentTarget.style.display='none';
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Ocultar tile si ya está instalada
+  function hideInstallTileIfStandalone(){
+    try{
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if(isStandalone){ var tile=$('#installTile'); if(tile) tile.style.display='none'; }
+    }catch(_){}
+  }
+  hideInstallTileIfStandalone();
+  window.addEventListener('appinstalled', hideInstallTileIfStandalone);
 
   /* ===== Init ===== */
   $('#stayWeb').textContent=I18N[LANG].web;
@@ -1124,9 +1192,8 @@ document.addEventListener('DOMContentLoaded', function(){
   loadSchedules();
   loadEvents();
   renderAcc();
-  // importante: tener tipos antes de generar enlaces de incidencia
-  populateIncTypes();
   updateStayUI();
+  buildIncTypeOptions();
   updateIncUI();
 
   /* ===== Service Worker ===== */
