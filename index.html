@@ -96,12 +96,7 @@ body.dark .btn.ghost{background:transparent}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 
 /* Chips */
-.chip{border-radius:999px}                /* existente */
-.chip.on{                                  /* NEW: visual activo */
-  background:var(--brand);
-  color:#fff;
-  border-color:var(--brand);
-}
+.chip{border-radius:999px}
 
 /* Accordeon horarios */
 .acc{display:flex;flex-direction:column;gap:8px}
@@ -266,13 +261,8 @@ body.modal-open{overflow:hidden}
         </div>
         <div>
           <label style="font-weight:700" for="incType" id="i-type">Tipo de incidencia</label>
-          <select id="incType" class="select">
-            <option value="Luz">Luz</option>
-            <option value="Agua">Agua</option>
-            <option value="Limpieza">Limpieza</option>
-            <option value="Ruido">Ruido</option>
-            <option value="Otros">Otros</option>
-          </select>
+          <!-- Poblado dinámicamente por JS según idioma -->
+          <select id="incType" class="select"></select>
         </div>
       </div>
       <div style="margin-top:10px">
@@ -406,7 +396,6 @@ body.modal-open{overflow:hidden}
         <button id="exportEventsBtn" class="btn">Descargar events.json</button>
         <label class="btn" for="importFile" style="cursor:pointer">Importar JSON</label>
         <input id="importFile" type="file" accept="application/json" style="display:none">
-        <button id="btnBackup" class="btn">Copia de seguridad (.zip)</button> <!-- NEW -->
       </div>
     </div>
 
@@ -462,7 +451,7 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
-<!-- JSZip para Backup -->
+<!-- JSZip (por si en el futuro reponemos ZIP backup) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
@@ -502,9 +491,9 @@ document.addEventListener('DOMContentLoaded', function(){
         oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar",
         raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
-        caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
+        caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taverna",
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada.",
-        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios", nStay:"Mi estancia", nInc:"Incidencias", /* NEW */
+        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
         dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", drawerHint:"Elige sección",
         nextEvents:"Próximos eventos",
         stay:"Mi estancia", staySub:"Contactos, clima, horarios",
@@ -514,7 +503,8 @@ document.addEventListener('DOMContentLoaded', function(){
         incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?",
         incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
         incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
-        incBtnWA:"WhatsApp", incBtnEmail:"Email"
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        incTypes:{electricity:"Electricidad", water:"Agua", cleaning:"Limpieza", noise:"Ruido", other:"Otros"}
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today",
@@ -531,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
         caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
         schedNote:"Indicative info. Check reception for seasonal changes.",
-        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules", nStay:"My stay", nInc:"Issues", /* NEW */
+        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
         dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", drawerHint:"Choose a section",
         nextEvents:"Upcoming events",
         stay:"My stay", staySub:"Contacts, weather, schedules",
@@ -541,7 +531,8 @@ document.addEventListener('DOMContentLoaded', function(){
         incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?",
         incHint:"We open WhatsApp or your email app with a prefilled message.",
         incType:"Type of issue", incMsg:"Briefly describe the problem",
-        incBtnWA:"WhatsApp", incBtnEmail:"Email"
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        incTypes:{electricity:"Electricity", water:"Water", cleaning:"Cleaning", noise:"Noise", other:"Other"}
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
         ev:"Événements", evSub:"Aujourd’hui",
@@ -558,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
         caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
         schedNote:"Infos indicatives. Vérifiez à la réception.",
-        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires", nStay:"Mon séjour", nInc:"Incidents",
+        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
         dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", drawerHint:"Choisissez une section",
         nextEvents:"Événements à venir",
         stay:"Mon séjour", staySub:"Contacts, météo, horaires",
@@ -568,7 +559,8 @@ document.addEventListener('DOMContentLoaded', function(){
         incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
         incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
         incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
-        incBtnWA:"WhatsApp", incBtnEmail:"Email"
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        incTypes:{electricity:"Électricité", water:"Eau", cleaning:"Nettoyage", noise:"Bruit", other:"Autres"}
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
         ev:"Events", evSub:"Heute",
@@ -585,7 +577,7 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
         caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
         schedNote:"Unverbindliche Infos. Änderungen an der Rezeption.",
-        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten", nStay:"Mein Aufenthalt", nInc:"Störungen",
+        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
         dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", drawerHint:"Bereich wählen",
         nextEvents:"Kommende Events",
         stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
@@ -595,7 +587,8 @@ document.addEventListener('DOMContentLoaded', function(){
         incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
         incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
         incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
-        incBtnWA:"WhatsApp", incBtnEmail:"E-Mail"
+        incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
+        incTypes:{electricity:"Strom", water:"Wasser", cleaning:"Reinigung", noise:"Lärm", other:"Sonstiges"}
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
         ev:"Evenementen", evSub:"Vandaag",
@@ -612,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function(){
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
         caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
         schedNote:"Indicatieve info. Informeer bij de receptie.",
-        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden", nStay:"Mijn verblijf", nInc:"Incidenten",
+        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
         dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", drawerHint:"Kies een sectie",
         nextEvents:"Aankomende evenementen",
         stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
@@ -622,7 +615,8 @@ document.addEventListener('DOMContentLoaded', function(){
         incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
         incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
         incType:"Type incident", incMsg:"Beschrijf kort het probleem",
-        incBtnWA:"WhatsApp", incBtnEmail:"E-mail"
+        incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
+        incTypes:{electricity:"Elektriciteit", water:"Water", cleaning:"Schoonmaak", noise:"Lawaai", other:"Overig"}
     }
   };
 
@@ -641,8 +635,7 @@ document.addEventListener('DOMContentLoaded', function(){
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote);
-    t("n-home",T.nHome); t("n-ev",T.nEv); t("n-stay",T.nStay); t("n-inc",T.nInc); /* NEW */
+    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
     t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
@@ -651,14 +644,45 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
+
+    // 👉 popular tipos de incidencia según idioma
+    populateIncTypes();
   }
   applyLang();
 
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){
+      LANG=b.getAttribute('data-lang');
+      localStorage.setItem('lang',LANG);
+      applyLang();
+      // por si acaso (ya se llama en applyLang)
+      populateIncTypes();
+      renderAcc();
+      loadEvents();
+      updateStayUI();
+      updateIncUI();
+      $('#langModal').style.display='none';
+    });
   });
+
+  // ===== Poblar select de tipos de incidencia =====
+  function populateIncTypes(){
+    var sel = document.getElementById('incType');
+    if(!sel) return;
+    var order = ['electricity','water','cleaning','noise','other'];
+    var types = (I18N[LANG] && I18N[LANG].incTypes) || {};
+    var prev = sel.value;
+    sel.innerHTML = '';
+    order.forEach(function(k){
+      var opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = types[k] || k;
+      sel.appendChild(opt);
+    });
+    if(prev && order.includes(prev)) sel.value = prev;
+  }
 
   /* ===== Navegación ===== */
   function showView(id){
@@ -692,10 +716,10 @@ document.addEventListener('DOMContentLoaded', function(){
     var d=new Date(dateStr), now=new Date();
     var startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     var startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
-    var endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate()+(7-startToday.getDay())); endOfWeek.setHours(23,59,59,999); /* FIX: incluir todo el domingo */
+    var endOfWeek=new Date(startToday); endOfWeek.setDate(startToday.getDate()+(7-startToday.getDay()));
     if(d>=startToday && d<startTomorrow) return 'today';
     if(d>=startTomorrow && d< new Date(startTomorrow.getFullYear(),startTomorrow.getMonth(),startTomorrow.getDate()+1)) return 'tomorrow';
-    if(d>=startToday && d<=endOfWeek) return 'week';
+    if(d>=startToday && d<endOfWeek) return 'week';
     return 'all';
   }
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
@@ -744,7 +768,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
 
-  // HOME: Priorizar ⭐ y 📆; añadir Cómo llegar (ghost + sm)
+  // 👉 HOME: Priorizar ⭐ y 📆; añadir Cómo llegar (ghost + sm)
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
@@ -928,10 +952,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Incidencias ===== */
   function buildIncMsg(){
-    var T=I18N[LANG], type=$('#incType').value||'Otros', msg=$('#incMsg').value||'';
+    var T = I18N[LANG];
+    var code = ($('#incType') && $('#incType').value) || 'other';
+    var label = (T.incTypes && T.incTypes[code]) || code;
+    var msg = ($('#incMsg') && $('#incMsg').value) || '';
     var now=new Date(); var stamp = now.toLocaleString();
-    var header = '['+T.incTitle+'] '+type+' · '+PLACE_LABEL[STAY];
-    var body = 'Hola,\n\nTengo una incidencia: '+type+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
+    var header = '['+T.incTitle+'] '+label+' · '+PLACE_LABEL[STAY];
+    var body = 'Hola,\n\nTengo una incidencia: '+label+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
     return {subject:header, body:body};
   }
   function updateIncUI(){
@@ -1047,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
   on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
 
-  /* GitHub minimal (manual) - FIX: obtener SHA antes del PUT */
+  /* GitHub minimal (manual) */
   var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
   function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
   function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); var t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
@@ -1055,78 +1082,29 @@ document.addEventListener('DOMContentLoaded', function(){
   function ghPut(path, contentBase64, message, sha, token){ var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); var body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
   function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
   on($('#saveGhCfg'),'click', saveGhCfgFromForm);
-
-  on($('#pushEventsBtn'),'click', async function(){
+  on($('#pushEventsBtn'),'click', function(){
     try{
       if(!ADMIN_EVENTS.length){ alert('No hay eventos.'); return; }
       var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      try{
-        const res = await ghGet('events.json', token);
-        if(res.status===200){ const d=await res.json(); sha=d.sha; }
-      }catch(_){}
+      ghGet('events.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
       var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
       var content64=toB64(jsonStr);
       var now=new Date().toISOString().slice(0,19).replace('T',' ');
-      const putRes = await ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token);
-      if(putRes.ok){ alert('✅ events.json subido.'); } else { const txt=await putRes.text(); alert('❌ Error '+putRes.status+'\n'+txt); }
-    }catch(err){ alert('❌ '+(err?.message||err)); }
+      ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
   });
-
-  on($('#pushSchedBtn'),'click', async function(){
+  on($('#pushSchedBtn'),'click', function(){
     try{
       var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      try{
-        const res = await ghGet('schedules.json', token);
-        if(res.status===200){ const d=await res.json(); sha=d.sha; }
-      }catch(_){}
+      ghGet('schedules.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
       var jsonStr=JSON.stringify(SCHEDULES,null,2);
       var content64=toB64(jsonStr);
       var now=new Date().toISOString().slice(0,19).replace('T',' ');
-      const putRes = await ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token);
-      if(putRes.ok){ alert('✅ schedules.json subido.'); } else { const txt=await putRes.text(); alert('❌ Error '+putRes.status+'\n'+txt); }
-    }catch(err){ alert('❌ '+(err?.message||err)); }
+      ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ schedules.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
   });
-
-  /* ===== Backup ZIP (events + schedules + imágenes) ===== */
-  on($('#btnBackup'),'click', exportBackupZip);
-  async function exportBackupZip(){
-    try{
-      const zip = new JSZip();
-      const [eventsTxt, schedulesTxt] = await Promise.all([
-        fetch('events.json',{cache:'no-store'}).then(r=>r.ok?r.text():'[]').catch(()=> '[]'),
-        fetch('schedules.json',{cache:'no-store'}).then(r=>r.ok?r.text():'{}').catch(()=> '{}'),
-      ]);
-      zip.file('events.json', eventsTxt);
-      zip.file('schedules.json', schedulesTxt);
-
-      // Imágenes referenciadas en events
-      let imgs=[];
-      try{
-        const parsed = JSON.parse(eventsTxt);
-        const arr = Array.isArray(parsed) ? parsed : (parsed.events || []);
-        imgs=[...new Set(arr.map(e=>e.imagen||e.image).filter(Boolean))];
-      }catch{}
-
-      for(const url of imgs){
-        try{
-          const resp=await fetch(url);
-          const blob=await resp.blob();
-          const name='images/'+(url.split('/').pop()||crypto.randomUUID());
-          zip.file(name, blob);
-        }catch(e){/* ignorar CORS/404 */}
-      }
-
-      const blob = await zip.generateAsync({type:'blob'});
-      const url = URL.createObjectURL(blob);
-      const a=document.createElement('a');
-      a.href=url; a.download=`backup_acobijo_${new Date().toISOString().slice(0,10)}.zip`;
-      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    }catch(err){
-      alert('No se pudo crear el ZIP: '+ (err?.message || err));
-    }
-  }
 
   /* ===== PWA install ===== */
   var deferredPrompt=null;
@@ -1146,6 +1124,8 @@ document.addEventListener('DOMContentLoaded', function(){
   loadSchedules();
   loadEvents();
   renderAcc();
+  // importante: tener tipos antes de generar enlaces de incidencia
+  populateIncTypes();
   updateStayUI();
   updateIncUI();
 
