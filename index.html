@@ -44,19 +44,19 @@ body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 .drawer{position:fixed;inset:0;z-index:30;display:none}
 .drawer.open{display:block}
 .drawer .back{position:absolute;inset:0;background:rgba(0,0,0,.35)}
-.drawer .panel{position:absolute;inset:0 auto 0 0;width:min(86vw,320px);background:#fff;border-right:1px solid var(--line);
+.drawer .panel{position:absolute;inset:0 auto 0 0;width:min(86vw,340px);background:#fff;border-right:1px solid var(--line);
   padding:14px;display:flex;flex-direction:column;gap:8px}
 body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item{display:flex;gap:.6rem;align-items:center;border:1px solid var(--line);border-radius:12px;padding:.6rem .7rem;background:var(--tint);cursor:pointer}
 .drawer .muted{color:var(--muted);font-size:.85rem}
-.drawer .item.admin-btn{display:none !important;}
-.admin-on .drawer .item.admin-btn{display:flex !important;}
+.drawer .item.admin-btn{display:none!important;}
+.admin-on .drawer .item.admin-btn{display:flex!important;}
 
 /* Main, views */
 main{padding:12px 12px 86px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
-@keyframes fade{ from{opacity:.6;transform:translateY(4px)} to{opacity:1;transform:none} }
+@keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
 
 /* Home */
 .hero{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:
@@ -66,11 +66,12 @@ body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f223
 .hero h2{margin:0;font-size:1.3rem}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
-  align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
+  align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06);transition:transform .12s}
 .tile .big{font-size:1.6rem}
 .tile .muted{color:var(--muted);font-size:.86rem}
 .tile:active{transform:scale(.98)}
 
+/* Cards / rows */
 .hscroll{display:flex;gap:10px;overflow:auto;padding-bottom:6px;scrollbar-gutter:stable both-edges}
 .card{min-width:260px;flex:0 0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
 body.dark .card{background:#0f1a2b}
@@ -80,12 +81,12 @@ body.dark .card{background:#0f1a2b}
 .row{display:flex;flex-wrap:wrap;gap:6px}
 
 /* Buttons */
-.btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+.btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink)}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.sm{padding:.32rem .5rem;font-size:.82rem}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
-body.dark .btn.ghost{background:transparent}
+.btn.link{background:transparent;border-color:transparent;color:var(--brand-ink);padding:.3rem 0}
 
 /* Grids */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
@@ -101,8 +102,8 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Bottom nav (4) */
-.navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
+/* Bottom nav (5 tabs) */
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
 .navbtn.active{color:var(--brand-ink);font-weight:700}
@@ -110,7 +111,7 @@ body.dark .navbar{background:#0f1a2b}
 
 /* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+.modal{width:min(92vw,980px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
@@ -133,19 +134,36 @@ body.modal-open{overflow:hidden}
 .wx-day .d{font-weight:700}
 .wx-day .t{font-size:.9rem}
 
-/* Musts */
-.must-card{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+/* MUSTS (Imprescindibles) */
+.musts-intro{margin:2px 2px 10px;color:var(--muted)}
+.must-card{position:relative;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;cursor:pointer;transition:transform .12s, box-shadow .12s}
 body.dark .must-card{background:#0f1a2b}
-.must-cover{width:100%;aspect-ratio:16/9;object-fit:cover}
-.must-h{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;cursor:pointer;background:var(--tint)}
-.must-title{font-weight:800}
-.must-b{display:none;padding:10px 12px}
-.must-card.open .must-b{display:block}
-.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px}
-.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);border-radius:10px;background:#f2f6fb}
-.tip{font-size:.9rem;color:var(--muted);margin-top:6px}
-.linkbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.item-links{display:flex;gap:6px;margin-top:6px}
+.must-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,165,233,.12)}
+.must-cover{width:100%;aspect-ratio:5/3;object-fit:cover;background:#f2f6fb}
+.must-body{padding:10px}
+.must-title{font-weight:800;margin:2px 0 4px}
+.must-desc{color:var(--muted);font-size:.92rem}
+.must-cta{display:flex;gap:8px;padding:10px}
+.must-cta .btn{flex:1;text-align:center}
+
+/* Must modal details */
+.mdetail-head{display:flex;gap:12px;align-items:center}
+.mdetail-cover{width:140px;height:94px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.mdetail-actions{display:flex;gap:6px;flex-wrap:wrap}
+.mdetail-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.mitem{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.mitem img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.mitem .mi-body{padding:8px}
+.mitem .mi-title{font-weight:700}
+.mitem .mi-info{color:var(--muted);font-size:.92rem}
+.mitem .mi-links{display:flex;gap:6px;margin-top:6px}
+
+/* Lightbox gallery */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1200}
+.lightbox img{max-width:92vw;max-height:86vh;border-radius:10px;border:1px solid #222}
+.lb-nav{position:fixed;inset:auto 0 20px 0;display:flex;justify-content:center;gap:12px}
+.lb-btn{background:#ffffff; border:0; padding:.5rem .8rem; border-radius:999px; cursor:pointer; font-weight:700}
+body.dark .lb-btn{background:#0f1a2b;color:#e8eef7;border:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -184,16 +202,19 @@ body.dark .must-card{background:#0f1a2b}
     <div class="hero">
       <div class="hero-inner">
         <img src="assets/logo.png" alt="A Cobijo">
-        <div><h2 id="t-hello">¡Bienvenido!</h2></div>
+        <div>
+          <h2 id="t-hello">¡Bienvenido!</h2>
+          <!-- Badge retirado a petición -->
+        </div>
       </div>
       <div class="tiles">
         <div class="tile" data-nav="events"><div class="big">📅</div><div><strong id="t-ev">Eventos</strong><div class="muted" id="t-ev-sub">Qué hay hoy</div></div></div>
         <div class="tile" data-nav="stay"><div class="big">🧳</div><div><strong id="t-stay">Mi estancia</strong><div class="muted" id="t-stay-sub">Contactos, clima, horarios</div></div></div>
         <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
-        <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles</strong><div class="muted" id="t-musts-sub">Qué ver en Cantabria</div></div></div>
+        <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles</strong><div class="muted" id="t-musts-sub">Lo mejor de Cantabria</div></div></div>
         <div class="tile" data-nav="places"><div class="big">🏕️</div><div><strong id="t-pl">Campings</strong><div class="muted" id="t-pl-sub">Accesos rápidos</div></div></div>
         <div class="tile" data-nav="schedules"><div class="big">🕒</div><div><strong id="t-sc">Horarios</strong><div class="muted" id="t-sc-sub">Recepción · bar</div></div></div>
-        <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
+        <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Cómo añadir al inicio</div></div></div>
       </div>
     </div>
 
@@ -221,14 +242,13 @@ body.dark .must-card{background:#0f1a2b}
         <a id="stayCall" class="btn" target="_blank" rel="noopener">Llamar</a>
         <a id="stayWA" class="btn" target="_blank" rel="noopener">WhatsApp</a>
         <a id="stayEmail" class="btn" target="_blank" rel="noopener">Email</a>
-        <a id="stayDir" class="btn" target="_blank" rel="noopener">Mapa</a>
+        <a id="stayDir" class="btn" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
     </div>
 
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
       <div id="stayHours"></div>
-      <div class="tip" id="t-hours-note">Los horarios pueden variar en función de la temporada y la fecha.</div>
     </div>
 
     <div class="wx" style="margin-top:12px" id="stayWeather">
@@ -307,8 +327,9 @@ body.dark .must-card{background:#0f1a2b}
 
   <!-- IMPRESCINDIBLES -->
   <section id="view-musts" class="view">
-    <h2 id="musts-title">Imprescindibles de Cantabria</h2>
-    <div id="mustsGrid" class="grid"></div>
+    <h2 id="t-musts-title">Imprescindibles</h2>
+    <p class="musts-intro" id="t-musts-intro">Una selección muy cuidada para exprimir Cantabria.</p>
+    <div id="mustGrid" class="grid"></div>
   </section>
 
   <!-- CAMPINGS -->
@@ -321,7 +342,7 @@ body.dark .must-card{background:#0f1a2b}
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942711461">Llamar</a>
-          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Mapa</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </article>
@@ -332,7 +353,7 @@ body.dark .must-card{background:#0f1a2b}
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34654463133">Llamar</a>
-          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Mapa</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </article>
@@ -343,7 +364,7 @@ body.dark .must-card{background:#0f1a2b}
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34942722124">Llamar</a>
-          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Mapa</a>
+          <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+El+Helguero" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34652806564" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </article>
@@ -354,7 +375,7 @@ body.dark .must-card{background:#0f1a2b}
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
           <a class="btn" data-i18n-call href="tel:+34664686158">Llamar</a>
-          <a class="btn" data-i18n-directions href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Mapa</a>
+          <a class="btn" data-i18n-directions href="https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </article>
@@ -370,7 +391,7 @@ body.dark .must-card{background:#0f1a2b}
       <div class="acc-item"><div class="acc-h" data-acc="ruiloba">Ruiloba <span>▼</span></div><div class="acc-b" id="acc-ruiloba"></div></div>
       <div class="acc-item"><div class="acc-h" data-acc="cardeo">El Cardeo <span>▼</span></div><div class="acc-b" id="acc-cardeo"></div></div>
     </div>
-    <p class="muted" id="schedNote">Los horarios pueden variar en función de la temporada y la fecha.</p>
+    <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.</p>
   </section>
 </main>
 
@@ -380,6 +401,7 @@ body.dark .must-card{background:#0f1a2b}
   <button class="navbtn" data-nav="stay"><div class="ico">🧳</div><div id="n-stay">Mi estancia</div></button>
   <button class="navbtn" data-nav="incidents"><div class="ico">🆘</div><div id="n-inc">Incidencias</div></button>
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
+  <button class="navbtn" data-nav="musts"><div class="ico">⭐</div><div id="n-musts">Imprescindibles</div></button>
 </nav>
 
 <!-- Admin modal -->
@@ -465,34 +487,28 @@ body.dark .must-card{background:#0f1a2b}
   </div>
 </div>
 
-<!-- Modal Instrucciones de instalación -->
+<!-- Ayuda instalación PWA -->
 <div class="backdrop" id="installHelp">
   <div class="modal">
     <button class="close" id="closeInstall" aria-label="Cerrar">✕</button>
-    <h3 id="instHelpTitle">Instalar la app</h3>
-    <div>
-      <p id="instHelpIntro">Añade A Cobijo a tu pantalla de inicio para abrirla como app.</p>
-      <h4>iPhone / iPad (Safari)</h4>
-      <ol id="instHelpIos">
-        <li>Toca el botón <b>Compartir</b> (cuadrado con flecha).</li>
-        <li>Elige <b>Añadir a pantalla de inicio</b>.</li>
-        <li>Confirma con <b>Añadir</b>.</li>
-      </ol>
-      <h4>Android (Chrome)</h4>
-      <ol id="instHelpAndroid">
-        <li>Toca el menú ⋮ de Chrome.</li>
-        <li>Elige <b>Añadir a pantalla de inicio</b>.</li>
-        <li>Confirma con <b>Añadir</b>.</li>
-      </ol>
-      <h4>Escritorio</h4>
-      <ol id="instHelpDesktop">
-        <li>En la barra de direcciones, botón <b>Instalar</b> (icono de ordenador con flecha) o menú del navegador.</li>
-      </ol>
+    <h3 id="instHelpTitle">Cómo instalar la app</h3>
+    <div id="instHelpBody">
+      <p id="instHelpText">En iPhone (Safari): comparte ➜ “Añadir a pantalla de inicio”.<br>En Android/Chrome: menú ⋮ ➜ “Instalar app”.</p>
     </div>
   </div>
 </div>
 
-<!-- JSZip (por si en el futuro reponemos ZIP backup) -->
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img id="lbImg" alt="">
+  <div class="lb-nav">
+    <button class="lb-btn" id="lbPrev">⟵</button>
+    <button class="lb-btn" id="lbNext">⟶</button>
+    <button class="lb-btn" id="lbClose">✕</button>
+  </div>
+</div>
+
+<!-- JSZip (en caso de usar ZIP backup) -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
@@ -505,11 +521,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Utils ===== */
   function $(sel){return document.querySelector(sel);}
-  function $all(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
+  function $all(sel,scope){return Array.prototype.slice.call((scope||document).querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
   function safeUrl(u){var s=String(u||'').trim(); return (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)) ? s.replace(/"/g,'%22') : ''; }
   function pad2(n){return ('0'+n).slice(-2);}
+  function enc(url){try{return encodeURI(url)}catch(e){return url}}
 
   /* ===== Tema ===== */
   function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
@@ -519,87 +536,165 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== I18N ===== */
   var I18N = {
-    es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",ev:"Eventos", evSub:"Qué hay hoy", pl:"Campings", plSub:"Accesos rápidos", sc:"Horarios", scSub:"Recepción · bar", inst:"Instalar", instSub:"Añadir a inicio", eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings", fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana", fFav:"Favoritos", cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo", web:"Web", call:"Llamar", directions:"Mapa", whatsapp:"WhatsApp", email:"Email", addCal:"Añadir al calendario", fav:"Favorito", tickets:"Entradas", info:"Info oficial",
-      oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar", raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades", heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas", caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taverna",
-      schedNote:"Los horarios pueden variar en función de la temporada y la fecha.",
-      nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
-      dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", dMusts:"Imprescindibles", drawerHint:"Elige sección",
-      nextEvents:"Próximos eventos",
-      stay:"Mi estancia", staySub:"Contactos, clima, horarios",
-      stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
-      stayHours:"Horarios del alojamiento",
-      weatherTitle:"Clima", max:"Máx", min:"Mín",
-      incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.", incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema", incBtnWA:"WhatsApp", incBtnEmail:"Email",
-      incOpts:{electricidad:"Electricidad", agua:"Agua", limpieza:"Limpieza", ruido:"Ruido", otros:"Otros"},
-      musts:"Imprescindibles", mustsSub:"Qué ver en Cantabria", mustsTitle:"Imprescindibles de Cantabria",
-      instHelpTitle:"Instalar la app", instHelpIntro:"Añade A Cobijo a tu pantalla de inicio para abrirla como app."
+    es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",
+        ev:"Eventos", evSub:"Qué hay hoy",
+        pl:"Campings", plSub:"Accesos rápidos",
+        sc:"Horarios", scSub:"Recepción · bar",
+        inst:"Instalar", instSub:"Cómo añadir al inicio",
+        eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
+        fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana", fFav:"Favoritos",
+        cAll:"Todos los campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Web", call:"Llamar", directions:"Cómo llegar", whatsapp:"WhatsApp", email:"Email",
+        addCal:"Añadir al calendario", fav:"Favorito",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Todos los servicios · Frente al mar",
+        raTitle:"Camping Ramales", raHint:"Cuevas · Montaña · Actividades",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
+        caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
+        schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.",
+        nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios", nMusts:"Imprescindibles",
+        dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", dMusts:"Imprescindibles", drawerHint:"Elige sección",
+        nextEvents:"Próximos eventos",
+        stay:"Mi estancia", staySub:"Contactos, clima, horarios",
+        stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
+        stayHours:"Horarios del alojamiento",
+        weatherTitle:"Clima", max:"Máx", min:"Mín",
+        incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?",
+        incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
+        incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        musts:"Imprescindibles", mustsSub:"Lo mejor de Cantabria", mustsTitle:"Imprescindibles", mustsIntro:"Una selección muy cuidada para exprimir Cantabria.",
+        openMap:"Mapa", moreInfo:"Info", tickets:"Entradas", back:"Volver"
     },
-    en:{app:"Grupo A Cobijo",hello:"Welcome!",ev:"Events", evSub:"What's on today", pl:"Campsites", plSub:"Quick access", sc:"Schedules", scSub:"Reception · bar", inst:"Install", instSub:"Add to Home", eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites", fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week", fFav:"Favorites", cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo", web:"Website", call:"Call", directions:"Map", whatsapp:"WhatsApp", email:"Email", addCal:"Add to calendar", fav:"Favorite", tickets:"Tickets", info:"Official info",
-      oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea", raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities", heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets", caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
-      schedNote:"Opening hours may vary depending on season and date.",
-      nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
-      dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", dMusts:"Must-see", drawerHint:"Choose a section",
-      nextEvents:"Upcoming events",
-      stay:"My stay", staySub:"Contacts, weather, schedules",
-      stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
-      stayHours:"Accommodation opening hours",
-      weatherTitle:"Weather", max:"Max", min:"Min",
-      incTitle:"Issues", incWhere:"Which accommodation are you in?", incHint:"We open WhatsApp or your email app with a prefilled message.", incType:"Type of issue", incMsg:"Briefly describe the problem", incBtnWA:"WhatsApp", incBtnEmail:"Email",
-      incOpts:{electricidad:"Electricity", agua:"Water", limpieza:"Cleaning", ruido:"Noise", otros:"Other"},
-      musts:"Must-see", mustsSub:"What to see in Cantabria", mustsTitle:"Cantabria must-see",
-      instHelpTitle:"Install the app", instHelpIntro:"Add A Cobijo to your Home Screen to use it as an app."
+    en:{app:"Grupo A Cobijo",hello:"Welcome!",
+        ev:"Events", evSub:"What's on today",
+        pl:"Campsites", plSub:"Quick access",
+        sc:"Schedules", scSub:"Reception · bar",
+        inst:"Install", instSub:"How to add to Home",
+        eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
+        fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week", fFav:"Favorites",
+        cAll:"All campsites", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Call", directions:"Directions", whatsapp:"WhatsApp", email:"Email",
+        addCal:"Add to calendar", fav:"Favorite",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"All services · By the sea",
+        raTitle:"Camping Ramales", raHint:"Caves · Mountains · Activities",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
+        caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
+        schedNote:"Indicative info. Check reception for seasonal changes. Schedules may vary.",
+        nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules", nMusts:"Must-see",
+        dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", dMusts:"Must-see", drawerHint:"Choose a section",
+        nextEvents:"Upcoming events",
+        stay:"My stay", staySub:"Contacts, weather, schedules",
+        stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
+        stayHours:"Accommodation opening hours",
+        weatherTitle:"Weather", max:"Max", min:"Min",
+        incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?",
+        incHint:"We open WhatsApp or your email app with a prefilled message.",
+        incType:"Type of issue", incMsg:"Briefly describe the problem",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        musts:"Must-see", mustsSub:"Best of Cantabria", mustsTitle:"Must-see", mustsIntro:"Curated picks to make the most of Cantabria.",
+        openMap:"Map", moreInfo:"Info", tickets:"Tickets", back:"Back"
     },
-    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",ev:"Événements", evSub:"Aujourd’hui", pl:"Campings", plSub:"Accès rapide", sc:"Horaires", scSub:"Réception · bar", inst:"Installer", instSub:"Écran d’accueil", eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings", fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine", fFav:"Favoris", cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo", web:"Site web", call:"Appeler", directions:"Carte", whatsapp:"WhatsApp", email:"Email", addCal:"Ajouter au calendrier", fav:"Favori", tickets:"Billets", info:"Infos officielles",
-      oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Tous les services · Face à la mer", raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités", heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux", caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
-      schedNote:"Les horaires peuvent varier selon la saison et la date.",
-      nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
-      dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", dMusts:"Incontournables", drawerHint:"Choisissez une section",
-      nextEvents:"Événements à venir",
-      stay:"Mon séjour", staySub:"Contacts, météo, horaires",
-      stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix localement.", stayWhich:"Choisissez votre hébergement",
-      stayHours:"Horaires de l’hébergement",
-      weatherTitle:"Météo", max:"Max", min:"Min",
-      incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.", incType:"Type de problème", incMsg:"Décrivez brièvement le problème", incBtnWA:"WhatsApp", incBtnEmail:"Email",
-      incOpts:{electricidad:"Électricité", agua:"Eau", limpieza:"Nettoyage", ruido:"Bruit", otros:"Autres"},
-      musts:"Incontournables", mustsSub:"Que voir en Cantabrie", mustsTitle:"Incontournables de Cantabrie",
-      instHelpTitle:"Installer l’application", instHelpIntro:"Ajoutez A Cobijo à l’écran d’accueil pour l’utiliser comme une app."
+    fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",
+        ev:"Événements", evSub:"Aujourd’hui",
+        pl:"Campings", plSub:"Accès rapide",
+        sc:"Horaires", scSub:"Réception · bar",
+        inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
+        eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
+        fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine", fFav:"Favoris",
+        cAll:"Tous les campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Site web", call:"Appeler", directions:"Itinéraire", whatsapp:"WhatsApp", email:"Email",
+        addCal:"Ajouter au calendrier", fav:"Favori",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Tous les services · Face à la mer",
+        raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
+        caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
+        schedNote:"Infos indicatives. Vérifiez à la réception. Horaires susceptibles de varier.",
+        nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires", nMusts:"Incontournables",
+        dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", dMusts:"Incontournables", drawerHint:"Choisissez une section",
+        nextEvents:"Événements à venir",
+        stay:"Mon séjour", staySub:"Contacts, météo, horaires",
+        stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
+        stayHours:"Horaires de l’hébergement",
+        weatherTitle:"Météo", max:"Max", min:"Min",
+        incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
+        incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
+        incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
+        incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        musts:"Incontournables", mustsSub:"Le meilleur de la Cantabrie", mustsTitle:"Incontournables", mustsIntro:"Une sélection soignée pour profiter au mieux de la Cantabrie.",
+        openMap:"Carte", moreInfo:"Infos", tickets:"Billets", back:"Retour"
     },
-    de:{app:"Grupo A Cobijo",hello:"Willkommen!",ev:"Events", evSub:"Heute", pl:"Campingplätze", plSub:"Schnellzugriff", sc:"Zeiten", scSub:"Rezeption · Bar", inst:"Installieren", instSub:"Zum Startbildschirm", eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze", fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche", fFav:"Favoriten", cAll:"Alle Campingplätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo", web:"Website", call:"Anrufen", directions:"Karte", whatsapp:"WhatsApp", email:"E-Mail", addCal:"Zum Kalender hinzufügen", fav:"Favorit", tickets:"Tickets", info:"Offizielle Infos",
-      oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle Services · Am Meer", raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten", heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere", caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
-      schedNote:"Öffnungszeiten können je nach Saison und Datum variieren.",
-      nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
-      dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", dMusts:"Sehenswürdigkeiten", drawerHint:"Bereich wählen",
-      nextEvents:"Kommende Events",
-      stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
-      stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
-      stayHours:"Öffnungszeiten der Unterkunft",
-      weatherTitle:"Wetter", max:"Max", min:"Min",
-      incTitle:"Störungen", incWhere:"Welche Unterkunft?", incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.", incType:"Art der Störung", incMsg:"Problem kurz beschreiben", incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
-      incOpts:{electricidad:"Strom", agua:"Wasser", limpieza:"Reinigung", ruido:"Lärm", otros:"Sonstiges"},
-      musts:"Sehenswürdigkeiten", mustsSub:"Was man in Kantabrien sieht", mustsTitle:"Kantabrien – Highlights",
-      instHelpTitle:"App installieren", instHelpIntro:"Fügen Sie A Cobijo dem Startbildschirm hinzu, um es wie eine App zu nutzen."
+    de:{app:"Grupo A Cobijo",hello:"Willkommen!",
+        ev:"Events", evSub:"Heute",
+        pl:"Campingplätze", plSub:"Schnellzugriff",
+        sc:"Zeiten", scSub:"Rezeption · Bar",
+        inst:"Installieren", instSub:"Zum Startbildschirm",
+        eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze",
+        fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche", fFav:"Favoriten",
+        cAll:"Alle Campingplätze", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Anrufen", directions:"Route", whatsapp:"WhatsApp", email:"E-Mail",
+        addCal:"Zum Kalender hinzufügen", fav:"Favorit",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle Services · Am Meer",
+        raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
+        caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
+        schedNote:"Unverbindliche Infos. Änderungen an der Rezeption. Zeiten können variieren.",
+        nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten", nMusts:"Highlights",
+        dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", dMusts:"Highlights", drawerHint:"Bereich wählen",
+        nextEvents:"Kommende Events",
+        stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
+        stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
+        stayHours:"Öffnungszeiten der Unterkunft",
+        weatherTitle:"Wetter", max:"Max", min:"Min",
+        incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
+        incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
+        incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
+        incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
+        musts:"Highlights", mustsSub:"Das Beste aus Kantabrien", mustsTitle:"Highlights", mustsIntro:"Sorgfältig kuratiert für dein Kantabrien-Erlebnis.",
+        openMap:"Karte", moreInfo:"Infos", tickets:"Tickets", back:"Zurück"
     },
-    nl:{app:"Grupo A Cobijo",hello:"Welkom!",ev:"Evenementen", evSub:"Vandaag", pl:"Campings", plSub:"Snelle toegang", sc:"Openingstijden", scSub:"Receptie · bar", inst:"Installeren", instSub:"Beginscherm", eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings", fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week", fFav:"Favorieten", cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo", web:"Website", call:"Bellen", directions:"Kaart", whatsapp:"WhatsApp", email:"E-mail", addCal:"Aan agenda toevoegen", fav:"Favoriet", tickets:"Tickets", info:"Officiële info",
-      oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle services · Aan zee", raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten", heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren", caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
-      schedNote:"Tijden kunnen afhankelijk van seizoen en datum wijzigen.",
-      nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
-      dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", dMusts:"Must-see", drawerHint:"Kies een sectie",
-      nextEvents:"Aankomende evenementen",
-      stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
-      stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
-      stayHours:"Openingstijden van de accommodatie",
-      weatherTitle:"Weer", max:"Max", min:"Min",
-      incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.", incType:"Type incident", incMsg:"Beschrijf kort het probleem", incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
-      incOpts:{electricidad:"Elektriciteit", agua:"Water", limpieza:"Schoonmaak", ruido:"Geluid", otros:"Overig"},
-      musts:"Must-see", mustsSub:"Wat te zien in Cantabrië", mustsTitle:"Cantabrië must-see",
-      instHelpTitle:"App installeren", instHelpIntro:"Voeg A Cobijo toe aan je beginscherm om het als app te gebruiken."
+    nl:{app:"Grupo A Cobijo",hello:"Welkom!",
+        ev:"Evenementen", evSub:"Vandaag",
+        pl:"Campings", plSub:"Snelle toegang",
+        sc:"Openingstijden", scSub:"Receptie · bar",
+        inst:"Installeren", instSub:"Toevoegen aan beginscherm",
+        eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings",
+        fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week", fFav:"Favorieten",
+        cAll:"Alle campings", cOy:"Oyambre", cRa:"Ramales", cHe:"Ruiloba", cCa:"El Cardeo",
+        web:"Website", call:"Bellen", directions:"Route", whatsapp:"WhatsApp", email:"E-mail",
+        addCal:"Aan agenda toevoegen", fav:"Favoriet",
+        oyTitle:"Camping Caravaning Playa de Oyambre", oyHint:"Alle services · Aan zee",
+        raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten",
+        heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
+        caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
+        schedNote:"Indicatieve info. Informeer bij de receptie. Tijden kunnen variëren.",
+        nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden", nMusts:"Aanraders",
+        dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", dMusts:"Aanraders", drawerHint:"Kies een sectie",
+        nextEvents:"Aankomende evenementen",
+        stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
+        stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
+        stayHours:"Openingstijden van de accommodatie",
+        weatherTitle:"Weer", max:"Max", min:"Min",
+        incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
+        incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
+        incType:"Type incident", incMsg:"Beschrijf kort het probleem",
+        incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
+        musts:"Aanraders", mustsSub:"Het beste van Cantabrië", mustsTitle:"Aanraders", mustsIntro:"Geselecteerde tips om Cantabrië te ontdekken.",
+        openMap:"Kaart", moreInfo:"Info", tickets:"Tickets", back:"Terug"
     }
+  };
+
+  // Incidence types per language
+  var INC_TYPES = {
+    es:[["Electricidad","Electricidad"],["Agua","Agua"],["Limpieza","Limpieza"],["Ruido","Ruido"],["Otros","Otros"]],
+    en:[["Electricity","Electricity"],["Water","Water"],["Cleaning","Cleaning"],["Noise","Noise"],["Other","Other"]],
+    fr:[["Électricité","Électricité"],["Eau","Eau"],["Ménage","Ménage"],["Bruit","Bruit"],["Autres","Autres"]],
+    de:[["Strom","Strom"],["Wasser","Wasser"],["Reinigung","Reinigung"],["Lärm","Lärm"],["Sonstiges","Sonstiges"]],
+    nl:[["Elektriciteit","Elektriciteit"],["Water","Water"],["Schoonmaak","Schoonmaak"],["Lawaai","Lawaai"],["Overig","Overig"]]
   };
 
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
-
   function applyLang(){
     var T=I18N[LANG];
     t("t-app",T.app); t("t-hello",T.hello);
@@ -608,32 +703,31 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-sc",T.sc); t("t-sc-sub",T.scSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
     t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-campings-title",T.campingsTitle);
-    t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); var ff=document.getElementById('f-fav'); if(ff) ff.textContent=T.fFav;
+    t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); var ff=$('#f-fav'); if(ff) ff.textContent=T.fFav;
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv); t("instHelpTitle",T.instHelpTitle); t("instHelpIntro",T.instHelpIntro);
-    var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
+    t("schedNote",T.schedNote);
+    t("n-home",T.nHome); t("n-ev",T.nEv); t("n-pl",T.nPl); t("n-sc",T.nSc); t("n-musts",T.nMusts);
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc); t("d-musts",T.dMusts);
     t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
     t("t-stay",T.stay); t("t-stay-sub",T.staySub);
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
     t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
-    t("musts-title",T.mustsTitle); t("t-musts",T.musts); t("t-musts-sub",T.mustsSub);
-    // botones Mi estancia
-    $('#stayWeb').textContent=T.web; $('#stayCall').textContent=T.call; $('#stayWA').textContent=T.whatsapp; $('#stayEmail').textContent=T.email; $('#stayDir').textContent=T.directions;
-    // nota horarios
-    $('#t-hours-note').textContent=T.schedNote;
-    // Incidencias opciones
-    renderIncTypeOptions();
+    // Musts labels
+    t("t-musts",T.musts); t("t-musts-sub",T.mustsSub); t("t-musts-title",T.mustsTitle); t("t-musts-intro",T.mustsIntro);
+
+    var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
+
+    renderIncTypes();
   }
   applyLang();
 
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMustsGrid(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -678,8 +772,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
   // ICS helpers
-  function dtToICS(dt){
-    var d=new Date(dt);
+  function dtToICS(dt){ var d=new Date(dt);
     return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z';
   }
   function icsEscape(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
@@ -689,7 +782,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var desc=i18nField(ev.descripcion)||'';
       var loc=i18nField(ev.lugar)|| (PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'');
       var start=new Date(ev.fecha);
-      var end=new Date(start.getTime()+90*60000); // 90 min
+      var end=new Date(start.getTime()+90*60000);
       var uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app';
       var now=new Date();
       var ics = [
@@ -715,7 +808,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
 
-  // HOME slider
+  // HOME: slider próximos eventos
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
@@ -774,18 +867,11 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   function bindEventActionButtons(scope){
-    if(!scope) scope=document;
-    scope.querySelectorAll('.fav-btn').forEach(function(btn){
-      on(btn,'click', function(){
-        var id=btn.getAttribute('data-id'); toggleFav(id);
-      });
+    $all('.fav-btn', scope).forEach(function(btn){
+      on(btn,'click', function(){ toggleFav(btn.getAttribute('data-id')); });
     });
-    scope.querySelectorAll('.ics-btn').forEach(function(btn){
-      on(btn,'click', function(){
-        var id=btn.getAttribute('data-id');
-        var ev = EVENTS.find(e=>e.id===id);
-        if(ev) downloadICS(ev);
-      });
+    $all('.ics-btn', scope).forEach(function(btn){
+      on(btn,'click', function(){ var id=btn.getAttribute('data-id'); var ev = EVENTS.find(e=>e.id===id); if(ev) downloadICS(ev); });
     });
   }
 
@@ -805,35 +891,35 @@ document.addEventListener('DOMContentLoaded', function(){
     ch.classList.add('on'); CAMP_FILTER=ch.getAttribute('data-camp')||'all'; renderEventsGrid();
   }));
 
-  /* ===== Horarios (reales + nota) ===== */
+  /* ===== Horarios ===== */
   var SCHEDULES_DEFAULT={
     oyambre:{
-      es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><b>Check-in parcelas</b>: 13:00<br><b>Check-in alojamientos</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según temporada y fecha.</i>",
-      en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Plots check-in</b>: 13:00<br><b>Lodgings check-in</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Hours may vary by season/date.</i>",
-      fr:"<b>Réception</b> : 08:30–22:00<br><b>Bar</b> : 08:30–23:00<br><b>Restaurant</b> : 13:30–15:00 / 19:00–22:00<br><b>Piscines (toute la saison)</b> : 09:00–21:00<br><b>Salle de sport</b> : 09:00–21:00<br><b>Blanchisserie</b> : 24h/24<br><b>Boutique</b> : 08:30–13:00 / 17:00–20:00<br><b>Barrière</b> : 08:00–23:59 (circulation interdite 00:00–08:00)<br><b>Check-in emplacements</b> : 13:00<br><b>Check-in hébergements</b> : 17:00<br><b>Check-out</b> : 12:00<br><i>Horaires susceptibles de varier.</i>",
-      de:"<b>Rezeption</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Schwimmbäder (Saison)</b>: 09:00–21:00<br><b>Fitnessraum</b>: 09:00–21:00<br><b>Waschraum</b>: 24 Std.<br><b>Laden</b>: 08:30–13:00 / 17:00–20:00<br><b>Schranke</b>: 08:00–23:59 (kein Verkehr 00:00–08:00)<br><b>Check-in Parzellen</b>: 13:00<br><b>Check-in Unterkünfte</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
-      nl:"<b>Receptie</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Zwembaden (seizoen)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Wasserij</b>: 24u<br><b>Winkel</b>: 08:30–13:00 / 17:00–20:00<br><b>Slagboom</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><b>Check-in staanplaatsen</b>: 13:00<br><b>Check-in accommodaties</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
+      es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><b>Check-in parcelas</b>: 13:00 · <b>Check-in alojamientos</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según la fecha.</i>",
+      en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Pitch check-in</b>: 13:00 · <b>Lodging check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Schedules may vary by date.</i>",
+      fr:"<b>Réception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscines (toute la saison)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Buanderie</b>: 24h<br><b>Boutique</b>: 08:30–13:00 / 17:00–20:00<br><b>Barrière d’entrée</b>: 08:00–23:59 (circulation interdite 00:00–08:00)<br><b>Check-in emplacements</b>: 13:00 · <b>Check-in logements</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Rezeption</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Becken (ganze Saison)</b>: 09:00–21:00<br><b>Fitness</b>: 09:00–21:00<br><b>Wäscherei</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Einfahrt</b>: 08:00–23:59 (keine Fahrt 00:00–08:00)<br><b>Stellplatz-Check-in</b>: 13:00 · <b>Unterkunfts-Check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Receptie</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Zwembaden (gehele seizoen)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Wasserij</b>: 24u<br><b>Winkel</b>: 08:30–13:00 / 17:00–20:00<br><b>Toegangshek</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><b>Incheck staanplaatsen</b>: 13:00 · <b>Incheck accommodaties</b>: 17:00 · <b>Uitcheck</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
     },
     ramales:{
-      es:"<b>Recepción</b>: 9:00–21:00<br><b>Cafetería</b>: Lun–Vie 17:00–22:00 · Sáb–Dom 8:30–22:00<br><b>Restaurante</b>: Lun–Vie 19:00–22:00 · Sáb–Dom 13:30–15:00 / 19:00–22:00<br><b>Piscina</b>: 9:30–20:30<br><b>Check-in parcelas</b>: 12:00<br><b>Check-in alojamientos</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Barrera</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><i>Los horarios pueden variar según temporada y fecha.</i>",
-      en:"<b>Reception</b>: 09:00–21:00<br><b>Café</b>: Mon–Fri 17:00–22:00 · Sat–Sun 08:30–22:00<br><b>Restaurant</b>: Mon–Fri 19:00–22:00 · Sat–Sun 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Plots check-in</b>: 12:00<br><b>Lodgings check-in</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><i>Hours may vary by season/date.</i>",
-      fr:"<b>Réception</b> : 09:00–21:00<br><b>Cafétéria</b> : Lun–Ven 17:00–22:00 · Sam–Dim 08:30–22:00<br><b>Restaurant</b> : Lun–Ven 19:00–22:00 · Sam–Dim 13:30–15:00 / 19:00–22:00<br><b>Piscine</b> : 09:30–20:30<br><b>Check-in emplacements</b> : 12:00<br><b>Check-in hébergements</b> : 16:00<br><b>Check-out</b> : 12:00<br><b>Barrière</b> : 08:00–23:59 (circulation interdite 00:00–08:00)<br><i>Horaires susceptibles de varier.</i>",
-      de:"<b>Rezeption</b>: 09:00–21:00<br><b>Cafeteria</b>: Mo–Fr 17:00–22:00 · Sa–So 08:30–22:00<br><b>Restaurant</b>: Mo–Fr 19:00–22:00 · Sa–So 13:30–15:00 / 19:00–22:00<br><b>Schwimmbad</b>: 09:30–20:30<br><b>Check-in Parzellen</b>: 12:00<br><b>Check-in Unterkünfte</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Schranke</b>: 08:00–23:59 (kein Verkehr 00:00–08:00)<br><i>Zeiten können variieren.</i>",
-      nl:"<b>Receptie</b>: 09:00–21:00<br><b>Cafetaria</b>: Ma–Vr 17:00–22:00 · Za–Zo 08:30–22:00<br><b>Restaurant</b>: Ma–Vr 19:00–22:00 · Za–Zo 13:30–15:00 / 19:00–22:00<br><b>Zwembad</b>: 09:30–20:30<br><b>Check-in staanplaatsen</b>: 12:00<br><b>Check-in accommodaties</b>: 16:00<br><b>Check-out</b>: 12:00<br><b>Slagboom</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><i>Tijden kunnen variëren.</i>"
+      es:"<b>Recepción</b>: 9:00–21:00<br><b>Cafetería</b>: lun–vie 17:00–22:00 · sáb–dom 8:30–22:00<br><b>Restaurante</b>: lun–vie 19:00–22:00 · sáb–dom 13:30–15:00 / 19:00–22:00<br><b>Piscina</b>: 9:30–20:30<br><b>Check-in parcelas</b>: 12:00 · <b>Check-in alojamientos</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Barrera</b>: 8:00–23:59 (prohibida la circulación 00:00–8:00)<br><i>Los horarios pueden variar según la fecha.</i>",
+      en:"<b>Reception</b>: 09:00–21:00<br><b>Café</b>: Mon–Fri 17:00–22:00 · Sat–Sun 08:30–22:00<br><b>Restaurant</b>: Mon–Fri 19:00–22:00 · Sat–Sun 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Pitch check-in</b>: 12:00 · <b>Lodging check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><i>Schedules may vary by date.</i>",
+      fr:"<b>Réception</b>: 09:00–21:00<br><b>Cafétéria</b>: lun–ven 17:00–22:00 · sam–dim 08:30–22:00<br><b>Restaurant</b>: lun–ven 19:00–22:00 · sam–dim 13:30–15:00 / 19:00–22:00<br><b>Piscine</b>: 09:30–20:30<br><b>Check-in emplacements</b>: 12:00 · <b>Check-in logements</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Barrière</b>: 08:00–23:59 (circulation interdite 00:00–08:00)<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Rezeption</b>: 09:00–21:00<br><b>Café</b>: Mo–Fr 17:00–22:00 · Sa–So 08:30–22:00<br><b>Restaurant</b>: Mo–Fr 19:00–22:00 · Sa–So 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Stellplatz-Check-in</b>: 12:00 · <b>Unterkunfts-Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Schranke</b>: 08:00–23:59 (kein Verkehr 00:00–08:00)<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Receptie</b>: 09:00–21:00<br><b>Cafetaria</b>: ma–vr 17:00–22:00 · za–zo 08:30–22:00<br><b>Restaurant</b>: ma–vr 19:00–22:00 · za–zo 13:30–15:00 / 19:00–22:00<br><b>Zwembad</b>: 09:30–20:30<br><b>Incheck staanplaatsen</b>: 12:00 · <b>Incheck accommodaties</b>: 16:00 · <b>Uitcheck</b>: 12:00<br><b>Toegangshek</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><i>Tijden kunnen variëren.</i>"
     },
     ruiloba:{
-      es:"<b>Recepción</b>: 8:30–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Cafetería</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Lavandería</b>: 24 horas<br><b>Barrera</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><b>Tienda</b>: consultar en la cafetería<br><b>Check-in parcelas</b>: 13:00<br><b>Check-in alojamientos</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según temporada y fecha.</i>",
-      en:"<b>Reception</b>: 08:30–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Laundry</b>: 24h<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Shop</b>: ask at the café<br><b>Plots check-in</b>: 13:00<br><b>Lodgings check-in</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Hours may vary by season/date.</i>",
-      fr:"<b>Réception</b> : 08:30–22:00<br><b>Piscines (toute la saison)</b> : 09:00–21:00<br><b>Cafétéria</b> : 08:30–23:00<br><b>Restaurant</b> : 13:30–15:00 / 19:00–22:00<br><b>Blanchisserie</b> : 24h/24<br><b>Barrière</b> : 08:00–23:59 (circulation interdite 00:00–08:00)<br><b>Boutique</b> : renseignez-vous au café<br><b>Check-in emplacements</b> : 13:00<br><b>Check-in hébergements</b> : 17:00<br><b>Check-out</b> : 12:00<br><i>Horaires susceptibles de varier.</i>",
-      de:"<b>Rezeption</b>: 08:30–22:00<br><b>Schwimmbäder (Saison)</b>: 09:00–21:00<br><b>Cafeteria</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Waschraum</b>: 24 Std.<br><b>Schranke</b>: 08:00–23:59 (kein Verkehr 00:00–08:00)<br><b>Laden</b>: in der Cafeteria erfragen<br><b>Check-in Parzellen</b>: 13:00<br><b>Check-in Unterkünfte</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
-      nl:"<b>Receptie</b>: 08:30–22:00<br><b>Zwembaden (seizoen)</b>: 09:00–21:00<br><b>Cafetaria</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Wasserij</b>: 24u<br><b>Slagboom</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><b>Winkel</b>: vraag bij de cafetaria<br><b>Check-in staanplaatsen</b>: 13:00<br><b>Check-in accommodaties</b>: 17:00<br><b>Check-out</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
+      es:"<b>Recepción</b>: 8:30–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Cafetería</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Lavandería</b>: 24 horas<br><b>Barrera</b>: 8:00–23:59 (prohibida la circulación 00:00–8:00)<br><b>Tienda</b>: consultar en cafetería<br><b>Check-in parcelas</b>: 13:00 · <b>Check-in alojamientos</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según la fecha.</i>",
+      en:"<b>Reception</b>: 08:30–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Laundry</b>: 24h<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Shop</b>: ask at the café<br><b>Pitch check-in</b>: 13:00 · <b>Lodging check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Schedules may vary by date.</i>",
+      fr:"<b>Réception</b>: 08:30–22:00<br><b>Piscines (toute la saison)</b>: 09:00–21:00<br><b>Cafétéria</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Buanderie</b>: 24h<br><b>Barrière</b>: 08:00–23:59 (circulation interdite 00:00–08:00)<br><b>Boutique</b>: à la cafétéria<br><b>Check-in emplacements</b>: 13:00 · <b>Check-in logements</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Rezeption</b>: 08:30–22:00<br><b>Becken (ganze Saison)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Wäscherei</b>: 24h<br><b>Schranke</b>: 08:00–23:59 (kein Verkehr 00:00–08:00)<br><b>Laden</b>: an der Cafeteria erfragen<br><b>Stellplatz-Check-in</b>: 13:00 · <b>Unterkunfts-Check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Receptie</b>: 08:30–22:00<br><b>Zwembaden (gehele seizoen)</b>: 09:00–21:00<br><b>Cafetaria</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Wasserij</b>: 24u<br><b>Toegangshek</b>: 08:00–23:59 (geen verkeer 00:00–08:00)<br><b>Winkel</b>: vraag bij de cafetaria<br><b>Incheck staanplaatsen</b>: 13:00 · <b>Incheck accommodaties</b>: 17:00 · <b>Uitcheck</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
     },
     cardeo:{
-      es:"<b>Taberna</b>: 8:30–23:00<br><b>Restaurante (fin de semana)</b>: 13:30–15:30 / 20:00–22:30<br><b>Check-in</b>: 16:00<br><b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según temporada y fecha.</i>",
-      en:"<b>Tavern</b>: 08:30–23:00<br><b>Restaurant (weekends)</b>: 13:30–15:30 / 20:00–22:30<br><b>Check-in</b>: 16:00<br><b>Check-out</b>: 12:00<br><i>Hours may vary by season/date.</i>",
-      fr:"<b>Taverne</b> : 08:30–23:00<br><b>Restaurant (week-end)</b> : 13:30–15:30 / 20:00–22:30<br><b>Check-in</b> : 16:00<br><b>Check-out</b> : 12:00<br><i>Horaires susceptibles de varier.</i>",
-      de:"<b>Taverne</b>: 08:30–23:00<br><b>Restaurant (Wochenende)</b>: 13:30–15:30 / 20:00–22:30<br><b>Check-in</b>: 16:00<br><b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
-      nl:"<b>Taveerne</b>: 08:30–23:00<br><b>Restaurant (weekend)</b>: 13:30–15:30 / 20:00–22:30<br><b>Check-in</b>: 16:00<br><b>Check-out</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
+      es:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taberna</b>: 8:30–23:00<br><b>Restaurante (fines de semana)</b>: 13:30–15:30 / 20:00–22:30<br><i>Los horarios pueden variar según la fecha.</i>",
+      en:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Tavern</b>: 08:30–23:00<br><b>Restaurant (weekends)</b>: 13:30–15:30 / 20:00–22:30<br><i>Schedules may vary by date.</i>",
+      fr:"<b>Check-in</b> : 16:00 · <b>Check-out</b> : 12:00<br><b>Taverne</b> : 08:30–23:00<br><b>Restaurant (week-end)</b> : 13:30–15:30 / 20:00–22:30<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taverne</b>: 08:30–23:00<br><b>Restaurant (Wochenenden)</b>: 13:30–15:30 / 20:00–22:30<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taveerne</b>: 08:30–23:00<br><b>Restaurant (weekenden)</b>: 13:30–15:30 / 20:00–22:30<br><i>Tijden kunnen variëren.</i>"
     }
   };
   var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
@@ -853,7 +939,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   $all('.acc-h').forEach(h=>on(h,'click', function(){ h.parentElement.classList.toggle('open'); }));
 
-  /* ===== Mi estancia (contactos + horarios + clima) ===== */
+  /* ===== Mi estancia ===== */
   var STAY = localStorage.getItem('stay_place') || 'oyambre';
   var COORDS = {
     oyambre:{lat:43.393, lon:-4.352},
@@ -879,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function(){
     cont.innerHTML = item[LANG] || item.es || '';
   }
 
-  // Weather mapping
+  // Weather
   function codeToEmoji(code){
     if([0].includes(code)) return '☀️';
     if([1,2].includes(code)) return '🌤️';
@@ -914,16 +1000,17 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
 
   /* ===== Incidencias ===== */
-  function renderIncTypeOptions(){
+  function renderIncTypes(){
     var sel=$('#incType'); if(!sel) return;
-    var o=I18N[LANG].incOpts||I18N.es.incOpts;
-    var order=['electricidad','agua','limpieza','ruido','otros'];
-    sel.innerHTML = order.map(function(k){ return '<option value="'+k+'">'+esc(o[k])+'</option>'; }).join('');
+    var prev = sel.value;
+    sel.innerHTML='';
+    (INC_TYPES[LANG]||INC_TYPES.es).forEach(function(pair){
+      var opt=document.createElement('option'); opt.value=pair[1]; opt.textContent=pair[0]; sel.appendChild(opt);
+    });
+    if(prev){ sel.value=prev; }
   }
   function buildIncMsg(){
-    var T=I18N[LANG], sel=$('#incType'); var key=(sel && sel.value)||'otros';
-    var o=I18N[LANG].incOpts||I18N.es.incOpts; var type=o[key]||o.otros;
-    var msg=$('#incMsg').value||'';
+    var T=I18N[LANG], type=$('#incType').value||'Otros', msg=$('#incMsg').value||'';
     var now=new Date(); var stamp = now.toLocaleString();
     var header = '['+T.incTitle+'] '+type+' · '+PLACE_LABEL[STAY];
     var body = 'Hola,\n\nTengo una incidencia: '+type+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
@@ -939,167 +1026,6 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#incPlace'),'change', function(e){ setStayPlace(e.target.value); });
   on($('#incType'),'change', updateIncUI);
   on($('#incMsg'),'input', updateIncUI);
-
-  /* ===== Imprescindibles ===== */
-  function enc(u){ return encodeURI(u); }
-  var MUSTS = [
-    {
-      id:'comillas',
-      cover:'assets/musts/comillas.jpg',
-      title:{es:'Comillas',en:'Comillas',fr:'Comillas',de:'Comillas',nl:'Comillas'},
-      desc:{es:'Villa marinera con un excepcional legado modernista y ecléctico.',
-            en:'Coastal town with outstanding Modernist and eclectic heritage.'},
-      links:{
-        map: enc('https://maps.google.com/?q=Comillas Cantabria'),
-        info: enc('https://www.google.com/search?q=Comillas Cantabria turismo')
-      },
-      items:[
-        {name:{es:'El Capricho de Gaudí'}, img:'assets/musts/capricho.jpg',
-         info:{es:'Obra temprana de Gaudí con cerámica y motivos vegetales; visita guiada recomendable.'},
-         links:{map:enc('https://maps.google.com/?q=El Capricho de Gaudi Comillas'), tickets:enc('https://www.google.com/search?q=entradas El Capricho de Gaudí')}},
-        {name:{es:'Palacio de Sobrellano'}, img:'assets/musts/sobrellano.jpg',
-         info:{es:'Residencia neogótica de los marqueses y capilla-panteón.'},
-         links:{map:enc('https://maps.google.com/?q=Palacio de Sobrellano Comillas'), info:enc('https://www.google.com/search?q=Palacio de Sobrellano horarios')}},
-        {name:{es:'Universidad Pontificia'}, img:'assets/musts/pontificia.jpg',
-         info:{es:'Complejo monumental en la colina; vistas y arquitectura singulares.'},
-         links:{map:enc('https://maps.google.com/?q=Universidad Pontificia Comillas Cantabria')}},
-        {name:{es:'Puerto de Comillas'}, img:'assets/musts/puerto_comillas.jpg',
-         info:{es:'Paseo, mirador y ambiente marinero.'},
-         links:{map:enc('https://maps.google.com/?q=Puerto de Comillas')}},
-        {name:{es:'Playa de Oyambre'}, img:'assets/musts/playa_oyambre.jpg',
-         info:{es:'Parque Natural cercano; dunas y paisaje protegido.'},
-         links:{map:enc('https://maps.google.com/?q=Playa de Oyambre')}}
-      ]
-    },
-    {
-      id:'cabarceno',
-      cover:'assets/musts/cabarceno.jpg',
-      title:{es:'Parque de la Naturaleza de Cabárceno',en:'Cabárceno Nature Park'},
-      desc:{es:'Fauna de los cinco continentes en semilibertad, rutas panorámicas y telecabina.'},
-      links:{
-        map: enc('https://maps.google.com/?q=Parque de la Naturaleza de Cabárceno'),
-        tickets: enc('https://www.google.com/search?q=entradas Parque de Cabárceno'),
-        info: enc('https://www.google.com/search?q=Cabárceno web oficial')
-      },
-      items:[
-        {name:{es:'Telecabina de Cabárceno'}, img:'assets/musts/cabarceno_telecabina.jpg',
-         info:{es:'Varias líneas con vistas del parque y del karst.'},
-         links:{info:enc('https://www.google.com/search?q=Telecabina Cabárceno'), tickets:enc('https://www.google.com/search?q=Telecabina Cabárceno entradas')}},
-        {name:{es:'Elefantes'}, img:'assets/musts/cabarceno_elephants.jpg', info:{es:'Gran grupo social, fácil de ver en lagunas.'}},
-        {name:{es:'Osos'}, img:'assets/musts/cabarceno_bears.jpg', info:{es:'Hábitats rocosos con miradores.'}}
-      ]
-    },
-    {
-      id:'picos',
-      cover:'assets/musts/picos_fuente_de.jpg',
-      title:{es:'Picos de Europa · Fuente Dé',en:'Picos de Europa · Fuente Dé'},
-      desc:{es:'Teleférico, miradores y rutas de media montaña; clima cambiante, equipación adecuada.'},
-      links:{
-        map: enc('https://maps.google.com/?q=Teleférico Fuente Dé'),
-        tickets: enc('https://www.google.com/search?q=entradas teleférico Fuente Dé'),
-        info: enc('https://www.google.com/search?q=Teleférico Fuente Dé web oficial')
-      },
-      items:[
-        {name:{es:'Horcados Rojos'}, img:'assets/musts/picos_horcados.jpg', info:{es:'Ruta exigente desde El Cable; vistas a Torre de Cerredo.'},
-         links:{map:enc('https://maps.google.com/?q=Horcados Rojos')}},
-        {name:{es:'Praderas de Áliva'}, img:'assets/musts/aliva_praderas.jpg', info:{es:'Itinerarios suaves con pastos y brañas.'},
-         links:{map:enc('https://maps.google.com/?q=Praderas de Áliva')}},
-        {name:{es:'Miradores'}, img:'assets/musts/picos_mirador.jpg', info:{es:'Balcón de Pilatos y Mirador del Cable.'},
-         links:{map:enc('https://maps.google.com/?q=Mirador del Cable Fuente Dé')}}
-      ]
-    },
-    {
-      id:'costa-quebrada',
-      cover:'assets/musts/costa_quebrada_arnia.jpg',
-      title:{es:'Costa Quebrada · Liencres – Arnía',en:'Costa Quebrada · Liencres – Arnía'},
-      desc:{es:'Geoparque litoral de acantilados, lajas y playas salvajes; atención a mareas/oleaje.'},
-      links:{
-        map: enc('https://maps.google.com/?q=Costa Quebrada Cantabria'),
-        info: enc('https://www.google.com/search?q=Costa Quebrada Cantabria rutas')
-      },
-      items:[
-        {name:{es:'Dunas de Liencres'}, img:'assets/musts/liencres_dunas.jpg', info:{es:'Parque natural y estuario del Pas.'},
-         links:{map:enc('https://maps.google.com/?q=Dunas de Liencres')}},
-        {name:{es:'Playa de Arnía'}, img:'assets/musts/arnia_lajas.jpg', info:{es:'Formaciones en lajas espectaculares.'},
-         links:{map:enc('https://maps.google.com/?q=Playa de Arnía')}},
-        {name:{es:'Playa de Covachos'}, img:'assets/musts/covachos_isla.jpg', info:{es:'Tómbolo visible en marea baja.'},
-         links:{map:enc('https://maps.google.com/?q=Playa de Covachos')}}
-      ]
-    },
-    {
-      id:'castro',
-      cover:'assets/musts/castro_urdiales.jpg',
-      title:{es:'Castro Urdiales',en:'Castro Urdiales'},
-      desc:{es:'Conjunto monumental frente al mar: iglesia gótica, castillo-faro y puerto.'},
-      links:{map: enc('https://maps.google.com/?q=Castro Urdiales')},
-      items:[
-        {name:{es:'Santa María de la Asunción'}, img:'assets/musts/santa_maria_castro.jpg', info:{es:'Gótica cantábrica, s. XIII.'},
-         links:{map:enc('https://maps.google.com/?q=Iglesia de Santa María de la Asunción Castro Urdiales')}},
-        {name:{es:'Castillo–Faro'}, img:'assets/musts/castillo_faro.jpg', info:{es:'Fortificación con faro y vistas.'},
-         links:{map:enc('https://maps.google.com/?q=Castillo Faro Castro Urdiales')}},
-        {name:{es:'Puente Medieval'}, img:'assets/musts/puente_medieval.jpg', info:{es:'Acceso al islote de Santa Ana.'},
-         links:{map:enc('https://maps.google.com/?q=Puente Medieval Castro Urdiales')}}
-      ]
-    },
-    {
-      id:'liebana',
-      cover:'assets/musts/liebana_potes.jpg',
-      title:{es:'Liébana · Potes',en:'Liébana · Potes'},
-      desc:{es:'Valles y patrimonio entre montañas; gastronomía tradicional.'},
-      links:{map: enc('https://maps.google.com/?q=Potes')},
-      items:[
-        {name:{es:'Santo Toribio de Liébana'}, img:'assets/musts/santo_toribio.jpg', info:{es:'Monasterio y Año Jubilar Lebaniego.'},
-         links:{map:enc('https://maps.google.com/?q=Monasterio de Santo Toribio de Liébana')}},
-        {name:{es:'Desfiladero de La Hermida'}, img:'assets/musts/desfiladero_hermida.jpg', info:{es:'Cañón que comunica con la costa.'},
-         links:{map:enc('https://maps.google.com/?q=Desfiladero de la Hermida')}},
-        {name:{es:'Miradores'}, img:'assets/musts/miradores_liebana.jpg', info:{es:'Vistas amplias sobre el valle.'},
-         links:{map:enc('https://maps.google.com/?q=Mirador Liébana')}}
-      ]
-    }
-  ];
-
-  function renderMusts(){
-    var T=I18N[LANG], grid=document.getElementById('mustsGrid');
-    if(!grid) return;
-    grid.innerHTML = MUSTS.map(function(m){
-      var title=i18nField(m.title)||'', desc=i18nField(m.desc)||'', cover=safeUrl(m.cover);
-      var topLinks = '';
-      if(m.links){
-        topLinks = '<div class="linkbar">'
-          + (m.links.map?'<a class="btn" target="_blank" rel="noopener" href="'+esc(m.links.map)+'">🗺️ '+esc(T.directions)+'</a>':'')
-          + (m.links.tickets?'<a class="btn primary" target="_blank" rel="noopener" href="'+esc(m.links.tickets)+'">🎟️ '+esc(T.tickets)+'</a>':'')
-          + (m.links.info?'<a class="btn ghost" target="_blank" rel="noopener" href="'+esc(m.links.info)+'">ℹ️ '+esc(T.info)+'</a>':'')
-          + '</div>';
-      }
-      var items = (m.items||[]).map(function(it){
-        var nm=i18nField(it.name)||'', info=i18nField(it.info)||'', img=safeUrl(it.img||'');
-        var itemLinks = it.links ? (
-          '<div class="item-links">'
-            + (it.links.map?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(it.links.map)+'">🗺️ '+esc(T.directions)+'</a>':'')
-            + (it.links.tickets?'<a class="btn sm primary" target="_blank" rel="noopener" href="'+esc(it.links.tickets)+'">🎟️ '+esc(T.tickets)+'</a>':'')
-            + (it.links.info?'<a class="btn sm ghost" target="_blank" rel="noopener" href="'+esc(it.links.info)+'">ℹ️ '+esc(T.info)+'</a>':'')
-          + '</div>'
-        ) : '';
-        return '<div class="card" style="min-width:unset">'
-          + (img?'<img src="'+img+'" alt="'+esc(nm)+'" class="must-cover" style="aspect-ratio:4/3" loading="lazy" onerror="this.style.display=\'none\'">':'')
-          + '<div class="title">'+esc(nm)+'</div>'
-          + (info?'<div class="meta">'+esc(info)+'</div>':'')
-          + itemLinks
-        + '</div>';
-      }).join('');
-      return '<article class="must-card" tabindex="0">'
-        + (cover?'<img class="must-cover" src="'+cover+'" alt="'+esc(title)+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
-        + '<div class="must-h" role="button"><div class="must-title">'+esc(title)+'</div><div>▼</div></div>'
-        + '<div class="must-b"><div>'+esc(desc)+'</div>'+ topLinks +'<div class="gal">'+items+'</div></div>'
-      + '</article>';
-    }).join('');
-
-    $all('.must-card').forEach(function(card){
-      var h=card.querySelector('.must-h');
-      on(h,'click', function(){ card.classList.toggle('open'); });
-      on(card,'keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('open'); }});
-    });
-  }
 
   /* ===== Admin (activar con 5 toques en el logo) ===== */
   (function adminActivator(){
@@ -1203,7 +1129,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
   on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
 
-  /* GitHub minimal (manual) */
+  /* GitHub minimal */
   var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
   function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
   function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); var t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
@@ -1216,46 +1142,338 @@ document.addEventListener('DOMContentLoaded', function(){
       if(!ADMIN_EVENTS.length){ alert('No hay eventos.'); return; }
       var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      ghGet('events.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
-      var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
-      var content64=toB64(jsonStr);
-      var now=new Date().toISOString().slice(0,19).replace('T',' ');
-      ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+      ghGet('events.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } }).finally(function(){
+        var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
+        var content64=toB64(jsonStr);
+        var now=new Date().toISOString().slice(0,19).replace('T',' ');
+        ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+      });
     }catch(err){ alert('❌ '+err.message); }
   });
   on($('#pushSchedBtn'),'click', function(){
     try{
       var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
       var sha=null;
-      ghGet('schedules.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
-      var jsonStr=JSON.stringify(SCHEDULES,null,2);
-      var content64=toB64(jsonStr);
-      var now=new Date().toISOString().slice(0,19).replace('T',' ');
-      ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ schedules.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+      ghGet('schedules.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } }).finally(function(){
+        var jsonStr=JSON.stringify(SCHEDULES,null,2);
+        var content64=toB64(jsonStr);
+        var now=new Date().toISOString().slice(0,19).replace('T',' ');
+        ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ schedules.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+      });
     }catch(err){ alert('❌ '+err.message); }
   });
 
-  /* ===== PWA install: abrimos ayuda (no prompt) ===== */
+  /* ===== PWA install: ayuda modal ===== */
+  var deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
   on($('#installTile'),'click', function(){
-    var m=$('#installHelp'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); }
+    // Muestra ayuda siempre (UX consistente)
+    $('#installHelp').style.display='flex'; document.body.classList.add('modal-open');
   });
-  on($('#closeInstall'),'click', function(e){ e.preventDefault(); var m=$('#installHelp'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); }});
-  on($('#installHelp'),'click', function(e){ if(e.target && e.target.id==='installHelp'){ $('#installHelp').style.display='none'; document.body.classList.remove('modal-open'); }});
+  on($('#closeInstall'),'click', function(){ $('#installHelp').style.display='none'; document.body.classList.remove('modal-open'); });
+
+  /* ===== IMPRESCINDIBLES (datos) ===== */
+  var MUSTS = [
+    {
+      id:'comillas',
+      cover:'assets/musts/comillas.jpg',
+      title:{es:'Comillas',en:'Comillas'},
+      desc:{es:'Villa marinera con un excepcional legado modernista y ecléctico.', en:'Coastal town with outstanding Modernist heritage.'},
+      links:{ map:enc('https://maps.google.com/?q=Comillas Cantabria'), info:enc('https://www.google.com/search?q=Comillas Cantabria turismo') },
+      items:[
+        {name:{es:'El Capricho de Gaudí'}, img:'assets/musts/capricho.jpg',
+         info:{es:'Obra temprana de Gaudí con cerámica y motivos vegetales; visita guiada recomendable.'},
+         links:{map:enc('https://maps.google.com/?q=El Capricho de Gaudi Comillas'), tickets:enc('https://www.google.com/search?q=entradas El Capricho de Gaudí')}},
+        {name:{es:'Palacio de Sobrellano'}, img:'assets/musts/sobrellano.jpg',
+         info:{es:'Residencia neogótica de los marqueses y capilla-panteón.'},
+         links:{map:enc('https://maps.google.com/?q=Palacio de Sobrellano Comillas'), info:enc('https://www.google.com/search?q=Palacio de Sobrellano horarios')}},
+        {name:{es:'Universidad Pontificia'}, img:'assets/musts/pontificia.jpg',
+         info:{es:'Complejo monumental en la colina; vistas y arquitectura singulares.'},
+         links:{map:enc('https://maps.google.com/?q=Universidad Pontificia Comillas Cantabria')}},
+        {name:{es:'Puerto de Comillas'}, img:'assets/musts/puerto_comillas.jpg',
+         info:{es:'Paseo, mirador y ambiente marinero.'},
+         links:{map:enc('https://maps.google.com/?q=Puerto de Comillas')}},
+        {name:{es:'Playa de Oyambre'}, img:'assets/musts/playa_oyambre.jpg',
+         info:{es:'Parque Natural cercano; dunas y paisaje protegido.'},
+         links:{map:enc('https://maps.google.com/?q=Playa de Oyambre')}}
+      ]
+    },
+    {
+      id:'cabarceno',
+      cover:'assets/musts/cabarceno.jpg',
+      title:{es:'Parque de la Naturaleza de Cabárceno',en:'Cabárceno Nature Park'},
+      desc:{es:'Fauna de los cinco continentes en semilibertad, rutas panorámicas y telecabina.'},
+      links:{ map: enc('https://maps.google.com/?q=Parque de la Naturaleza de Cabárceno'), tickets: enc('https://www.google.com/search?q=entradas Parque de Cabárceno'), info: enc('https://www.google.com/search?q=Cabárceno web oficial') },
+      items:[
+        {name:{es:'Telecabina de Cabárceno'}, img:'assets/musts/cabarceno_telecabina.jpg',
+         info:{es:'Varias líneas con vistas del parque y del karst.'},
+         links:{info:enc('https://www.google.com/search?q=Telecabina Cabárceno'), tickets:enc('https://www.google.com/search?q=Telecabina Cabárceno entradas')}},
+        {name:{es:'Elefantes'}, img:'assets/musts/cabarceno_elephants.jpg', info:{es:'Gran grupo social, fácil de ver en lagunas.'}},
+        {name:{es:'Osos'}, img:'assets/musts/cabarceno_bears.jpg', info:{es:'Hábitats rocosos con miradores.'}}
+      ]
+    },
+    {
+      id:'picos',
+      cover:'assets/musts/picos_fuente_de.jpg',
+      title:{es:'Picos de Europa · Fuente Dé',en:'Picos de Europa · Fuente Dé'},
+      desc:{es:'Teleférico, miradores y rutas de media montaña; clima cambiante, equipación adecuada.'},
+      links:{ map: enc('https://maps.google.com/?q=Teleférico Fuente Dé'), tickets: enc('https://www.google.com/search?q=entradas teleférico Fuente Dé'), info: enc('https://www.google.com/search?q=Teleférico Fuente Dé web oficial') },
+      items:[
+        {name:{es:'Horcados Rojos'}, img:'assets/musts/picos_horcados.jpg', info:{es:'Ruta exigente desde El Cable; vistas a Torre de Cerredo.'}, links:{map:enc('https://maps.google.com/?q=Horcados Rojos')}},
+        {name:{es:'Praderas de Áliva'}, img:'assets/musts/aliva_praderas.jpg', info:{es:'Itinerarios suaves con pastos y brañas.'}, links:{map:enc('https://maps.google.com/?q=Praderas de Áliva')}},
+        {name:{es:'Miradores'}, img:'assets/musts/picos_mirador.jpg', info:{es:'Balcón de Pilatos y Mirador del Cable.'}, links:{map:enc('https://maps.google.com/?q=Mirador del Cable Fuente Dé')}}
+      ]
+    },
+    {
+      id:'costa-quebrada',
+      cover:'assets/musts/costa_quebrada_arnia.jpg',
+      title:{es:'Costa Quebrada · Liencres – Arnía',en:'Costa Quebrada · Liencres – Arnía'},
+      desc:{es:'Geoparque litoral de acantilados, lajas y playas salvajes; atención a mareas/oleaje.'},
+      links:{ map: enc('https://maps.google.com/?q=Costa Quebrada Cantabria'), info: enc('https://www.google.com/search?q=Costa Quebrada Cantabria rutas') },
+      items:[
+        {name:{es:'Dunas de Liencres'}, img:'assets/musts/liencres_dunas.jpg', info:{es:'Parque natural y estuario del Pas.'}, links:{map:enc('https://maps.google.com/?q=Dunas de Liencres')}},
+        {name:{es:'Playa de Arnía'}, img:'assets/musts/arnia_lajas.jpg', info:{es:'Formaciones en lajas espectaculares.'}, links:{map:enc('https://maps.google.com/?q=Playa de Arnía')}},
+        {name:{es:'Playa de Covachos'}, img:'assets/musts/covachos_isla.jpg', info:{es:'Tómbolo visible en marea baja.'}, links:{map:enc('https://maps.google.com/?q=Playa de Covachos')}}
+      ]
+    },
+    {
+      id:'castro',
+      cover:'assets/musts/castro_urdiales.jpg',
+      title:{es:'Castro Urdiales',en:'Castro Urdiales'},
+      desc:{es:'Conjunto monumental frente al mar: iglesia gótica, castillo-faro y puerto.'},
+      links:{ map: enc('https://maps.google.com/?q=Castro Urdiales') },
+      items:[
+        {name:{es:'Santa María de la Asunción'}, img:'assets/musts/santa_maria_castro.jpg', info:{es:'Gótica cantábrica, s. XIII.'}, links:{map:enc('https://maps.google.com/?q=Iglesia de Santa María de la Asunción Castro Urdiales')}},
+        {name:{es:'Castillo–Faro'}, img:'assets/musts/castillo_faro.jpg', info:{es:'Fortificación con faro y vistas.'}, links:{map:enc('https://maps.google.com/?q=Castillo Faro Castro Urdiales')}},
+        {name:{es:'Puente Medieval'}, img:'assets/musts/puente_medieval.jpg', info:{es:'Acceso al islote de Santa Ana.'}, links:{map:enc('https://maps.google.com/?q=Puente Medieval Castro Urdiales')}}
+      ]
+    },
+    {
+      id:'liebana',
+      cover:'assets/musts/liebana_potes.jpg',
+      title:{es:'Liébana · Potes',en:'Liébana · Potes'},
+      desc:{es:'Valles y patrimonio entre montañas; gastronomía tradicional.'},
+      links:{ map: enc('https://maps.google.com/?q=Potes') },
+      items:[
+        {name:{es:'Santo Toribio de Liébana'}, img:'assets/musts/santo_toribio.jpg', info:{es:'Monasterio y Año Jubilar Lebaniego.'}, links:{map:enc('https://maps.google.com/?q=Monasterio de Santo Toribio de Liébana')}},
+        {name:{es:'Desfiladero de La Hermida'}, img:'assets/musts/desfiladero_hermida.jpg', info:{es:'Cañón que comunica con la costa.'}, links:{map:enc('https://maps.google.com/?q=Desfiladero de la Hermida')}},
+        {name:{es:'Miradores'}, img:'assets/musts/miradores_liebana.jpg', info:{es:'Vistas amplias sobre el valle.'}, links:{map:enc('https://maps.google.com/?q=Mirador Liébana')}}
+      ]
+    },
+    {
+      id:'cabuerniga',
+      cover:'assets/musts/cabuerniga_valley.jpg',
+      title:{es:'Valle de Cabuérniga',en:'Cabuérniga Valley'},
+      desc:{es:'Arquitectura montañesa, bosques del Saja y pueblos con encanto.'},
+      links:{ map: enc('https://maps.google.com/?q=Valle de Cabuérniga'), info: enc('https://www.google.com/search?q=Valle de Cabuérniga qué ver') },
+      items:[
+        {name:{es:'Bárcena Mayor'}, img:'assets/musts/barcena_mayor.jpg', info:{es:'Conjunto histórico; casas de mampostería y calles empedradas.'}, links:{map:enc('https://maps.google.com/?q=Bárcena Mayor')}},
+        {name:{es:'Bosques de Ucieda (Saja-Besaya)'}, img:'assets/musts/ucieda_hayedo.jpg', info:{es:'Hayedos y robledales, rutas familiares y áreas recreativas.'}, links:{map:enc('https://maps.google.com/?q=Ucieda Saja-Besaya')}},
+        {name:{es:'Puerto de Palombera'}, img:'assets/musts/puerto_palombera.jpg', info:{es:'Carretera panorámica; miradores sobre el valle.'}, links:{map:enc('https://maps.google.com/?q=Puerto de Palombera')}}
+      ]
+    },
+    {
+      id:'alto-ason',
+      cover:'assets/musts/alto_ason_valley.jpg',
+      title:{es:'Comarca del Alto Asón',en:'Alto Asón Region'},
+      desc:{es:'Cuevas UNESCO y cascadas en valles kársticos. Base: Ramales de la Victoria.'},
+      links:{ map: enc('https://maps.google.com/?q=Ramales de la Victoria'), info: enc('https://www.google.com/search?q=Alto Asón turismo') },
+      items:[
+        {name:{es:'Nacimiento del Asón'}, img:'assets/musts/nacimiento_ason.jpg', info:{es:'Cascada estacional que surge de la roca (Soba).'}, links:{map:enc('https://maps.google.com/?q=Nacimiento del río Asón')}},
+        {name:{es:'Cueva de Covalanas (UNESCO)'} , img:'assets/musts/covalanas.jpg', info:{es:'Arte rupestre paleolítico; visitas con aforo.'}, links:{map:enc('https://maps.google.com/?q=Cueva de Covalanas'), tickets:enc('https://www.google.com/search?q=entradas Cueva de Covalanas')}},
+        {name:{es:'Cueva de Cullalvera'}, img:'assets/musts/cullalvera.jpg', info:{es:'Gran boca y pasarela habilitada; recorrido interpretado.'}, links:{map:enc('https://maps.google.com/?q=Cueva Cullalvera'), tickets:enc('https://www.google.com/search?q=entradas Cueva Cullalvera')}}
+      ]
+    },
+    {
+      id:'santander',
+      cover:'assets/musts/santander_bahia.jpg',
+      title:{es:'Santander',en:'Santander'},
+      desc:{es:'Bahía icónica, cultura y playas urbanas.'},
+      links:{ map: enc('https://maps.google.com/?q=Santander Cantabria'), info: enc('https://www.google.com/search?q=Santander turismo') },
+      items:[
+        {name:{es:'Península de la Magdalena'}, img:'assets/musts/magdalena.jpg', info:{es:'Parque, palacio y vistas a la bahía.'}, links:{map:enc('https://maps.google.com/?q=Peninsula de la Magdalena')}},
+        {name:{es:'Centro Botín'}, img:'assets/musts/centro_botin.jpg', info:{es:'Arte contemporáneo y pasarelas al mar.'}, links:{map:enc('https://maps.google.com/?q=Centro Botín'), info:enc('https://www.google.com/search?q=Centro Botín entradas')}},
+        {name:{es:'El Sardinero & Cabo Mayor'}, img:'assets/musts/cabo_mayor.jpg', info:{es:'Playas urbanas y faro con acantilados.'}, links:{map:enc('https://maps.google.com/?q=Faro de Cabo Mayor')}}
+      ]
+    },
+    {
+      id:'santillana',
+      cover:'assets/musts/santillana_casco.jpg',
+      title:{es:'Santillana del Mar',en:'Santillana del Mar'},
+      desc:{es:'Medieval, empedrada y famosa por Altamira (cerca).'},
+      links:{ map: enc('https://maps.google.com/?q=Santillana del Mar'), info: enc('https://www.google.com/search?q=Santillana del Mar turismo') },
+      items:[
+        {name:{es:'Colegiata de Santa Juliana'}, img:'assets/musts/colegiata_santillana.jpg', info:{es:'Románico señero en Cantabria.'}, links:{map:enc('https://maps.google.com/?q=Colegiata de Santa Juliana')}},
+        {name:{es:'Museo de Altamira (Neocueva)'}, img:'assets/musts/altamira_museo.jpg', info:{es:'Recreación fiel y exposición didáctica.'}, links:{map:enc('https://maps.google.com/?q=Museo de Altamira'), tickets:enc('https://www.google.com/search?q=entradas Museo de Altamira')}},
+        {name:{es:'Casco histórico'}, img:'assets/musts/calle_canton.jpg', info:{es:'Casas blasonadas y tiendas artesanas.'}, links:{map:enc('https://maps.google.com/?q=Calle del Cantón Santillana del Mar')}}
+      ]
+    },
+    {
+      id:'suances',
+      cover:'assets/musts/suances_concha.jpg',
+      title:{es:'Suances',en:'Suances'},
+      desc:{es:'Playas abiertas al Cantábrico y miradores costeros.'},
+      links:{ map: enc('https://maps.google.com/?q=Suances'), info: enc('https://www.google.com/search?q=Suances qué ver') },
+      items:[
+        {name:{es:'Playa de Los Locos'}, img:'assets/musts/suances_los_locos.jpg', info:{es:'Mítica para surf; acceso por escaleras.'}, links:{map:enc('https://maps.google.com/?q=Playa de los Locos Suances')}},
+        {name:{es:'Punta del Dichoso (Faro)'}, img:'assets/musts/suances_faro.jpg', info:{es:'Paseo a los acantilados y faro.'}, links:{map:enc('https://maps.google.com/?q=Punta del Dichoso Suances')}},
+        {name:{es:'Playa de La Concha'}, img:'assets/musts/suances_concha_item.jpg', info:{es:'Familiar y abrigada, servicios cercanos.'}, links:{map:enc('https://maps.google.com/?q=Playa de la Concha Suances')}}
+      ]
+    },
+    {
+      id:'hermida',
+      cover:'assets/musts/hermida_gorge.jpg',
+      title:{es:'Desfiladero de la Hermida',en:'Hermida Gorge'},
+      desc:{es:'Imponente cañón calizo que conecta la costa con Liébana.'},
+      links:{ map: enc('https://maps.google.com/?q=Desfiladero de la Hermida'), info: enc('https://www.google.com/search?q=Desfiladero de la Hermida miradores') },
+      items:[
+        {name:{es:'Mirador de Santa Catalina'}, img:'assets/musts/santa_catalina.jpg', info:{es:'Balcón espectacular sobre el desfiladero.'}, links:{map:enc('https://maps.google.com/?q=Mirador de Santa Catalina Peñarrubia')}},
+        {name:{es:'Balneario de La Hermida'}, img:'assets/musts/balneario_hermida.jpg', info:{es:'Aguas termales en pleno valle.'}, links:{map:enc('https://maps.google.com/?q=Balneario de La Hermida')}},
+        {name:{es:'Iglesia de Santa María de Lebeña'}, img:'assets/musts/lebena_iglesia.jpg', info:{es:'Joya prerrománica a la entrada del valle.'}, links:{map:enc('https://maps.google.com/?q=Iglesia Santa María de Lebeña')}}
+      ]
+    },
+    {
+      id:'soplao',
+      cover:'assets/musts/soplao_cover.jpg',
+      title:{es:'Cueva El Soplao',en:'El Soplao Cave'},
+      desc:{es:'Espectaculares formaciones excéntricas y recorrido turístico guiado.'},
+      links:{ map: enc('https://maps.google.com/?q=Cueva El Soplao'), tickets: enc('https://www.google.com/search?q=entradas Cueva El Soplao'), info: enc('https://www.google.com/search?q=Cueva El Soplao web oficial') },
+      items:[
+        {name:{es:'Visita turística'}, img:'assets/musts/soplao_turistica.jpg', info:{es:'Itinerario con iluminación escénica y pasarelas.'}},
+        {name:{es:'Ruta de aventura (espeleología)'}, img:'assets/musts/soplao_aventura.jpg', info:{es:'Para mayores de 12–13 años; plazas limitadas.'}, links:{info:enc('https://www.google.com/search?q=El Soplao ruta aventura')}},
+        {name:{es:'Centro de visitantes'}, img:'assets/musts/soplao_centro.jpg', info:{es:'Exposición geológica y punto de acceso.'}}
+      ]
+    },
+    {
+      id:'isla-noja-santona',
+      cover:'assets/musts/isla_noja_santona.jpg',
+      title:{es:'Isla · Noja · Santoña',en:'Isla · Noja · Santoña'},
+      desc:{es:'Playas kilométricas, marismas y el monte Buciero.'},
+      links:{ map: enc('https://maps.google.com/?q=Noja Cantabria'), info: enc('https://www.google.com/search?q=Isla Noja Santoña qué ver') },
+      items:[
+        {name:{es:'Playa de Trengandín (Noja)'}, img:'assets/musts/trengandin.jpg', info:{es:'Vara de arena enorme; ojo con la marea.'}, links:{map:enc('https://maps.google.com/?q=Playa de Trengandín')}},
+        {name:{es:'Marismas de Santoña'}, img:'assets/musts/marismas_santona.jpg', info:{es:'Humedal protegido, aves migratorias.'}, links:{map:enc('https://maps.google.com/?q=Parque Natural de las Marismas de Santoña')}},
+        {name:{es:'Monte Buciero & Faro del Caballo'}, img:'assets/musts/buciero_caballo.jpg', info:{es:'Ruta exigente con muchos peldaños; vistas espectaculares.'}, links:{map:enc('https://maps.google.com/?q=Faro del Caballo')}},
+        {name:{es:'Playas de Isla'}, img:'assets/musts/isla_playas.jpg', info:{es:'Arenal y calas (Arnadal, El Sable) con pasarelas.'}, links:{map:enc('https://maps.google.com/?q=Playa de El Sable Isla')}}
+      ]
+    }
+  ];
+
+  /* ===== IMPRESCINDIBLES (render + modal + lightbox) ===== */
+  function renderMustsGrid(){
+    var grid=$('#mustGrid'); if(!grid) return;
+    grid.innerHTML = MUSTS.map(function(m){
+      var title=i18nField(m.title)||''; var desc=i18nField(m.desc)||'';
+      return '<article class="must-card" data-mid="'+esc(m.id)+'">'
+        + (m.cover?'<img class="must-cover" src="'+esc(m.cover)+'" alt="'+esc(title)+'" loading="lazy" onerror="this.style.display=\'none\'">':'')
+        + '<div class="must-body"><div class="must-title">'+esc(title)+'</div><div class="must-desc">'+esc(desc)+'</div></div>'
+        + '<div class="must-cta">'
+          + (m.links?.map?'':
+              ((m.links&&m.links.map)?'<a class="btn link" href="'+esc(m.links.map)+'" target="_blank" rel="noopener">'+esc(I18N[LANG].openMap)+'</a>':''))
+          + ((m.links&&m.links.info)?'<a class="btn link" href="'+esc(m.links.info)+'" target="_blank" rel="noopener">'+esc(I18N[LANG].moreInfo)+'</a>':'')
+          + ((m.links&&m.links.tickets)?'<a class="btn link" href="'+esc(m.links.tickets)+'" target="_blank" rel="noopener">'+esc(I18N[LANG].tickets)+'</a>':'')
+        + '</div>'
+      + '</article>';
+    }).join('');
+    $all('.must-card',grid).forEach(function(card){
+      on(card,'click', function(e){
+        // Evita que un click en enlace abra dos cosas
+        if(e.target.tagName==='A') return;
+        openMust(card.getAttribute('data-mid'));
+      });
+    });
+  }
+
+  function openMust(id){
+    var m = MUSTS.find(x=>x.id===id); if(!m) return;
+    var T=I18N[LANG];
+    var modal = document.createElement('div');
+    modal.className='backdrop';
+    modal.style.display='flex';
+    modal.innerHTML = '<div class="modal">'
+      + '<button class="close" aria-label="Cerrar">✕</button>'
+      + '<div class="mdetail-head">'
+        + (m.cover?'<img class="mdetail-cover" src="'+esc(m.cover)+'" alt="'+esc(i18nField(m.title))+'" onerror="this.style.display=\'none\'">':'')
+        + '<div>'
+          + '<h3 style="margin:.2rem 0">'+esc(i18nField(m.title))+'</h3>'
+          + '<p class="muted" style="margin:.2rem 0 8px">'+esc(i18nField(m.desc))+'</p>'
+          + '<div class="mdetail-actions">'
+            + ((m.links&&m.links.map)?'<a class="btn" href="'+esc(m.links.map)+'" target="_blank" rel="noopener">🗺️ '+esc(T.openMap)+'</a>':'')
+            + ((m.links&&m.links.info)?'<a class="btn" href="'+esc(m.links.info)+'" target="_blank" rel="noopener">ℹ️ '+esc(T.moreInfo)+'</a>':'')
+            + ((m.links&&m.links.tickets)?'<a class="btn" href="'+esc(m.links.tickets)+'" target="_blank" rel="noopener">🎟️ '+esc(T.tickets)+'</a>':'')
+          + '</div>'
+        + '</div>'
+      + '</div>'
+      + '<h4 style="margin:12px 0 6px">Qué ver</h4>'
+      + '<div class="mdetail-items" id="mdetailItems"></div>'
+      + '</div>';
+    document.body.appendChild(modal);
+    document.body.classList.add('modal-open');
+
+    var itemsC = modal.querySelector('#mdetailItems');
+    itemsC.innerHTML = (m.items||[]).map(function(it,idx){
+      var nm=i18nField(it.name)||('Punto '+(idx+1));
+      var info=i18nField(it.info)||'';
+      var img=it.img?('<img src="'+esc(it.img)+'" alt="'+esc(nm)+'" loading="lazy" onerror="this.style.display=\'none\'">'):'';
+      return '<div class="mitem">'
+        + img
+        + '<div class="mi-body">'
+          + '<div class="mi-title">'+esc(nm)+'</div>'
+          + (info?'<div class="mi-info">'+esc(info)+'</div>':'')
+          + '<div class="mi-links">'
+            + (it.links&&it.links.map?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(it.links.map)+'">🗺️ '+esc(T.openMap)+'</a>':'')
+            + (it.links&&it.links.info?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(it.links.info)+'">ℹ️ '+esc(T.moreInfo)+'</a>':'')
+            + (it.links&&it.links.tickets?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(it.links.tickets)+'">🎟️ '+esc(T.tickets)+'</a>':'')
+          + '</div>'
+        + '</div>'
+      + '</div>';
+    }).join('');
+
+    // Cerrar
+    on(modal.querySelector('.close'),'click', function(){ modal.remove(); document.body.classList.remove('modal-open'); });
+    on(modal,'click', function(e){ if(e.target===modal){ modal.remove(); document.body.classList.remove('modal-open'); } });
+
+    // Lightbox para imágenes de items
+    $all('.mitem img', modal).forEach(function(im){
+      on(im,'click', function(){
+        openLightbox([im.src],0);
+      });
+    });
+  }
+
+  /* Lightbox simple (acepta array para futuro) */
+  var LB_STATE={list:[],idx:0};
+  function openLightbox(list,idx){
+    LB_STATE.list=list||[]; LB_STATE.idx=idx||0;
+    var box=$('#lightbox'); var img=$('#lbImg');
+    function set(){ if(!LB_STATE.list.length) return; img.src=LB_STATE.list[LB_STATE.idx]; }
+    set();
+    box.style.display='flex';
+    document.body.classList.add('modal-open');
+  }
+  function closeLightbox(){ var box=$('#lightbox'); box.style.display='none'; document.body.classList.remove('modal-open'); }
+  function lbPrev(){ if(!LB_STATE.list.length) return; LB_STATE.idx=(LB_STATE.idx-1+LB_STATE.list.length)%LB_STATE.list.length; $('#lbImg').src=LB_STATE.list[LB_STATE.idx]; }
+  function lbNext(){ if(!LB_STATE.list.length) return; LB_STATE.idx=(LB_STATE.idx+1)%LB_STATE.list.length; $('#lbImg').src=LB_STATE.list[LB_STATE.idx]; }
+  on($('#lbPrev'),'click', lbPrev); on($('#lbNext'),'click', lbNext); on($('#lbClose'),'click', closeLightbox);
+  document.addEventListener('keydown', function(e){ var box=$('#lightbox'); if(box.style.display!=='flex') return; if(e.key==='Escape') closeLightbox(); if(e.key==='ArrowLeft') lbPrev(); if(e.key==='ArrowRight') lbNext(); });
 
   /* ===== Init ===== */
-  function updateStayLabels(){ var T=I18N[LANG]; $('#stayWeb').textContent=T.web; $('#stayCall').textContent=T.call; $('#stayWA').textContent=T.whatsapp; $('#stayEmail').textContent=T.email; $('#stayDir').textContent=T.directions; }
+  $('#stayWeb').textContent=I18N[LANG].web;
+  $('#stayCall').textContent=I18N[LANG].call;
+  $('#stayWA').textContent=I18N[LANG].whatsapp;
+  $('#stayEmail').textContent=I18N[LANG].email;
+  $('#stayDir').textContent=I18N[LANG].directions;
 
   $('#stayPlace').value=STAY;
   $('#incPlace').value=STAY;
 
-  renderIncTypeOptions();
   loadSchedules();
   loadEvents();
   renderAcc();
-  updateStayLabels();
   updateStayUI();
+  renderIncTypes();
   updateIncUI();
-  renderMusts();
+  renderMustsGrid();
 
   /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
