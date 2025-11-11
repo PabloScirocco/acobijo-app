@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Tema ===== */
   const applyTheme=(m)=>{ document.body.classList.toggle('dark', m==='dark');
-    $('#themeBtn').textContent=m==='dark'?'☀️':'🌙';
+    $('#themeBtn') && ($('#themeBtn').textContent = m==='dark'?'☀️':'🌙');
     const meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');
     localStorage.setItem('theme',m);
   };
@@ -529,7 +529,6 @@ document.addEventListener('DOMContentLoaded', function(){
     es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
       ev:"Eventos", evSub:"Qué hay hoy",
       pl:"Campings", plSub:"Accesos rápidos",
-      sc:"Horarios", scSub:"Recepción · bar",
       inst:"Instalar", instSub:"Añadir a inicio",
       eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
       fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana", fFav:"Favoritos",
@@ -541,26 +540,23 @@ document.addEventListener('DOMContentLoaded', function(){
       heTitle:"Camping El Helguero (Ruiloba)", heHint:"Naturaleza · Familiar · Mascotas",
       caTitle:"Apartamentos / Taberna El Cardeo", caHint:"Apartamentos + Taberna",
       schedNote:"Los horarios pueden variar según la fecha. Confirma en recepción.",
-      nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios", nMu:"Impresc.",
+      nHome:"Inicio", nEv:"Eventos", nMu:"Impresc.",
       dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dMu:"Imprescindibles", dPl:"Campings", dSc:"Horarios", drawerHint:"Elige sección",
       nextEvents:"Próximos eventos",
       stay:"Mi estancia", staySub:"Contactos, clima, horarios",
       stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
       stayHours:"Horarios del alojamiento",
       weatherTitle:"Clima", max:"Máx", min:"Mín",
-      incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incContact:"¿Cómo quieres contactar?",
-      incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
+      incTitle:"Incidencias", incWhere:"¿En qué alojamiento estás?", incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
       incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
       incBtnWA:"WhatsApp", incBtnEmail:"Email",
       incTypeElec:"Electricidad", incTypeWater:"Agua", incTypeClean:"Limpieza", incTypeNoise:"Ruido", incTypeOther:"Otros",
-      mu:"Imprescindibles", muSub:"Qué ver en Cantabria",
       mustsTitle:"Imprescindibles de Cantabria", mustsHint:"Ideas para explorar",
       seeMore:"Ver más", seeLess:"Ver menos", openMap:"Mapa", openSite:"Web oficial", openTickets:"Entradas"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
       ev:"Events", evSub:"What's on today",
       pl:"Campsites", plSub:"Quick access",
-      sc:"Schedules", scSub:"Reception · bar",
       inst:"Install", instSub:"Add to Home",
       eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
       fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week", fFav:"Favorites",
@@ -572,26 +568,23 @@ document.addEventListener('DOMContentLoaded', function(){
       heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Family · Pets",
       caTitle:"El Cardeo Apartments / Tavern", caHint:"Apartments + Tavern",
       schedNote:"Hours may vary by date. Confirm at reception.",
-      nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules", nMu:"Highlights",
+      nHome:"Home", nEv:"Events", nMu:"Highlights",
       dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dMu:"Highlights", dPl:"Camps", dSc:"Schedules", drawerHint:"Choose a section",
       nextEvents:"Upcoming events",
       stay:"My stay", staySub:"Contacts, weather, schedules",
       stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
       stayHours:"Accommodation opening hours",
       weatherTitle:"Weather", max:"Max", min:"Min",
-      incTitle:"Issues", incWhere:"Which accommodation are you in?", incContact:"How would you like to contact?",
-      incHint:"We open WhatsApp or your email app with a prefilled message.",
+      incTitle:"Issues", incWhere:"Which accommodation are you in?", incHint:"We open WhatsApp or your email app with a prefilled message.",
       incType:"Type of issue", incMsg:"Briefly describe the problem",
       incBtnWA:"WhatsApp", incBtnEmail:"Email",
       incTypeElec:"Electricity", incTypeWater:"Water", incTypeClean:"Cleaning", incTypeNoise:"Noise", incTypeOther:"Other",
-      mu:"Must-see", muSub:"What to see in Cantabria",
       mustsTitle:"Cantabria must-see", mustsHint:"Ideas to explore",
       seeMore:"See more", seeLess:"See less", openMap:"Map", openSite:"Official site", openTickets:"Tickets"
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
       ev:"Événements", evSub:"Aujourd’hui",
       pl:"Campings", plSub:"Accès rapide",
-      sc:"Horaires", scSub:"Réception · bar",
       inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
       eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
       fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine", fFav:"Favoris",
@@ -603,26 +596,23 @@ document.addEventListener('DOMContentLoaded', function(){
       heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
       caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
       schedNote:"Les horaires peuvent varier selon la période. Vérifiez à la réception.",
-      nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires", nMu:"À voir",
+      nHome:"Accueil", nEv:"Évén.", nMu:"À voir",
       dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dMu:"Incontournables", dPl:"Campings", dSc:"Horaires", drawerHint:"Choisissez une section",
       nextEvents:"Événements à venir",
       stay:"Mon séjour", staySub:"Contacts, météo, horaires",
       stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
       stayHours:"Horaires de l’hébergement",
       weatherTitle:"Météo", max:"Max", min:"Min",
-      incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
-      incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
+      incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
       incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
       incBtnWA:"WhatsApp", incBtnEmail:"Email",
       incTypeElec:"Électricité", incTypeWater:"Eau", incTypeClean:"Ménage", incTypeNoise:"Bruit", incTypeOther:"Autres",
-      mu:"Incontournables", muSub:"Que voir en Cantabrie",
       mustsTitle:"Incontournables de Cantabrie", mustsHint:"Idées pour explorer",
       seeMore:"Voir plus", seeLess:"Voir moins", openMap:"Carte", openSite:"Site officiel", openTickets:"Billets"
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
       ev:"Events", evSub:"Heute",
       pl:"Campingplätze", plSub:"Schnellzugriff",
-      sc:"Zeiten", scSub:"Rezeption · Bar",
       inst:"Installieren", instSub:"Zum Startbildschirm",
       eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze",
       fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche", fFav:"Favoriten",
@@ -634,26 +624,23 @@ document.addEventListener('DOMContentLoaded', function(){
       heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
       caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
       schedNote:"Zeiten können je nach Datum variieren. Bitte an der Rezeption bestätigen.",
-      nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten", nMu:"Highlights",
+      nHome:"Start", nEv:"Events", nMu:"Highlights",
       dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dMu:"Highlights", dPl:"Camping", dSc:"Zeiten", drawerHint:"Bereich wählen",
       nextEvents:"Kommende Events",
       stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
       stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
       stayHours:"Öffnungszeiten der Unterkunft",
       weatherTitle:"Wetter", max:"Max", min:"Min",
-      incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
-      incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
+      incTitle:"Störungen", incWhere:"Welche Unterkunft?", incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
       incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
       incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
       incTypeElec:"Strom", incTypeWater:"Wasser", incTypeClean:"Reinigung", incTypeNoise:"Lärm", incTypeOther:"Sonstige",
-      mu:"Highlights", muSub:"Sehenswertes in Kantabrien",
       mustsTitle:"Highlights in Kantabrien", mustsHint:"Ideen zum Entdecken",
       seeMore:"Mehr anzeigen", seeLess:"Weniger anzeigen", openMap:"Karte", openSite:"Offizielle Seite", openTickets:"Tickets"
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
       ev:"Evenementen", evSub:"Vandaag",
       pl:"Campings", plSub:"Snelle toegang",
-      sc:"Openingstijden", scSub:"Receptie · bar",
       inst:"Installeren", instSub:"Toevoegen aan beginscherm",
       eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings",
       fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week", fFav:"Favorieten",
@@ -665,23 +652,23 @@ document.addEventListener('DOMContentLoaded', function(){
       heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
       caTitle:"Appartementen / Taverne El Cardeo", caHint:"Appartementen + Taverne",
       schedNote:"Tijden kunnen per datum verschillen. Informeer bij de receptie.",
-      nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden", nMu:"Highlights",
+      nHome:"Start", nEv:"Even.", nMu:"Highlights",
       dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dMu:"Highlights", dPl:"Campings", dSc:"Tijden", drawerHint:"Kies een sectie",
       nextEvents:"Aankomende evenementen",
       stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
       stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
       stayHours:"Openingstijden van de accommodatie",
       weatherTitle:"Weer", max:"Max", min:"Min",
-      incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
-      incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
+      incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incHint:"We openen WhatsApp of je e-mailapp met een ingevuld bericht.",
       incType:"Type incident", incMsg:"Beschrijf kort het probleem",
       incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
       incTypeElec:"Elektriciteit", incTypeWater:"Water", incTypeClean:"Schoonmaak", incTypeNoise:"Lawaai", incTypeOther:"Overig",
-      mu:"Highlights", muSub:"Wat te zien in Cantabrië",
       mustsTitle:"Highlights van Cantabrië", mustsHint:"Ideeën om te ontdekken",
       seeMore:"Meer weergeven", seeLess:"Minder weergeven", openMap:"Kaart", openSite:"Officiële site", openTickets:"Tickets"
     }
   };
+
+  const tx=(id,val)=>{ const el=document.getElementById(id); if(el) el.textContent=val; };
 
   function detectLang(){ const saved=localStorage.getItem('lang'); if(saved) return saved;
     const n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es';
@@ -691,38 +678,36 @@ document.addEventListener('DOMContentLoaded', function(){
   const t = (k)=> (I18N[LANG]&&I18N[LANG][k]) || (I18N.es&&I18N.es[k]) || k;
 
   function applyLang(){
-    const L=I18N[LANG]||I18N.es;
-    $('#t-app').textContent=t('app'); $('#t-hello').textContent=t('hello');
-    $('#t-ev').textContent=t('ev'); $('#t-ev-sub').textContent=t('evSub');
-    $('#t-pl').textContent=t('pl'); $('#t-pl-sub').textContent=t('plSub');
-    $('#t-sc').textContent=t('sc'); $('#t-sc-sub').textContent=t('scSub');
-    $('#t-inst').textContent=t('inst'); $('#t-inst-sub').textContent=t('instSub');
-    $('#t-next-events').textContent=t('nextEvents');
+    tx('t-app', t('app')); tx('t-hello', t('hello')); tx('t-badge', t('badge'));
+    tx('t-ev', t('ev')); tx('t-ev-sub', t('evSub'));
+    tx('t-pl', t('pl')); tx('t-pl-sub', t('plSub'));
+    tx('t-inst', t('inst')); tx('t-inst-sub', t('instSub'));
+    tx('t-next-events', t('nextEvents'));
 
-    $('#t-stay').textContent=t('stay'); $('#t-stay-sub').textContent=t('staySub');
-    $('#t-stay-title').textContent=t('stayTitle'); $('#t-stay-hint').textContent=t('stayHint'); $('#t-stay-which').textContent=t('stayWhich');
-    $('#t-stay-hours').textContent=t('stayHours'); $('#t-weather-title').textContent=t('weatherTitle'); $('#t-max').textContent=t('max'); $('#t-min').textContent=t('min');
+    tx('t-stay', t('stay')); tx('t-stay-sub', t('staySub'));
+    tx('t-stay-title', t('stayTitle')); tx('t-stay-hint', t('stayHint')); tx('t-stay-which', t('stayWhich'));
+    tx('t-stay-hours', t('stayHours')); tx('t-weather-title', t('weatherTitle')); tx('t-max', t('max')); tx('t-min', t('min'));
 
-    $('#i-title').textContent=t('incTitle'); $('#i-hint').textContent=t('incHint'); $('#i-where').textContent=t('incWhere'); $('#i-type').textContent=t('incType'); $('#i-msg').textContent=t('incMsg');
-    $('#incWA').textContent=t('incBtnWA'); $('#incEmail').textContent=t('incBtnEmail');
+    tx('i-title', t('incTitle')); tx('i-hint', t('incHint')); tx('i-where', t('incWhere')); tx('i-type', t('incType')); tx('i-msg', t('incMsg'));
+    tx('incWA', t('incBtnWA')); tx('incEmail', t('incBtnEmail'));
 
     // Incidencias: traducir opciones
     const incSel = $('#incType');
-    qsa('option[data-i18n]', incSel).forEach(opt=>{
-      const key = opt.getAttribute('data-i18n');
-      opt.textContent = t(key);
-    });
+    if(incSel){
+      qsa('option[data-i18n]', incSel).forEach(opt=>{
+        const key = opt.getAttribute('data-i18n'); opt.textContent = t(key);
+      });
+    }
 
-    $('#t-events-title').textContent=t('eventsTitle'); $('#t-schedules-title').textContent=t('schedulesTitle'); $('#t-campings-title').textContent=t('campingsTitle');
-    $('#schedNote').textContent=t('schedNote');
+    tx('t-events-title', t('eventsTitle')); tx('t-schedules-title', t('schedulesTitle')); tx('t-campings-title', t('campingsTitle'));
+    tx('schedNote', t('schedNote'));
 
-    $('#d-home').textContent=t('dHome'); $('#d-stay').textContent=t('dStay'); $('#d-inc').textContent=t('dInc'); $('#d-ev').textContent=t('dEv'); $('#d-mu').textContent=t('dMu'); $('#d-pl').textContent=t('dPl'); $('#d-sc').textContent=t('dSc'); $('#drawerHint').textContent=t('drawerHint');
-    $('#n-home').textContent=t('nHome'); $('#n-ev').textContent=t('nEv'); $('#n-mu').textContent=t('nMu');
-    $('#langBtn').textContent = '🌐 '+LANG.toUpperCase();
+    tx('d-home', t('dHome')); tx('d-stay', t('dStay')); tx('d-inc', t('dInc')); tx('d-ev', t('dEv')); tx('d-mu', t('dMu')); tx('d-pl', t('dPl')); tx('d-sc', t('dSc')); tx('drawerHint', t('drawerHint'));
+    tx('n-home', t('nHome')); tx('n-ev', t('nEv')); tx('n-mu', t('nMu'));
+    $('#langBtn') && ($('#langBtn').textContent = '🌐 '+LANG.toUpperCase());
 
     // Musts: cabecera
-    $('#t-musts-title').textContent=t('mustsTitle');
-    $('#t-musts-hint').textContent=t('mustsHint');
+    tx('t-musts-title', t('mustsTitle')); tx('t-musts-hint', t('mustsHint'));
   }
   applyLang();
 
@@ -779,8 +764,8 @@ document.addEventListener('DOMContentLoaded', function(){
   function downloadICS(ev){
     try{
       const title= (typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'Evento'));
-      const desc= (typeof ev.descripcion==='string'?ev.descripcion:((ev.descripcion&&ev.descripcion.es)||''));
-      const loc = (typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||''));
+      const desc= (typeof ev.descripcion==='string'?ev.descripcion:((ev.descripcion&&ev.descripcion.es)||'')); 
+      const loc = (typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||'')); 
       const start=new Date(ev.fecha), end=new Date(start.getTime()+90*60000);
       const uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app', now=new Date();
       const ics=[
@@ -833,8 +818,8 @@ document.addEventListener('DOMContentLoaded', function(){
       const byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
       return byDate && byCamp;
     }).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
-    if(!filtered.length){ grid.innerHTML=''; empty.style.display='block'; return; }
-    empty.style.display='none';
+    if(!filtered.length){ grid.innerHTML=''; empty && (empty.style.display='block'); return; }
+    empty && (empty.style.display='none');
     grid.innerHTML = filtered.map(ev=>{
       const rawTitle=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'(sin título)'));
       const rawPlace=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||''));
@@ -897,28 +882,28 @@ document.addEventListener('DOMContentLoaded', function(){
   const COORDS={ oyambre:{lat:43.393, lon:-4.352}, ramales:{lat:43.263, lon:-3.465}, ruiloba:{lat:43.387, lon:-4.264}, cardeo:{lat:43.391, lon:-4.274} };
   function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); }
   function renderStayContacts(){
-    $('#stayPlace').value=STAY;
-    $('#stayWeb').textContent=t('web'); $('#stayWeb').onclick=()=>location.href=WEB[STAY];
-    $('#stayCall').textContent=t('call'); $('#stayCall').href='tel:'+PHONES[STAY];
-    $('#stayWA').textContent=t('whatsapp'); $('#stayWA').href='https://wa.me/'+WHATSAPP[STAY]+'?text='+encodeURIComponent('Hola, soy cliente alojado en '+PLACE_LABEL[STAY]+'.');
-    $('#stayEmail').textContent=t('email'); $('#stayEmail').href='mailto:'+EMAILS[STAY]+'?subject='+encodeURIComponent('Consulta - '+PLACE_LABEL[STAY])+'&body='+encodeURIComponent('Hola,\n\nSoy cliente alojado en '+PLACE_LABEL[STAY]+'.\n\nGracias.');
-    $('#stayDir').textContent=t('directions'); $('#stayDir').href=PLACE_LINK[STAY];
-    $('#wxPlaceLabel').textContent=PLACE_LABEL[STAY];
+    $('#stayPlace') && ($('#stayPlace').value=STAY);
+    $('#stayWeb') && ($('#stayWeb').textContent=t('web'), $('#stayWeb').onclick=()=>location.href=WEB[STAY]);
+    $('#stayCall') && ($('#stayCall').textContent=t('call'), $('#stayCall').href='tel:'+PHONES[STAY]);
+    $('#stayWA') && ($('#stayWA').textContent=t('whatsapp'), $('#stayWA').href='https://wa.me/'+WHATSAPP[STAY]+'?text='+encodeURIComponent('Hola, soy cliente alojado en '+PLACE_LABEL[STAY]+'.'));
+    $('#stayEmail') && ($('#stayEmail').textContent=t('email'), $('#stayEmail').href='mailto:'+EMAILS[STAY]+'?subject='+encodeURIComponent('Consulta - '+PLACE_LABEL[STAY])+'&body='+encodeURIComponent('Hola,\n\nSoy cliente alojado en '+PLACE_LABEL[STAY]+'.\n\nGracias.'));
+    $('#stayDir') && ($('#stayDir').textContent=t('directions'), $('#stayDir').href=PLACE_LINK[STAY]);
+    tx('wxPlaceLabel', PLACE_LABEL[STAY]);
   }
-  function renderStayHours(){ $('#stayHours').innerHTML=(SCHEDULES[STAY]&&SCHEDULES[STAY].es)||''; }
+  function renderStayHours(){ $('#stayHours') && ($('#stayHours').innerHTML=(SCHEDULES[STAY]&&SCHEDULES[STAY].es)||''); }
   function codeToEmoji(code){ if([0].includes(code)) return '☀️'; if([1,2].includes(code)) return '🌤️'; if([3].includes(code)) return '☁️'; if([45,48].includes(code)) return '🌫️'; if([51,53,55,56,57].includes(code)) return '🌦️'; if([61,63,65,80,81,82].includes(code)) return '🌧️'; if([66,67,71,73,75,77,85,86].includes(code)) return '❄️'; if([95,96,99].includes(code)) return '⛈️'; return '🌡️'; }
   const wd = d=>{ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short'}).format(new Date(d)); }catch(e){ return d; } };
   function renderWeather(data){
     if(!data) return;
-    $('#wxIco').textContent=codeToEmoji(data.current.weather_code);
-    $('#wxNow').textContent=Math.round(data.current.temperature_2m);
-    $('#wxMax').textContent=Math.round(data.daily.temperature_2m_max[0]);
-    $('#wxMin').textContent=Math.round(data.daily.temperature_2m_min[0]);
-    $('#wxDesc').textContent=wd(data.daily.time[0]);
+    $('#wxIco') && ($('#wxIco').textContent=codeToEmoji(data.current.weather_code));
+    $('#wxNow') && ($('#wxNow').textContent=Math.round(data.current.temperature_2m));
+    $('#wxMax') && ($('#wxMax').textContent=Math.round(data.daily.temperature_2m_max[0]));
+    $('#wxMin') && ($('#wxMin').textContent=Math.round(data.daily.temperature_2m_min[0]));
+    $('#wxDesc') && ($('#wxDesc').textContent=wd(data.daily.time[0]));
     for(let i=1;i<=3;i++){
-      $('#d'+i).textContent=wd(data.daily.time[i]);
-      $('#i'+i).textContent=codeToEmoji(data.daily.weather_code[i]);
-      $('#t'+i).textContent=Math.round(data.daily.temperature_2m_max[i])+'/'+Math.round(data.daily.temperature_2m_min[i])+'°';
+      $('#d'+i) && ($('#d'+i).textContent=wd(data.daily.time[i]));
+      $('#i'+i) && ($('#i'+i).textContent=codeToEmoji(data.daily.weather_code[i]));
+      $('#t'+i) && ($('#t'+i).textContent=Math.round(data.daily.temperature_2m_max[i])+'/'+Math.round(data.daily.temperature_2m_min[i])+'°');
     }
   }
   function fetchWeather(place){
@@ -931,19 +916,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Incidencias ===== */
   function buildIncMsg(){
-    const type=$('#incType').options[$('#incType').selectedIndex].textContent||t('incTypeOther');
-    const msg=$('#incMsg').value||'';
+    const typeEl=$('#incType'); const type=typeEl? (typeEl.options[typeEl.selectedIndex].textContent||t('incTypeOther')) : t('incTypeOther');
+    const msg=$('#incMsg')?($('#incMsg').value||''):'';
     const stamp=new Date().toLocaleString();
     const header='['+t('incTitle')+'] '+type+' · '+PLACE_LABEL[STAY];
     const body='Hola,\n\nTengo una incidencia: '+type+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
     return {subject:header, body:body};
   }
   function updateIncUI(){
-    $('#incPlace').value=STAY;
+    $('#incPlace') && ($('#incPlace').value=STAY);
     const mail=EMAILS[STAY], wa=WHATSAPP[STAY];
     const m=buildIncMsg();
-    $('#incWA').href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
-    $('#incEmail').href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
+    $('#incWA') && ($('#incWA').href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body));
+    $('#incEmail') && ($('#incEmail').href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body));
   }
   on($('#incPlace'),'change', (e)=>setStayPlace(e.target.value));
   on($('#incType'),'change', updateIncUI);
@@ -1243,8 +1228,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // GitHub minimal
   const GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
-  function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
-  function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); const t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
+  function loadGhCfgToForm(){ $('#ghRepo') && ($('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''); $('#ghBranch') && ($('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'); $('#ghToken') && ($('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''); }
+  function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); const tkn=($('#ghToken').value||'').trim(); if(tkn) localStorage.setItem(GH_KEYS.token,tkn); alert('Configuración guardada.'); }
   function ghGet(path, token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch); return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}}); }
   function ghPut(path, contentBase64, message, sha, token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); const body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
   const toB64 = (str)=> btoa(unescape(encodeURIComponent(str)));
@@ -1275,8 +1260,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Init ===== */
   // textos por defecto “Mi estancia”
-  $('#stayWeb').textContent=t('web'); $('#stayCall').textContent=t('call'); $('#stayWA').textContent=t('whatsapp'); $('#stayEmail').textContent=t('email'); $('#stayDir').textContent=t('directions');
-  $('#stayPlace').value=STAY; $('#incPlace').value=STAY;
+  $('#stayWeb') && ($('#stayWeb').textContent=t('web')); $('#stayCall') && ($('#stayCall').textContent=t('call')); $('#stayWA') && ($('#stayWA').textContent=t('whatsapp')); $('#stayEmail') && ($('#stayEmail').textContent=t('email')); $('#stayDir') && ($('#stayDir').textContent=t('directions'));
+  $('#stayPlace') && ($('#stayPlace').value=STAY); $('#incPlace') && ($('#incPlace').value=STAY);
 
   // abrir secciones
   renderAcc();
@@ -1285,7 +1270,10 @@ document.addEventListener('DOMContentLoaded', function(){
   renderMusts();
   loadEvents();
 
-  // modales: cerrar con backdrop/Esc
+  // Drawer close on backdrop
+  on($('#drawerBack'),'click', ()=>$('#drawer').classList.remove('open'));
+
+  // Modales: cerrar con backdrop/Esc
   const closeOnBackdrop = (id)=>{ const el=$(id); if(!el) return; on(el,'click', (e)=>{ if(e.target===el) el.style.display='none'; }); };
   closeOnBackdrop('#langModal'); closeOnBackdrop('#installModal');
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ ['langModal','installModal'].forEach(id=>{ const el=$('#'+id); if(el) el.style.display='none'; }); } });
