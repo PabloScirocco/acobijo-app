@@ -26,8 +26,6 @@ body.dark{
 html,body{height:100%}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;color:var(--ink);background:var(--bg);transition:background-color .15s,color .15s}
 img{max-width:100%;height:auto}
-
-/* Topbar */
 .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#e6f6ff,#ffffff);
   border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.75rem;padding:.7rem .9rem}
 body.dark .topbar{background:linear-gradient(180deg,#0e1a2c,#0b1220)}
@@ -38,8 +36,6 @@ body.dark .topbar .burger{background:#0f1a2b}
 .topbar h1{font-size:1rem;margin:0}
 .lang-btn,.theme-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.35rem .6rem;cursor:pointer}
 body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
-
-/* Drawer */
 .drawer{position:fixed;inset:0;z-index:30;display:none}
 .drawer.open{display:block}
 .drawer .back{position:absolute;inset:0;background:rgba(0,0,0,.35)}
@@ -50,14 +46,10 @@ body.dark .drawer .panel{background:#0f1a2b}
 .drawer .muted{color:var(--muted);font-size:.85rem}
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
-
-/* Main, views */
 main{padding:12px 12px 90px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
-@keyframes fade{ from {opacity:.6; transform: translateY(4px);} to {opacity:1; transform:none;} }
-
-/* Home */
+@keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
 .hero{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:
   radial-gradient(120% 80% at 100% 0%,#b7e6ff 0%,#e6f6ff 50%,#ffffff 100%)}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
@@ -65,8 +57,7 @@ body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f223
 .hero h2{margin:0;font-size:1.3rem}
 .badge{display:none}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
-  align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
 .tile .big{font-size:1.6rem}
 .tile .muted{color:var(--muted);font-size:.86rem}
 .tile:active{transform:scale(.98)}
@@ -77,48 +68,30 @@ body.dark .card{background:#0f1a2b}
 .card .title{font-weight:700;margin-top:6px}
 .card .meta{font-size:.85rem;color:var(--muted)}
 .row{display:flex;flex-wrap:wrap;gap:6px}
-
-/* Buttons */
 .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink)}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.sm{padding:.32rem .5rem;font-size:.82rem}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
-body.dark .btn.ghost{background:transparent}
-
-/* Grids */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-
-/* Chips */
 .chip{border-radius:999px}
-
-/* Accordeon horarios */
 .acc{display:flex;flex-direction:column;gap:8px}
 .acc-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 body.dark .acc-item{background:#0f1a2b}
 .acc-h{display:flex;justify-content:space-between;align-items:center;padding:.7rem .8rem;cursor:pointer;background:var(--tint)}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
-
-/* Bottom nav */
 .navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
 .navbtn.active{color:var(--brand-ink);font-weight:700}
 .navbtn .ico{font-size:1.1rem}
-
-/* Modal base */
 .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-  background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 body.dark .modal{background:#0f1a2b}
 .close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
-
-/* Inputs */
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .textarea{min-height:96px}
-
-/* Weather */
 .wx{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--wx2),var(--wx1));padding:12px}
 .wx-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .wx-today{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:linear-gradient(180deg,var(--wx4),var(--wx2));border:1px solid var(--line);border-radius:14px;padding:10px}
@@ -129,8 +102,6 @@ body.dark .modal{background:#0f1a2b}
 .wx-day{border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;background:linear-gradient(180deg,var(--wx2),var(--wx1))}
 .wx-day .d{font-weight:700}
 .wx-day .t{font-size:.9rem}
-
-/* MUSTS (sin imágenes) */
 .musts-head{display:flex;align-items:center;gap:8px;margin:8px 0}
 .musts-head .muted{color:var(--muted)}
 #mustsGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
@@ -145,7 +116,6 @@ body.dark .must-card{background:#0f1a2b}
 </style>
 </head>
 <body>
-
 <header class="topbar">
   <button id="menuBtn" class="burger" aria-label="Abrir menú">☰</button>
   <div class="brand">
@@ -192,7 +162,6 @@ body.dark .must-card{background:#0f1a2b}
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
     </div>
-
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
   </section>
@@ -201,7 +170,6 @@ body.dark .must-card{background:#0f1a2b}
   <section id="view-stay" class="view">
     <h2 id="t-stay-title">Mi estancia</h2>
     <p class="muted" id="t-stay-hint">Guardamos tu elección en este dispositivo.</p>
-
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
       <div>
         <label for="stayPlace" style="font-weight:700" id="t-stay-which">Selecciona tu alojamiento</label>
@@ -220,12 +188,10 @@ body.dark .must-card{background:#0f1a2b}
         <a id="stayDir" class="btn" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
     </div>
-
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
       <div id="stayHours"></div>
     </div>
-
     <div class="wx" style="margin-top:12px" id="stayWeather">
       <div class="wx-h">
         <h3 id="t-weather-title" style="margin:0">Clima</h3>
@@ -251,7 +217,6 @@ body.dark .must-card{background:#0f1a2b}
   <section id="view-incidents" class="view">
     <h2 id="i-title">Incidencias</h2>
     <p class="muted" id="i-hint">Se abre WhatsApp o tu app de correo con el mensaje preparado.</p>
-
     <div class="card" style="background:var(--tint)">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <div>
@@ -306,7 +271,7 @@ body.dark .must-card{background:#0f1a2b}
     <p class="muted" id="eventsEmpty" style="display:none">Sin eventos por ahora.</p>
   </section>
 
-  <!-- IMPRESCINDIBLES (sin imágenes, con botón Google Imágenes) -->
+  <!-- IMPRESCINDIBLES -->
   <section id="view-musts" class="view">
     <div class="musts-head">
       <h2 id="t-musts-title" style="margin:0">Imprescindibles de Cantabria</h2>
@@ -492,7 +457,7 @@ body.dark .must-card{background:#0f1a2b}
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  const $ = (s,r=document)=>r.querySelector(s);
+  const $=(s,r=document)=>r.querySelector(s);
   const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const on=(el,ev,fn)=>el&&el.addEventListener(ev,fn);
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -505,15 +470,16 @@ document.addEventListener('DOMContentLoaded', function(){
   /* Theme */
   const applyTheme=(m)=>{ document.body.classList.toggle('dark', m==='dark');
     $('#themeBtn').textContent = m==='dark'?'☀️':'🌙';
-    const meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');
     localStorage.setItem('theme',m);
   };
-  let THEME = localStorage.getItem('theme') || ((window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');
+  let THEME=localStorage.getItem('theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
   applyTheme(THEME);
-  on($('#themeBtn'),'click', ()=>{ THEME = THEME==='dark'?'light':'dark'; applyTheme(THEME); });
+  on($('#themeBtn'),'click', ()=>{ THEME=THEME==='dark'?'light':'dark'; applyTheme(THEME); });
 
   /* I18N */
-  const I18N={
+  const I18N={ /* (idéntico al anterior; claves incluidas) */
     es:{app:"Grupo A Cobijo",hello:"¡Bienvenido!",badge:"PWA · Offline · Multidioma",
       ev:"Eventos", evSub:"Qué hay hoy", pl:"Campings", plSub:"Accesos rápidos",
       inst:"Instalar", instSub:"Añadir a inicio", eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
@@ -645,36 +611,35 @@ document.addEventListener('DOMContentLoaded', function(){
       seeMore:"Meer weergeven", seeLess:"Minder weergeven", openMap:"Kaart", openSite:"Officiële site", openTickets:"Tickets", openImages:"Afbeeldingen"
     }
   };
-  const tx=(id,val)=>{ const el=document.getElementById(id); if(el) el.textContent=val; };
-  function detectLang(){ const saved=localStorage.getItem('lang'); if(saved) return saved; const n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
-  let LANG = detectLang();
-  const t=(k)=> (I18N[LANG]&&I18N[LANG][k]) || (I18N.es&&I18N.es[k]) || k;
+  const tx=(id,val)=>{const el=document.getElementById(id); if(el) el.textContent=val;};
+  const detectLang=()=>{const saved=localStorage.getItem('lang'); if(saved) return saved; const n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es';};
+  let LANG=detectLang();
+  const t=(k)=>(I18N[LANG]&&I18N[LANG][k])||(I18N.es&&I18N.es[k])||k;
 
   function applyLang(){
-    tx('t-app', t('app')); tx('t-hello', t('hello')); tx('t-badge', t('badge'));
-    tx('t-ev', t('ev')); tx('t-ev-sub', t('evSub')); tx('t-pl', t('pl')); tx('t-pl-sub', t('plSub'));
-    tx('t-inst', t('inst')); tx('t-inst-sub', t('instSub')); tx('t-next-events', t('nextEvents'));
-    tx('t-stay', t('stay')); tx('t-stay-sub', t('staySub')); tx('t-stay-title', t('stayTitle')); tx('t-stay-hint', t('stayHint')); tx('t-stay-which', t('stayWhich'));
-    tx('t-stay-hours', t('stayHours')); tx('t-weather-title', t('weatherTitle')); tx('t-max', t('max')); tx('t-min', t('min'));
-    tx('i-title', t('incTitle')); tx('i-hint', t('incHint')); tx('i-where', t('incWhere')); tx('i-type', t('incType')); tx('i-msg', t('incMsg'));
-    tx('t-events-title', t('eventsTitle')); tx('t-schedules-title', t('schedulesTitle')); tx('t-campings-title', t('campingsTitle')); tx('schedNote', t('schedNote'));
-    tx('d-home', t('dHome')); tx('d-stay', t('dStay')); tx('d-inc', t('dInc')); tx('d-ev', t('dEv')); tx('d-mu', t('dMu')); tx('d-pl', t('dPl')); tx('d-sc', t('dSc')); tx('drawerHint', t('drawerHint'));
-    tx('n-home', t('nHome')); tx('n-ev', t('nEv')); tx('n-mu', t('nMu'));
-    tx('t-musts-title', t('mustsTitle')); tx('t-musts-hint', t('mustsHint'));
+    tx('t-app',t('app')); tx('t-hello',t('hello')); tx('t-badge',t('badge'));
+    tx('t-ev',t('ev')); tx('t-ev-sub',t('evSub')); tx('t-pl',t('pl')); tx('t-pl-sub',t('plSub'));
+    tx('t-inst',t('inst')); tx('t-inst-sub',t('instSub')); tx('t-next-events',t('nextEvents'));
+    tx('t-stay',t('stay')); tx('t-stay-sub',t('staySub')); tx('t-stay-title',t('stayTitle')); tx('t-stay-hint',t('stayHint')); tx('t-stay-which',t('stayWhich'));
+    tx('t-stay-hours',t('stayHours')); tx('t-weather-title',t('weatherTitle')); tx('t-max',t('max')); tx('t-min',t('min'));
+    tx('i-title',t('incTitle')); tx('i-hint',t('incHint')); tx('i-where',t('incWhere')); tx('i-type',t('incType')); tx('i-msg',t('incMsg'));
+    tx('t-events-title',t('eventsTitle')); tx('t-schedules-title',t('schedulesTitle')); tx('t-campings-title',t('campingsTitle')); tx('schedNote',t('schedNote'));
+    tx('d-home',t('dHome')); tx('d-stay',t('dStay')); tx('d-inc',t('dInc')); tx('d-ev',t('dEv')); tx('d-mu',t('dMu')); tx('d-pl',t('dPl')); tx('d-sc',t('dSc')); tx('drawerHint',t('drawerHint'));
+    tx('n-home',t('nHome')); tx('n-ev',t('nEv')); tx('n-mu',t('nMu'));
+    tx('t-musts-title',t('mustsTitle')); tx('t-musts-hint',t('mustsHint'));
     $('#langBtn').textContent='🌐 '+LANG.toUpperCase();
-    // traducir opciones de incidencias
     const incSel=$('#incType'); if(incSel){ qsa('option[data-i18n]',incSel).forEach(opt=>{ opt.textContent=t(opt.getAttribute('data-i18n')); }); }
   }
   applyLang();
   on($('#langBtn'),'click',()=>$('#langModal').style.display='flex');
   on($('#closeLang'),'click',(e)=>{e.preventDefault(); $('#langModal').style.display='none';});
-  qsa('.lang-option').forEach(b=>on(b,'click', ()=>{ LANG=b.dataset.lang; localStorage.setItem('lang',LANG); applyLang(); renderAcc(); updateStayUI(); updateIncUI(); renderMusts(); $('#langModal').style.display='none'; }));
+  qsa('.lang-option').forEach(b=>on(b,'click',()=>{ LANG=b.dataset.lang; localStorage.setItem('lang',LANG); applyLang(); renderAcc(); updateStayUI(); updateIncUI(); renderMusts(); $('#langModal').style.display='none';}));
 
   /* Nav */
   function showView(name){ qsa('.view').forEach(v=>v.classList.remove('active')); const target=$('#view-'+name); if(target) target.classList.add('active'); qsa('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.nav===name)); $('#drawer').classList.remove('open'); }
-  qsa('[data-nav]').forEach(el=>on(el,'click', ()=>showView(el.dataset.nav)));
-  on($('#menuBtn'),'click', ()=>$('#drawer').classList.add('open'));
-  on($('#drawerBack'),'click', ()=>$('#drawer').classList.remove('open'));
+  qsa('[data-nav]').forEach(el=>on(el,'click',()=>showView(el.dataset.nav)));
+  on($('#menuBtn'),'click',()=>$('#drawer').classList.add('open'));
+  on($('#drawerBack'),'click',()=>$('#drawer').classList.remove('open'));
 
   /* Datos comunes */
   const PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
@@ -690,8 +655,8 @@ document.addEventListener('DOMContentLoaded', function(){
   const saveFavs=()=>localStorage.setItem('fav_events', JSON.stringify([...FAV_SET]));
   const isFav=id=>FAV_SET.has(id);
   const toggleFav=id=>{ isFav(id)?FAV_SET.delete(id):FAV_SET.add(id); saveFavs(); renderHomeSlider(); renderEventsGrid(); };
-  const whenFmt = d=>{ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } };
-  const categoryFor = dateStr=>{
+  const whenFmt=d=>{ try{ return new Intl.DateTimeFormat(LANG,{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(d)); }catch(e){ return d; } };
+  const categoryFor=dateStr=>{
     const d=new Date(dateStr), now=new Date();
     const startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const startTomorrow=new Date(startToday); startTomorrow.setDate(startToday.getDate()+1);
@@ -709,9 +674,9 @@ document.addEventListener('DOMContentLoaded', function(){
   function icsEscape(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
   function downloadICS(ev){
     try{
-      const title= (typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'Evento'));
-      const desc= (typeof ev.descripcion==='string'?ev.descripcion:((ev.descripcion&&ev.descripcion.es)||'')); 
-      const loc = (typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||'')); 
+      const title=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'Evento'));
+      const desc=(typeof ev.descripcion==='string'?ev.descripcion:((ev.descripcion&&ev.descripcion.es)||'')); 
+      const loc=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||'')); 
       const start=new Date(ev.fecha), end=new Date(start.getTime()+90*60000);
       const uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app', now=new Date();
       const ics=[
@@ -725,22 +690,20 @@ document.addEventListener('DOMContentLoaded', function(){
       setTimeout(()=>URL.revokeObjectURL(a.href),1000);
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
-
   function bindEventActionButtons(scope){
-    qsa('.fav-btn',scope).forEach(btn=>on(btn,'click', ()=>toggleFav(btn.dataset.id)));
-    qsa('.ics-btn',scope).forEach(btn=>on(btn,'click', ()=>{ const ev=EVENTS.find(e=>e.id===btn.dataset.id); if(ev) downloadICS(ev); }));
+    qsa('.fav-btn',scope).forEach(btn=>on(btn,'click',()=>toggleFav(btn.dataset.id)));
+    qsa('.ics-btn',scope).forEach(btn=>on(btn,'click',()=>{ const ev=EVENTS.find(e=>e.id===btn.dataset.id); if(ev) downloadICS(ev); }));
   }
-
   function renderHomeSlider(){
     const wrap=$('#homeEvents'); if(!wrap) return;
     const next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
     if(!next.length){ wrap.innerHTML='<div class="muted">'+t('fAll')+': 0</div>'; return; }
-    wrap.innerHTML = next.map(ev=>{
+    wrap.innerHTML=next.map(ev=>{
       const rawTitle=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'(sin título)'));
       const rawPlace=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||''));
       const img=(ev.imagen||ev.image||'');
       const wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
-      const favStar = isFav(ev.id) ? '★' : '☆';
+      const favStar=isFav(ev.id)?'★':'☆';
       const dir=PLACE_LINK[String(ev.camping||'').toLowerCase()]||'#';
       return `<div class="card">
         ${img?`<img referrerpolicy="no-referrer" src="${img}" alt="${esc(rawTitle)}" loading="lazy" onerror="this.remove()">`:''}
@@ -755,23 +718,22 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     bindEventActionButtons(wrap);
   }
-
   function renderEventsGrid(){
     const grid=$('#eventsGrid'), empty=$('#eventsEmpty'); if(!grid) return;
-    const filtered = EVENTS.filter(ev=>{
-      const byCamp = CAMP_FILTER==='all' ? true : (String(ev.camping||'').toLowerCase()===CAMP_FILTER);
-      if(DATE_FILTER==='fav'){ return byCamp && isFav(ev.id); }
-      const byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
+    const filtered=EVENTS.filter(ev=>{
+      const byCamp=CAMP_FILTER==='all'?true:(String(ev.camping||'').toLowerCase()===CAMP_FILTER);
+      if(DATE_FILTER==='fav') return byCamp && isFav(ev.id);
+      const byDate=DATE_FILTER==='all'?true:categoryFor(ev.fecha)===DATE_FILTER;
       return byDate && byCamp;
     }).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
-    if(!filtered.length){ grid.innerHTML=''; empty && (empty.style.display='block'); return; }
-    empty && (empty.style.display='none');
-    grid.innerHTML = filtered.map(ev=>{
+    if(!filtered.length){ grid.innerHTML=''; empty&&(empty.style.display='block'); return; }
+    empty&&(empty.style.display='none');
+    grid.innerHTML=filtered.map(ev=>{
       const rawTitle=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||'(sin título)'));
       const rawPlace=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||PLACE_LABEL[ev.camping]||''));
       const img=(ev.imagen||ev.image||'');
       const wa=waLink(ev.camping,'Hola, consulta sobre “'+rawTitle+'” en '+rawPlace+'.');
-      const favStar = isFav(ev.id) ? '★' : '☆';
+      const favStar=isFav(ev.id)?'★':'☆';
       return `<div class="card" style="min-width:unset">
         ${img?`<img referrerpolicy="no-referrer" src="${img}" alt="${esc(rawTitle)}" loading="lazy" onerror="this.remove()">`:''}
         <div class="title">${esc(rawTitle)}</div>
@@ -785,17 +747,15 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     bindEventActionButtons(grid);
   }
-
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
       .then(r=>r.ok?r.json():Promise.reject())
-      .then(data=>{ EVENTS = Array.isArray(data)?data:[]; })
+      .then(data=>{ EVENTS=Array.isArray(data)?data:[]; })
       .catch(()=>{ EVENTS=[{id:'demo-'+Date.now(),fecha:new Date(Date.now()+3600e3).toISOString(),camping:'oyambre',titulo:{es:'Demo: Música en la terraza'},lugar:{es:'Camping Oyambre — Terraza'},descripcion:{es:'Evento de ejemplo.'}}]; })
       .finally(()=>{ renderHomeSlider(); renderEventsGrid(); });
   }
-
-  qsa('[data-filter]').forEach(ch=>on(ch,'click', ()=>{ qsa('[data-filter]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); DATE_FILTER=ch.dataset.filter||'all'; renderEventsGrid(); }));
-  qsa('[data-camp]').forEach(ch=>on(ch,'click', ()=>{ qsa('[data-camp]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); CAMP_FILTER=ch.dataset.camp||'all'; renderEventsGrid(); }));
+  qsa('[data-filter]').forEach(ch=>on(ch,'click',()=>{ qsa('[data-filter]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); DATE_FILTER=ch.dataset.filter||'all'; renderEventsGrid(); }));
+  qsa('[data-camp]').forEach(ch=>on(ch,'click',()=>{ qsa('[data-camp]').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); CAMP_FILTER=ch.dataset.camp||'all'; renderEventsGrid(); }));
 
   /* Horarios */
   const SCHEDULES={
@@ -805,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function(){
     cardeo:{ es:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taberna</b>: 8:30–23:00<br><b>Restaurante (fines de semana)</b>: 13:30–15:30 / 20:00–22:30<br><i>"+esc(I18N.es.schedNote)+"</i>"}
   };
   function renderAcc(){ ['oyambre','ramales','ruiloba','cardeo'].forEach(k=>{ const el=$('#acc-'+k); if(el) el.innerHTML=(SCHEDULES[k]&&SCHEDULES[k].es)||''; }); }
-  qsa('.acc-h').forEach(h=>on(h,'click', ()=>h.parentElement.classList.toggle('open')));
+  qsa('.acc-h').forEach(h=>on(h,'click',()=>h.parentElement.classList.toggle('open')));
 
   /* Mi estancia + clima */
   let STAY=localStorage.getItem('stay_place')||'oyambre';
@@ -838,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch(url).then(r=>r.json()).then(renderWeather).catch(()=>{});
   }
   function updateStayUI(){ renderStayContacts(); renderStayHours(); fetchWeather(STAY); }
-  on($('#stayPlace'),'change', (e)=>setStayPlace(e.target.value));
+  on($('#stayPlace'),'change',(e)=>setStayPlace(e.target.value));
 
   /* Incidencias */
   function buildIncMsg(){
@@ -856,189 +816,254 @@ document.addEventListener('DOMContentLoaded', function(){
     $('#incWA').href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
     $('#incEmail').href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
   }
-  on($('#incPlace'),'change', (e)=>setStayPlace(e.target.value));
-  on($('#incType'),'change', updateIncUI);
-  on($('#incMsg'),'input', updateIncUI);
+  on($('#incPlace'),'change',(e)=>setStayPlace(e.target.value));
+  on($('#incType'),'change',updateIncUI);
+  on($('#incMsg'),'input',updateIncUI);
 
   /* Instalar (modal) */
   let deferredPrompt=null;
   window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; });
-  on($('#installTile'),'click', ()=>$('#installModal').style.display='flex');
+  on($('#installTile'),'click',()=>$('#installModal').style.display='flex'));
   on($('#closeInstall'),'click',(e)=>{e.preventDefault(); $('#installModal').style.display='none';});
 
-  /* MUSTS (sin imágenes) */
-  const tr = (obj)=> (obj && (obj[LANG] || obj.es)) || '';
-  const gimg = (q)=> 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q);
-
-  const MUSTS = [
+  /* MUSTS */
+  const tr=obj=>(obj&&(obj[LANG]||obj.es))||'';
+  const gimg=q=>'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q);
+  const MUSTS=[
     { id:'comillas',
-      title:{es:'Comillas', en:'Comillas', fr:'Comillas', de:'Comillas', nl:'Comillas'},
-      summary:{es:'Modernismo, palacios y playa.', en:'Modernism, palaces and beach.', fr:'Modernisme, palais et plage.', de:'Modernismus, Paläste und Strand.', nl:'Modernisme, paleizen en strand.'},
+      title:{es:'Comillas',en:'Comillas',fr:'Comillas',de:'Comillas',nl:'Comillas'},
+      summary:{es:'Modernismo, palacios, casco histórico y playa.',en:'Modernism, palaces, old town & beach.',fr:'Modernisme, palais, centre historique et plage.',de:'Modernismus, Paläste, Altstadt & Strand.',nl:'Modernisme, paleizen, historisch centrum en strand.'},
       imgq:'Comillas Cantabria',
       map:'https://maps.app.goo.gl/6Ewz1b7g9Jp9g8nz8',
       highlights:[
-        {t:{es:'El Capricho de Gaudí', en:'Gaudí’s El Capricho', fr:'El Capricho de Gaudí', de:'Gaudís El Capricho', nl:'El Capricho van Gaudí'}, d:{es:'Pabellón modernista visitable con jardines.', en:'Modernist villa with gardens and guided tours.', fr:'Pavillon moderniste avec jardins et visites.', de:'Modernistisches Haus mit Garten und Führungen.', nl:'Modernistische villa met tuin en rondleidingen.'}},
-        {t:{es:'Palacio de Sobrellano', en:'Sobrellano Palace', fr:'Palais de Sobrellano', de:'Palast Sobrellano', nl:'Paleis Sobrellano'}, d:{es:'Palacio neogótico y capilla-panteón.', en:'Neo-Gothic palace with chapel-pantheon.', fr:'Palais néogothique avec chapelle-panthéon.', de:'Neogotischer Palast mit Kapelle-Pantheon.', nl:'Neogotisch paleis met kapel-pantheon.'}},
-        {t:{es:'Universidad Pontificia', en:'Pontifical University', fr:'Université pontificale', de:'Päpstliche Universität', nl:'Pontificale Universiteit'}, d:{es:'Conjunto monumental con vistas al mar.', en:'Monumental complex with sea views.', fr:'Ensemble monumental avec vue sur mer.', de:'Monumentaler Komplex mit Meerblick.', nl:'Monumentaal complex met zeezicht.'}},
-        {t:{es:'Casco histórico y puerto', en:'Old town & harbour', fr:'Centre historique & port', de:'Altstadt & Hafen', nl:'Historisch centrum & haven'}, d:{es:'Plazas, soportales y ambiente marinero.', en:'Arcaded squares and seafaring vibe.', fr:'Places à arcades, ambiance maritime.', de:'Arkadenplätze, maritimes Flair.', nl:'Arcadepleinen, maritieme sfeer.'}},
-        {t:{es:'Playas de Comillas y Oyambre', en:'Comillas & Oyambre beaches', fr:'Plages de Comillas & Oyambre', de:'Strände Comillas & Oyambre', nl:'Stranden Comillas & Oyambre'}, d:{es:'Arenales abiertos, surf y paseos.', en:'Open sands, surf and walks.', fr:'Grandes plages, surf et balades.', de:'Weite Strände, Surfen, Spaziergänge.', nl:'Brede stranden, surf en wandelingen.'}},
-        {t:{es:'Mirador de Santa Lucía', en:'Santa Lucía viewpoint', fr:'Belvédère Santa Lucía', de:'Aussichtspunkt Santa Lucía', nl:'Uitzichtpunt Santa Lucía'}, d:{es:'Vistas al Capricho y al litoral.', en:'Views over the Capricho and coast.', fr:'Vues sur le Capricho et la côte.', de:'Blicke auf Capricho und Küste.', nl:'Uitzicht op Capricho en kust.'}}
+        {t:{es:'El Capricho de Gaudí',en:'Gaudí’s El Capricho',fr:'El Capricho de Gaudí',de:'Gaudís El Capricho',nl:'El Capricho van Gaudí'}, d:{es:'Icono modernista con jardines; visita guiada recomendable.',en:'Modernist gem with gardens; guided tours recommended.',fr:'Joyau moderniste avec jardins; visites guidées conseillées.',de:'Modernistisches Juwel mit Garten; Führungen empfohlen.',nl:'Modernistisch juweel met tuin; rondleidingen aangeraden.'}},
+        {t:{es:'Palacio de Sobrellano',en:'Sobrellano Palace',fr:'Palais de Sobrellano',de:'Palast Sobrellano',nl:'Paleis Sobrellano'}, d:{es:'Residencia neogótica y capilla-panteón.',en:'Neo-Gothic residence and chapel-pantheon.',fr:'Résidence néogothique et chapelle-panthéon.',de:'Neogotische Residenz mit Kapelle-Pantheon.',nl:'Neogotische residentie met kapel-pantheon.'}},
+        {t:{es:'Universidad Pontificia',en:'Pontifical University',fr:'Université pontificale',de:'Päpstliche Universität',nl:'Pontificale universiteit'}, d:{es:'Conjunto monumental con vistas al Cantábrico.',en:'Monumental complex with Cantabrian views.',fr:'Ensemble monumental avec vue sur le Cantabrique.',de:'Monumentaler Komplex mit Küstenblick.',nl:'Monumentaal complex met kustzicht.'}},
+        {t:{es:'Cementerio & Mirador',en:'Cemetery & viewpoint',fr:'Cimetière & belvédère',de:'Friedhof & Aussichtspunkt',nl:'Begraafplaats & uitzichtpunt'}, d:{es:'Esculturas modernistas y panorámica del litoral.',en:'Modernist sculptures and coastal panorama.',fr:'Sculptures modernistes et panorama côtier.',de:'Modernistische Skulpturen und Küstenblick.',nl:'Modernistische beelden en kustpanorama.'}},
+        {t:{es:'Puerto y casco',en:'Harbour & old town',fr:'Port & centre',de:'Hafen & Altstadt',nl:'Haven & centrum'}, d:{es:'Ambiente marinero, soportales y terrazas.',en:'Seafaring vibe, arcades and cafés.',fr:'Ambiance marine, arcades et terrasses.',de:'Maritimes Flair, Arkaden & Cafés.',nl:'Maritieme sfeer, arcaden en cafés.'}},
+        {t:{es:'Playas de Comillas y Oyambre',en:'Comillas & Oyambre beaches',fr:'Plages de Comillas & Oyambre',de:'Strände Comillas & Oyambre',nl:'Stranden Comillas & Oyambre'}, d:{es:'Arenales abiertos, surf y paseos al atardecer.',en:'Open sands, surf and sunset walks.',fr:'Grandes plages, surf et balades au coucher du soleil.',de:'Weite Strände, Surfen & Abendspaziergänge.',nl:'Brede stranden, surf en avondwandelingen.'}}
       ]
     },
     { id:'san-vicente',
-      title:{es:'San Vicente de la Barquera', en:'San Vicente de la Barquera', fr:'San Vicente de la Barquera', de:'San Vicente de la Barquera', nl:'San Vicente de la Barquera'},
-      summary:{es:'Villa marinera con marismas y puentes.', en:'Seaside town with marshes and bridges.', fr:'Ville maritime, marais et ponts.', de:'Küstenstadt mit Marschen und Brücken.', nl:'Kustplaats met moerassen en bruggen.'},
+      title:{es:'San Vicente de la Barquera',en:'San Vicente de la Barquera',fr:'San Vicente de la Barquera',de:'San Vicente de la Barquera',nl:'San Vicente de la Barquera'},
+      summary:{es:'Villa marinera entre marismas; puertas a Oyambre y Picos.',en:'Seaside town amid marshes; gateway to Oyambre & Picos.',fr:'Ville maritime au cœur des marais; porte d’Oyambre & Picos.',de:'Küstenstadt in Marschen; Tor zu Oyambre & Picos.',nl:'Kustplaats met moerassen; toegang tot Oyambre & Picos.'},
       imgq:'San Vicente de la Barquera',
       map:'https://maps.app.goo.gl/9xZfJbG5jZ4tWb2w7',
       highlights:[
-        {t:{es:'Puente de la Maza', en:'La Maza Bridge', fr:'Pont de la Maza', de:'Brücke La Maza', nl:'La Maza-brug'}, d:{es:'Histórico acceso a la villa.', en:'Historic access to the town.', fr:'Accès historique à la ville.', de:'Historischer Zugang zur Stadt.', nl:'Historische toegang tot de stad.'}},
-        {t:{es:'Santuario de la Barquera', en:'La Barquera Sanctuary', fr:'Sanctuaire de la Barquera', de:'Heiligtum La Barquera', nl:'Heiligdom La Barquera'}, d:{es:'Tradición marinera y vistas a la ría.', en:'Seafaring tradition and estuary views.', fr:'Tradition maritime et vue sur l’estuaire.', de:'Seefahrertradition & Ästuarblick.', nl:'Zeevaarttraditie & zicht op de riviermonding.'}},
-        {t:{es:'Castillo del Rey', en:'King’s Castle', fr:'Château du Roi', de:'Königsschloss', nl:'Kasteel van de Koning'}, d:{es:'Torre defensiva con museo local.', en:'Defensive tower with local museum.', fr:'Tour défensive avec musée local.', de:'Wehrturm mit Lokal-Museum.', nl:'Verdedigende toren met lokaal museum.'}},
-        {t:{es:'Playas de Merón y Gerra', en:'Merón & Gerra beaches', fr:'Plages Merón & Gerra', de:'Strände Merón & Gerra', nl:'Stranden Merón & Gerra'}, d:{es:'Surf, paseos y puestas de sol.', en:'Surf, walks and sunsets.', fr:'Surf, balades et couchers de soleil.', de:'Surfen, Spaziergänge, Sonnenuntergänge.', nl:'Surf, wandelingen en zonsondergang.'}},
-        {t:{es:'Parque Natural de Oyambre', en:'Oyambre Natural Park', fr:'Parc naturel d’Oyambre', de:'Naturpark Oyambre', nl:'Natuurpark Oyambre'}, d:{es:'Marismas y aves a pocos minutos.', en:'Marshes & birdlife nearby.', fr:'Marais et oiseaux à proximité.', de:'Salzmarschen & Vogelwelt nahebei.', nl:'Moerassen & vogels in de buurt.'}}
+        {t:{es:'Puente de la Maza',en:'La Maza Bridge',fr:'Pont de la Maza',de:'Brücke La Maza',nl:'La Maza-brug'}, d:{es:'Acceso histórico con vista a la ría.',en:'Historic access with estuary views.',fr:'Accès historique avec vue sur l’estuaire.',de:'Historischer Zugang mit Ästuarblick.',nl:'Historische toegang met estuariumzicht.'}},
+        {t:{es:'Iglesia de Sta. María',en:'St. Mary’s Church',fr:'Église Ste-Marie',de:'Kirche Sta. María',nl:'Santa María-kerk'}, d:{es:'Gótico cántabro sobre el promontorio.',en:'Cantabrian Gothic on the hill.',fr:'Gothique cantabre sur le promontoire.',de:'Kantabrische Gotik auf dem Hügel.',nl:'Cantabrische gotiek op de heuvel.'}},
+        {t:{es:'Castillo del Rey',en:'King’s Castle',fr:'Château du Roi',de:'Königsschloss',nl:'Kasteel van de Koning'}, d:{es:'Torre defensiva y pequeño museo.',en:'Defensive tower with a small museum.',fr:'Tour défensive avec petit musée.',de:'Wehrturm mit kleinem Museum.',nl:'Verdedigende toren met klein museum.'}},
+        {t:{es:'Playas de Merón y Gerra',en:'Merón & Gerra beaches',fr:'Plages Merón & Gerra',de:'Strände Merón & Gerra',nl:'Stranden Merón & Gerra'}, d:{es:'Surf, dunas y puestas de sol.',en:'Surf, dunes and sunsets.',fr:'Surf, dunes et couchers de soleil.',de:'Surfen, Dünen & Sonnenuntergänge.',nl:'Surf, duinen en zonsondergangen.'}},
+        {t:{es:'Parque Natural de Oyambre',en:'Oyambre Natural Park',fr:'Parc naturel d’Oyambre',de:'Naturpark Oyambre',nl:'Natuurpark Oyambre'}, d:{es:'Marismas, aves y rutas señalizadas.',en:'Marshes, birdlife and waymarked trails.',fr:'Marais, oiseaux et sentiers balisés.',de:'Salzmarschen, Vogelwelt & markierte Wege.',nl:'Moerassen, vogels & gemarkeerde routes.'}},
+        {t:{es:'Gastronomía (sorropotún)',en:'Local food (sorropotún)',fr:'Gastronomie locale (sorropotún)',de:'Lokale Küche (sorropotún)',nl:'Lokale keuken (sorropotún)'}, d:{es:'Guiso marinero típico.',en:'Traditional fisherman’s stew.',fr:'Ragoût de pêcheur traditionnel.',de:'Traditioneller Fischer-Eintopf.',nl:'Traditionele vissersstoof.'}}
       ]
     },
     { id:'potes-liebana',
-      title:{es:'Potes & Liébana', en:'Potes & Liébana', fr:'Potes & Liébana', de:'Potes & Liébana', nl:'Potes & Liébana'},
-      summary:{es:'Puerta a Picos de Europa.', en:'Gateway to Picos de Europa.', fr:'Porte des Picos de Europa.', de:'Tor zu den Picos de Europa.', nl:'Toegang tot Picos de Europa.'},
+      title:{es:'Potes & Liébana',en:'Potes & Liébana',fr:'Potes & Liébana',de:'Potes & Liébana',nl:'Potes & Liébana'},
+      summary:{es:'Puerta a Picos de Europa, pueblos de piedra y orujo.',en:'Gateway to Picos de Europa; stone towns & orujo.',fr:'Porte des Picos de Europa; villages en pierre & orujo.',de:'Tor zu den Picos; Steindörfer & Orujo.',nl:'Toegang tot Picos; steendorpen & orujo.'},
       imgq:'Potes Liebana Cantabria',
       map:'https://maps.app.goo.gl/WyC7bJQ3wT5k1RrG9',
       highlights:[
-        {t:{es:'Teleférico de Fuente Dé', en:'Fuente Dé Cable Car', fr:'Téléphérique de Fuente Dé', de:'Seilbahn Fuente Dé', nl:'Kabelbaan Fuente Dé'}, d:{es:'Subida rápida a vistas alpinas.', en:'Fast ascent to alpine views.', fr:'Montée rapide vers des vues alpines.', de:'Schneller Aufstieg zum Alpenpanorama.', nl:'Snelle rit naar alpenuitzicht.'}},
-        {t:{es:'Torre del Infantado', en:'Infantado Tower', fr:'Tour de l’Infantado', de:'Turm des Infantado', nl:'Toren van Infantado'}, d:{es:'Emblema medieval con exposiciones.', en:'Medieval emblem with exhibits.', fr:'Symbole médiéval avec expositions.', de:'Mittelalterliches Wahrzeichen mit Ausstellungen.', nl:'Middeleeuws symbool met expo.'}},
-        {t:{es:'Monasterio de Santo Toribio', en:'Santo Toribio Monastery', fr:'Monastère de Santo Toribio', de:'Kloster Santo Toribio', nl:'Klooster Santo Toribio'}, d:{es:'Camino jubilar y Lignum Crucis.', en:'Jubilee route & Lignum Crucis.', fr:'Route jubilaire & Lignum Crucis.', de:'Pilgerroute & Lignum Crucis.', nl:'Jubileumroute & Lignum Crucis.'}},
-        {t:{es:'Río Deva y puentes', en:'Deva river & bridges', fr:'Rivière Deva & ponts', de:'Fluss Deva & Brücken', nl:'Rivier Deva & bruggen'}, d:{es:'Paseo fluvial por Potes.', en:'Riverside walk through town.', fr:'Promenade le long de la rivière.', de:'Spaziergang am Fluss durch den Ort.', nl:'Wandeling langs de rivier.'}},
-        {t:{es:'Gastronomía lebaniega', en:'Liébana cuisine', fr:'Gastronomie de Liébana', de:'Liébana-Küche', nl:'Keuken van Liébana'}, d:{es:'Cocido, quesucos y orujo.', en:'Stew, local cheeses & orujo.', fr:'Ragoût, fromages et orujo.', de:'Eintopf, Käse & Orujo.', nl:'Stoofpot, kaas & orujo.'}}
+        {t:{es:'Teleférico de Fuente Dé',en:'Fuente Dé Cable Car',fr:'Téléphérique de Fuente Dé',de:'Seilbahn Fuente Dé',nl:'Kabelbaan Fuente Dé'}, d:{es:'Subida exprés a vistas alpinas.',en:'Express ascent to alpine views.',fr:'Montée express vers vues alpines.',de:'Schneller Aufstieg mit Alpenblick.',nl:'Snelle rit naar alpenuitzicht.'}},
+        {t:{es:'Torre del Infantado',en:'Infantado Tower',fr:'Tour de l’Infantado',de:'Turm des Infantado',nl:'Toren van Infantado'}, d:{es:'Emblema medieval con exposiciones.',en:'Medieval emblem with exhibits.',fr:'Symbole médiéval avec expositions.',de:'Mittelalterliches Wahrzeichen.',nl:'Middeleeuws symbool.'}},
+        {t:{es:'Santo Toribio de Liébana',en:'Santo Toribio Monastery',fr:'Monastère de Santo Toribio',de:'Kloster Santo Toribio',nl:'Klooster Santo Toribio'}, d:{es:'Camino jubilar y Lignum Crucis.',en:'Jubilee route & Lignum Crucis.',fr:'Route jubilaire & Lignum Crucis.',de:'Pilgerroute & Lignum Crucis.',nl:'Jubileumroute & Lignum Crucis.'}},
+        {t:{es:'Mirador de Piedrasluengas',en:'Piedrasluengas Viewpoint',fr:'Belvédère de Piedrasluengas',de:'Aussichtspunkt Piedrasluengas',nl:'Uitzichtpunt Piedrasluengas'}, d:{es:'Gran balcón a valles y cumbres.',en:'Grand balcony over valleys & peaks.',fr:'Grand balcon sur vallées & sommets.',de:'Balkon über Täler & Gipfel.',nl:'Balkon over valleien & pieken.'}},
+        {t:{es:'Gastronomía lebaniega',en:'Liébana cuisine',fr:'Gastronomie de Liébana',de:'Liébana-Küche',nl:'Keuken van Liébana'}, d:{es:'Cocido, quesucos y orujo.',en:'Stew, local cheeses & orujo.',fr:'Ragoût, fromages & orujo.',de:'Eintopf, Käse & Orujo.',nl:'Stoof, kaas & orujo.'}}
       ]
     },
     { id:'cabarceno',
-      title:{es:'Parque de la Naturaleza de Cabárceno', en:'Cabárceno Nature Park', fr:'Parc de la nature de Cabárceno', de:'Naturpark Cabárceno', nl:'Natuurpark Cabárceno'},
-      summary:{es:'Fauna en semilibertad en antigua mina.', en:'Semi-free wildlife in a former mine.', fr:'Faune semi-libre dans une ancienne mine.', de:'Halbfreilebende Fauna im ehemaligen Bergwerk.', nl:'Halfvrij wildpark in een oude mijn.'},
+      title:{es:'Parque de la Naturaleza de Cabárceno',en:'Cabárceno Nature Park',fr:'Parc de la nature de Cabárceno',de:'Naturpark Cabárceno',nl:'Natuurpark Cabárceno'},
+      summary:{es:'Fauna en semilibertad en un paisaje kárstico único.',en:'Semi-free wildlife in a unique karst landscape.',fr:'Faune semi-libre dans un paysage karstique unique.',de:'Halbfreie Tierwelt in Karstlandschaft.',nl:'Halfvrije fauna in uniek karstlandschap.'},
       imgq:'Parque de la Naturaleza de Cabarceno',
       map:'https://maps.app.goo.gl/D3m8c1Fq9tX1C2qP8',
       site:'https://parquedecabarceno.com/',
       tickets:'https://parquedecabarceno.com/entradas',
       highlights:[
-        {t:{es:'Telecabina panorámica', en:'Panoramic cable car', fr:'Télécabine panoramique', de:'Panoramaseilbahn', nl:'Panoramische kabelbaan'}, d:{es:'Conecta recintos con vistas únicas.', en:'Connects areas with unique views.', fr:'Relie les zones avec vues uniques.', de:'Verbindet Areale mit Ausblick.', nl:'Verbindt zones met uitzichten.'}},
-        {t:{es:'Exhibición de aves rapaces', en:'Birds of prey show', fr:'Spectacle de rapaces', de:'Greifvogelschau', nl:'Roofvogelshow'}, d:{es:'Incluida en la entrada.', en:'Included in ticket.', fr:'Incluse dans le billet.', de:'Im Ticket enthalten.', nl:'Inbegrepen bij het ticket.'}},
-        {t:{es:'Grandes herbívoros', en:'Large herbivores', fr:'Grands herbivores', de:'Große Pflanzenfresser', nl:'Grote herbivoren'}, d:{es:'Elefantes, rinocerontes, jirafas.', en:'Elephants, rhinos, giraffes.', fr:'Éléphants, rhinocéros, girafes.', de:'Elefanten, Nashörner, Giraffen.', nl:'Olifanten, neushoorns, giraffen.'}},
-        {t:{es:'Formaciones kársticas', en:'Karst formations', fr:'Formations karstiques', de:'Karstformationen', nl:'Karstformaties'}, d:{es:'Antigua mina de hierro esculpida.', en:'Former iron mine carved landscape.', fr:'Ancienne mine de fer sculptée.', de:'Ehemaliges Eisenerzrevier geformt.', nl:'Voormalige ijzermijnlandschap.'}
-        }
+        {t:{es:'Telecabina panorámica',en:'Panoramic cable car',fr:'Télécabine panoramique',de:'Panorama-Seilbahn',nl:'Panoramische kabelbaan'}, d:{es:'Conecta recintos con vistas espectaculares.',en:'Links areas with stunning views.',fr:'Relie des zones avec vues superbes.',de:'Verbindet Areale mit Ausblick.',nl:'Verbindt zones met uitzichten.'}},
+        {t:{es:'Exhibición de rapaces',en:'Birds of prey show',fr:'Spectacle de rapaces',de:'Greifvogelschau',nl:'Roofvogelshow'}, d:{es:'Incluida en la entrada.',en:'Included in the ticket.',fr:'Incluse dans le billet.',de:'Im Ticket enthalten.',nl:'Inbegrepen bij ticket.'}},
+        {t:{es:'Grandes herbívoros',en:'Large herbivores',fr:'Grands herbivores',de:'Große Pflanzenfresser',nl:'Grote herbivoren'}, d:{es:'Elefantes, rinocerontes, jirafas…',en:'Elephants, rhinos, giraffes…',fr:'Éléphants, rhinocéros, girafes…',de:'Elefanten, Nashörner, Giraffen…',nl:'Olifanten, neushoorns, giraffen…'}},
+        {t:{es:'Formaciones kársticas',en:'Karst formations',fr:'Formations karstiques',de:'Karstformationen',nl:'Karstformaties'}, d:{es:'Antigua mina de hierro esculpida.',en:'Former iron mine shaped landscape.',fr:'Ancienne mine de fer sculptée.',de:'Ehemaliges Eisenerzrevier geformt.',nl:'Vormgegeven mijnlandschap.'}}
       ]
     },
     { id:'alto-ason',
-      title:{es:'Comarca del Alto Asón', en:'Alto Asón Region', fr:'Région de l’Alto Asón', de:'Region Alto Asón', nl:'Regio Alto Asón'},
-      summary:{es:'Cuevas, cascadas y karst.', en:'Caves, waterfalls and karst.', fr:'Grottes, cascades et karst.', de:'Höhlen, Wasserfälle, Karst.', nl:'Grotten, watervallen en karst.'},
+      title:{es:'Comarca del Alto Asón',en:'Alto Asón Region',fr:'Région de l’Alto Asón',de:'Region Alto Asón',nl:'Regio Alto Asón'},
+      summary:{es:'Cuevas, cascadas, miradores y pueblos tranquilos.',en:'Caves, waterfalls, viewpoints & quiet villages.',fr:'Grottes, cascades, belvédères & villages calmes.',de:'Höhlen, Wasserfälle, Aussicht & ruhige Dörfer.',nl:'Grotten, watervallen, uitzichten & dorpen.'},
       imgq:'Alto Asón Cantabria',
       map:'https://maps.app.goo.gl/8mNmkQ4g7r1mS9jN7',
       highlights:[
-        {t:{es:'Cascada del Asón', en:'Asón Waterfall', fr:'Cascade de l’Asón', de:'Asón-Wasserfall', nl:'Asón-waterval'}, d:{es:'Salto espectacular y sendero.', en:'Spectacular drop and trail.', fr:'Chute spectaculaire et sentier.', de:'Spektakulärer Fall und Pfad.', nl:'Spectaculaire val en pad.'}},
-        {t:{es:'Cueva Coventosa', en:'Coventosa Cave', fr:'Grotte Coventosa', de:'Höhle Coventosa', nl:'Grot Coventosa'}, d:{es:'Espeleología técnica (guía).', en:'Technical caving (guide).', fr:'Spéléologie technique (guide).', de:'Anspruchsvolle Höhlentour (Guide).', nl:'Technische speleo (gids).'}},
-        {t:{es:'Miradores del Gándara', en:'Gándara viewpoints', fr:'Belvédères de Gándara', de:'Aussichtspunkte Gándara', nl:'Uitzichtpunten Gándara'}, d:{es:'Vistas a valles y farallones.', en:'Valley & cliff views.', fr:'Vues sur vallées et falaises.', de:'Blicke auf Täler & Wände.', nl:'Uitzicht op dalen & kliffen.'}},
-        {t:{es:'Soba y pastoreo', en:'Soba & pasture', fr:'Soba & pâturages', de:'Soba & Weiden', nl:'Soba & weiden'}, d:{es:'Arquitectura rural y quesos.', en:'Rural architecture & cheeses.', fr:'Architecture rurale & fromages.', de:'Ländliche Baukultur & Käse.', nl:'Platteland & kazen.'}}
+        {t:{es:'Cascada del Asón',en:'Asón Waterfall',fr:'Cascade de l’Asón',de:'Asón-Wasserfall',nl:'Asón-waterval'}, d:{es:'Salto espectacular y sendero sencillo.',en:'Spectacular drop and easy trail.',fr:'Chute spectaculaire & sentier facile.',de:'Spektakulärer Fall & leichter Weg.',nl:'Spectaculaire val & makkelijke route.'}},
+        {t:{es:'Cueva Coventosa',en:'Coventosa Cave',fr:'Grotte Coventosa',de:'Höhle Coventosa',nl:'Grot Coventosa'}, d:{es:'Espeleología técnica con guía.',en:'Technical caving with guide.',fr:'Spéléologie technique avec guide.',de:'Anspruchsvolle Höhlentour (Guide).',nl:'Technische speleo met gids.'}},
+        {t:{es:'Cueva de Covalanas (UNESCO)',en:'Covalanas Cave (UNESCO)',fr:'Grotte de Covalanas (UNESCO)',de:'Höhle Covalanas (UNESCO)',nl:'Grot Covalanas (UNESCO)'}, d:{es:'Arte rupestre rojo de hace milenios.',en:'Red prehistoric paintings.',fr:'Peintures rupestres rouges.',de:'Rote prähistorische Malereien.',nl:'Rode prehistorische schilderingen.'}},
+        {t:{es:'Cueva de Cullalvera',en:'Cullalvera Cave',fr:'Grotte de Cullalvera',de:'Höhle Cullalvera',nl:'Grot Cullalvera'}, d:{es:'Gran boca y pasarela de visita.',en:'Huge entrance & walkway visit.',fr:'Grande entrée & passerelle.',de:'Großes Portal & Stegführung.',nl:'Grote ingang & loopbrug.'}},
+        {t:{es:'Miradores del Gándara',en:'Gándara viewpoints',fr:'Belvédères de Gándara',de:'Aussichtspunkte Gándara',nl:'Uitzichtpunten Gándara'}, d:{es:'Vistas a valles y farallones.',en:'Views over valleys and cliffs.',fr:'Vues sur vallées & falaises.',de:'Blicke auf Täler & Wände.',nl:'Zicht op dalen & kliffen.'}}
       ]
     },
     { id:'cabuerniga',
-      title:{es:'Valle de Cabuérniga', en:'Cabuérniga Valley', fr:'Vallée de Cabuérniga', de:'Tal Cabuérniga', nl:'Vallei van Cabuérniga'},
-      summary:{es:'Pueblos cántabros y hayedos.', en:'Cantabrian villages and beech forests.', fr:'Villages cantabres et hêtraies.', de:'Kantabrische Dörfer & Buchenwälder.', nl:'Dorpen en beukenbossen.'},
+      title:{es:'Valle de Cabuérniga',en:'Cabuérniga Valley',fr:'Vallée de Cabuérniga',de:'Tal Cabuérniga',nl:'Vallei van Cabuérniga'},
+      summary:{es:'Pueblos montañeses, hayedos del Saja y cocina casera.',en:'Mountain villages, Saja beech forests & homestyle food.',fr:'Villages montagnards, hêtraies du Saja & cuisine maison.',de:'Bergdörfer, Buchenwald Saja & Hausmannskost.',nl:'Bergdorpen, Saja-beukenbos & huiselijke keuken.'},
       imgq:'Valle de Cabuérniga',
       map:'https://maps.app.goo.gl/Z2k2Fh9f1jKj3p5c8',
       highlights:[
-        {t:{es:'Bárcena Mayor', en:'Bárcena Mayor', fr:'Bárcena Mayor', de:'Bárcena Mayor', nl:'Bárcena Mayor'}, d:{es:'Conjunto histórico tradicional.', en:'Traditional historic village.', fr:'Village historique traditionnel.', de:'Traditionelles historisches Dorf.', nl:'Historisch traditioneel dorp.'}},
-        {t:{es:'Hayedo de Saja', en:'Saja Beech Forest', fr:'Hêtraie de Saja', de:'Buchenwald Saja', nl:'Beukenbos Saja'}, d:{es:'Rutas y otoño espectacular.', en:'Trails and stunning autumn.', fr:'Sentiers & automne superbe.', de:'Wege & goldener Herbst.', nl:'Routes & schitterende herfst.'}},
-        {t:{es:'Arquitectura montañesa', en:'Mountain architecture', fr:'Architecture montagnarde', de:'Bauernhaus-Architektur', nl:'Bergarchitectuur'}, d:{es:'Casas de piedra y balconadas.', en:'Stone houses with balconies.', fr:'Maisons en pierre à balcons.', de:'Steinhäuser mit Balkonen.', nl:'Stenen huizen met balkons.'}},
-        {t:{es:'Gastronomía', en:'Food', fr:'Gastronomie', de:'Essen', nl:'Eten'}, d:{es:'Cocido montañés y caza.', en:'Bean stew & game dishes.', fr:'Ragoût & gibier.', de:'Bohneneintopf & Wild.', nl:'Bonenstoof & wild.'}}
+        {t:{es:'Bárcena Mayor',en:'Bárcena Mayor',fr:'Bárcena Mayor',de:'Bárcena Mayor',nl:'Bárcena Mayor'}, d:{es:'Conjunto histórico de piedra y madera.',en:'Stone-and-wood historic village.',fr:'Village historique en pierre & bois.',de:'Historisches Stein-/Holzdorf.',nl:'Historisch dorp in steen & hout.'}},
+        {t:{es:'Hayedo de Saja',en:'Saja Beech Forest',fr:'Hêtraie de Saja',de:'Buchenwald Saja',nl:'Beukenbos Saja'}, d:{es:'Rutas señalizadas y otoño espectacular.',en:'Marked trails & stunning autumn.',fr:'Sentiers balisés & automne superbe.',de:'Markierte Wege & goldener Herbst.',nl:'Routes & fraaie herfst.'}},
+        {t:{es:'Arquitectura montañesa',en:'Mountain architecture',fr:'Architecture montagnarde',de:'Bauernhaus-Architektur',nl:'Bergarchitectuur'}, d:{es:'Balconadas, escudos y solanas.',en:'Balconies, coats of arms & sunrooms.',fr:'Balcons, blasons & galeries.',de:'Balkone, Wappen & Lauben.',nl:'Balkons, wapenschilden & galerijen.'}},
+        {t:{es:'Cocido montañés',en:'Bean stew',fr:'Ragoût de haricots',de:'Bohneneintopf',nl:'Bonenstoof'}, d:{es:'Plato caliente perfecto tras la ruta.',en:'Perfect warm dish after hiking.',fr:'Plat chaud idéal après la rando.',de:'Warmes Gericht nach der Tour.',nl:'Warm gerecht na de hike.'}}
       ]
     },
     { id:'santander',
-      title:{es:'Santander', en:'Santander', fr:'Santander', de:'Santander', nl:'Santander'},
-      summary:{es:'Bahía, palacio y playas urbanas.', en:'Bay, palace and city beaches.', fr:'Baie, palais et plages urbaines.', de:'Bucht, Palast & Stadtstrände.', nl:'Baai, paleis en stadsstranden.'},
+      title:{es:'Santander',en:'Santander',fr:'Santander',de:'Santander',nl:'Santander'},
+      summary:{es:'Bahía, palacio, arte contemporáneo y playas urbanas.',en:'Bay, palace, contemporary art & city beaches.',fr:'Baie, palais, art contemporain & plages urbaines.',de:'Bucht, Palast, moderne Kunst & Stadtstrände.',nl:'Baai, paleis, moderne kunst & stadsstranden.'},
       imgq:'Santander Cantabria',
       map:'https://maps.app.goo.gl/1o6o3n5rC4oXj2o58',
       highlights:[
-        {t:{es:'Palacio de La Magdalena', en:'La Magdalena Palace', fr:'Palais de la Magdalena', de:'Palast La Magdalena', nl:'Paleis La Magdalena'}, d:{es:'Residencia real y península.', en:'Royal residence on a peninsula.', fr:'Résidence royale sur péninsule.', de:'Königsresidenz auf Halbinsel.', nl:'Koninklijke residentie op schiereiland.'}},
-        {t:{es:'Centro Botín', en:'Botín Centre', fr:'Centre Botín', de:'Zentrum Botín', nl:'Botín-centrum'}, d:{es:'Arte contemporáneo y miradores.', en:'Contemporary art & viewpoints.', fr:'Art contemporain & belvédères.', de:'Moderne Kunst & Aussicht.', nl:'Moderne kunst & uitzicht.'}},
-        {t:{es:'Paseo por la bahía', en:'Bay promenade', fr:'Promenade de la baie', de:'Buchtpromenade', nl:'Boulevard langs de baai'}, d:{es:'Embarcadero y playas urbanas.', en:'Piers and city beaches.', fr:'Ponton & plages urbaines.', de:'Stege & Stadtstrände.', nl:'Pieren & stadsstranden.'}},
-        {t:{es:'Sardinero', en:'El Sardinero', fr:'El Sardinero', de:'El Sardinero', nl:'El Sardinero'}, d:{es:'Clásica zona de baño y paseo.', en:'Classic beach & promenade.', fr:'Plage & promenade classique.', de:'Klassischer Strand & Promenade.', nl:'Klassiek strand & boulevard.'}},
-        {t:{es:'Mercado de la Esperanza', en:'La Esperanza Market', fr:'Marché de la Esperanza', de:'Markt La Esperanza', nl:'La Esperanza-markt'}, d:{es:'Producto local y pescado.', en:'Local produce & fish.', fr:'Produits locaux & poisson.', de:'Regionale Produkte & Fisch.', nl:'Lokale producten & vis.'}}
+        {t:{es:'Palacio de La Magdalena',en:'La Magdalena Palace',fr:'Palais de la Magdalena',de:'Palast La Magdalena',nl:'Paleis La Magdalena'}, d:{es:'Residencia real en península ajardinada.',en:'Royal residence on a green peninsula.',fr:'Résidence royale sur péninsule.',de:'Königsresidenz auf Halbinsel.',nl:'Koninklijke residentie op schiereiland.'}},
+        {t:{es:'Centro Botín',en:'Botín Centre',fr:'Centre Botín',de:'Zentrum Botín',nl:'Botín-centrum'}, d:{es:'Museo de Renzo Piano con miradores.',en:'Renzo Piano museum with lookouts.',fr:'Musée de Renzo Piano avec belvédères.',de:'Museum von Renzo Piano mit Ausblicken.',nl:'Renzo Piano-museum met uitzicht.'}},
+        {t:{es:'Paseo por la bahía',en:'Bay promenade',fr:'Promenade de la baie',de:'Buchtpromenade',nl:'Boulevard langs de baai'}, d:{es:'Muelle, playas y ambiente local.',en:'Piers, beaches & local vibe.',fr:'Quais, plages & ambiance locale.',de:'Stege, Strände & Lokalkolorit.',nl:'Pieren, stranden & sfeer.'}},
+        {t:{es:'El Sardinero',en:'El Sardinero',fr:'El Sardinero',de:'El Sardinero',nl:'El Sardinero'}, d:{es:'Clásica zona de baño y paseo.',en:'Classic bathing & promenade area.',fr:'Quartier balnéaire classique.',de:'Klassisches Strandviertel.',nl:'Klassiek strandgebied.'}},
+        {t:{es:'Cabo Mayor & Mataleñas',en:'Cabo Mayor & Mataleñas',fr:'Cabo Mayor & Mataleñas',de:'Cabo Mayor & Mataleñas',nl:'Cabo Mayor & Mataleñas'}, d:{es:'Faro, acantilados y sendero costero.',en:'Lighthouse, cliffs & coastal path.',fr:'Phare, falaises & sentier côtier.',de:'Leuchtturm, Klippen & Küstenweg.',nl:'Vuurtoren, kliffen & kustpad.'}}
       ]
     },
     { id:'santillana',
-      title:{es:'Santillana del Mar', en:'Santillana del Mar', fr:'Santillana del Mar', de:'Santillana del Mar', nl:'Santillana del Mar'},
-      summary:{es:'Villa medieval y Altamira cerca.', en:'Medieval town; Altamira nearby.', fr:'Bourg médiéval; Altamira à proximité.', de:'Mittelalterlicher Ort; Altamira nah.', nl:'Middeleeuws stadje; Altamira nabij.'},
+      title:{es:'Santillana del Mar',en:'Santillana del Mar',fr:'Santillana del Mar',de:'Santillana del Mar',nl:'Santillana del Mar'},
+      summary:{es:'Conjunto medieval; Altamira a un paso.',en:'Medieval gem; Altamira nearby.',fr:'Bourg médiéval; Altamira à proximité.',de:'Mittelalterliches Kleinod; Altamira nah.',nl:'Middeleeuws juweel; Altamira dichtbij.'},
       imgq:'Santillana del Mar Cantabria',
       map:'https://maps.app.goo.gl/Vm5h5X8YFQ9a1o6z7',
       highlights:[
-        {t:{es:'Colegiata de Santa Juliana', en:'Collegiate Church of Santa Juliana', fr:'Collégiale Sainte-Julienne', de:'Stiftskirche Santa Juliana', nl:'Collegiale Santa Juliana'}, d:{es:'Románico del siglo XII.', en:'12th-century Romanesque.', fr:'Roman du XIIe siècle.', de:'Romanik 12. Jh.', nl:'Romaans, 12e eeuw.'}},
-        {t:{es:'Museo de Altamira', en:'Altamira Museum', fr:'Musée d’Altamira', de:'Museum Altamira', nl:'Altamira-museum'}, d:{es:'Neocueva y arte rupestre.', en:'Neo-cave & rock art.', fr:'Néo-grotte & art rupestre.', de:'Neohöhle & Felskunst.', nl:'Neogrot & rotskunst.'}},
-        {t:{es:'Calles empedradas', en:'Cobbled streets', fr:'Rues pavées', de:'Kopfsteinpflastergassen', nl:'Kasseienstraatjes'}, d:{es:'Casas blasonadas y soportales.', en:'Manor houses and arcades.', fr:'Maisons nobles & arcades.', de:'Adelshäuser & Arkaden.', nl:'Herenhuizen & arcaden.'}},
-        {t:{es:'Torre de Don Borja', en:'Don Borja Tower', fr:'Tour de Don Borja', de:'Turm Don Borja', nl:'Toren Don Borja'}, d:{es:'Sede de exposiciones y actos.', en:'Venue for exhibitions & events.', fr:'Lieu d’expos & événements.', de:'Ort für Ausstellungen.', nl:'Locatie voor expo & events.'}}
+        {t:{es:'Colegiata de Santa Juliana',en:'Collegiate of Santa Juliana',fr:'Collégiale Sainte-Julienne',de:'Stiftskirche Santa Juliana',nl:'Collegiale Santa Juliana'}, d:{es:'Románico del siglo XII.',en:'12th-century Romanesque.',fr:'Roman du XIIe siècle.',de:'Romanik (12. Jh.).',nl:'Romaans (12e eeuw).'}},
+        {t:{es:'Museo de Altamira',en:'Altamira Museum',fr:'Musée d’Altamira',de:'Museum Altamira',nl:'Altamira-museum'}, d:{es:'Neocueva y arte rupestre.',en:'Neo-cave & rock art.',fr:'Néo-grotte & art rupestre.',de:'Neohöhle & Felskunst.',nl:'Neogrot & rotskunst.'}},
+        {t:{es:'Calles empedradas',en:'Cobbled streets',fr:'Rues pavées',de:'Kopfsteinpflastergassen',nl:'Kasseienstraatjes'}, d:{es:'Casas blasonadas y soportales.',en:'Manor houses & arcades.',fr:'Maisons nobles & arcades.',de:'Adelshäuser & Arkaden.',nl:'Herenhuizen & arcaden.'}},
+        {t:{es:'Torre de Don Borja',en:'Don Borja Tower',fr:'Tour de Don Borja',de:'Turm Don Borja',nl:'Toren Don Borja'}, d:{es:'Sede de exposiciones y actos.',en:'Venue for exhibitions & events.',fr:'Lieu d’expos & événements.',de:'Ort für Ausstellungen.',nl:'Locatie voor expo & events.'}}
       ]
     },
     { id:'suances',
-      title:{es:'Suances', en:'Suances', fr:'Suances', de:'Suances', nl:'Suances'},
-      summary:{es:'Playas y acantilados con surf.', en:'Beaches and cliffs with surf.', fr:'Plages et falaises, surf.', de:'Strände & Klippen, Surfen.', nl:'Stranden en kliffen, surf.'},
+      title:{es:'Suances',en:'Suances',fr:'Suances',de:'Suances',nl:'Suances'},
+      summary:{es:'Playas abiertas, acantilados y faros con ambiente surfero.',en:'Open beaches, cliffs & lighthouses with surf vibe.',fr:'Plages ouvertes, falaises & phares, ambiance surf.',de:'Offene Strände, Klippen & Leuchttürme, Surf-Flair.',nl:'Open stranden, kliffen & vuurtorens, surfsfeer.'},
       imgq:'Suances Cantabria',
       map:'https://maps.app.goo.gl/TE1h1pQm9hQHUheH8',
       highlights:[
-        {t:{es:'Playa de Los Locos', en:'Los Locos Beach', fr:'Plage de Los Locos', de:'Strand Los Locos', nl:'Playa de Los Locos'}, d:{es:'Spot surfero y puestas de sol.', en:'Surf spot & sunsets.', fr:'Spot de surf & couchers de soleil.', de:'Surfspot & Sonnenuntergänge.', nl:'Surfspot & zonsondergang.'}},
-        {t:{es:'Faro & Punta del Torco', en:'Lighthouse & Punta del Torco', fr:'Phare & Punta del Torco', de:'Leuchtturm & Punta del Torco', nl:'Vuurtoren & Punta del Torco'}, d:{es:'Miradores sobre acantilados.', en:'Clifftop viewpoints.', fr:'Belvédères en falaise.', de:'Aussichten auf Klippen.', nl:'Uitzichtpunten op kliffen.'}},
-        {t:{es:'Playa de La Concha', en:'La Concha Beach', fr:'Plage de La Concha', de:'Strand La Concha', nl:'Strand La Concha'}, d:{es:'Familiar y amplia.', en:'Wide, family-friendly.', fr:'Large & familiale.', de:'Breit & familienfreundlich.', nl:'Breed & gezinsvriendelijk.'}},
-        {t:{es:'Ría San Martín', en:'San Martín estuary', fr:'Estuaire San Martín', de:'Ästuar San Martín', nl:'San Martín-estuarium'}, d:{es:'Paseos y piragua con marea.', en:'Walks & kayaking with tide.', fr:'Balades & kayak selon marée.', de:'Spaziergang & Kajak mit Tide.', nl:'Wandelen & kajak met getij.'}}
+        {t:{es:'Playa de Los Locos',en:'Los Locos Beach',fr:'Plage de Los Locos',de:'Strand Los Locos',nl:'Playa de Los Locos'}, d:{es:'Spot de surf y atardeceres.',en:'Surf spot & sunsets.',fr:'Spot de surf & couchers de soleil.',de:'Surfspot & Sonnenuntergänge.',nl:'Surfspot & zonsondergang.'}},
+        {t:{es:'Faro & Punta del Torco',en:'Lighthouse & Punta del Torco',fr:'Phare & Punta del Torco',de:'Leuchtturm & Punta del Torco',nl:'Vuurtoren & Punta del Torco'}, d:{es:'Miradores sobre acantilados.',en:'Clifftop viewpoints.',fr:'Belvédères en falaise.',de:'Aussichten auf Klippen.',nl:'Uitzichtpunten op kliffen.'}},
+        {t:{es:'Playa de La Concha',en:'La Concha Beach',fr:'Plage de La Concha',de:'Strand La Concha',nl:'Strand La Concha'}, d:{es:'Amplia y familiar.',en:'Wide & family-friendly.',fr:'Large & familiale.',de:'Breit & familienfreundlich.',nl:'Breed & gezinsvriendelijk.'}},
+        {t:{es:'Ría San Martín',en:'San Martín estuary',fr:'Estuaire San Martín',de:'Ästuar San Martín',nl:'San Martín-estuarium'}, d:{es:'Paseos y piragua con marea.',en:'Walks & kayaking with tide.',fr:'Balades & kayak selon marée.',de:'Spaziergang & Kajak mit Tide.',nl:'Wandelen & kajak (getij).'}}
       ]
     },
     { id:'hermida',
-      title:{es:'Desfiladero de La Hermida', en:'La Hermida Gorge', fr:'Défilé de La Hermida', de:'Schlucht La Hermida', nl:'La Hermida-kloof'},
-      summary:{es:'Cañón que une costa y Liébana.', en:'Gorge linking coast and Liébana.', fr:'Canyon entre côte et Liébana.', de:'Schlucht zwischen Küste & Liébana.', nl:'Kloof tussen kust en Liébana.'},
+      title:{es:'Desfiladero de La Hermida',en:'La Hermida Gorge',fr:'Défilé de La Hermida',de:'Schlucht La Hermida',nl:'La Hermida-kloof'},
+      summary:{es:'Cañón calizo que une costa y Liébana, con termas.',en:'Limestone gorge linking coast & Liébana, with spa.',fr:'Canyon calcaire entre côte & Liébana, avec thermes.',de:'Kalksteinschlucht zwischen Küste & Liébana, mit Thermalbad.',nl:'Kalksteenkloof tussen kust & Liébana, met spa.'},
       imgq:'Desfiladero de La Hermida',
       map:'https://maps.app.goo.gl/YyHk7G3yU2o7Wz3QA',
       highlights:[
-        {t:{es:'Termas de La Hermida', en:'La Hermida Spa', fr:'Thermes de La Hermida', de:'Thermalbad La Hermida', nl:'Thermen La Hermida'}, d:{es:'Aguas termales en el valle.', en:'Thermal waters in the valley.', fr:'Eaux thermales dans la vallée.', de:'Thermalwasser im Tal.', nl:'Thermaal water in de vallei.'}},
-        {t:{es:'Miradores y paredes', en:'Viewpoints & walls', fr:'Belvédères & falaises', de:'Aussicht & Felswände', nl:'Uitzichten & wanden'}, d:{es:'Caliza vertical impresionante.', en:'Striking vertical limestone.', fr:'Calcaires verticaux saisissants.', de:'Beeindruckender Kalkstein.', nl:'Opvallende kalksteenwanden.'}},
-        {t:{es:'Escalada y vías ferratas', en:'Climbing & via ferrata', fr:'Escalade & via ferrata', de:'Klettern & Klettersteig', nl:'Klimmen & via ferrata'}, d:{es:'Varias rutas equipadas.', en:'Several equipped routes.', fr:'Plusieurs itinéraires équipés.', de:'Mehrere gesicherte Routen.', nl:'Diverse beveiligde routes.'}},
-        {t:{es:'Pueblos del desfiladero', en:'Gorge villages', fr:'Villages de la gorge', de:'Schlucht-Dörfer', nl:'Dorpen in de kloof'}, d:{es:'Peñarrubia, Cillorigo, etc.', en:'Peñarrubia, Cillorigo, etc.', fr:'Peñarrubia, Cillorigo, etc.', de:'Peñarrubia, Cillorigo u.a.', nl:'Peñarrubia, Cillorigo e.a.'}}
+        {t:{es:'Mirador de Santa Catalina',en:'Santa Catalina Viewpoint',fr:'Belvédère Santa Catalina',de:'Aussicht Santa Catalina',nl:'Uitzichtpunt Santa Catalina'}, d:{es:'Vistas de águila a todo el desfiladero.',en:'Eagle-eye views over the gorge.',fr:'Vue plongeante sur le défilé.',de:'Adlerblick über die Schlucht.',nl:'Adelaarsblik over de kloof.'}},
+        {t:{es:'Termas de La Hermida',en:'La Hermida Spa',fr:'Thermes de La Hermida',de:'Thermalbad La Hermida',nl:'Thermen La Hermida'}, d:{es:'Aguas termales en el valle.',en:'Thermal waters in the valley.',fr:'Eaux thermales dans la vallée.',de:'Thermalwasser im Tal.',nl:'Thermaal water in de vallei.'}},
+        {t:{es:'Escalada & vías ferrata',en:'Climbing & via ferrata',fr:'Escalade & via ferrata',de:'Klettern & Klettersteig',nl:'Klimmen & via ferrata'}, d:{es:'Varias rutas equipadas.',en:'Several equipped routes.',fr:'Plusieurs itinéraires équipés.',de:'Mehrere gesicherte Routen.',nl:'Diverse beveiligde routes.'}}
       ]
     },
     { id:'el-soplao',
-      title:{es:'Cueva El Soplao', en:'El Soplao Cave', fr:'Grotte El Soplao', de:'Höhle El Soplao', nl:'Grot El Soplao'},
-      summary:{es:'Formaciones excéntricas únicas.', en:'Unique eccentric formations.', fr:'Formations excentriques uniques.', de:'Einzigartige exzentrische Formationen.', nl:'Unieke excentrische formaties.'},
+      title:{es:'Cueva El Soplao',en:'El Soplao Cave',fr:'Grotte El Soplao',de:'Höhle El Soplao',nl:'Grot El Soplao'},
+      summary:{es:'Cueva singular por sus formaciones excéntricas.',en:'Cave famed for unique eccentric formations.',fr:'Grotte aux formations excentriques uniques.',de:'Höhle mit einzigartigen Exzentrika.',nl:'Grot met unieke excentrische formaties.'},
       imgq:'Cueva El Soplao',
       map:'https://maps.app.goo.gl/kqB7y7a6T9Kf1U9y5',
       site:'https://www.elsoplao.es/',
       tickets:'https://www.elsoplao.es/visitas/',
       highlights:[
-        {t:{es:'Ruta turística', en:'Tourist route', fr:'Parcours touristique', de:'Touristenroute', nl:'Toeristische route'}, d:{es:'Visita guiada clásica.', en:'Classic guided tour.', fr:'Visite guidée classique.', de:'Klassische Führung.', nl:'Klassieke rondleiding.'}},
-        {t:{es:'Aula de minería', en:'Mining area', fr:'Espace minier', de:'Bergwerksbereich', nl:'Mijnzaal'}, d:{es:'Contexto geológico y minero.', en:'Geology & mining context.', fr:'Contexte géologique et minier.', de:'Geologie & Bergbaukontext.', nl:'Geologie & mijnbouwcontext.'}},
-        {t:{es:'Galerías excéntricas', en:'Eccentric galleries', fr:'Galeries excentriques', de:'Exzentrische Gänge', nl:'Excentrieke galerijen'}, d:{es:'Cristales y estalactitas raras.', en:'Crystals and rare stalactites.', fr:'Cristaux et stalactites rares.', de:'Kristalle & seltene Tropfsteine.', nl:'Kristallen & zeldzame druipsteen.'}},
-        {t:{es:'Entorno de minería', en:'Mining surroundings', fr:'Environs miniers', de:'Bergbau-Umfeld', nl:'Mijnomgeving'}, d:{es:'Antiguas bocaminas y paisaje.', en:'Old adits & landscape.', fr:'Anciens accès & paysage.', de:'Alte Stollen & Landschaft.', nl:'Oude mijnschachten & landschap.'}}
+        {t:{es:'Ruta turística',en:'Tourist route',fr:'Parcours touristique',de:'Touristenroute',nl:'Toeristische route'}, d:{es:'Visita guiada clásica.',en:'Classic guided tour.',fr:'Visite guidée classique.',de:'Klassische Führung.',nl:'Klassieke rondleiding.'}},
+        {t:{es:'Galerías excéntricas',en:'Eccentric galleries',fr:'Galeries excentriques',de:'Exzentrische Gänge',nl:'Excentrieke galerijen'}, d:{es:'Cristales y espeleotemas raros.',en:'Crystals and rare speleothems.',fr:'Cristaux et spéléothèmes rares.',de:'Kristalle & seltene Tropfsteine.',nl:'Kristallen & zeldzame druipsteen.'}},
+        {t:{es:'Aula de minería',en:'Mining area',fr:'Espace minier',de:'Bergwerksbereich',nl:'Mijnzaal'}, d:{es:'Contexto geológico y minero.',en:'Geology & mining context.',fr:'Contexte géologique et minier.',de:'Geologie & Bergbaukontext.',nl:'Geologie & mijnbouw.'}}
       ]
     },
     { id:'isla-noja-santona',
-      title:{es:'Isla · Noja · Santoña', en:'Isla · Noja · Santoña', fr:'Isla · Noja · Santoña', de:'Isla · Noja · Santoña', nl:'Isla · Noja · Santoña'},
-      summary:{es:'Playas, marismas y anchoas.', en:'Beaches, marshes and anchovies.', fr:'Plages, marais et anchois.', de:'Strände, Marschen & Sardellen.', nl:'Stranden, moerassen en ansjovis.'},
+      title:{es:'Isla · Noja · Santoña',en:'Isla · Noja · Santoña',fr:'Isla · Noja · Santoña',de:'Isla · Noja · Santoña',nl:'Isla · Noja · Santoña'},
+      summary:{es:'Playas inmensas, marismas y balcones al Cantábrico.',en:'Vast beaches, marshes & coastal lookouts.',fr:'Immenses plages, marais & belvédères.',de:'Weite Strände, Marschen & Aussichtspunkte.',nl:'Brede stranden, moerassen & uitzichtpunten.'},
       imgq:'Isla Noja Santoña',
       map:'https://maps.app.goo.gl/q8Xqj3F3yZ9w4i7B9',
       highlights:[
-        {t:{es:'Marismas de Santoña', en:'Santoña Marshes', fr:'Marais de Santoña', de:'Santoña-Marsch', nl:'Moerassen van Santoña'}, d:{es:'Aves migratorias y observatorios.', en:'Migratory birds & hides.', fr:'Oiseaux migrateurs & observatoires.', de:'Zugvögel & Beobachtungshütten.', nl:'Trekvogels & kijkhutten.'}},
-        {t:{es:'Playa de Trengandín', en:'Trengandín Beach', fr:'Plage de Trengandín', de:'Strand Trengandín', nl:'Strand Trengandín'}, d:{es:'Larguísima y familiar.', en:'Very long, family-friendly.', fr:'Très longue & familiale.', de:'Sehr lang & familienfreundlich.', nl:'Zeer lang & gezinsvriendelijk.'}},
-        {t:{es:'Monte Buciero', en:'Mount Buciero', fr:'Mont Buciero', de:'Berg Buciero', nl:'Monte Buciero'}, d:{es:'Rutas al faro del Caballo.', en:'Trails to Faro del Caballo.', fr:'Sentiers vers Faro del Caballo.', de:'Wege zum Faro del Caballo.', nl:'Routes naar Faro del Caballo.'}},
-        {t:{es:'Fábricas de anchoa', en:'Anchovy producers', fr:'Producteurs d’anchois', de:'Sardellenmanufakturen', nl:'Ansjovisfabrieken'}, d:{es:'Visitas y degustaciones.', en:'Visits and tastings.', fr:'Visites & dégustations.', de:'Besuche & Verkostungen.', nl:'Bezoek & proeverijen.'}}
+        {t:{es:'Marismas de Santoña',en:'Santoña Marshes',fr:'Marais de Santoña',de:'Santoña-Marsch',nl:'Moerassen van Santoña'}, d:{es:'Aves migratorias y observatorios.',en:'Migratory birds & hides.',fr:'Oiseaux migrateurs & observatoires.',de:'Zugvögel & Beobachtungshütten.',nl:'Trekvogels & kijkhutten.'}},
+        {t:{es:'Playa de Trengandín',en:'Trengandín Beach',fr:'Plage de Trengandín',de:'Strand Trengandín',nl:'Strand Trengandín'}, d:{es:'Kilómetros de arena fina.',en:'Miles of fine sand.',fr:'Kilomètres de sable fin.',de:'Kilometer feiner Sand.',nl:'Kilometers fijn zand.'}},
+        {t:{es:'Monte Buciero',en:'Mount Buciero',fr:'Mont Buciero',de:'Berg Buciero',nl:'Monte Buciero'}, d:{es:'Ruta al Faro del Caballo.',en:'Hike to Faro del Caballo.',fr:'Rando au phare du Cheval.',de:'Wanderung zum Faro del Caballo.',nl:'Hike naar Faro del Caballo.'}},
+        {t:{es:'Anchoas de Santoña',en:'Santoña anchovies',fr:'Anchois de Santoña',de:'Sardellen aus Santoña',nl:'Ansjovis uit Santoña'}, d:{es:'Visitas y degustaciones.',en:'Visits and tastings.',fr:'Visites & dégustations.',de:'Besichtigungen & Verkostung.',nl:'Bezoek & proeverij.'}}
+      ]
+    },
+    /* NUEVOS DESTINOS */
+    { id:'costa-quebrada',
+      title:{es:'Costa Quebrada',en:'Costa Quebrada',fr:'Costa Quebrada',de:'Costa Quebrada',nl:'Costa Quebrada'},
+      summary:{es:'Litoral geológico de acantilados, arcos y playas salvajes.',en:'Geological coastline of cliffs, arches & wild beaches.',fr:'Littoral géologique: falaises, arches & plages sauvages.',de:'Geologische Küste mit Klippen, Bögen & wilden Stränden.',nl:'Geologische kust met kliffen, bogen & ruige stranden.'},
+      imgq:'Costa Quebrada Cantabria',
+      map:'https://maps.app.goo.gl/1zWgqX2C6yH5c3hTA',
+      highlights:[
+        {t:{es:'Playa de Arnía',en:'Arnía Beach',fr:'Plage de l’Arnía',de:'Strand Arnía',nl:'Arnía-strand'}, d:{es:'Agujas calizas y arco natural.',en:'Limestone spires & natural arch.',fr:'Aiguilles calcaires & arche naturelle.',de:'Kalknadeln & Naturbogen.',nl:'Kalkspitsen & natuurlijke boog.'}},
+        {t:{es:'Portio & Cerrias',en:'Portio & Cerrias',fr:'Portio & Cerrias',de:'Portio & Cerrias',nl:'Portio & Cerrias'}, d:{es:'Playas pequeñas entre capas rocosas.',en:'Small coves among rock strata.',fr:'Petites criques entre strates.',de:'Kleine Buchten in Schichten.',nl:'Kleine baaien tussen lagen.'}},
+        {t:{es:'Dunas de Liencres',en:'Liencres Dunes',fr:'Dunes de Liencres',de:'Dünen von Liencres',nl:'Duinen van Liencres'}, d:{es:'Parque natural, pinos y estuario.',en:'Natural park, pines & estuary.',fr:'Parc naturel, pins & estuaire.',de:'Naturpark, Kiefern & Ästuar.',nl:'Natuurpark, dennen & estuarium.'}},
+        {t:{es:'La Picota (mirador)',en:'La Picota (viewpoint)',fr:'La Picota (belvédère)',de:'La Picota (Aussicht)',nl:'La Picota (uitzichtpunt)'}, d:{es:'Vistas 360° de costa y Picos.',en:'360° views of coast & Picos.',fr:'Vue 360° sur côte & Picos.',de:'360°-Blick auf Küste & Picos.',nl:'360°-zicht op kust & Picos.'}}
+      ]
+    },
+    { id:'castro-urdiales',
+      title:{es:'Castro Urdiales',en:'Castro Urdiales',fr:'Castro Urdiales',de:'Castro Urdiales',nl:'Castro Urdiales'},
+      summary:{es:'Ciudad marinera con gótico costero y castillo-faro.',en:'Seaside city with coastal Gothic & castle-lighthouse.',fr:'Ville maritime, gothique côtier & château-phare.',de:'Küstenstadt mit Küstengotik & Schloss-Leuchtturm.',nl:'Kuststad met gotiek & kasteel-vuurtoren.'},
+      imgq:'Castro Urdiales',
+      map:'https://maps.app.goo.gl/VmKcQx9Cpx1g8Cik6',
+      highlights:[
+        {t:{es:'Iglesia Sta. María',en:'St. Mary’s Church',fr:'Église Ste-Marie',de:'Kirche Sta. María',nl:'Santa María-kerk'}, d:{es:'Gótico cantábrico frente al mar.',en:'Cantabrian Gothic by the sea.',fr:'Gothique cantabre au bord de mer.',de:'Küstengotik am Meer.',nl:'Cantabrische gotiek aan zee.'}},
+        {t:{es:'Castillo-Faro',en:'Castle-Lighthouse',fr:'Château-Phare',de:'Schloss-Leuchtturm',nl:'Kasteel-Vuurtoren'}, d:{es:'Fortaleza medieval con faro.',en:'Medieval fortress with lighthouse.',fr:'Forteresse médiévale avec phare.',de:'Mittelalterliche Festung mit Leuchtturm.',nl:'Middeleeuwse burcht met vuurtoren.'}},
+        {t:{es:'Puente medieval',en:'Medieval bridge',fr:'Pont médiéval',de:'Mittelalterliche Brücke',nl:'Middeleeuwse brug'}, d:{es:'Fotogénico junto al puerto.',en:'Photogenic by the harbour.',fr:'Photogénique près du port.',de:'Fotogen am Hafen.',nl:'Fotogeniek bij de haven.'}},
+        {t:{es:'Paseo marítimo',en:'Seafront promenade',fr:'Promenade maritime',de:'Uferpromenade',nl:'Boulevard'}, d:{es:'Ambiente y pinchos de mar.',en:'Atmosphere & seafood pinchos.',fr:'Ambiance & tapas de la mer.',de:'Atmosphäre & Meeres-Tapas.',nl:'Sfeer & zee-tapas.'}}
+      ]
+    },
+    { id:'laredo',
+      title:{es:'Laredo',en:'Laredo',fr:'Laredo',de:'Laredo',nl:'Laredo'},
+      summary:{es:'Kilómetros de arena en La Salvé y casco antiguo amurallado.',en:'Miles of sand at La Salvé & walled old town.',fr:'Kilomètres de sable à La Salvé & vieille ville murée.',de:'Kilometer Sand an La Salvé & ummauerte Altstadt.',nl:'Kilometers zand op La Salvé & ommuurde oude stad.'},
+      imgq:'Laredo Cantabria',
+      map:'https://maps.app.goo.gl/J3A2q1K6ZVJQZJ7A7',
+      highlights:[
+        {t:{es:'Playa de La Salvé',en:'La Salvé Beach',fr:'Plage de La Salvé',de:'Strand La Salvé',nl:'Strand La Salvé'}, d:{es:'Amplia, urbana y muy paseable.',en:'Wide, urban & walkable.',fr:'Large, urbaine & propice à la marche.',de:'Breit, urban & gut begehbar.',nl:'Breed, stedelijk & wandelbaar.'}},
+        {t:{es:'Puebla Vieja',en:'Old walled town',fr:'Vieille ville fortifiée',de:'Ummauerte Altstadt',nl:'Oude ommuurde stad'}, d:{es:'Iglesias y callejas medievales.',en:'Medieval churches & alleys.',fr:'Églises & ruelles médiévales.',de:'Mittelalterliche Gassen & Kirchen.',nl:'Middeleeuwse straatjes & kerken.'}},
+        {t:{es:'Atalaya & miradores',en:'Atalaya & viewpoints',fr:'Atalaya & belvédères',de:'Atalaya & Aussichtspunkte',nl:'Atalaya & uitzichtpunten'}, d:{es:'Vistas a Santoña y costa oriental.',en:'Views to Santoña & the east coast.',fr:'Vues sur Santoña & la côte orientale.',de:'Blick nach Santoña & Ostküste.',nl:'Uitzicht op Santoña & oostkust.'}},
+        {t:{es:'Ruta Carlos V',en:'Charles V Route',fr:'Route Charles Quint',de:'Route Karl V.',nl:'Karel V-route'}, d:{es:'Sendero histórico hacia Medina.',en:'Historic trail towards Medina.',fr:'Sentier historique vers Medina.',de:'Historischer Weg Richtung Medina.',nl:'Historisch pad naar Medina.'}}
+      ]
+    },
+    { id:'lierganes-pasiegos',
+      title:{es:'Liérganes & Valles Pasiegos',en:'Liérganes & Pas Valleys',fr:'Liérganes & Vallées Pasiegas',de:'Liérganes & Pas-Täler',nl:'Liérganes & Pas-valleien'},
+      summary:{es:'Puentes, balneario, sobaos y paisajes de brañas.',en:'Bridges, spa, sobaos & high-pasture landscapes.',fr:'Ponts, thermes, sobaos & pâturages d’altitude.',de:'Brücken, Thermalbad, Sobaos & Hochweiden.',nl:'Bruggen, spa, sobaos & bergweiden.'},
+      imgq:'Lierganes Valles Pasiegos',
+      map:'https://maps.app.goo.gl/TD6m9QhQe6xEo7oE8',
+      highlights:[
+        {t:{es:'Puente Mayor & Hombre Pez',en:'Puente Mayor & Hombre Pez',fr:'Pont Mayor & Homme-Poisson',de:'Puente Mayor & Fischmensch',nl:'Puente Mayor & Vismens'}, d:{es:'Iconos locales junto al Miera.',en:'Local icons by the Miera river.',fr:'Icônes locales sur la Miera.',de:'Lokale Ikonen am Miera.',nl:'Lokale iconen aan de Miera.'}},
+        {t:{es:'Balneario de Liérganes',en:'Liérganes Spa',fr:'Thermes de Liérganes',de:'Thermalbad Liérganes',nl:'Spa Liérganes'}, d:{es:'Aguas mineromedicinales.',en:'Medicinal mineral waters.',fr:'Eaux minérales médicinales.',de:'Heilmineralwasser.',nl:'Geneeskrachtig mineraalwater.'}},
+        {t:{es:'Miradores de Lunada',en:'Lunada viewpoints',fr:'Belvédères de Lunada',de:'Aussichtspunkte Lunada',nl:'Uitzichtpunten Lunada'}, d:{es:'Puertos y cabañas pasiegas.',en:'Mountain passes & shepherd huts.',fr:'Cols & cabanes pasiegas.',de:'Pässe & Hirtenhütten.',nl:'Bergpassen & herdershutten.'}},
+        {t:{es:'Sobaos y quesadas',en:'Sobaos & quesadas',fr:'Sobaos & quesadas',de:'Sobaos & Quesadas',nl:'Sobaos & quesadas'}, d:{es:'Dulces típicos artesanos.',en:'Traditional local sweets.',fr:'Douceurs locales traditionnelles.',de:'Traditionelle Süßspeisen.',nl:'Traditionele zoetwaren.'}}
+      ]
+    },
+    { id:'secuoyas-cabezon',
+      title:{es:'Secuoyas de Cabezón',en:'Cabezón Redwoods',fr:'Séquoias de Cabezón',de:'Mammutbäume von Cabezón',nl:'Sequoia’s van Cabezón'},
+      summary:{es:'Bosque de secuoyas gigante, paseo cómodo y fotogénico.',en:'Giant redwood grove; easy, photogenic walk.',fr:'Bois de séquoias géants; balade facile et photogénique.',de:'Hain aus Mammutbäumen; leichter, fotogener Rundgang.',nl:'Bos met mammoetbomen; makkelijke, fotogenieke wandeling.'},
+      imgq:'Secuoyas de Cabezón de la Sal',
+      map:'https://maps.app.goo.gl/2k1C1b8iX1cY4QkF6',
+      highlights:[
+        {t:{es:'Pasarelas del bosque',en:'Forest boardwalks',fr:'Passerelles en forêt',de:'Stege im Wald',nl:'Looppaden in het bos'}, d:{es:'Sombra y humedad agradable todo el año.',en:'Shade & pleasant humidity year-round.',fr:'Ombre & humidité agréable toute l’année.',de:'Schatten & angenehme Feuchte.',nl:'Schaduw & prettige vochtigheid.'}},
+        {t:{es:'Fotografía entre gigantes',en:'Photos among giants',fr:'Photos parmi les géants',de:'Fotos zwischen Giganten',nl:'Foto’s tussen reuzen'}, d:{es:'Troncos rectos de más de 30 m.',en:'Straight trunks over 30 m.',fr:'Fûts droits de plus de 30 m.',de:'Gerade Stämme über 30 m.',nl:'Rechte stammen van >30 m.'}}
+      ]
+    },
+    { id:'cuevas-unesco',
+      title:{es:'Cuevas Prehistóricas (UNESCO)',en:'Prehistoric Caves (UNESCO)',fr:'Grottes préhistoriques (UNESCO)',de:'Prähistorische Höhlen (UNESCO)',nl:'Prehistorische grotten (UNESCO)'},
+      summary:{es:'Arte rupestre en varios valles, visitas con reserva.',en:'Rock art across valleys; visits by reservation.',fr:'Art rupestre dans plusieurs vallées; visites sur réservation.',de:'Felskunst in mehreren Tälern; Besuch mit Reservierung.',nl:'Rotskunst in diverse dalen; bezoek op reservering.'},
+      imgq:'Cuevas prehistóricas Cantabria UNESCO',
+      map:'https://maps.app.goo.gl/8y3fHk1Up1m2q4Cq7',
+      highlights:[
+        {t:{es:'Covalanas (Ramales)',en:'Covalanas (Ramales)',fr:'Covalanas (Ramales)',de:'Covalanas (Ramales)',nl:'Covalanas (Ramales)'}, d:{es:'Figuras en rojo intenso.',en:'Figures in deep red.',fr:'Figures en rouge vif.',de:'Figuren in Tiefrot.',nl:'Figuren in dieprood.'}},
+        {t:{es:'El Pendo',en:'El Pendo',fr:'El Pendo',de:'El Pendo',nl:'El Pendo'}, d:{es:'Gran friso y manos negativas.',en:'Large frieze & negative hands.',fr:'Grand frise & mains négatives.',de:'Großes Fries & Negativhände.',nl:'Grote fries & negatieve handen.'}},
+        {t:{es:'Hornos de la Peña',en:'Hornos de la Peña',fr:'Hornos de la Peña',de:'Hornos de la Peña',nl:'Hornos de la Peña'}, d:{es:'Grabados sorprendentes.',en:'Remarkable engravings.',fr:'Gravures remarquables.',de:'Bemerkenswerte Gravuren.',nl:'Opmerkelijke gravures.'}},
+        {t:{es:'Chufín',en:'Chufín',fr:'Chufín',de:'Chufín',nl:'Chufín'}, d:{es:'Signos y animales junto al Nansa.',en:'Signs & animals by the Nansa.',fr:'Signes & animaux près du Nansa.',de:'Zeichen & Tiere am Nansa.',nl:'Tekens & dieren bij de Nansa.'}}
       ]
     }
   ];
-
   function renderMusts(){
     const grid=$('#mustsGrid'); if(!grid) return;
     const L=I18N[LANG]||I18N.es;
-    grid.innerHTML = MUSTS.map(m=>{
+    grid.innerHTML=MUSTS.map(m=>{
       const title=tr(m.title), summary=tr(m.summary);
       const details=(m.highlights||[]).map(h=>`<li><strong>${esc(tr(h.t))}</strong>: ${esc(tr(h.d))}</li>`).join('');
-      const imgLink = gimg(m.imgq || (title+' Cantabria'));
+      const imgLink=gimg(m.imgq||(title+' Cantabria'));
       return `<article class="must-card" data-id="${esc(m.id)}">
-        <div class="must-head">
-          <div class="must-title">${esc(title)}</div>
-          <div class="must-summary">${esc(summary)}</div>
-        </div>
+        <div class="must-head"><div class="must-title">${esc(title)}</div><div class="must-summary">${esc(summary)}</div></div>
         <div class="must-actions">
           ${m.map?`<a class="btn" href="${esc(m.map)}" target="_blank" rel="noopener">🗺️ ${esc(L.openMap)}</a>`:''}
           ${m.site?`<a class="btn" href="${esc(m.site)}" target="_blank" rel="noopener">🌐 ${esc(L.openSite)}</a>`:''}
@@ -1053,8 +1078,8 @@ document.addEventListener('DOMContentLoaded', function(){
       </article>`;
     }).join('');
     qsa('.must-card',grid).forEach(card=>{
-      on(card.querySelector('.toggle-more'),'click', ()=>card.classList.add('open'));
-      on(card.querySelector('.toggle-less'),'click', ()=>card.classList.remove('open'));
+      on(card.querySelector('.toggle-more'),'click',()=>card.classList.add('open'));
+      on(card.querySelector('.toggle-less'),'click',()=>card.classList.remove('open'));
     });
   }
 
@@ -1068,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if(entered===stored) return true;
       alert('Contraseña incorrecta'); return false;
     }
-    on(logo,'click', function(){
+    on(logo,'click',function(){
       taps++; clearTimeout(timer); timer=setTimeout(()=>{taps=0},1000);
       if(taps>=5){
         taps=0;
@@ -1082,7 +1107,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   })();
-
   function openAdminModal(){ const m=$('#adminModal'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); } }
   function closeAdminModal(){ const m=$('#adminModal'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); } }
   on($('#closeAdmin'),'click',(e)=>{e.preventDefault(); closeAdminModal();});
@@ -1090,21 +1114,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
   let ADMIN_EVENTS=[];
   const slug=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);
-  const isoFromLocal=(dt)=>{ const d=new Date(dt); if(isNaN(d.getTime())) return dt; const tz=-d.getTimezoneOffset(),sign=tz>=0?'+':'-'; const p=n=>('0'+n).slice(-2); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+sign+p(Math.floor(Math.abs(tz)/60))+':'+p(Math.abs(tz)%60); };
+  const isoFromLocal=dt=>{ const d=new Date(dt); if(isNaN(d.getTime())) return dt; const tz=-d.getTimezoneOffset(),sign=tz>=0?'+':'-'; const p=n=>('0'+n).slice(-2); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes())+':'+p(Math.abs(tz)/60)+':'+p(Math.abs(tz)%60); };
 
   function loadEventsAdmin(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(r=>r.json()).then(data=>{ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
+      .then(r=>r.json()).then(data=>{ ADMIN_EVENTS=Array.isArray(data)?data:[]; renderAdminTable(); })
       .catch(()=>{ ADMIN_EVENTS=[]; renderAdminTable(); });
     loadGhCfgToForm();
   }
   function renderAdminTable(){
     const tbody=$('#eventsTable tbody'); if(!tbody) return;
-    tbody.innerHTML = ADMIN_EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(ev=>{
+    tbody.innerHTML=ADMIN_EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(ev=>{
       const titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
       const lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
       const dt=new Date(ev.fecha);
-      const val = dt.getFullYear()+'-'+pad2(dt.getMonth()+1)+'-'+pad2(dt.getDate())+'T'+pad2(dt.getHours())+':'+pad2(dt.getMinutes());
+      const val=dt.getFullYear()+'-'+pad2(dt.getMonth()+1)+'-'+pad2(dt.getDate())+'T'+pad2(dt.getHours())+':'+pad2(dt.getMinutes());
       return `<tr data-id="${ev.id}">
         <td class="muted" style="white-space:nowrap">${esc(ev.id)}</td>
         <td><input class="input dt" type="datetime-local" value="${val}"><div class="muted">${esc(dt.toLocaleString())}</div></td>
@@ -1123,9 +1147,9 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     qsa('#eventsTable tbody tr').forEach(tr=>{
       const id=tr.getAttribute('data-id');
-      on(tr.querySelector('.act-save'),'click', ()=>saveRow(tr,id));
-      on(tr.querySelector('.act-dup'),'click', ()=>duplicateRow(id));
-      on(tr.querySelector('.act-del'),'click', ()=>deleteRow(id));
+      on(tr.querySelector('.act-save'),'click',()=>saveRow(tr,id));
+      on(tr.querySelector('.act-dup'),'click',()=>duplicateRow(id));
+      on(tr.querySelector('.act-del'),'click',()=>deleteRow(id));
     });
   }
   function getRowValues(tr){
@@ -1155,39 +1179,36 @@ document.addEventListener('DOMContentLoaded', function(){
     const titleES=(o.titulo&&o.titulo.es)||''; const newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
     const copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
   }
-  function deleteRow(id){ if(!confirm('¿Borrar este evento?')) return; ADMIN_EVENTS = ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
+  function deleteRow(id){ if(!confirm('¿Borrar este evento?')) return; ADMIN_EVENTS=ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
 
-  // Schedules admin
   function loadSchedulesAdmin(){ const a=$('#schedJsonArea'); try{ a.value=JSON.stringify(SCHEDULES,null,2);}catch(e){ a.value='{}'; } }
-  on($('#schedApplyBtn'),'click', ()=>{ const a=$('#schedJsonArea'); try{ const obj=JSON.parse(a.value); if(!obj||typeof obj!=='object') throw 0; Object.assign(SCHEDULES,obj); renderAcc(); renderStayHours(); alert('Horarios aplicados.'); }catch(e){ alert('JSON inválido.'); } });
-  on($('#exportSchedBtn'),'click', ()=>{ const blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
-  on($('#importSchedFile'),'change', (e)=>{ const f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(txt=>{ const data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; Object.assign(SCHEDULES,data); renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(()=>alert('No se pudo leer schedules.json')).finally(()=>{ e.target.value=''; }); });
+  on($('#schedApplyBtn'),'click',()=>{ const a=$('#schedJsonArea'); try{ const obj=JSON.parse(a.value); if(!obj||typeof obj!=='object') throw 0; Object.assign(SCHEDULES,obj); renderAcc(); renderStayHours(); alert('Horarios aplicados.'); }catch(e){ alert('JSON inválido.'); } });
+  on($('#exportSchedBtn'),'click',()=>{ const blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+  on($('#importSchedFile'),'change',(e)=>{ const f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(txt=>{ const data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; Object.assign(SCHEDULES,data); renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(()=>alert('No se pudo leer schedules.json')).finally(()=>{ e.target.value=''; }); });
 
-  // GitHub minimal
+  /* GitHub */
   const GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
   function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
   function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); const tkn=($('#ghToken').value||'').trim(); if(tkn) localStorage.setItem(GH_KEYS.token,tkn); alert('Configuración guardada.'); }
-  function ghGet(path, token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch); return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}}); }
-  function ghPut(path, contentBase64, message, sha, token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); const body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
-  const toB64=(str)=> btoa(unescape(encodeURIComponent(str)));
-  on($('#saveGhCfg'),'click', saveGhCfgFromForm);
-  on($('#pushEventsBtn'),'click', ()=>{
+  function ghGet(path,token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch); return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}}); }
+  function ghPut(path,contentBase64,message,sha,token){ const repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; const url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); const body={message,content:contentBase64,branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
+  const toB64=str=>btoa(unescape(encodeURIComponent(str)));
+  on($('#saveGhCfg'),'click',saveGhCfgFromForm);
+  on($('#pushEventsBtn'),'click',()=>{
     try{
       if(!ADMIN_EVENTS.length){ alert('No hay eventos.'); return; }
       const token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
-      let sha=null;
-      ghGet('events.json', token).then(res=>{ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); }});
+      let sha=null; ghGet('events.json',token).then(res=>{ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); }});
       const jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
       const content64=toB64(jsonStr);
       const now=new Date().toISOString().slice(0,19).replace('T',' ');
       ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(res=>{ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
     }catch(err){ alert('❌ '+err.message); }
   });
-  on($('#pushSchedBtn'),'click', ()=>{
+  on($('#pushSchedBtn'),'click',()=>{
     try{
       const token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
-      let sha=null;
-      ghGet('schedules.json', token).then(res=>{ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); }});
+      let sha=null; ghGet('schedules.json',token).then(res=>{ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); }});
       const jsonStr=JSON.stringify(SCHEDULES,null,2);
       const content64=toB64(jsonStr);
       const now=new Date().toISOString().slice(0,19).replace('T',' ');
@@ -1198,15 +1219,12 @@ document.addEventListener('DOMContentLoaded', function(){
   /* Init */
   applyLang(); renderAcc(); updateStayUI(); updateIncUI(); renderMusts(); loadEvents();
 
-  // Drawer backdrop
-  on($('#drawerBack'),'click', ()=>$('#drawer').classList.remove('open'));
-
-  // Cerrar modales con backdrop/Esc
-  const closeOnBackdrop=(id)=>{ const el=$(id); if(!el) return; on(el,'click',(e)=>{ if(e.target===el) el.style.display='none'; }); };
+  // Backdrops & ESC
+  const closeOnBackdrop=id=>{ const el=$(id); if(!el) return; on(el,'click',(e)=>{ if(e.target===el) el.style.display='none'; }); };
   closeOnBackdrop('#langModal'); closeOnBackdrop('#installModal');
   document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ ['langModal','installModal'].forEach(id=>{ const el=$('#'+id); if(el) el.style.display='none'; }); } });
 
-  // Service Worker
+  // SW
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
   }
