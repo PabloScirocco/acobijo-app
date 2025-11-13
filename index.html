@@ -64,7 +64,7 @@ main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
 .hero-inner{display:flex;align-items:center;gap:14px;padding:16px}
 .hero h2{margin:0;font-size:1.3rem}
-.badge{display:none} /* Ocultamos “PWA · Offline · Multidioma” */
+.badge{display:none}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
   align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
@@ -167,12 +167,14 @@ body.dark .pill{background:#0f1a2b}
   <aside class="panel" role="menu" aria-label="Navegación">
     <div class="item" data-nav="home">🏠 <strong id="d-home">Inicio</strong></div>
     <div class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></div>
+    <div class="item" data-nav="precheckin">📝 <strong id="d-pc">Pre-checkin</strong></div>
     <div class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></div>
     <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
+    <div class="item" data-nav="favs">💛 <strong id="d-favs">Favoritos del equipo</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
     <div class="muted" id="drawerHint">Elige sección</div>
   </aside>
@@ -186,15 +188,17 @@ body.dark .pill{background:#0f1a2b}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div><!-- oculto por CSS -->
+          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
         </div>
       </div>
       <div class="tiles">
         <div class="tile" data-nav="events"><div class="big">📅</div><div><strong id="t-ev">Eventos</strong><div class="muted" id="t-ev-sub">Qué hay hoy</div></div></div>
         <div class="tile" data-nav="stay"><div class="big">🧳</div><div><strong id="t-stay">Mi estancia</strong><div class="muted" id="t-stay-sub">Contactos, clima, horarios</div></div></div>
+        <div class="tile" data-nav="precheckin"><div class="big">📝</div><div><strong id="t-pc">Pre-checkin</strong><div class="muted" id="t-pc-sub">Ahorra tiempo en recepción</div></div></div>
         <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
         <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles de Cantabria</strong><div class="muted" id="t-musts-sub">Abre, mira y navega</div></div></div>
         <div class="tile" data-nav="food"><div class="big">🍽️</div><div><strong id="t-food">Gastronomía</strong><div class="muted" id="t-food-sub">Sabores cántabros</div></div></div>
+        <div class="tile" data-nav="favs"><div class="big">💛</div><div><strong id="t-favs">Favoritos del equipo</strong><div class="muted" id="t-favs-sub">Pueblos, playas, miradores…</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
     </div>
@@ -250,6 +254,69 @@ body.dark .pill{background:#0f1a2b}
         <div class="wx-day"><div class="d" id="d2">—</div><div class="i" id="i2">☀️</div><div class="t" id="t2">--/--°</div></div>
         <div class="wx-day"><div class="d" id="d3">—</div><div class="i" id="i3">☀️</div><div class="t" id="t3">--/--°</div></div>
       </div>
+    </div>
+  </section>
+
+  <!-- PRE-CHECKIN -->
+  <section id="view-precheckin" class="view">
+    <h2 id="pc-title">Pre-checkin</h2>
+    <p class="muted" id="pc-note">⚠️ Según la ley de viajeros española, le solicitaremos en recepción a la llegada: <b>Documento Nacional de Identidad o Pasaporte válido</b> de todos los viajeros <b>mayores de 14 años</b>. 👤🛂</p>
+
+    <div class="card" style="margin-top:8px">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div>
+          <label style="font-weight:700" for="pcPlace" id="pc-which">Alojamiento</label>
+          <select id="pcPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:700" for="pcName" id="pc-name">Nombre</label>
+          <input id="pcName" class="input" placeholder="Nombre titular">
+        </div>
+        <div>
+          <label style="font-weight:700" for="pcSurname" id="pc-surname">Apellidos</label>
+          <input id="pcSurname" class="input" placeholder="Apellidos titular">
+        </div>
+        <div>
+          <label style="font-weight:700" for="pcId" id="pc-id">DNI / Pasaporte</label>
+          <input id="pcId" class="input" placeholder="Documento titular">
+        </div>
+        <div>
+          <label style="font-weight:700" for="pcBirth" id="pc-birth">Fecha de nacimiento</label>
+          <input id="pcBirth" type="date" class="input">
+        </div>
+        <div>
+          <label style="font-weight:700" for="pcPlate" id="pc-plate">Matrícula vehículo</label>
+          <input id="pcPlate" class="input" placeholder="0000-XXX">
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <div class="row" style="align-items:center">
+          <h3 style="margin:0" id="pc-companions">Acompañantes</h3>
+          <button id="pcAddComp" class="btn sm">➕ Añadir acompañante</button>
+        </div>
+        <div id="pcCompsWrap" style="margin-top:8px" class="acc"></div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label style="font-weight:700" for="pcNotes" id="pc-notes">Observaciones</label>
+        <textarea id="pcNotes" class="textarea" placeholder="Ej.: Llegada tardía, cuna para bebé, etc."></textarea>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <a id="pcSend" class="btn primary">✉️ Enviar por email</a>
+        <button id="pcPreview" class="btn">👁️ Ver resumen</button>
+      </div>
+    </div>
+
+    <div class="card" id="pcPreviewCard" style="display:none;margin-top:12px">
+      <h3 style="margin:0">Resumen</h3>
+      <pre id="pcPreviewText" style="white-space:pre-wrap"></pre>
     </div>
   </section>
 
@@ -380,6 +447,13 @@ body.dark .pill{background:#0f1a2b}
     <h2 id="food-title">Gastronomía cántabra</h2>
     <p class="muted" id="food-hint">Productos típicos y platos que deberías probar.</p>
     <div id="foodAcc" class="acc"></div>
+  </section>
+
+  <!-- FAVORITOS DEL EQUIPO -->
+  <section id="view-favs" class="view">
+    <h2 id="favs-title">Los favoritos de nuestro equipo</h2>
+    <p class="muted" id="favs-hint">Recomendaciones personales: pueblos, actividades, playas, restaurantes y miradores. Calculamos la distancia desde tu ubicación si nos das permiso.</p>
+    <div id="favsAcc" class="acc"></div>
   </section>
 </main>
 
@@ -517,6 +591,8 @@ document.addEventListener('DOMContentLoaded', function(){
         ev:"Eventos", evSub:"Qué hay hoy",
         pl:"Campings", plSub:"Accesos rápidos",
         sc:"Horarios", scSub:"Recepción · bar",
+        pc:"Pre-checkin", pcSub:"Ahorra tiempo en recepción",
+        favs:"Favoritos del equipo", favsSub:"Pueblos, playas, miradores…",
         inst:"Instalar", instSub:"Añadir a inicio",
         eventsTitle:"Eventos", schedulesTitle:"Horarios", campingsTitle:"Nuestros campings",
         fAll:"Todos", fToday:"Hoy", fTomorrow:"Mañana", fWeek:"Esta semana", fFav:"Favoritos",
@@ -530,6 +606,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
         dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios", drawerHint:"Elige sección",
+        dPC:"Pre-checkin", dFavs:"Favoritos del equipo",
         nextEvents:"Próximos eventos",
         stay:"Mi estancia", staySub:"Contactos, clima, horarios",
         stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
@@ -551,12 +628,21 @@ document.addEventListener('DOMContentLoaded', function(){
         mustsTitle:"Imprescindibles de Cantabria", mustsHint:"Abre cada apartado para ver descripción, qué ver, mapa, imágenes y entradas.",
         see:"Qué ver", images:"Imágenes", map:"Mapa", tickets:"🔖 Entradas", more:"Más info",
         dist:"Distancia", calcDist:"Calcular distancia",
-        foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos que deberías probar."
+        foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos que deberías probar.",
+        // Precheckin
+        pcTitle:"Pre-checkin",
+        pcNote:"⚠️ Según la ley de viajeros española, le solicitaremos en recepción a la llegada: Documento Nacional de Identidad o Pasaporte válido de todos los viajeros mayores de 14 años. 👤🛂",
+        pcWhich:"Alojamiento", pcName:"Nombre", pcSurname:"Apellidos", pcId:"DNI / Pasaporte", pcBirth:"Fecha de nacimiento",
+        pcPlate:"Matrícula vehículo", pcComps:"Acompañantes", pcNotes:"Observaciones", pcAdd:"➕ Añadir acompañante",
+        pcSend:"✉️ Enviar por email", pcPreview:"👁️ Ver resumen",
+        favsTitle:"Los favoritos de nuestro equipo", favsHint:"Recomendaciones personales por categorías."
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today",
         pl:"Campsites", plSub:"Quick access",
         sc:"Schedules", scSub:"Reception · bar",
+        pc:"Pre-checkin", pcSub:"Save time at reception",
+        favs:"Team favorites", favsSub:"Towns, beaches, viewpoints…",
         inst:"Install", instSub:"Add to Home",
         eventsTitle:"Events", schedulesTitle:"Schedules", campingsTitle:"Our campsites",
         fAll:"All", fToday:"Today", fTomorrow:"Tomorrow", fWeek:"This week", fFav:"Favorites",
@@ -570,6 +656,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Indicative info. Check reception for seasonal changes. Opening hours may vary by date.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
         dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules", drawerHint:"Choose a section",
+        dPC:"Pre-checkin", dFavs:"Team favorites",
         nextEvents:"Upcoming events",
         stay:"My stay", staySub:"Contacts, weather, schedules",
         stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
@@ -579,22 +666,23 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"We open WhatsApp or your email app with a prefilled message.",
         incType:"Issue type", incMsg:"Briefly describe the problem",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:[
-          {key:'electricity', label:"Electricity"},
-          {key:'water', label:"Water"},
-          {key:'cleaning', label:"Cleaning"},
-          {key:'noise', label:"Noise"},
-          {key:'other', label:"Other"}
-        ],
         mustsTitle:"Cantabria essentials", mustsHint:"Open each to see description, highlights, map, images and tickets.",
         see:"Highlights", images:"Images", map:"Map", tickets:"🔖 Tickets", more:"More info",
         dist:"Distance", calcDist:"Calculate distance",
-        foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes to try."
+        foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes to try.",
+        pcTitle:"Pre-checkin",
+        pcNote:"⚠️ Under Spanish traveler law, upon arrival reception will request a valid ID/Passport for all guests aged 14+. 👤🛂",
+        pcWhich:"Accommodation", pcName:"First name", pcSurname:"Last name", pcId:"ID / Passport", pcBirth:"Date of birth",
+        pcPlate:"Vehicle plate", pcComps:"Companions", pcNotes:"Notes", pcAdd:"➕ Add companion",
+        pcSend:"✉️ Send by email", pcPreview:"👁️ Preview",
+        favsTitle:"Our team’s favorites", favsHint:"Personal picks by category."
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
         ev:"Événements", evSub:"Aujourd’hui",
         pl:"Campings", plSub:"Accès rapide",
         sc:"Horaires", scSub:"Réception · bar",
+        pc:"Pré-checkin", pcSub:"Gagnez du temps à la réception",
+        favs:"Coups de cœur", favsSub:"Villes, plages, belvédères…",
         inst:"Installer", instSub:"Ajouter à l’écran d’accueil",
         eventsTitle:"Événements", schedulesTitle:"Horaires", campingsTitle:"Nos campings",
         fAll:"Tous", fToday:"Aujourd’hui", fTomorrow:"Demain", fWeek:"Cette semaine", fFav:"Favoris",
@@ -605,34 +693,35 @@ document.addEventListener('DOMContentLoaded', function(){
         raTitle:"Camping Ramales", raHint:"Grottes · Montagne · Activités",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Nature · Familial · Animaux",
         caTitle:"Appartements / Taverne El Cardeo", caHint:"Appartements + Taverne",
-        schedNote:"Infos indicatives. Vérifiez à la réception. Les horaires peuvent varier selon la date.",
+        schedNote:"Infos indicatives. Vérifiez à la réception. Les horaires peuvent varier.",
         nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
         dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires", drawerHint:"Choisissez une section",
+        dPC:"Pré-checkin", dFavs:"Coups de cœur",
         nextEvents:"Événements à venir",
         stay:"Mon séjour", staySub:"Contacts, météo, horaires",
-        stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
+        stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix.", stayWhich:"Choisissez votre hébergement",
         stayHours:"Horaires de l’hébergement",
         weatherTitle:"Météo", max:"Max", min:"Min",
-        incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Comment souhaitez-vous contacter ?",
-        incHint:"On ouvre WhatsApp ou votre app email avec un message prérempli.",
-        incType:"Type de problème", incMsg:"Décrivez brièvement le problème",
+        incTitle:"Incidents", incWhere:"Dans quel établissement êtes-vous ?", incContact:"Moyen de contact",
+        incHint:"On ouvre WhatsApp ou votre app email.",
+        incType:"Type de problème", incMsg:"Décrivez brièvement",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        incTypes:[
-          {key:'electricity', label:"Électricité"},
-          {key:'water', label:"Eau"},
-          {key:'cleaning', label:"Nettoyage"},
-          {key:'noise', label:"Bruit"},
-          {key:'other', label:"Autres"}
-        ],
-        mustsTitle:"Incontournables de Cantabrie", mustsHint:"Ouvrez chaque section pour la description, les lieux, la carte, les images et les billets.",
+        mustsTitle:"Incontournables de Cantabrie", mustsHint:"Description, points d’intérêt, carte, images et billets.",
         see:"À voir", images:"Images", map:"Carte", tickets:"🔖 Billets", more:"Plus d’infos",
-        dist:"Distance", calcDist:"Calculer la distance",
-        foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques à goûter."
+        dist:"Distance", calcDist:"Calculer distance",
+        foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques.",
+        pcTitle:"Pré-checkin", pcNote:"⚠️ À l’arrivée, pièce d’identité/passeport valide pour tous les +14 ans. 👤🛂",
+        pcWhich:"Hébergement", pcName:"Prénom", pcSurname:"Nom", pcId:"ID / Passeport", pcBirth:"Date de naissance",
+        pcPlate:"Plaque du véhicule", pcComps:"Accompagnants", pcNotes:"Remarques", pcAdd:"➕ Ajouter",
+        pcSend:"✉️ Envoyer par email", pcPreview:"👁️ Aperçu",
+        favsTitle:"Nos coups de cœur", favsHint:"Sélection par catégories."
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
         ev:"Events", evSub:"Heute",
         pl:"Campingplätze", plSub:"Schnellzugriff",
         sc:"Zeiten", scSub:"Rezeption · Bar",
+        pc:"Pre-Check-in", pcSub:"Zeit an der Rezeption sparen",
+        favs:"Lieblingsorte", favsSub:"Orte, Strände, Aussichtspunkte…",
         inst:"Installieren", instSub:"Zum Startbildschirm",
         eventsTitle:"Veranstaltungen", schedulesTitle:"Öffnungszeiten", campingsTitle:"Unsere Campingplätze",
         fAll:"Alle", fToday:"Heute", fTomorrow:"Morgen", fWeek:"Diese Woche", fFav:"Favoriten",
@@ -643,34 +732,35 @@ document.addEventListener('DOMContentLoaded', function(){
         raTitle:"Camping Ramales", raHint:"Höhlen · Berge · Aktivitäten",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natur · Familie · Haustiere",
         caTitle:"Apartments / Taverne El Cardeo", caHint:"Apartments + Taverne",
-        schedNote:"Unverbindliche Infos. Änderungen möglich – bitte an der Rezeption nachfragen.",
+        schedNote:"Unverbindliche Infos. Änderungen möglich – Rezeption fragen.",
         nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
         dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten", drawerHint:"Bereich wählen",
+        dPC:"Pre-Check-in", dFavs:"Lieblingsorte",
         nextEvents:"Kommende Events",
         stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
-        stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
+        stayTitle:"Mein Aufenthalt", stayHint:"Auswahl wird lokal gespeichert.", stayWhich:"Unterkunft wählen",
         stayHours:"Öffnungszeiten der Unterkunft",
         weatherTitle:"Wetter", max:"Max", min:"Min",
-        incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Wie möchtest du Kontakt aufnehmen?",
-        incHint:"Wir öffnen WhatsApp oder deine E-Mail-App mit vorbefüllter Nachricht.",
-        incType:"Störungstyp", incMsg:"Problem kurz beschreiben",
+        incTitle:"Störungen", incWhere:"Welche Unterkunft?", incContact:"Kontaktweg",
+        incHint:"WhatsApp oder E-Mail mit vorbefüllter Nachricht.",
+        incType:"Art der Störung", incMsg:"Problem kurz beschreiben",
         incBtnWA:"WhatsApp", incBtnEmail:"E-Mail",
-        incTypes:[
-          {key:'electricity', label:"Strom"},
-          {key:'water', label:"Wasser"},
-          {key:'cleaning', label:"Reinigung"},
-          {key:'noise', label:"Lärm"},
-          {key:'other', label:"Sonstiges"}
-        ],
-        mustsTitle:"Cantabria-Highlights", mustsHint:"Öffne die Bereiche: Beschreibung, Highlights, Karte, Bilder und Tickets.",
+        mustsTitle:"Cantabria-Highlights", mustsHint:"Beschreibung, Highlights, Karte, Bilder, Tickets.",
         see:"Sehenswert", images:"Bilder", map:"Karte", tickets:"🔖 Tickets", more:"Mehr Infos",
         dist:"Entfernung", calcDist:"Entfernung berechnen",
-        foodTitle:"Kantabrische Küche", foodHint:"Typische Produkte und Gerichte."
+        foodTitle:"Kantabrische Küche", foodHint:"Typische Produkte und Gerichte.",
+        pcTitle:"Pre-Check-in", pcNote:"⚠️ Bei Ankunft Ausweis/Pass für alle Gäste ab 14 Jahren. 👤🛂",
+        pcWhich:"Unterkunft", pcName:"Vorname", pcSurname:"Nachname", pcId:"Ausweis/Pass", pcBirth:"Geburtsdatum",
+        pcPlate:"Kennzeichen", pcComps:"Mitreisende", pcNotes:"Hinweise", pcAdd:"➕ Hinzufügen",
+        pcSend:"✉️ Per E-Mail senden", pcPreview:"👁️ Vorschau",
+        favsTitle:"Unsere Favoriten", favsHint:"Persönliche Tipps nach Kategorien."
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
         ev:"Evenementen", evSub:"Vandaag",
         pl:"Campings", plSub:"Snelle toegang",
         sc:"Openingstijden", scSub:"Receptie · bar",
+        pc:"Pre-checkin", pcSub:"Tijd besparen bij receptie",
+        favs:"Favorieten", favsSub:"Dorpen, stranden, uitzichtpunten…",
         inst:"Installeren", instSub:"Toevoegen aan beginscherm",
         eventsTitle:"Evenementen", schedulesTitle:"Openingstijden", campingsTitle:"Onze campings",
         fAll:"Alles", fToday:"Vandaag", fTomorrow:"Morgen", fWeek:"Deze week", fFav:"Favorieten",
@@ -681,29 +771,28 @@ document.addEventListener('DOMContentLoaded', function(){
         raTitle:"Camping Ramales", raHint:"Grotten · Bergen · Activiteiten",
         heTitle:"Camping El Helguero (Ruiloba)", heHint:"Natuur · Familie · Huisdieren",
         caTitle:"El Cardeo Appartementen / Taverne", caHint:"Appartementen + Taverne",
-        schedNote:"Indicatieve info. Tijden kunnen per datum verschillen.",
+        schedNote:"Indicatieve info. Tijden kunnen verschillen.",
         nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
         dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden", drawerHint:"Kies een sectie",
+        dPC:"Pre-checkin", dFavs:"Favorieten",
         nextEvents:"Aankomende evenementen",
         stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
-        stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
+        stayTitle:"Mijn verblijf", stayHint:"Keuze wordt lokaal opgeslagen.", stayWhich:"Kies je accommodatie",
         stayHours:"Openingstijden van de accommodatie",
         weatherTitle:"Weer", max:"Max", min:"Min",
         incTitle:"Incidenten", incWhere:"In welke accommodatie ben je?", incContact:"Hoe wil je contact opnemen?",
-        incHint:"We openen WhatsApp of je e-mailapp met een bericht.",
+        incHint:"We openen WhatsApp of je e-mailapp.",
         incType:"Type incident", incMsg:"Beschrijf kort het probleem",
         incBtnWA:"WhatsApp", incBtnEmail:"E-mail",
-        incTypes:[
-          {key:'electricity', label:"Elektriciteit"},
-          {key:'water', label:"Water"},
-          {key:'cleaning', label:"Schoonmaak"},
-          {key:'noise', label:"Lawaai"},
-          {key:'other', label:"Overig"}
-        ],
-        mustsTitle:"Must-sees in Cantabrië", mustsHint:"Open elke sectie: beschrijving, wat te zien, kaart, beelden en tickets.",
+        mustsTitle:"Must-sees in Cantabrië", mustsHint:"Beschrijving, wat te zien, kaart, beelden en tickets.",
         see:"Wat te zien", images:"Beelden", map:"Kaart", tickets:"🔖 Tickets", more:"Meer info",
         dist:"Afstand", calcDist:"Afstand berekenen",
-        foodTitle:"Cantabrische gastronomie", foodHint:"Typische producten en gerechten."
+        foodTitle:"Cantabrische gastronomie", foodHint:"Typische producten en gerechten.",
+        pcTitle:"Pre-checkin", pcNote:"⚠️ Bij aankomst ID/paspoort voor alle gasten 14+. 👤🛂",
+        pcWhich:"Accommodatie", pcName:"Voornaam", pcSurname:"Achternaam", pcId:"ID / Paspoort", pcBirth:"Geboortedatum",
+        pcPlate:"Kenteken", pcComps:"Reisgenoten", pcNotes:"Opmerkingen", pcAdd:"➕ Toevoegen",
+        pcSend:"✉️ Per e-mail verzenden", pcPreview:"👁️ Voorbeeld",
+        favsTitle:"Onze favorieten", favsHint:"Persoonlijke tips per categorie."
     }
   };
 
@@ -716,16 +805,18 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
     t("t-pl",T.pl); t("t-pl-sub",T.plSub);
     t("t-sc",T.sc); t("t-sc-sub",T.scSub);
+    t("t-pc",T.pc); t("t-pc-sub",T.pcSub);
+    t("t-favs",T.favs); t("t-favs-sub",T.favsSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
     t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-campings-title",T.campingsTitle);
     t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); var ff=document.getElementById('f-fav'); if(ff) ff.textContent=T.fFav;
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv); t("n-stay",T.stay || "Mi estancia"); t("n-inc",T.incTitle || "Incidencias");
-    var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
-    t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
-    t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
+    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
+    t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc); t("drawerHint",T.drawerHint);
+    t("d-pc",T.dPC||T.pc); t("d-favs",T.dFavs||T.favs);
+    t("t-next-events",T.nextEvents);
     t("t-stay",T.stay); t("t-stay-sub",T.staySub);
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
     t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
@@ -733,14 +824,32 @@ document.addEventListener('DOMContentLoaded', function(){
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
     t("musts-title",T.mustsTitle); t("musts-hint",T.mustsHint);
     t("food-title",T.foodTitle); t("food-hint",T.foodHint);
-    // Home tiles labels extra
+    // Pre-checkin labels
+    t("pc-title",T.pcTitle||T.pc);
+    t("pc-note",T.pcNote||I18N.es.pcNote);
+    t("pc-which",T.pcWhich||I18N.es.pcWhich);
+    t("pc-name",T.pcName||I18N.es.pcName);
+    t("pc-surname",T.pcSurname||I18N.es.pcSurname);
+    t("pc-id",T.pcId||I18N.es.pcId);
+    t("pc-birth",T.pcBirth||I18N.es.pcBirth);
+    t("pc-plate",T.pcPlate||I18N.es.pcPlate);
+    t("pc-companions",T.pcComps||I18N.es.pcComps);
+    t("pc-notes",T.pcNotes||I18N.es.pcNotes);
+    $('#pcAddComp').textContent=T.pcAdd||I18N.es.pcAdd;
+    $('#pcSend').textContent=T.pcSend||I18N.es.pcSend;
+    $('#pcPreview').textContent=T.pcPreview||I18N.es.pcPreview;
+    // Favs
+    t("favs-title",T.favsTitle||T.favs);
+    t("favs-hint",T.favsHint||I18N.es.favsHint);
+    // Extra tiles labels
     t("t-musts", T.mustsTitle || "Imprescindibles");
     t("t-musts-sub", T.mustsHint || "Qué ver");
     t("t-food", T.foodTitle || "Gastronomía");
     t("t-food-sub", T.foodHint || "Productos típicos");
-    // Drawer labels
-    t("d-musts", T.mustsTitle || "Imprescindibles");
-    t("d-food", T.foodTitle || "Gastronomía");
+    t("t-pc", T.pc || "Pre-checkin");
+    t("t-pc-sub", T.pcSub || "Ahorra tiempo en recepción");
+    t("t-favs", T.favs || "Favoritos del equipo");
+    t("t-favs-sub", T.favsSub || "Pueblos, playas, miradores…");
     // Re-generar opciones de incidencia traducidas
     fillIncTypes();
   }
@@ -749,7 +858,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); renderFavs(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -794,15 +903,8 @@ document.addEventListener('DOMContentLoaded', function(){
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
   // ICS helpers
-  function dtToICS(dt){ // UTC Zulu
-    var d=new Date(dt);
-    return d.getUTCFullYear()
-      + pad2(d.getUTCMonth()+1)
-      + pad2(d.getUTCDate())+'T'
-      + pad2(d.getUTCHours())
-      + pad2(d.getUTCMinutes())
-      + pad2(d.getUTCSeconds())+'Z';
-  }
+  function dtToICS(dt){ var d=new Date(dt);
+    return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z';}
   function icsEscape(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
   function downloadICS(ev){
     try{
@@ -810,28 +912,21 @@ document.addEventListener('DOMContentLoaded', function(){
       var desc=i18nField(ev.descripcion)||'';
       var loc=i18nField(ev.lugar)|| (PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'');
       var start=new Date(ev.fecha);
-      var end=new Date(start.getTime()+90*60000); // 90 min
+      var end=new Date(start.getTime()+90*60000);
       var uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app';
       var now=new Date();
       var ics = [
         'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//Customer App//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH',
         'BEGIN:VEVENT',
-        'UID:'+icsEscape(uid),
-        'DTSTAMP:'+dtToICS(now),
-        'DTSTART:'+dtToICS(start),
-        'DTEND:'+dtToICS(end),
-        'SUMMARY:'+icsEscape(title),
-        'DESCRIPTION:'+icsEscape(desc),
-        'LOCATION:'+icsEscape(loc),
-        'END:VEVENT',
-        'END:VCALENDAR'
+        'UID:'+icsEscape(uid),'DTSTAMP:'+dtToICS(now),'DTSTART:'+dtToICS(start),'DTEND:'+dtToICS(end),
+        'SUMMARY:'+icsEscape(title),'DESCRIPTION:'+icsEscape(desc),'LOCATION:'+icsEscape(loc),
+        'END:VEVENT','END:VCALENDAR'
       ].join('\r\n');
       var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
       var a=document.createElement('a');
       a.href=URL.createObjectURL(blob);
       var fname=('evento-'+(ev.id||'acobijo')+'.ics').replace(/[^a-z0-9._-]+/gi,'_');
-      a.download=fname;
-      document.body.appendChild(a); a.click(); a.remove();
+      a.download=fname; document.body.appendChild(a); a.click(); a.remove();
       setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
@@ -976,7 +1071,7 @@ document.addEventListener('DOMContentLoaded', function(){
     ruiloba:{lat:43.387, lon:-4.264},
     cardeo:{lat:43.391, lon:-4.274}
   };
-  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); }
+  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); $('#pcPlace').value=STAY; }
   function renderStayContacts(){
     var T=I18N[LANG], place=STAY;
     $('#stayPlace').value=place;
@@ -1064,7 +1159,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
   }
   var USER_POS=null;
-  function askGeo(){ if(!navigator.geolocation) return; navigator.geolocation.getCurrentPosition(function(p){ USER_POS={lat:p.coords.latitude, lon:p.coords.longitude}; renderMusts(); }, function(){}, {enableHighAccuracy:true,timeout:6000,maximumAge:300000}); }
+  function askGeo(){ if(!navigator.geolocation) return; navigator.geolocation.getCurrentPosition(function(p){ USER_POS={lat:p.coords.latitude, lon:p.coords.longitude}; renderMusts(); renderFavs(); }, function(){}, {enableHighAccuracy:true,timeout:6000,maximumAge:300000}); }
 
   var MUSTS=[
     {
@@ -1384,15 +1479,74 @@ document.addEventListener('DOMContentLoaded', function(){
            nl:'Ui, witte wijn en paprikasaus: kustklassieker.'}}
   ];
 
-  /* ===== Render Musts & Food ===== */
-  function i18nTxt(obj){ return (obj && (obj[LANG]||obj.es||''))||''; }
+  /* ===== FAVORITOS DEL EQUIPO ===== */
   function distLabel(target){
     if(!USER_POS || !target) return '';
     var d=distKm(USER_POS, target); if(d==null) return '';
     var km=Math.round(d*10)/10;
     return '<span class="dist">📍 '+I18N[LANG].dist+': '+km+' km</span>';
   }
+  function i18nTxt(obj){ return (obj && (obj[LANG]||obj.es||''))||''; }
 
+  var FAVS = [
+    {cat:'Pueblos', items:[
+      {name:'Santander', coords:{lat:43.462, lon:-3.809}, desc:'Bahía, playas urbanas y cultura.'},
+      {name:'Comillas', coords:{lat:43.386, lon:-4.29}, desc:'Modernismo, playa y patrimonio.'},
+      {name:'San Vicente de la Barquera', coords:{lat:43.385, lon:-4.399}, desc:'Puentes, marismas y vistas a Picos.'},
+      {name:'Ruente', coords:{lat:43.211, lon:-4.305}, desc:'La Fuentona y pasarelas.'},
+      {name:'Isla', coords:{lat:43.486, lon:-3.534}, desc:'Playas de aguas claras.'},
+      {name:'Santillana del Mar', coords:{lat:43.392, lon:-4.108}, desc:'Medieval y Altamira.'},
+      {name:'Soba', coords:{lat:43.225, lon:-3.57}, desc:'Valle y cascadas.'},
+      {name:'Arredondo', coords:{lat:43.266, lon:-3.6}, desc:'Capital del mundo—de la espeleología 🙂'},
+      {name:'Ramales de la Victoria', coords:{lat:43.263, lon:-3.465}, desc:'Cuevas y montaña.'},
+      {name:'Castro Urdiales', coords:{lat:43.382, lon:-3.22}, desc:'Villa marinera histórica.'}
+    ]},
+    {cat:'Actividades', items:[
+      {name:'Parque de la Naturaleza de Cabárceno', coords:{lat:43.37, lon:-3.863}, desc:'Fauna y telecabina', tickets:'https://entradas.parquedecabarceno.com/'},
+      {name:'Cueva El Soplao', coords:{lat:43.257, lon:-4.381}, desc:'Cueva única (turística o aventura)'},
+      {name:'Nacimiento del río Asón', coords:{lat:43.258, lon:-3.589}, desc:'Imponente cascada'},
+      {name:'Ruta de los acantilados (San Vicente)', coords:{lat:43.392, lon:-4.41}, desc:'Costa salvaje y miradores'},
+      {name:'Ruta de la Dama Roja (Costa Occidental)', desc:'Sendero litoral con calas', map:'Senda de la Dama Roja Cantabria'}
+    ]},
+    {cat:'Playas', items:[
+      {name:'Playa de Gerra & Merón', coords:{lat:43.386, lon:-4.417}, desc:'Kilómetros de arena'},
+      {name:'Playa de Oyambre', coords:{lat:43.396, lon:-4.358}, desc:'Parque Natural'},
+      {name:'Playa de Mataleñas', coords:{lat:43.491, lon:-3.794}, desc:'Acantilado y cala'},
+      {name:'Playa de Liencres (Valdearenas)', coords:{lat:43.448, lon:-3.948}, desc:'Dunas y surf'},
+      {name:'El Puntal de Somo', coords:{lat:43.448, lon:-3.758}, desc:'Lengua de arena hacia la bahía'},
+      {name:'Playa de la Salvé (Laredo)', coords:{lat:43.415, lon:-3.411}, desc:'Larga y familiar'},
+      {name:'Playa de Gulpiyuri (Asturias)', coords:{lat:43.444, lon:-4.876}, desc:'Playa interior (curiosa)'}
+    ]},
+    {cat:'Restaurantes', items:[
+      {name:'Taberna El Cardeo', map:'Taberna El Cardeo Ruiloba', desc:'Cocina casera del equipo 😉'},
+      {name:'Restaurante El Remedio', map:'Restaurante El Remedio Ruiloba', desc:'Vistas y producto'},
+      {name:'Bodega de Miradorio', map:'Bodega de Miradorio', desc:'Vino local y picoteo'},
+      {name:'Restaurante Las Redes', map:'Restaurante Las Redes Comillas', desc:'Clásico marinero'},
+      {name:'Restaurante Boga-Boga', map:'Restaurante Boga-Boga San Vicente de la Barquera', desc:'Arroces y pescado'},
+      {name:'Restaurante Casa Cofiño', map:'Casa Cofiño Caviedes', desc:'Cárnico y quesos'},
+      {name:'La Ostrería', map:'La Ostreria Noja', desc:'Marisco y ostras'},
+      {name:'Hotel-Restaurante Astuy', map:'Hotel Astuy Isla', desc:'Bogavantes de vivero'},
+      {name:'Parrilla La Piscina', map:'Parrilla La Piscina San Vicente', desc:'Carne a la brasa'},
+      {name:'La Vinoteca Santander', map:'La Vinoteca Santander', desc:'Vinos y tapas'},
+      {name:'El Molino de Cabuérniga', map:'El Molino de Cabuerniga', desc:'Tradición montañesa'},
+      {name:'La Bombi', map:'La Bombi Santander', desc:'Clásico santanderino'},
+      {name:'La Capitana', map:'Restaurante La Capitana Santander', desc:'Producto a la brasa'},
+      {name:'Restaurante Camping Ramales', map:'Camping Ramales restaurante', desc:'Parada segura'},
+      {name:'Restaurante Juan de la Cosa', map:'Restaurante Juan de la Cosa', desc:'Puerto de Santoña'}
+    ]},
+    {cat:'Miradores', items:[
+      {name:'Mirador de la Gándara (Soba)', coords:{lat:43.184, lon:-3.591}, desc:'Vista al valle'},
+      {name:'Mirador del río Asón', coords:{lat:43.258, lon:-3.585}, desc:'Cascada en frente'},
+      {name:'La Picota (Liencres)', coords:{lat:43.428, lon:-3.917}, desc:'Bahía y costa'},
+      {name:'Cabo de Oyambre', coords:{lat:43.391, lon:-4.393}, desc:'Acantilados puros'},
+      {name:'Mirador El Remedio (Ruiloba)', coords:{lat:43.391, lon:-4.276}, desc:'Costa occidental'},
+      {name:'Mirador Santa Catalina', coords:{lat:43.258, lon:-4.545}, desc:'Balcón de La Hermida'},
+      {name:'Estación Teleférico Fuente Dé', coords:{lat:43.144, lon:-4.813}, desc:'Acceso a alta montaña'},
+      {name:'Puerto de Lunada', coords:{lat:43.135, lon:-3.59}, desc:'Paisaje pasiego'}
+    ]}
+  ];
+
+  /* ===== Render Musts, Food, Favs ===== */
   function renderMusts(){
     var wrap=$('#mustsAcc'); if(!wrap) return;
     var T=I18N[LANG];
@@ -1414,7 +1568,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       return '<div class="acc-item"><div class="acc-h" data-m="'+esc(m.slug)+'">'+head+headerRight+'</div><div class="acc-b">'+body+'</div></div>';
     }).join('');
-    // toggles
     $all('#mustsAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
   }
 
@@ -1433,6 +1586,105 @@ document.addEventListener('DOMContentLoaded', function(){
     }).join('');
     $all('#foodAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
   }
+
+  function renderFavs(){
+    var wrap=$('#favsAcc'); if(!wrap) return;
+    var T=I18N[LANG];
+    wrap.innerHTML = FAVS.map(function(block){
+      var inner = (block.items||[]).map(function(it){
+        var name=esc(it.name);
+        var dPill = it.coords?distLabel(it.coords):'';
+        var mapUrl = it.map ? gglMaps(it.map) : gglMaps(it.name);
+        var imgsUrl= gglImages(it.name+' Cantabria');
+        var tix = it.tickets ? ('<a class="btn sm primary" href="'+esc(it.tickets)+'" target="_blank" rel="noopener">'+esc(T.tickets)+'</a>') : '';
+        return '<div class="acc-item"><div class="acc-h">'+name+' '+(dPill?(''+dPill):'')+' <span>▼</span></div>'
+               + '<div class="acc-b"><p class="muted">'+esc(it.desc||'')+'</p><div class="row">'
+               + '<a class="btn sm" href="'+esc(mapUrl)+'" target="_blank" rel="noopener">🗺️ '+esc(T.map)+'</a>'
+               + '<a class="btn sm" href="'+esc(imgsUrl)+'" target="_blank" rel="noopener">🖼️ '+esc(T.images)+'</a>'
+               + tix + '</div></div></div>';
+      }).join('');
+      return '<div class="acc-item"><div class="acc-h">'+esc(block.cat)+' <span>▼</span></div><div class="acc-b">'
+             + '<div class="acc">'+inner+'</div></div></div>';
+    }).join('');
+    $all('#favsAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
+  }
+
+  /* ===== PRE-CHECKIN logic ===== */
+  function pcRowTpl(i){
+    var T=I18N[LANG];
+    return '<div class="acc-item" data-i="'+i+'"><div class="acc-h">👥 Acompañante '+(i+1)+' <span>▼</span></div><div class="acc-b">'
+      + '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">'
+      + '<div><label>'+esc(T.pcName||"Nombre")+'</label><input class="input pcCName"></div>'
+      + '<div><label>'+esc(T.pcSurname||"Apellidos")+'</label><input class="input pcCSurname"></div>'
+      + '<div><label>'+esc(T.pcId||"DNI / Pasaporte")+'</label><input class="input pcCId"></div>'
+      + '<div><label>'+esc(T.pcBirth||"Fecha de nacimiento")+'</label><input type="date" class="input pcCBirth"></div>'
+      + '</div>'
+      + '<div class="row" style="margin-top:8px"><button class="btn sm pcRemove">➖ Quitar</button></div>'
+      + '</div></div>';
+  }
+  var pcIndex=0;
+  function pcAddComp(){
+    var w=$('#pcCompsWrap'); var html=pcRowTpl(pcIndex++); var d=document.createElement('div'); d.innerHTML=html; var node=d.firstChild;
+    w.appendChild(node);
+    var h=node.querySelector('.acc-h'); on(h,'click', function(){ node.classList.toggle('open'); });
+    var rm=node.querySelector('.pcRemove'); on(rm,'click', function(){ node.remove(); updatePcLink(); });
+  }
+  on($('#pcAddComp'),'click', function(){ pcAddComp(); });
+
+  function pcCollect(){
+    var data = {
+      place: $('#pcPlace').value,
+      name: $('#pcName').value.trim(),
+      surname: $('#pcSurname').value.trim(),
+      id: $('#pcId').value.trim(),
+      birth: $('#pcBirth').value,
+      plate: $('#pcPlate').value.trim(),
+      notes: $('#pcNotes').value.trim(),
+      comps: []
+    };
+    $all('#pcCompsWrap .acc-item').forEach(function(it){
+      data.comps.push({
+        name:(it.querySelector('.pcCName')||{}).value||'',
+        surname:(it.querySelector('.pcCSurname')||{}).value||'',
+        id:(it.querySelector('.pcCId')||{}).value||'',
+        birth:(it.querySelector('.pcCBirth')||{}).value||''
+      });
+    });
+    return data;
+  }
+  function pcBuildBody(d){
+    var placeName = PLACE_LABEL[d.place]||d.place;
+    var lines = [];
+    lines.push('Pre-checkin vía app — '+placeName);
+    lines.push('');
+    lines.push('Titular: '+d.name+' '+d.surname);
+    lines.push('Documento: '+d.id);
+    lines.push('Fecha de nacimiento: '+(d.birth||''));
+    lines.push('Matrícula vehículo: '+(d.plate||''));
+    lines.push('');
+    if(d.comps.length){
+      lines.push('Acompañantes ('+d.comps.length+'):');
+      d.comps.forEach(function(c,idx){
+        lines.push('  '+(idx+1)+'. '+(c.name||'')+' '+(c.surname||'')+' — '+(c.id||'')+' — '+(c.birth||''));
+      });
+      lines.push('');
+    }
+    if(d.notes){ lines.push('Observaciones: '+d.notes); lines.push(''); }
+    lines.push('—');
+    lines.push('Aviso legal: Según la ley de viajeros española, se solicitará en recepción un DNI o Pasaporte válido para todos los mayores de 14 años.');
+    return lines.join('\n');
+  }
+  function updatePcLink(){
+    var d=pcCollect();
+    var to = EMAILS[d.place] || EMAILS.oyambre;
+    var subject = 'Pre-checkin vía app';
+    var body = pcBuildBody(d);
+    $('#pcSend').setAttribute('href','mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body));
+    $('#pcPreviewText').textContent = body;
+  }
+  ['pcPlace','pcName','pcSurname','pcId','pcBirth','pcPlate','pcNotes'].forEach(function(id){ on($('#'+id),'input', updatePcLink); on($('#'+id),'change', updatePcLink); });
+  on($('#pcPreview'),'click', function(){ updatePcLink(); $('#pcPreviewCard').style.display='block'; });
+  on($('#pcSend'),'click', function(){ updatePcLink(); });
 
   /* ===== Admin (activar con 5 toques en el logo) ===== */
   (function adminActivator(){
@@ -1600,6 +1852,9 @@ document.addEventListener('DOMContentLoaded', function(){
     updateIncUI();
   }
 
+  // Pre-checkin: set default place to current STAY
+  $('#pcPlace').value=STAY;
+
   $('#stayWeb').textContent=I18N[LANG].web;
   $('#stayCall').textContent=I18N[LANG].call;
   $('#stayWA').textContent=I18N[LANG].whatsapp;
@@ -1617,6 +1872,8 @@ document.addEventListener('DOMContentLoaded', function(){
   askGeo();
   renderMusts();
   renderFood();
+  renderFavs();
+  updatePcLink();
 
   /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
