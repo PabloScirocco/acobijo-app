@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
+/* ====== Design tokens ====== */
 :root{
   --bg:#ffffff; --ink:#0a1a2a; --muted:#6b7280; --line:#e6eef7;
   --brand:#0ea5e9; --brand-ink:#063e63; --card:#f7fbff; --tint:#eef7ff;
@@ -22,26 +23,31 @@ body.dark{
   --brand:#22b2ff; --brand-ink:#bfe7ff; --card:#111a2a; --tint:#0f1a2b;
   --wx1:#0f1f35; --wx2:#102640; --wx3:#0f2b4a; --wx4:#0c3156;
 }
+/* ====== Resets & base ====== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;color:var(--ink);background:var(--bg);transition:background-color .15s,color .15s}
-img{max-width:100%;height:auto}
+img{max-width:100%;height:auto;vertical-align:middle}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:.2rem 0}
+.muted{color:var(--muted)}
+
 .hero img{height:64px;width:auto;max-width:160px}
 
-/* Topbar */
-.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#e6f6ff,#ffffff);
+/* ====== Topbar ====== */
+.topbar{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,#e6f6ff,#ffffff);
   border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.75rem;padding:.7rem .9rem}
 body.dark .topbar{background:linear-gradient(180deg,#0e1a2c,#0b1220)}
 .topbar .burger{border:none;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.45rem .55rem;cursor:pointer}
 body.dark .topbar .burger{background:#0f1a2b}
-.topbar .brand{display:flex;align-items:center;gap:.6rem}
-.topbar img{height:40px;width:auto;object-fit:contain}
-.topbar h1{font-size:1rem;margin:0}
+.topbar .brand{display:flex;align-items:center;gap:.6rem;min-width:0}
+.topbar img{height:40px;width:auto;object-fit:contain;flex:0 0 auto}
+.topbar h1{font-size:1rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lang-btn,.theme-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.35rem .6rem;cursor:pointer}
 body.dark .lang-btn, body.dark .theme-btn{background:#0f1a2b}
 
-/* Drawer */
-.drawer{position:fixed;inset:0;z-index:30;display:none}
+/* ====== Drawer ====== */
+.drawer{position:fixed;inset:0;z-index:120;display:none}
 .drawer.open{display:block}
 .drawer .back{position:absolute;inset:0;background:rgba(0,0,0,.35)}
 .drawer .panel{position:absolute;inset:0 auto 0 0;width:min(86vw,340px);background:#fff;border-right:1px solid var(--line);
@@ -52,19 +58,19 @@ body.dark .drawer .panel{background:#0f1a2b}
 .drawer .item.admin-btn{display:none !important;}
 .admin-on .drawer .item.admin-btn{display:flex !important;}
 
-/* Main, views */
-main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
+/* ====== Main & views ====== */
+main{padding:12px 12px 84px;max-width:980px;margin:0 auto}
 .view{display:none;animation:fade .15s ease-out}
 .view.active{display:block}
-@keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none)}
+@keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-/* Home */
+/* ====== Home ====== */
 .hero{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:
   radial-gradient(120% 80% at 100% 0%,#b7e6ff 0%,#e6f6ff 50%,#ffffff 100%)}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
 .hero-inner{display:flex;align-items:center;gap:14px;padding:16px}
 .hero h2{margin:0;font-size:1.3rem}
-.badge{display:none}
+.badge{display:none} /* oculto por encargo */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
   align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
@@ -80,21 +86,17 @@ body.dark .card{background:#0f1a2b}
 .card .meta{font-size:.85rem;color:var(--muted)}
 .row{display:flex;flex-wrap:wrap;gap:6px}
 
-/* Buttons */
+/* ====== Buttons & chips ====== */
 .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:.46rem .66rem;cursor:pointer;font-weight:600;color:var(--ink)}
 body.dark .btn{background:#0f1a2b}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.sm{padding:.32rem .5rem;font-size:.82rem}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
 body.dark .btn.ghost{background:transparent}
-
-/* Grids */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-
-/* Chips */
 .chip{border-radius:999px}
 
-/* Accordions */
+/* ====== Grids & accordions ====== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .acc{display:flex;flex-direction:column;gap:8px}
 .acc-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 body.dark .acc-item{background:#0f1a2b}
@@ -102,27 +104,12 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Bottom nav (4) */
-.navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
-body.dark .navbar{background:#0f1a2b}
-.navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
-.navbtn.active{color:var(--brand-ink);font-weight:700}
-.navbtn .ico{font-size:1.1rem}
-
-/* Modal base */
-.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-  background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
-body.dark .modal{background:#0f1a2b}
-.close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
-.close:active{transform:scale(.95)}
-body.modal-open{overflow:hidden}
-
-/* Inputs */
+/* ====== Forms ====== */
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .textarea{min-height:96px}
+label{display:block;margin-bottom:4px;font-weight:700}
 
-/* Weather (Mi estancia) */
+/* ====== Weather ====== */
 .wx{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--wx2),var(--wx1));padding:12px}
 .wx-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .wx-today{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:linear-gradient(180deg,var(--wx4),var(--wx2));border:1px solid var(--line);border-radius:14px;padding:10px}
@@ -134,12 +121,25 @@ body.modal-open{overflow:hidden}
 .wx-day .d{font-weight:700}
 .wx-day .t{font-size:.9rem}
 
-/* Musts pills */
+/* ====== Pills ====== */
 .pill{display:inline-flex;gap:.35rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-size:.85rem;background:#fff}
 body.dark .pill{background:#0f1a2b}
 
-/* Helper */
-.muted{color:var(--muted)}
+/* ====== Bottom nav ====== */
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:90;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
+body.dark .navbar{background:#0f1a2b}
+.navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
+.navbtn.active{color:var(--brand-ink);font-weight:700}
+.navbtn .ico{font-size:1.1rem}
+
+/* ====== Modal base ====== */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:200}
+.modal{width:min(92vw,920px);max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+body.dark .modal{background:#0f1a2b}
+.close{background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:1.6rem;line-height:1;padding:.25rem .5rem;border-radius:10px;float:right}
+.close:active{transform:scale(.95)}
+body.modal-open{overflow:hidden}
 </style>
 </head>
 <body>
@@ -182,7 +182,7 @@ body.dark .pill{background:#0f1a2b}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
+          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div><!-- oculto por CSS -->
         </div>
       </div>
       <div class="tiles">
@@ -191,7 +191,7 @@ body.dark .pill{background:#0f1a2b}
         <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
         <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles</strong><div class="muted" id="t-musts-sub">Qué ver en Cantabria</div></div></div>
         <div class="tile" data-nav="food"><div class="big">🍽️</div><div><strong id="t-food">Gastronomía</strong><div class="muted" id="t-food-sub">Sabores cántabros</div></div></div>
-        <div class="tile" data-nav="precheckin"><div class="big">📝</div><div><strong id="t-pre">Pre-checkin</strong><div class="muted" id="t-pre-sub">Ahorra tiempo al llegar</div></div></div>
+        <div class="tile" data-nav="precheckin"><div class="big">📝</div><div><strong id="t-pre">Pre-checkin</strong><div class="muted" id="t-pre-sub">Acelera tu llegada</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
     </div>
@@ -207,7 +207,7 @@ body.dark .pill{background:#0f1a2b}
 
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
       <div>
-        <label for="stayPlace" style="font-weight:700" id="t-stay-which">Selecciona tu alojamiento</label>
+        <label for="stayPlace" id="t-stay-which">Selecciona tu alojamiento</label>
         <select id="stayPlace" class="select">
           <option value="oyambre">Oyambre</option>
           <option value="ramales">Ramales</option>
@@ -258,7 +258,7 @@ body.dark .pill{background:#0f1a2b}
     <div class="card" style="background:var(--tint)">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <div>
-          <label style="font-weight:700" for="incPlace" id="i-where">¿En qué alojamiento estás?</label>
+          <label for="incPlace" id="i-where">¿En qué alojamiento estás?</label>
           <select id="incPlace" class="select">
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
@@ -267,12 +267,12 @@ body.dark .pill{background:#0f1a2b}
           </select>
         </div>
         <div>
-          <label style="font-weight:700" for="incType" id="i-type">Tipo de incidencia</label>
+          <label for="incType" id="i-type">Tipo de incidencia</label>
           <select id="incType" class="select"></select>
         </div>
       </div>
       <div style="margin-top:10px">
-        <label style="font-weight:700" for="incMsg" id="i-msg">Describe brevemente el problema</label>
+        <label for="incMsg" id="i-msg">Describe brevemente el problema</label>
         <textarea id="incMsg" class="textarea" placeholder="Ej.: Sin luz en la parcela 24, desde las 21:15..."></textarea>
       </div>
       <div class="row" style="margin-top:10px">
@@ -382,12 +382,12 @@ body.dark .pill{background:#0f1a2b}
   <!-- PRE-CHECKIN -->
   <section id="view-precheckin" class="view">
     <h2 id="pre-title">Pre-checkin</h2>
-    <p class="muted" id="pre-hint">Rellena tus datos y envíalos por email al alojamiento para agilizar la llegada.</p>
+    <p class="muted" id="pre-hint">Completa tus datos para agilizar la llegada. Se enviará por email al alojamiento seleccionado.</p>
 
-    <div class="card" style="background:var(--tint)">
+    <div class="card">
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <div>
-          <label for="prePlace" style="font-weight:700" id="pre-where">¿Dónde tienes la reserva?</label>
+          <label for="prePlace" id="pre-where-l">¿Dónde tienes la reserva?</label>
           <select id="prePlace" class="select">
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
@@ -396,55 +396,41 @@ body.dark .pill{background:#0f1a2b}
           </select>
         </div>
         <div>
-          <label for="prePlate" style="font-weight:700" id="pre-plate">Matrícula del vehículo</label>
-          <input id="prePlate" class="input" placeholder="Ej.: 1234-ABC">
+          <label for="preName" id="pre-name-l">Nombre</label>
+          <input id="preName" class="input" autocomplete="name" />
+        </div>
+        <div>
+          <label for="preSurname" id="pre-surname-l">Apellidos</label>
+          <input id="preSurname" class="input" autocomplete="family-name" />
+        </div>
+        <div>
+          <label for="preDoc" id="pre-doc-l">DNI o Pasaporte</label>
+          <input id="preDoc" class="input" />
+        </div>
+        <div>
+          <label for="preDob" id="pre-dob-l">Fecha de nacimiento</label>
+          <input id="preDob" type="date" class="input" />
+        </div>
+        <div>
+          <label for="prePlate" id="pre-plate-l">Matrícula vehículo</label>
+          <input id="prePlate" class="input" placeholder="1234-ABC" />
         </div>
       </div>
-    </div>
 
-    <div class="card" style="margin-top:12px">
-      <h3 id="pre-main-title">Titular de la reserva</h3>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-        <div>
-          <label for="preName" style="font-weight:700" id="pre-name">Nombre</label>
-          <input id="preName" class="input" placeholder="Nombre">
-        </div>
-        <div>
-          <label for="preSurname" style="font-weight:700" id="pre-surname">Apellidos</label>
-          <input id="preSurname" class="input" placeholder="Apellidos">
-        </div>
-        <div>
-          <label for="preId" style="font-weight:700" id="pre-id">DNI o Pasaporte</label>
-          <input id="preId" class="input" placeholder="DNI / Pasaporte">
-        </div>
-        <div>
-          <label for="preDob" style="font-weight:700" id="pre-dob">Fecha de nacimiento</label>
-          <input id="preDob" class="input" type="date">
-        </div>
+      <h3 style="margin-top:12px" id="pre-companions">Acompañantes</h3>
+      <div id="companionsWrap" class="acc"></div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn" id="addComp">+ Añadir acompañante</button>
       </div>
-      <p class="muted" id="pre-saved" style="margin-top:6px">Guardamos estos datos en este dispositivo.</p>
-    </div>
 
-    <div class="card" style="margin-top:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-        <h3 id="pre-comp-title" style="margin:0">Acompañantes</h3>
-        <button id="preAddComp" class="btn sm">+ <span id="pre-add-comp">Añadir acompañante</span></button>
+      <div style="margin-top:12px">
+        <label><input type="checkbox" id="preConsent"> <span id="pre-consent">Confirmo que los datos son correctos y autorizo su uso para el check-in.</span></label>
       </div>
-      <div id="preCompList" class="grid" style="margin-top:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"></div>
-    </div>
 
-    <div class="card" style="margin-top:12px">
-      <div class="row">
-        <label style="display:flex;align-items:center;gap:.5rem">
-          <input type="checkbox" id="preConsent">
-          <span id="pre-consent">Acepto enviar estos datos por email al alojamiento.</span>
-        </label>
-      </div>
       <div class="row" style="margin-top:10px">
-        <button id="prePreview" class="btn">👁️ <span id="pre-preview">Previsualizar</span></button>
-        <button id="preSend" class="btn primary">✉️ <span id="pre-send">Enviar por email</span></button>
+        <button class="btn" id="prePreview">Previsualizar</button>
+        <button class="btn primary" id="preSend">Enviar por email</button>
       </div>
-      <p class="muted" id="pre-privacy" style="margin-top:6px">Usaremos tu app de correo para crear el email. Revisa los datos antes de enviar.</p>
     </div>
   </section>
 </main>
@@ -457,14 +443,71 @@ body.dark .pill{background:#0f1a2b}
   <button class="navbtn" data-nav="events"><div class="ico">📅</div><div id="n-ev">Eventos</div></button>
 </nav>
 
-<!-- Admin modal (… se mantiene igual que antes) -->
+<!-- Admin modal -->
 <div class="backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
   <div class="modal">
     <button class="close" id="closeAdmin" aria-label="Cerrar">✕</button>
     <h3 id="adminTitle">Gestión de eventos</h3>
-    <!-- (contenido completo de admin igual que en tu index previo) -->
-    <!-- Para ahorrar espacio aquí, mantengo el bloque Admin idéntico al último índice funcional que compartiste -->
-    <!-- … -->
+
+    <div class="card" style="margin-top:8px">
+      <h4 style="margin:0 0 8px">Añadir evento</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
+        <div><label>Título (ES)</label><input id="evTitle" class="input" placeholder="Ej: Concierto acústico"></div>
+        <div><label>Fecha y hora</label><input id="evDate" type="datetime-local" class="input"></div>
+        <div><label>Alojamiento</label>
+          <select id="evPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </div>
+        <div><label>Lugar (ES)</label><input id="evLugar" class="input" placeholder="Ej: Camping Ramales"></div>
+        <div><label>Imagen (URL)</label><input id="evImg" class="input" placeholder="https://..."></div>
+        <div style="grid-column:1/-1"><label>Descripción (ES)</label><textarea id="evDesc" class="textarea" rows="3" placeholder="Ej: Música en directo."></textarea></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="addEventBtn" class="btn">Agregar</button>
+        <button id="exportEventsBtn" class="btn">Descargar events.json</button>
+        <label class="btn" for="importFile" style="cursor:pointer">Importar JSON</label>
+        <input id="importFile" type="file" accept="application/json" style="display:none">
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h4 style="margin:0 0 8px">Eventos actuales</h4>
+      <div style="overflow:auto">
+        <table class="table" id="eventsTable" style="width:100%;border-collapse:collapse">
+          <thead><tr><th>ID</th><th>Fecha</th><th>Alojamiento</th><th>Título</th><th>Acciones</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h4>Gestión de horarios (schedules.json)</h4>
+      <textarea id="schedJsonArea" class="textarea" rows="8" placeholder='Pegue aquí su schedules.json'></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="schedApplyBtn" class="btn">Aplicar</button>
+        <button id="exportSchedBtn" class="btn">Descargar schedules.json</button>
+        <label class="btn" for="importSchedFile" style="cursor:pointer">Importar JSON</label>
+        <input id="importSchedFile" type="file" accept="application/json" style="display:none">
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h4>Config GitHub</h4>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px">
+        <div><label>Repositorio</label><input id="ghRepo" class="input" placeholder="owner/repo"></div>
+        <div><label>Branch</label><input id="ghBranch" class="input" placeholder="main" value="main"></div>
+        <div style="grid-column:1/-1"><label>Token (se guarda en este dispositivo)</label><input id="ghToken" class="input" placeholder="github_pat_..." autocomplete="off"></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="saveGhCfg" class="btn">Guardar configuración</button>
+        <button id="pushEventsBtn" class="btn">💾 Subir events.json</button>
+        <button id="pushSchedBtn" class="btn">💾 Subir schedules.json</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -495,16 +538,12 @@ body.dark .pill{background:#0f1a2b}
   </div>
 </div>
 
-<!-- Modal previsualización Pre-checkin -->
-<div class="backdrop" id="prePrevModal">
+<!-- Previsualización Pre-checkin -->
+<div class="backdrop" id="prePreviewModal">
   <div class="modal">
-    <button id="closePrePrev" class="close" aria-label="Cerrar">✕</button>
-    <h3 id="prePrevTitle">Previsualización</h3>
-    <textarea id="prePrevText" class="textarea" rows="12" readonly></textarea>
-    <div class="row" style="margin-top:10px">
-      <button id="preCopy" class="btn">📋 Copiar</button>
-      <button id="prePrevCloseBtn" class="btn">Cerrar</button>
-    </div>
+    <button class="close" id="closePrePreview" aria-label="Cerrar">✕</button>
+    <h3 id="pre-prev-title">Previsualización</h3>
+    <pre id="prePrevBody" style="white-space:pre-wrap"></pre>
   </div>
 </div>
 
@@ -521,11 +560,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Utils ===== */
   function $(sel){return document.querySelector(sel);}
-  function $all(sel,sc){return (sc?Array.prototype.slice.call(sc.querySelectorAll(sel)):Array.prototype.slice.call(document.querySelectorAll(sel))); }
+  function $all(sel,scope){return Array.prototype.slice.call((scope||document).querySelectorAll(sel));}
   function on(el,ev,fn){ if(el) el.addEventListener(ev,fn); }
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
   function safeUrl(u){var s=String(u||'').trim(); return (/^https?:\/\//i.test(s) || /^\/|^\.\.?\//.test(s) || /^data:image\//i.test(s)) ? s.replace(/"/g,'%22') : ''; }
   function pad2(n){return ('0'+n).slice(-2);}
+  function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,60);}
 
   /* ===== Tema ===== */
   function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
@@ -561,6 +601,7 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
         incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
+        // Incidencias opciones
         incTypes:[
           {key:'electricity', label:"Electricidad"},
           {key:'water', label:"Agua"},
@@ -568,20 +609,16 @@ document.addEventListener('DOMContentLoaded', function(){
           {key:'noise', label:"Ruido"},
           {key:'other', label:"Otros"}
         ],
+        // Musts / Food
         mustsTitle:"Imprescindibles de Cantabria", mustsHint:"Abre cada apartado para ver descripción, qué ver, mapa, imágenes y entradas.",
         see:"Qué ver", images:"Imágenes", map:"Mapa", tickets:"Entradas", more:"Más info",
-        foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos que deberías probar.",
-        // Pre-checkin
-        pre:"Pre-checkin", preSub:"Ahorra tiempo al llegar",
-        preTitle:"Pre-checkin", preHint:"Rellena tus datos y envíalos por email al alojamiento para agilizar la llegada.",
-        preWhere:"¿Dónde tienes la reserva?", prePlate:"Matrícula del vehículo",
-        preMain:"Titular de la reserva", preName:"Nombre", preSurname:"Apellidos", preId:"DNI o Pasaporte", preDob:"Fecha de nacimiento",
-        preSaved:"Guardamos estos datos en este dispositivo.",
-        preComp:"Acompañantes", preAddComp:"Añadir acompañante", preRemove:"Quitar",
-        preConsent:"Acepto enviar estos datos por email al alojamiento.",
-        prePreview:"Previsualizar", preSend:"Enviar por email", prePrivacy:"Usaremos tu app de correo para crear el email. Revisa los datos antes de enviar.",
-        prePrevTitle:"Previsualización", preCopied:"Copiado al portapapeles",
-        preReq:"Campo obligatorio", preInvalid:"Revisa los campos resaltados"
+        foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos.",
+        // Precheckin
+        pre:"Pre-checkin", preSub:"Acelera tu llegada",
+        preWhere:"¿Dónde tienes la reserva?", preName:"Nombre", preSurname:"Apellidos", preDoc:"DNI o Pasaporte", preDob:"Fecha de nacimiento",
+        prePlate:"Matrícula vehículo", preComp:"Acompañantes", preAdd:"+ Añadir acompañante", preRemove:"Quitar",
+        preConsent:"Confirmo que los datos son correctos y autorizo su uso para el check-in.",
+        prePreview:"Previsualizar", preSend:"Enviar por email", prePrevTitle:"Previsualización"
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today",
@@ -618,17 +655,12 @@ document.addEventListener('DOMContentLoaded', function(){
         ],
         mustsTitle:"Cantabria essentials", mustsHint:"Open each to see description, highlights, map, images and tickets.",
         see:"Highlights", images:"Images", map:"Map", tickets:"Tickets", more:"More info",
-        foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes to try.",
-        pre:"Pre-checkin", preSub:"Save time on arrival",
-        preTitle:"Pre-checkin", preHint:"Fill in your details and send them by email to speed up arrival.",
-        preWhere:"Where is your booking?", prePlate:"Vehicle plate",
-        preMain:"Lead guest", preName:"First name", preSurname:"Last name", preId:"ID or Passport", preDob:"Date of birth",
-        preSaved:"We store this data on this device.",
-        preComp:"Companions", preAddComp:"Add companion", preRemove:"Remove",
-        preConsent:"I agree to send this data by email to the accommodation.",
-        prePreview:"Preview", preSend:"Send by email", prePrivacy:"We will open your email app. Please review before sending.",
-        prePrevTitle:"Preview", preCopied:"Copied to clipboard",
-        preReq:"Required field", preInvalid:"Please review highlighted fields"
+        foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes.",
+        pre:"Pre-checkin", preSub:"Speed up your arrival",
+        preWhere:"Where is your booking?", preName:"Name", preSurname:"Surname", preDoc:"ID or Passport", preDob:"Date of birth",
+        prePlate:"Vehicle plate", preComp:"Companions", preAdd:"+ Add companion", preRemove:"Remove",
+        preConsent:"I confirm data is correct and authorize its use for check-in.",
+        prePreview:"Preview", preSend:"Send by email", prePrevTitle:"Preview"
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
         ev:"Événements", evSub:"Aujourd’hui",
@@ -665,17 +697,12 @@ document.addEventListener('DOMContentLoaded', function(){
         ],
         mustsTitle:"Incontournables de Cantabrie", mustsHint:"Ouvrez chaque section pour la description, les lieux, la carte, les images et les billets.",
         see:"À voir", images:"Images", map:"Carte", tickets:"Billets", more:"Plus d’infos",
-        foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques à goûter.",
-        pre:"Pre-checkin", preSub:"Gagnez du temps à l’arrivée",
-        preTitle:"Pre-checkin", preHint:"Renseignez vos données et envoyez-les par email à l’hébergement.",
-        preWhere:"Où se trouve votre réservation ?", prePlate:"Plaque du véhicule",
-        preMain:"Titulaire de la réservation", preName:"Prénom", preSurname:"Nom", preId:"CNI ou Passeport", preDob:"Date de naissance",
-        preSaved:"Nous stockons ces données sur cet appareil.",
-        preComp:"Accompagnants", preAddComp:"Ajouter un accompagnant", preRemove:"Retirer",
-        preConsent:"J’accepte d’envoyer ces données par email à l’hébergement.",
-        prePreview:"Aperçu", preSend:"Envoyer par email", prePrivacy:"Nous ouvrirons votre application email. Vérifiez avant d’envoyer.",
-        prePrevTitle:"Aperçu", preCopied:"Copié",
-        preReq:"Champ requis", preInvalid:"Veuillez vérifier les champs en surbrillance"
+        foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques.",
+        pre:"Pré-checkin", preSub:"Accélérez votre arrivée",
+        preWhere:"Dans quel établissement ?", preName:"Prénom", preSurname:"Nom", preDoc:"ID ou Passeport", preDob:"Date de naissance",
+        prePlate:"Immatriculation", preComp:"Accompagnants", preAdd:"+ Ajouter un accompagnant", preRemove:"Retirer",
+        preConsent:"Je confirme l’exactitude des données et j’autorise leur usage pour le check-in.",
+        prePreview:"Aperçu", preSend:"Envoyer par email", prePrevTitle:"Aperçu"
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
         ev:"Events", evSub:"Heute",
@@ -710,19 +737,14 @@ document.addEventListener('DOMContentLoaded', function(){
           {key:'noise', label:"Lärm"},
           {key:'other', label:"Sonstiges"}
         ],
-        mustsTitle:"Cantabria-Highlights", mustsHint:"Öffne die Bereiche: Beschreibung, Highlights, Karte, Bilder und Tickets.",
+        mustsTitle:"Cantabria-Highlights", mustsHint:"Beschreibung, Highlights, Karte, Bilder und Tickets.",
         see:"Sehenswert", images:"Bilder", map:"Karte", tickets:"Tickets", more:"Mehr Infos",
         foodTitle:"Kantabrische Küche", foodHint:"Typische Produkte und Gerichte.",
-        pre:"Pre-Check-in", preSub:"Schneller ankommen",
-        preTitle:"Pre-Check-in", preHint:"Daten ausfüllen und per E-Mail ans Haus senden.",
-        preWhere:"Wo ist die Buchung?", prePlate:"Kfz-Kennzeichen",
-        preMain:"Hauptgast", preName:"Vorname", preSurname:"Nachname", preId:"Ausweis/Pass", preDob:"Geburtsdatum",
-        preSaved:"Wir speichern diese Daten lokal.",
-        preComp:"Mitreisende", preAddComp:"Mitreisenden hinzufügen", preRemove:"Entfernen",
-        preConsent:"Ich stimme dem E-Mail-Versand dieser Daten an die Unterkunft zu.",
-        prePreview:"Vorschau", preSend:"Per E-Mail senden", prePrivacy:"Wir öffnen dein E-Mail-Programm. Bitte prüfen.",
-        prePrevTitle:"Vorschau", preCopied:"Kopiert",
-        preReq:"Pflichtfeld", preInvalid:"Bitte markierte Felder prüfen"
+        pre:"Pre-Check-in", preSub:"Anreise beschleunigen",
+        preWhere:"Wo ist die Buchung?", preName:"Vorname", preSurname:"Nachname", preDoc:"Ausweis oder Pass", preDob:"Geburtsdatum",
+        prePlate:"Kennzeichen", preComp:"Mitreisende", preAdd:"+ Mitreisenden hinzufügen", preRemove:"Entfernen",
+        preConsent:"Ich bestätige die Richtigkeit der Daten und erlaube deren Nutzung für den Check-in.",
+        prePreview:"Vorschau", preSend:"Per E-Mail senden", prePrevTitle:"Vorschau"
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
         ev:"Evenementen", evSub:"Vandaag",
@@ -757,73 +779,73 @@ document.addEventListener('DOMContentLoaded', function(){
           {key:'noise', label:"Lawaai"},
           {key:'other', label:"Overig"}
         ],
-        mustsTitle:"Must-sees in Cantabrië", mustsHint:"Open elke sectie: beschrijving, wat te zien, kaart, beelden en tickets.",
+        mustsTitle:"Must-sees in Cantabrië", mustsHint:"Open voor beschrijving, wat te zien, kaart, beelden en tickets.",
         see:"Wat te zien", images:"Beelden", map:"Kaart", tickets:"Tickets", more:"Meer info",
         foodTitle:"Cantabrische gastronomie", foodHint:"Typische producten en gerechten.",
-        pre:"Pre-checkin", preSub:"Bespaart tijd bij aankomst",
-        preTitle:"Pre-checkin", preHint:"Vul je gegevens in en stuur ze per e-mail naar de accommodatie.",
-        preWhere:"Waar is je boeking?", prePlate:"Kenteken",
-        preMain:"Hoofdgast", preName:"Voornaam", preSurname:"Achternaam", preId:"ID of paspoort", preDob:"Geboortedatum",
-        preSaved:"We slaan deze gegevens lokaal op.",
-        preComp:"Reisgenoten", preAddComp:"Reisgenoot toevoegen", preRemove:"Verwijderen",
-        preConsent:"Ik ga akkoord om deze gegevens per e-mail te verzenden.",
-        prePreview:"Voorbeeld", preSend:"Per e-mail verzenden", prePrivacy:"We openen je e-mailapp. Controleer vóór verzenden.",
-        prePrevTitle:"Voorbeeld", preCopied:"Gekopieerd",
-        preReq:"Verplicht veld", preInvalid:"Controleer de gemarkeerde velden"
+        pre:"Pre-checkin", preSub:"Versnel je aankomst",
+        preWhere:"Waar is de boeking?", preName:"Naam", preSurname:"Achternaam", preDoc:"ID of Paspoort", preDob:"Geboortedatum",
+        prePlate:"Kenteken", preComp:"Reisgenoten", preAdd:"+ Reisgenoot toevoegen", preRemove:"Verwijderen",
+        preConsent:"Ik bevestig dat de gegevens correct zijn en sta gebruik toe voor de check-in.",
+        prePreview:"Voorbeeld", preSend:"Per e-mail verzenden", prePrevTitle:"Voorbeeld"
     }
   };
 
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+
   function applyLang(){
     var T=I18N[LANG];
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
-    t("t-pl",T.pl); t("t-pl-sub",T.plSub);
-    t("t-sc",T.sc); t("t-sc-sub",T.scSub);
+    t("t-stay",T.stay); t("t-stay-sub",T.staySub);
+    t("t-inc",T.incTitle); t("t-inc-sub",T.incHint);
+    t("t-musts",T.mustsTitle); t("t-musts-sub",T.mustsHint);
+    t("t-food",T.foodTitle); t("t-food-sub",T.foodHint);
+    t("t-pre",T.pre); t("t-pre-sub",T.preSub);
     t("t-inst",T.inst); t("t-inst-sub",T.instSub);
+
     t("t-events-title",T.eventsTitle); t("t-schedules-title",T.schedulesTitle); t("t-campings-title",T.campingsTitle);
-    t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); var ff=document.getElementById('f-fav'); if(ff) ff.textContent=T.fFav;
+    t("f-all",T.fAll); t("f-today",T.fToday); t("f-tomorrow",T.fTomorrow); t("f-week",T.fWeek); t("f-fav",T.fFav);
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
+
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
+
     t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
+
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
-    t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
-    t("t-stay",T.stay); t("t-stay-sub",T.staySub);
+    t("d-musts",T.mustsTitle); t("d-food",T.foodTitle); t("d-pre",T.pre); t("drawerHint",T.drawerHint);
+    t("t-next-events",T.nextEvents);
+
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
     t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
+
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
+
     t("musts-title",T.mustsTitle); t("musts-hint",T.mustsHint);
     t("food-title",T.foodTitle); t("food-hint",T.foodHint);
-    // Home tiles labels extra
-    t("t-musts", T.mustsTitle || "Imprescindibles");
-    t("t-musts-sub", T.mustsHint || "Qué ver");
-    t("t-food", T.foodTitle || "Gastronomía");
-    t("t-food-sub", T.foodHint || "Productos típicos");
-    // Drawer + Home tile Pre-checkin
-    t("d-pre", T.pre);
-    t("t-pre", T.pre); t("t-pre-sub", T.preSub);
+
     // Pre-checkin labels
-    t("pre-title", T.preTitle); t("pre-hint", T.preHint);
-    t("pre-where", T.preWhere); t("pre-plate", T.prePlate);
-    t("pre-main-title", T.preMain); t("pre-name", T.preName); t("pre-surname", T.preSurname); t("pre-id", T.preId); t("pre-dob", T.preDob);
-    t("pre-saved", T.preSaved);
-    t("pre-comp-title", T.preComp); t("pre-add-comp", T.preAddComp);
-    t("pre-consent", T.preConsent); t("pre-preview", T.prePreview); t("pre-send", T.preSend); t("pre-privacy", T.prePrivacy);
-    t("prePrevTitle", T.prePrevTitle);
-    // Re-generar opciones de incidencia traducidas
-    fillIncTypes();
+    t("pre-title",T.pre); t("pre-hint",T.preSub);
+    t("pre-where-l",T.preWhere); t("pre-name-l",T.preName); t("pre-surname-l",T.preSurname);
+    t("pre-doc-l",T.preDoc); t("pre-dob-l",T.preDob); t("pre-plate-l",T.prePlate);
+    t("pre-companions",T.preComp); $('#addComp').textContent=T.preAdd;
+    $('#pre-consent').textContent=T.preConsent; t("pre-prev-title",T.prePrevTitle);
+    $('#prePreview').textContent=T.prePreview; $('#preSend').textContent=T.preSend;
+
+    // Drawer hint & navbar labels
+    t("n-home",T.nHome); t("n-ev",T.nEv);
   }
   applyLang();
 
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); preRender(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG);
+      applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -832,7 +854,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
     $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
     $('#drawer').classList.remove('open');
-    if(id==='precheckin') preRender();
   }
   $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
   on($('#menuBtn'),'click', function(){ $('#drawer').classList.add('open'); });
@@ -866,9 +887,8 @@ document.addEventListener('DOMContentLoaded', function(){
   function i18nField(v){return typeof v==="string"?v:((v&&v[LANG])|| (v&&v.es) || "");}
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
-  // ICS helpers
   function dtToICS(dt){ var d=new Date(dt);
-    return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z'; }
+    return d.getUTCFullYear()+pad2(d.getUTCMonth()+1)+pad2(d.getUTCDate())+'T'+pad2(d.getUTCHours())+pad2(d.getUTCMinutes())+pad2(d.getUTCSeconds())+'Z';}
   function icsEscape(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
   function downloadICS(ev){
     try{
@@ -881,18 +901,20 @@ document.addEventListener('DOMContentLoaded', function(){
       var now=new Date();
       var ics = [
         'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grupo A Cobijo//Customer App//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH',
-        'BEGIN:VEVENT','UID:'+icsEscape(uid),'DTSTAMP:'+dtToICS(now),
-        'DTSTART:'+dtToICS(start),'DTEND:'+dtToICS(end),'SUMMARY:'+icsEscape(title),
-        'DESCRIPTION:'+icsEscape(desc),'LOCATION:'+icsEscape(loc),'END:VEVENT','END:VCALENDAR'
+        'BEGIN:VEVENT','UID:'+icsEscape(uid),'DTSTAMP:'+dtToICS(now),'DTSTART:'+dtToICS(start),'DTEND:'+dtToICS(end),
+        'SUMMARY:'+icsEscape(title),'DESCRIPTION:'+icsEscape(desc),'LOCATION:'+icsEscape(loc),
+        'END:VEVENT','END:VCALENDAR'
       ].join('\r\n');
       var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
-      var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-      var fname=('evento-'+(ev.id||'acobijo')+'.ics').replace(/[^a-z0-9._-]+/gi,'_'); a.download=fname;
-      document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      var fname=('evento-'+(ev.id||'acobijo')+'.ics').replace(/[^a-z0-9._-]+/gi,'_');
+      a.download=fname;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
     }catch(e){ alert('No se pudo generar el calendario.'); }
   }
 
-  // HOME slider
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
@@ -986,15 +1008,24 @@ document.addEventListener('DOMContentLoaded', function(){
     },
     ramales:{
       es:"<b>Recepción</b>: 9:00–21:00<br><b>Cafetería</b>: L–V 17:00–22:00 · S–D 8:30–22:00<br><b>Restaurante</b>: L–V 19:00–22:00 · S–D 13:30–15:00 / 19:00–22:00<br><b>Piscina</b>: 9:30–20:30<br><b>Check-in parcelas</b>: 12:00 · <b>Check-in alojamientos</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Barrera</b>: 8:00–23:59 (prohibida circulación 00:00–8:00)<br><i>Los horarios pueden variar según la fecha.</i>",
-      en:"<b>Reception</b>: 09:00–21:00<br><b>Café</b>: Mon–Fri 17:00–22:00 · Sat–Sun 08:30–22:00<br><b>Restaurant</b>: Mon–Fri 19:00–22:00 · Sat–Sun 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Pitches check-in</b>: 12:00 · <b>Lodgings check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><i>Hours may vary by date.</i>"
+      en:"<b>Reception</b>: 09:00–21:00<br><b>Café</b>: Mon–Fri 17:00–22:00 · Sat–Sun 08:30–22:00<br><b>Restaurant</b>: Mon–Fri 19:00–22:00 · Sat–Sun 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 09:30–20:30<br><b>Pitches check-in</b>: 12:00 · <b>Lodgings check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><i>Hours may vary by date.</i>",
+      fr:"<b>Réception</b> : 9:00–21:00<br><b>Café</b> : L–V 17:00–22:00 · S–D 8:30–22:00<br><b>Restaurant</b> : L–V 19:00–22:00 · S–D 13:30–15:00 / 19:00–22:00<br><b>Piscine</b> : 9:30–20:30<br><b>Arrivée emplacements</b> : 12:00 · <b>Arrivée logements</b> : 16:00 · <b>Départ</b> : 12:00<br><b>Barrière</b> : 8:00–23:59 (circulation interdite 00:00–8:00)<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Rezeption</b>: 9:00–21:00<br><b>Café</b>: Mo–Fr 17:00–22:00 · Sa–So 8:30–22:00<br><b>Restaurant</b>: Mo–Fr 19:00–22:00 · Sa–So 13:30–15:00 / 19:00–22:00<br><b>Pool</b>: 9:30–20:30<br><b>Stellplätze Check-in</b>: 12:00 · <b>Unterkünfte Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Schranke</b>: 8:00–23:59 (kein Verkehr 00:00–8:00)<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Receptie</b>: 9:00–21:00<br><b>Café</b>: Ma-Vr 17:00–22:00 · Za-Zo 8:30–22:00<br><b>Restaurant</b>: Ma-Vr 19:00–22:00 · Za-Zo 13:30–15:00 / 19:00–22:00<br><b>Zwembad</b>: 9:30–20:30<br><b>Plaatsen check-in</b>: 12:00 · <b>Logies check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Poort</b>: 8:00–23:59 (geen verkeer 00:00–8:00)<br><i>Tijden kunnen variëren.</i>"
     },
     ruiloba:{
       es:"<b>Recepción</b>: 8:30–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Cafetería</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Lavandería</b>: 24 h<br><b>Barrera</b>: 8:00–23:59 (prohibida circulación 00:00–8:00)<br><b>Tienda</b>: consultar en Cafetería<br><b>Check-in parcelas</b>: 13:00 · <b>Check-in alojamientos</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según la fecha.</i>",
-      en:"<b>Reception</b>: 08:30–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Laundry</b>: 24 h<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Shop</b>: ask at Café<br><b>Pitches check-in</b>: 13:00 · <b>Lodgings check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Hours may vary by date.</i>"
+      en:"<b>Reception</b>: 08:30–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Café</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Laundry</b>: 24 h<br><b>Gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Shop</b>: ask at Café<br><b>Pitches check-in</b>: 13:00 · <b>Lodgings check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Hours may vary by date.</i>",
+      fr:"<b>Réception</b> : 8:30–22:00<br><b>Piscines (toute la saison)</b> : 9:00–21:00<br><b>Café</b> : 8:30–23:00<br><b>Restaurant</b> : 13:30–15:00 / 19:00–22:00<br><b>Blanchisserie</b> : 24 h<br><b>Barrière</b> : 8:00–23:59 (circulation interdite 00:00–8:00)<br><b>Boutique</b> : demander au Café<br><b>Arrivée emplacements</b> : 13:00 · <b>Arrivée logements</b> : 17:00 · <b>Départ</b> : 12:00<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Rezeption</b>: 8:30–22:00<br><b>Schwimmbäder (Saison)</b>: 9:00–21:00<br><b>Café</b>: 8:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Waschsalon</b>: 24 h<br><b>Schranke</b>: 8:00–23:59 (kein Verkehr 00:00–8:00)<br><b>Shop</b>: an der Cafeteria nachfragen<br><b>Stellplätze Check-in</b>: 13:00 · <b>Unterkünfte Check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Receptie</b>: 8:30–22:00<br><b>Zwembaden (seizoen)</b>: 9:00–21:00<br><b>Café</b>: 8:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Wasserette</b>: 24 u<br><b>Poort</b>: 8:00–23:59 (geen verkeer 00:00–8:00)<br><b>Winkel</b>: vraag bij de Cafetaria<br><b>Plaatsen check-in</b>: 13:00 · <b>Logies check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Tijden kunnen variëren.</i>"
     },
     cardeo:{
       es:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taberna</b>: 8:30–23:00<br><b>Restaurante (fines de semana)</b>: 13:30–15:30 / 20:00–22:30<br><i>Los horarios pueden variar según la fecha.</i>",
-      en:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Tavern</b>: 08:30–23:00<br><b>Restaurant (weekends)</b>: 13:30–15:30 / 20:00–22:30<br><i>Hours may vary by date.</i>"
+      en:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Tavern</b>: 08:30–23:00<br><b>Restaurant (weekends)</b>: 13:30–15:30 / 20:00–22:30<br><i>Hours may vary by date.</i>",
+      fr:"<b>Arrivée</b> : 16:00 · <b>Départ</b> : 12:00<br><b>Taverne</b> : 8:30–23:00<br><b>Restaurant (week-end)</b> : 13:30–15:30 / 20:00–22:30<br><i>Horaires susceptibles de varier.</i>",
+      de:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taverne</b>: 8:30–23:00<br><b>Restaurant (Wochenende)</b>: 13:30–15:30 / 20:00–22:30<br><i>Zeiten können variieren.</i>",
+      nl:"<b>Check-in</b>: 16:00 · <b>Check-out</b>: 12:00<br><b>Taverne</b>: 8:30–23:00<br><b>Restaurant (weekend)</b>: 13:30–15:30 / 20:00–22:30<br><i>Tijden kunnen variëren.</i>"
     }
   };
   var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
@@ -1014,7 +1045,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   $all('.acc-h').forEach(h=>on(h,'click', function(){ h.parentElement.classList.toggle('open'); }));
 
-  /* ===== Mi estancia ===== */
+  /* ===== Mi estancia (contactos + horarios + clima) ===== */
   var STAY = localStorage.getItem('stay_place') || 'oyambre';
   var COORDS = {
     oyambre:{lat:43.393, lon:-4.352},
@@ -1099,150 +1130,327 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#incType'),'change', updateIncUI);
   on($('#incMsg'),'input', updateIncUI);
 
-  /* ===== Imprescindibles & Gastronomía ===== */
+  /* ===== Imprescindibles (datos básicos con enlaces externos) ===== */
   function gglImages(q){ return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q); }
   function gglMaps(q){ return 'https://www.google.com/maps/search/'+encodeURIComponent(q); }
 
-  // (MUSTS y FOOD: aquí mantén los datos que ya tenías funcionado; por brevedad los omitimos en este bloque)
-  // renderMusts() y renderFood() tal como en tu versión funcional previa
+  var MUSTS=[
+    // Comillas
+    { slug:'comillas', name:{es:'Comillas', en:'Comillas', fr:'Comillas', de:'Comillas', nl:'Comillas'},
+      desc:{es:'Villa señorial con arquitectura modernista, playa y ambiente tranquilo. Ideal para combinar patrimonio y mar.',
+            en:'Elegant seaside town with Modernista architecture and a relaxed vibe.'},
+      see:[
+        {name:{es:'El Capricho de Gaudí',en:'Gaudí’s El Capricho'},
+         desc:{es:'Pabellón modernista del genio catalán, icono de Comillas.',en:'Gaudí’s whimsical pavilion and town icon.'},
+         map: gglMaps('El Capricho de Gaudí Comillas'), images: gglImages('El Capricho de Gaudí'), tickets:'https://elcaprichodegaudi.com/'},
+        {name:{es:'Universidad Pontificia',en:'Pontifical University'},
+         desc:{es:'Imponente conjunto neogótico con vistas.',en:'Stunning neo-Gothic complex overlooking town.'},
+         map: gglMaps('Universidad Pontificia Comillas'), images: gglImages('Universidad Pontificia Comillas')},
+        {name:{es:'Palacio de Sobrellano y Capilla-Panteón',en:'Sobrellano Palace & Chapel'},
+         desc:{es:'Residencia marquesal y capilla modernista.',en:'Marquis’ residence and Modernista chapel.'},
+         map: gglMaps('Palacio de Sobrellano Comillas'), images: gglImages('Palacio de Sobrellano Comillas')}
+      ]
+    },
+    // San Vicente
+    { slug:'san-vicente',
+      name:{es:'San Vicente de la Barquera', en:'San Vicente de la Barquera', fr:'San Vicente de la Barquera', de:'San Vicente de la Barquera', nl:'San Vicente de la Barquera'},
+      desc:{es:'Villa marinera con puentes medievales, marismas, arenales y vistas a los Picos de Europa.',
+            en:'Fishing town with medieval bridges, marshes and beaches facing the Picos de Europa.'},
+      see:[
+        {name:{es:'Puente de la Maza',en:'Puente de la Maza'}, desc:{es:'Emblemático puente medieval.',en:'Iconic medieval bridge.'},
+         map:gglMaps('Puente de la Maza'), images:gglImages('Puente de la Maza San Vicente')},
+        {name:{es:'Castillo del Rey',en:'King’s Castle'}, desc:{es:'Fortaleza con miradores.',en:'Castle with viewpoints.'},
+         map:gglMaps('Castillo del Rey San Vicente'), images:gglImages('Castillo del Rey San Vicente')}
+      ]
+    },
+    // Santander (ampliado)
+    { slug:'santander',
+      name:{es:'Santander', en:'Santander', fr:'Santander', de:'Santander', nl:'Santander'},
+      desc:{es:'Capital abierta a la bahía, playas urbanas, cultura y parques costeros; imprescindible el Palacio de la Magdalena.',
+            en:'Capital on a beautiful bay, urban beaches, culture and coastal parks; don’t miss Magdalena Palace.'},
+      see:[
+        {name:{es:'Palacio de la Magdalena',en:'Magdalena Palace'},
+         desc:{es:'Residencia real y parque peninsular.',en:'Royal residence on a scenic peninsula.'},
+         map:gglMaps('Palacio de la Magdalena Santander'), images:gglImages('Palacio de la Magdalena Santander')},
+        {name:{es:'Centro Botín',en:'Centro Botín'}, desc:{es:'Arte contemporáneo en el muelle.',en:'Harborfront contemporary art center.'},
+         map:gglMaps('Centro Botín'), images:gglImages('Centro Botín')},
+        {name:{es:'Plaza de Cañadío',en:'Cañadío Square'}, desc:{es:'Ambiente y terrazas en el centro.',en:'Lively square with bars and terraces.'},
+         map:gglMaps('Plaza de Cañadío Santander'), images:gglImages('Plaza de Cañadío Santander')},
+        {name:{es:'Diques de Gamazo',en:'Gamazo docks'}, desc:{es:'Espacio marítimo rehabilitado para pasear.',en:'Restored maritime docks for strolling.'},
+         map:gglMaps('Diques de Gamazo Santander'), images:gglImages('Diques de Gamazo Santander')},
+        {name:{es:'Palacio de Festivales',en:'Festival Palace'}, desc:{es:'Auditorio junto a la bahía.',en:'Bayfront performing-arts venue.'},
+         map:gglMaps('Palacio de Festivales Santander'), images:gglImages('Palacio de Festivales Santander')},
+        {name:{es:'Parque de Las Llamas',en:'Las Llamas Park'}, desc:{es:'Gran pulmón verde y lago urbano.',en:'Large green park with lagoon.'},
+         map:gglMaps('Parque de Las Llamas Santander'), images:gglImages('Parque de Las Llamas Santander')},
+        {name:{es:'Senda de Mataleñas',en:'Mataleñas coastal path'}, desc:{es:'Ruta acantilada con miradores y playa.',en:'Clifftop path with viewpoints and beach.'},
+         map:gglMaps('Senda de Mataleñas'), images:gglImages('Senda de Mataleñas')},
+        {name:{es:'Mercado del Este',en:'Mercado del Este'}, desc:{es:'Mercado histórico, tiendas y gastro.',en:'Historic market with shops and food.'},
+         map:gglMaps('Mercado del Este Santander'), images:gglImages('Mercado del Este Santander')}
+      ]
+    },
+    // Santillana (con entradas actualizadas)
+    { slug:'santillana',
+      name:{es:'Santillana del Mar', en:'Santillana del Mar', fr:'Santillana del Mar', de:'Santillana del Mar', nl:'Santillana del Mar'},
+      desc:{es:'Conjunto histórico medieval a un paso de Altamira: casonas de piedra, colegiata y museos.',
+            en:'Medieval jewel near Altamira: stone mansions, collegiate church and museums.'},
+      see:[
+        {name:{es:'Colegiata de Santa Juliana',en:'Collegiate Church'}, desc:{es:'Románico cántabro esencial.',en:'Key Romanesque monument.'},
+         map:gglMaps('Colegiata Santa Juliana'), images:gglImages('Colegiata Santa Juliana')},
+        {name:{es:'Museo de Altamira (Neocueva)',en:'Altamira Museum'}, desc:{es:'Réplica de las pinturas paleolíticas.',en:'Replica of Paleolithic cave art.'},
+         map:gglMaps('Museo de Altamira'), images:gglImages('Museo de Altamira'),
+         tickets:'https://www.cultura.gob.es/mnaltamira/visita/compra-entradas.html'}
+      ]
+    },
+    // Suances
+    { slug:'suances',
+      name:{es:'Suances', en:'Suances', fr:'Suances', de:'Suances', nl:'Suances'},
+      desc:{es:'Playas abiertas al Cantábrico, surf y atardeceres en los miradores costeros.',
+            en:'Open Atlantic beaches, surfing, and superb sunsets from coastal viewpoints.'},
+      see:[
+        {name:{es:'Playa de Los Locos',en:'Los Locos Beach'}, desc:{es:'Famosa por el surf y el paisaje.',en:'Surf hotspot with dramatic scenery.'},
+         map:gglMaps('Playa de Los Locos Suances'), images:gglImages('Playa de Los Locos Suances')}
+      ]
+    },
+    // Potes & Liébana
+    { slug:'potes-liebana',
+      name:{es:'Potes & Liébana', en:'Potes & Liébana', fr:'Potes & Liébana', de:'Potes & Liébana', nl:'Potes & Liébana'},
+      desc:{es:'Puerta occidental a los Picos de Europa: villas con torres, gastronomía de montaña y orujo tradicional.',
+            en:'Western gateway to Picos de Europa: medieval towers, mountain fare and traditional orujo.'},
+      see:[
+        {name:{es:'Teleférico de Fuente Dé',en:'Fuente Dé Cable Car'}, desc:{es:'Vistas a 1.823 m y rutas señalizadas.',en:'Views at 1,823 m and signed trails.'},
+         map:gglMaps('Teleférico Fuente Dé'), images:gglImages('Teleférico Fuente Dé'), tickets:'https://www.cantur.com/'}
+      ]
+    },
+    // Alto Asón
+    { slug:'alto-ason',
+      name:{es:'Comarca del Alto Asón', en:'Alto Asón Area', fr:'Région de l’Asón', de:'Region Alto Asón', nl:'Regio Alto Asón'},
+      desc:{es:'Cuevas, cascadas y paisajes kársticos entre Ramales y Soba; destino ideal para espeleología y senderismo.',
+            en:'Karst landscapes, caves and waterfalls around Ramales and Soba; caving and hiking hotspot.'},
+      see:[
+        {name:{es:'Cueva Cullalvera',en:'Cullalvera Cave'}, desc:{es:'Entrada monumental y recorrido guiado.',en:'Monumental entrance and guided route.'},
+         map:gglMaps('Cueva Cullalvera'), images:gglImages('Cueva Cullalvera')},
+        {name:{es:'Cueva Covalanas',en:'Covalanas Cave'}, desc:{es:'Arte rupestre en rojo (“puntillismo”).',en:'Red Paleolithic art (“pointillism”).'},
+         map:gglMaps('Cueva Covalanas'), images:gglImages('Cueva Covalanas')}
+      ]
+    },
+    // Valle de Cabuérniga
+    { slug:'valle-cabuerniga',
+      name:{es:'Valle de Cabuérniga', en:'Cabuérniga Valley', fr:'Vallée de Cabuérniga', de:'Tal Cabuérniga', nl:'Cabuérniga-vallei'},
+      desc:{es:'Valles pasiegos occidentales con caseríos, hayedos y ríos trucheros; arquitectura popular bien conservada.',
+            en:'Western Pasiego valleys with farmsteads, beech woods and trout rivers; well-preserved folk architecture.'},
+      see:[
+        {name:{es:'Ruente',en:'Ruente'}, desc:{es:'La Fuentona y el puente sobre el Saja.',en:'“La Fuentona” spring and Saja river bridge.'},
+         map:gglMaps('Ruente Cantabria'), images:gglImages('Ruente Cantabria')},
+        {name:{es:'Cascadas de Lamiña',en:'Lamiña waterfalls'}, desc:{es:'Paseo por bosque hasta varias pozas.',en:'Forest walk to small cascades.'},
+         map:gglMaps('Cascadas de Lamiña'), images:gglImages('Cascadas de Lamiña')},
+        {name:{es:'Los Tojos',en:'Los Tojos'}, desc:{es:'Balcón del valle y casonas en piedra.',en:'Valley viewpoints and stone houses.'},
+         map:gglMaps('Los Tojos Cantabria'), images:gglImages('Los Tojos Cantabria')}
+      ]
+    },
+    // Desfiladero de la Hermida
+    { slug:'hermida',
+      name:{es:'Desfiladero de la Hermida', en:'Hermida Gorge', fr:'Défilé de la Hermida', de:'Hermida-Schlucht', nl:'Hermida-kloof'},
+      desc:{es:'Cañón fluvial camino de Liébana con miradores, rutas y termas; carretera panorámica entre paredones calizos.',
+            en:'River gorge towards Liébana with viewpoints, hikes and hot springs; scenic road between limestone walls.'},
+      see:[
+        {name:{es:'Mirador de Santa Catalina',en:'Santa Catalina Viewpoint'}, desc:{es:'Balcón sobre el desfiladero.',en:'Balcony over the gorge.'},
+         map:gglMaps('Mirador de Santa Catalina'), images:gglImages('Mirador de Santa Catalina')}
+      ]
+    },
+    // El Soplao
+    { slug:'soplao',
+      name:{es:'Cueva El Soplao', en:'El Soplao Cave', fr:'Grotte El Soplao', de:'Höhle El Soplao', nl:'Grot El Soplao'},
+      desc:{es:'Cueva única por sus excéntricas y variedad de salas; visitas turísticas y de aventura.',
+            en:'Spectacular cave famed for helictites with tourist and adventure tours.'},
+      see:[
+        {name:{es:'Visita turística',en:'Tour visit'}, desc:{es:'Recorrido acondicionado y accesible.',en:'Prepared tourist route.'},
+         map:gglMaps('Cueva El Soplao'), images:gglImages('Cueva El Soplao'), tickets:'https://www.elsoplao.es/'},
+        {name:{es:'Visita aventura',en:'Adventure tour'}, desc:{es:'Con casco y mono por galerías naturales.',en:'Helmeted adventure through natural galleries.'},
+         map:gglMaps('Cueva El Soplao visita aventura'), images:gglImages('Cueva El Soplao aventura')}
+      ]
+    },
+    // Isla · Noja · Santoña
+    { slug:'isla-noja-santona',
+      name:{es:'Isla · Noja · Santoña', en:'Isla · Noja · Santoña', fr:'Isla · Noja · Santoña', de:'Isla · Noja · Santoña', nl:'Isla · Noja · Santoña'},
+      desc:{es:'Playas familiares y marismas atlánticas; anchoas de prestigio y rutas costeras.',
+            en:'Family-friendly beaches and Atlantic marshes; renowned anchovies and coastal walks.'},
+      see:[
+        {name:{es:'Marismas de Santoña',en:'Santoña Marshes'}, desc:{es:'Reserva natural y aves.',en:'Nature reserve and birding.'},
+         map:gglMaps('Marismas de Santoña'), images:gglImages('Marismas de Santoña')},
+        {name:{es:'Playa de Joyel (Noja)',en:'Joyel Beach'}, desc:{es:'Arena fina y ambiente familiar.',en:'Fine sand, family vibe.'},
+         map:gglMaps('Playa de Joyel'), images:gglImages('Playa de Joyel')},
+        {name:{es:'Playa de Isla',en:'Isla Beach'}, desc:{es:'Calas y aguas tranquilas según marea.',en:'Coves and calmer waters with the tide.'},
+         map:gglMaps('Playa de Isla Cantabria'), images:gglImages('Playa de Isla Cantabria')}
+      ]
+    },
+    // Cabárceno (entradas oficiales)
+    { slug:'cabarceno',
+      name:{es:'Parque de la Naturaleza de Cabárceno', en:'Cabárceno Nature Park', fr:'Parc de Cabárceno', de:'Naturpark Cabárceno', nl:'Natuurpark Cabárceno'},
+      desc:{es:'Fauna en semilibertad sobre antigua mina a cielo abierto con telecabina y grandes recintos.',
+            en:'Semi-free wildlife in a former open-pit mine, with cable cars and vast enclosures.'},
+      see:[
+        {name:{es:'Telecabina y recintos',en:'Cable car & enclosures'}, desc:{es:'Vistas y animales todo el día.',en:'Views and animals all day.'},
+         map:gglMaps('Cabárceno'), images:gglImages('Cabárceno'),
+         tickets:'https://entradas.parquedecabarceno.com/'}
+      ]
+    }
+  ];
 
+  /* ===== Gastronomía ===== */
+  var FOOD=[
+    {name:{es:'Anchoas de Santoña',en:'Santoña Anchovies',fr:'Anchois de Santoña',de:'Sardellen aus Santoña',nl:'Ansjovis uit Santoña'},
+     desc:{es:'Filetes en salazón y aceite, producto estrella del litoral oriental.',
+           en:'Salt-cured fillets in olive oil; a regional star product.'}},
+    {name:{es:'Sobaos pasiegos',en:'Sobaos Pasiegos',fr:'Sobaos pasiegos',de:'Sobaos Pasiegos',nl:'Sobaos Pasiegos'},
+     desc:{es:'Bizcocho de mantequilla con IGP de los Valles Pasiegos.',
+           en:'Buttery sponge cake with PGI from Pasiegos Valleys.'}},
+    {name:{es:'Quesada pasiega',en:'Quesada Pasiega',fr:'Quesada pasiega',de:'Quesada Pasiega',nl:'Quesada Pasiega'},
+     desc:{es:'Postre horneado de leche y queso fresco.',
+           en:'Baked dessert made with milk and fresh cheese.'}},
+    {name:{es:'Cocido montañés',en:'Cocido Montañés',fr:'Cocido montañés',de:'Cocido Montañés',nl:'Cocido Montañés'},
+     desc:{es:'Puchero de alubia blanca y berza, contundente y tradicional.',
+           en:'Hearty bean and greens stew, a mountain classic.'}},
+    {name:{es:'Queso Picón Bejes-Tresviso',en:'Picón Bejes-Tresviso cheese',fr:'Fromage Picón Bejes-Tresviso',de:'Käse Picón Bejes-Tresviso',nl:'Kaas Picón Bejes-Tresviso'},
+     desc:{es:'Azul con DOP, afinado en cuevas de Liébana.',
+           en:'Blue cheese (PDO) matured in Liébana caves.'}},
+    {name:{es:'Rabas',en:'Rabas (fried squid)',fr:'Rabas (calamar frit)',de:'Rabas (frittierter Tintenfisch)',nl:'Rabas (gefrituurde inktvis)'},
+     desc:{es:'Tiras de calamar rebozadas, icono del aperitivo santanderino.',
+           en:'Battered squid strips; iconic Santander aperitivo.'}},
+    {name:{es:'Orujo de Liébana',en:'Orujo from Liébana',fr:'Orujo de Liébana',de:'Orujo aus Liébana',nl:'Orujo uit Liébana'},
+     desc:{es:'Aguardiente tradicional con destilerías artesanas.',
+           en:'Traditional pomace brandy from mountain valleys.'}},
+    {name:{es:'Bonito del Norte & marmita',en:'Albacore & “marmita”',fr:'Thon blanc & marmite',de:'Weißer Thun & Marmita',nl:'Witte tonijn & marmita'},
+     desc:{es:'Temporada veraniega; guiso marinero con patata.',
+           en:'Summer albacore; sailor’s stew with potatoes.'}},
+    {name:{es:'Corbatas de Unquera',en:'Unquera “Corbatas”',fr:'Corbatas d’Unquera',de:'Corbatas aus Unquera',nl:'Corbatas uit Unquera'},
+     desc:{es:'Hojaldre glaseado en forma de pajarita.',
+           en:'Glazed puff-pastry “bow ties”.'}},
+    {name:{es:'Leche frita',en:'Fried milk dessert',fr:'Lait frit',de:'Frittierte Milch',nl:'Gebakken melk'},
+     desc:{es:'Dulce cremoso rebozado con azúcar y canela.',
+           en:'Creamy dessert coated with sugar and cinnamon.'}},
+    {name:{es:'Percebes & marisco del Cantábrico',en:'Goose barnacles & seafood',fr:'Pousse-pieds & fruits de mer',de:'Entenmuscheln & Meeresfrüchte',nl:'Eendenmosselen & zeevruchten'},
+     desc:{es:'Producto de costa brava y aguas frías.',
+           en:'From the cold, rough Cantabrian sea.'}}
+  ];
+
+  /* ===== Render Musts & Food ===== */
   function i18nTxt(obj){ return (obj && (obj[LANG]||obj.es||''))||''; }
-  function renderMusts(){ /* … igual que tu versión previa … */ }
-  function renderFood(){ /* … igual que tu versión previa … */ }
+
+  function renderMusts(){
+    var wrap=$('#mustsAcc'); if(!wrap) return;
+    var T=I18N[LANG];
+    wrap.innerHTML = MUSTS.map(function(m){
+      var head = esc(i18nTxt(m.name));
+      var desc = esc(i18nTxt(m.desc));
+      var body = '<p class="muted">'+desc+'</p>';
+      if(m.see && m.see.length){
+        body+='<div class="pill">'+esc(T.see||'Qué ver')+'</div>';
+        body+='<div class="acc" style="margin-top:8px">'+ m.see.map(function(s){
+          var sName=esc(i18nTxt(s.name)); var sDesc=esc(i18nTxt(s.desc));
+          var map = s.map?('<a class="btn sm" href="'+esc(s.map)+'" target="_blank" rel="noopener">'+esc(T.map)+'</a>'):'';
+          var imgs= s.images?('<a class="btn sm" href="'+esc(s.images)+'" target="_blank" rel="noopener">'+esc(T.images)+'</a>'):'';
+          var tix = s.tickets?('<a class="btn sm primary" href="'+esc(s.tickets)+'" target="_blank" rel="noopener">🎟 '+esc(T.tickets)+'</a>'):'';
+          return '<div class="acc-item"><div class="acc-h">'+sName+' <span>▼</span></div><div class="acc-b">'
+                 + '<p>'+sDesc+'</p><div class="row">'+map+imgs+tix+'</div></div></div>';
+        }).join('') + '</div>';
+      }
+      return '<div class="acc-item"><div class="acc-h" data-m="'+esc(m.slug)+'">'+head+' <span>▼</span></div><div class="acc-b">'+body+'</div></div>';
+    }).join('');
+    $all('#mustsAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
+  }
+
+  function renderFood(){
+    var wrap=$('#foodAcc'); if(!wrap) return;
+    wrap.innerHTML = FOOD.map(function(f){
+      var name=esc(i18nTxt(f.name)); var desc=esc(i18nTxt(f.desc));
+      var imgLink=gglImages(name+' Cantabria');
+      return '<div class="acc-item"><div class="acc-h">'+name+' <span>▼</span></div>'
+        + '<div class="acc-b"><p>'+desc+'</p><div class="row">'
+        + '<a class="btn sm" href="'+esc(imgLink)+'" target="_blank" rel="noopener">'+esc(I18N[LANG].images)+'</a>'
+        + '</div></div></div>';
+    }).join('');
+    $all('#foodAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
+  }
 
   /* ===== Pre-checkin ===== */
-  var PRE_KEY='pre_main', PRE_COMP_KEY='pre_companions';
-  function preLoadMain(){ try{ return JSON.parse(localStorage.getItem(PRE_KEY)||'{}'); }catch(e){ return {}; } }
-  function preSaveMain(obj){ try{ localStorage.setItem(PRE_KEY, JSON.stringify(obj||{})); }catch(e){} }
-  function preLoadComps(){ try{ return JSON.parse(localStorage.getItem(PRE_COMP_KEY)||'[]'); }catch(e){ return []; } }
-  function preSaveComps(list){ try{ localStorage.setItem(PRE_COMP_KEY, JSON.stringify(list||[])); }catch(e){} }
-
-  function preCompRow(data, idx){
+  var COMP_ID=0;
+  function compCard(id,data){
     var T=I18N[LANG];
-    var wrap=document.createElement('div'); wrap.className='card'; wrap.style.minWidth='unset';
-    wrap.innerHTML =
-      '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">'
-      +'<div><label style="font-weight:700">'+esc(T.preName)+'</label><input class="input c-name" placeholder="'+esc(T.preName)+'" value="'+esc(data.name||'')+'"></div>'
-      +'<div><label style="font-weight:700">'+esc(T.preSurname)+'</label><input class="input c-surname" placeholder="'+esc(T.preSurname)+'" value="'+esc(data.surname||'')+'"></div>'
-      +'<div><label style="font-weight:700">'+esc(T.preDob)+'</label><input class="input c-dob" type="date" value="'+esc(data.dob||'')+'"></div>'
-      +'</div>'
-      +'<div class="row" style="margin-top:8px"><button class="btn ghost sm c-remove">🗑️ '+esc(T.preRemove)+'</button></div>';
-    on(wrap.querySelector('.c-remove'),'click', function(){
-      var list=preLoadComps(); list.splice(idx,1); preSaveComps(list); preRenderComps();
-    });
-    // persist on input
-    $all('input',wrap).forEach(function(inp){
-      on(inp,'input', function(){
-        var list=preLoadComps(); if(!list[idx]) list[idx]={};
-        list[idx].name=wrap.querySelector('.c-name').value||'';
-        list[idx].surname=wrap.querySelector('.c-surname').value||'';
-        list[idx].dob=wrap.querySelector('.c-dob').value||'';
-        preSaveComps(list);
+    data=data||{};
+    return '<div class="acc-item" data-comp="'+id+'">'
+      + '<div class="acc-h">'+(data.name||T.preComp)+' <span>▼</span></div>'
+      + '<div class="acc-b"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">'
+      + '<div><label>'+esc(T.preName)+'</label><input class="input c-name" value="'+esc(data.name||'')+'"></div>'
+      + '<div><label>'+esc(T.preSurname)+'</label><input class="input c-surname" value="'+esc(data.surname||'')+'"></div>'
+      + '<div><label>'+esc(T.preDoc)+'</label><input class="input c-doc" value="'+esc(data.doc||'')+'"></div>'
+      + '<div><label>'+esc(T.preDob)+'</label><input type="date" class="input c-dob" value="'+esc(data.dob||'')+'"></div>'
+      + '</div><div class="row" style="margin-top:8px"><button class="btn ghost sm comp-del">'+esc(T.preRemove)+'</button></div></div></div>';
+  }
+  function refreshCompHandlers(){
+    $all('#companionsWrap .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
+    $all('#companionsWrap .comp-del').forEach(function(btn){
+      on(btn,'click', function(){
+        var card = btn.closest('.acc-item'); if(card) card.remove();
       });
     });
-    return wrap;
   }
-
-  function preRenderComps(){
-    var list=preLoadComps();
-    var cont=$('#preCompList'); if(!cont) return;
-    cont.innerHTML=''; list.forEach(function(c, i){ cont.appendChild(preCompRow(c,i)); });
-  }
-
-  function preRender(){
-    // default place = STAY
-    var prePlace=$('#prePlace'); if(prePlace){ prePlace.value=STAY; }
-    var main=preLoadMain();
-    $('#preName').value=main.name||'';
-    $('#preSurname').value=main.surname||'';
-    $('#preId').value=main.id||'';
-    $('#preDob').value=main.dob||'';
-    $('#prePlate').value=main.plate||'';
-    preRenderComps();
-  }
-
-  ['#preName','#preSurname','#preId','#preDob','#prePlate'].forEach(function(sel){
-    var el=$(sel); on(el,'input', function(){
-      var obj=preLoadMain();
-      obj.name=$('#preName').value||'';
-      obj.surname=$('#preSurname').value||'';
-      obj.id=$('#preId').value||'';
-      obj.dob=$('#preDob').value||'';
-      obj.plate=$('#prePlate').value||'';
-      preSaveMain(obj);
+  on($('#addComp'),'click', function(){
+    var w=$('#companionsWrap'); w.insertAdjacentHTML('beforeend', compCard(++COMP_ID,{})); refreshCompHandlers();
+  });
+  function preCollect(){
+    var place=$('#prePlace').value;
+    var data={
+      place:place,
+      holder:{
+        name:$('#preName').value||'',
+        surname:$('#preSurname').value||'',
+        doc:$('#preDoc').value||'',
+        dob:$('#preDob').value||'',
+        plate:$('#prePlate').value||''
+      },
+      companions:[]
+    };
+    $all('#companionsWrap .acc-item').forEach(function(card){
+      data.companions.push({
+        name:card.querySelector('.c-name').value||'',
+        surname:card.querySelector('.c-surname').value||'',
+        doc:card.querySelector('.c-doc').value||'',
+        dob:card.querySelector('.c-dob').value||''
+      });
     });
-  });
-
-  on($('#preAddComp'),'click', function(){
-    var list=preLoadComps(); list.push({name:'',surname:'',dob:''}); preSaveComps(list); preRenderComps();
-  });
-
-  function preValidate(){
-    var T=I18N[LANG], ok=true;
-    function req(el){ el.style.borderColor = (!el.value||!el.value.trim()) ? '#ef4444' : 'var(--line)'; if(!el.value||!el.value.trim()) ok=false; }
-    req($('#preName')); req($('#preSurname')); req($('#preId')); req($('#preDob'));
-    return ok;
+    return data;
   }
-
-  function preBuildEmail(){
-    var T=I18N[LANG];
-    var place=($('#prePlace').value||STAY);
-    var to=EMAILS[place]||'';
-    var main=preLoadMain();
-    var comps=preLoadComps();
-    function fmtDate(d){ if(!d) return ''; try{ return new Intl.DateTimeFormat(LANG,{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(d)); }catch(e){ return d; } }
-    var subject='[Pre-checkin] '+PLACE_LABEL[place]+' – '+(main.name||'')+' '+(main.surname||'');
+  function preToText(d){
+    var T=I18N[LANG], P=PLACE_LABEL[d.place]||d.place;
     var lines=[];
-    lines.push('Pre-checkin – '+PLACE_LABEL[place]);
+    lines.push('[Pre-checkin] '+P);
     lines.push('');
-    lines.push('Titular:');
-    lines.push('  Nombre: '+(main.name||''));
-    lines.push('  Apellidos: '+(main.surname||''));
-    lines.push('  Documento: '+(main.id||''));
-    lines.push('  Fecha de nacimiento: '+fmtDate(main.dob||''));
-    lines.push('  Matrícula vehículo: '+(main.plate||''));
+    lines.push('Titular: '+d.holder.name+' '+d.holder.surname);
+    lines.push('Documento: '+d.holder.doc);
+    lines.push('Nacimiento: '+d.holder.dob);
+    lines.push('Matrícula: '+d.holder.plate);
     lines.push('');
-    lines.push('Acompañantes:');
-    if(!comps.length){ lines.push('  —'); }
-    comps.forEach(function(c, i){
-      lines.push('  '+(i+1)+') '+(c.name||'')+' '+(c.surname||'')+' · DOB: '+fmtDate(c.dob||''));
-    });
-    lines.push('');
-    lines.push('Enviado desde la app de cliente de Grupo A Cobijo.');
-    var body = lines.join('\n');
-    return {to:to, subject:subject, body:body};
+    if(d.companions.length){ lines.push('Acompañantes:'); d.companions.forEach(function(c,i){
+      lines.push('  '+(i+1)+'. '+(c.name||'')+' '+(c.surname||'')+' · '+(c.doc||'')+' · '+(c.dob||'')); });
+      lines.push(''); }
+    lines.push('Confirmación: '+( $('#preConsent').checked ? 'Sí' : 'No'));
+    return lines.join('\n');
   }
-
-  function preOpenPreview(){
-    var m=preBuildEmail();
-    $('#prePrevText').value = 'Para: '+m.to+'\nAsunto: '+m.subject+'\n\n'+m.body;
-    $('#prePrevModal').style.display='flex'; document.body.classList.add('modal-open');
-  }
-  function preClosePreview(){
-    $('#prePrevModal').style.display='none'; document.body.classList.remove('modal-open');
-  }
-
   on($('#prePreview'),'click', function(){
-    if(!preValidate()){ alert(I18N[LANG].preInvalid); return; }
-    preOpenPreview();
+    var d=preCollect(); $('#prePrevBody').textContent=preToText(d);
+    $('#prePreviewModal').style.display='flex'; document.body.classList.add('modal-open');
   });
-  on($('#closePrePrev'),'click', function(e){ e.preventDefault(); preClosePreview(); });
-  on($('#prePrevCloseBtn'),'click', function(){ preClosePreview(); });
-  on($('#preCopy'),'click', function(){
-    var ta=$('#prePrevText'); ta.select(); document.execCommand && document.execCommand('copy');
-    try{ navigator.clipboard && navigator.clipboard.writeText(ta.value); }catch(e){}
-    alert(I18N[LANG].preCopied);
-  });
+  on($('#closePrePreview'),'click', function(e){ e.preventDefault(); $('#prePreviewModal').style.display='none'; document.body.classList.remove('modal-open'); });
 
   on($('#preSend'),'click', function(){
-    if(!$('#preConsent').checked){ alert(I18N[LANG].preConsent); return; }
-    if(!preValidate()){ alert(I18N[LANG].preInvalid); return; }
-    var m=preBuildEmail();
-    var mailto = 'mailto:'+encodeURIComponent(m.to)
-      +'?subject='+encodeURIComponent(m.subject)
-      +'&body='+encodeURIComponent(m.body);
-    // Abrimos en nueva ubicación para respetar clientes móviles
-    var a=document.createElement('a'); a.href=mailto; a.style.display='none'; document.body.appendChild(a); a.click(); a.remove();
+    if(!$('#preConsent').checked){ alert('Marca la casilla de consentimiento.'); return; }
+    var d=preCollect();
+    var mail=EMAILS[d.place]||'';
+    if(!mail){ alert('Email del alojamiento no configurado.'); return; }
+    var subj='Pre-checkin - '+(PLACE_LABEL[d.place]||d.place);
+    var body=preToText(d);
+    var url='mailto:'+encodeURIComponent(mail)+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    location.href=url;
   });
 
   /* ===== Admin (activar con 5 toques en el logo) ===== */
@@ -1264,25 +1472,131 @@ document.addEventListener('DOMContentLoaded', function(){
         }else{
           if(!askForPin()) return;
           localStorage.setItem('admin','1'); document.body.classList.add('admin-on');
-          // openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin();
-          alert('Modo admin activado');
+          openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin(); alert('Modo admin activado');
         }
       }
     });
   })();
 
+  function openAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='flex'; document.body.classList.add('modal-open'); } }
+  function closeAdminModal(){ var m=$('#adminModal'); if(m){ m.style.display='none'; document.body.classList.remove('modal-open'); } }
+  on($('#closeAdmin'),'click', function(e){ e.preventDefault(); closeAdminModal(); });
+  on($('#adminModal'),'click', function(e){ if(e.target && e.target.id==='adminModal'){ closeAdminModal(); } });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAdminModal(); } });
+  on($('#openAdmin'),'click', function(){ if(!document.body.classList.contains('admin-on')) return; openAdminModal(); loadEventsAdmin(); loadSchedulesAdmin(); });
+
+  var ADMIN_EVENTS=[];
+  function isoFromLocal(dt){ var d=new Date(dt); if(isNaN(d.getTime())) return dt; var tz=-d.getTimezoneOffset(),sign=tz>=0?'+':'-'; function p(n){return ('0'+n).slice(-2);} return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+sign+p(Math.floor(Math.abs(tz)/60))+':'+p(Math.abs(tz)%60); }
+
+  function loadEventsAdmin(){
+    fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
+      .then(r=>r.json()).then(data=>{ ADMIN_EVENTS = Array.isArray(data)?data:[]; renderAdminTable(); })
+      .catch(()=>{ ADMIN_EVENTS=[]; renderAdminTable(); });
+    loadGhCfgToForm();
+  }
+  function renderAdminTable(){
+    var tbody = $('#eventsTable tbody'); if(!tbody) return;
+    tbody.innerHTML = ADMIN_EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).map(function(ev){
+      var titleES=(typeof ev.titulo==='string'?ev.titulo:((ev.titulo&&ev.titulo.es)||''))||'';
+      var lugarES=(typeof ev.lugar==='string'?ev.lugar:((ev.lugar&&ev.lugar.es)||''))||'';
+      var dt=new Date(ev.fecha);
+      var val = dt.getFullYear()+'-'+pad2(dt.getMonth()+1)+'-'+pad2(dt.getDate())+'T'+pad2(dt.getHours())+':'+pad2(dt.getMinutes());
+      return '<tr data-id="'+ev.id+'">'
+        + '<td class="muted" style="white-space:nowrap">'+esc(ev.id)+'</td>'
+        + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+esc(dt.toLocaleString())+'</div></td>'
+        + '<td><select class="select camp"><option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option><option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option><option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option><option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option></select>'
+        + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+esc(lugarES)+'"></td>'
+        + '<td><input class="input titulo" placeholder="Título (ES)" value="'+esc(titleES)+'">'
+        + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+esc(((ev.descripcion&&ev.descripcion.es)||''))+'</textarea>'
+        + '<input class="input img" placeholder="Imagen (URL)" value="'+esc((ev.imagen||ev.image||''))+'" style="margin-top:6px"></td>'
+        + '<td style="min-width:220px"><button class="btn act-save">Guardar</button> <button class="btn act-dup">Duplicar</button> <button class="btn act-del">Borrar</button></td>'
+      + '</tr>';
+    }).join('');
+    $all('#eventsTable tbody tr').forEach(function(tr){
+      var id = tr.getAttribute('data-id');
+      on(tr.querySelector('.act-save'),'click', function(){ saveRow(tr,id); });
+      on(tr.querySelector('.act-dup'),'click', function(){ duplicateRow(id); });
+      on(tr.querySelector('.act-del'),'click', function(){ deleteRow(id); });
+    });
+  }
+  function getRowValues(tr){
+    return {
+      dateLocal: tr.querySelector('.dt').value,
+      camping: tr.querySelector('.camp').value,
+      lugar: (tr.querySelector('.lugar').value||'').trim(),
+      titulo: (tr.querySelector('.titulo').value||'').trim(),
+      desc: (tr.querySelector('.desc').value||'').trim(),
+      img: (tr.querySelector('.img').value||'').trim()
+    };
+  }
+  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
+  function saveRow(tr,id){
+    var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
+    var idx=ADMIN_EVENTS.findIndex(e=>e.id===id); if(idx<0) return;
+    ADMIN_EVENTS[idx].fecha=isoFromLocal(v.dateLocal);
+    ADMIN_EVENTS[idx].camping=v.camping;
+    ADMIN_EVENTS[idx].titulo={es:v.titulo};
+    ADMIN_EVENTS[idx].lugar={es:v.lugar||defaultLugar(v.camping)};
+    ADMIN_EVENTS[idx].descripcion={es:v.desc||''};
+    if(v.img) ADMIN_EVENTS[idx].imagen=v.img; else delete ADMIN_EVENTS[idx].imagen;
+    renderAdminTable();
+  }
+  function duplicateRow(id){
+    var o=ADMIN_EVENTS.find(e=>e.id===id); if(!o) return;
+    var titleES=(o.titulo&&o.titulo.es)||''; var newId='ev-'+slug(titleES)+'-'+o.camping+'-'+Date.now().toString().slice(-8);
+    var copy=JSON.parse(JSON.stringify(o)); copy.id=newId; ADMIN_EVENTS.push(copy); renderAdminTable();
+  }
+  function deleteRow(id){ if(!confirm('¿Borrar este evento?')) return; ADMIN_EVENTS = ADMIN_EVENTS.filter(e=>e.id!==id); renderAdminTable(); }
+
+  /* Schedules admin */
+  function loadSchedulesAdmin(){ var a=$('#schedJsonArea'); if(!a) return; try{ a.value=JSON.stringify(SCHEDULES,null,2); }catch(e){ a.value='{}'; } }
+  on($('#schedApplyBtn'),'click', function(){ var a=$('#schedJsonArea'); try{ var obj=JSON.parse(a.value); if(!obj||typeof obj!=='object') throw 0; SCHEDULES=obj; renderAcc(); renderStayHours(); alert('Horarios aplicados.'); }catch(e){ alert('JSON inválido.'); } });
+  on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+  on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
+
+  /* GitHub minimal (manual) */
+  var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
+  function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
+  function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); var t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
+  function ghGet(path, token){ var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path)+'?ref='+encodeURIComponent(branch); return fetch(url,{headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'acobijo-app'}}); }
+  function ghPut(path, contentBase64, message, sha, token){ var repo=localStorage.getItem(GH_KEYS.repo), branch=localStorage.getItem(GH_KEYS.branch)||'main'; var url='https://api.github.com/repos/'+repo+'/contents/'+encodeURIComponent(path); var body={message:message,content:contentBase64,branch:branch}; if(sha) body.sha=sha; return fetch(url,{method:'PUT',headers:{'Authorization':'token '+(token||'').trim(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'acobijo-app'},body:JSON.stringify(body)}); }
+  function toB64(str){ return btoa(unescape(encodeURIComponent(str))); }
+  on($('#saveGhCfg'),'click', saveGhCfgFromForm);
+  on($('#pushEventsBtn'),'click', function(){
+    try{
+      if(!ADMIN_EVENTS.length){ alert('No hay eventos.'); return; }
+      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
+      var sha=null;
+      ghGet('events.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
+      var jsonStr=JSON.stringify(ADMIN_EVENTS,null,2);
+      var content64=toB64(jsonStr);
+      var now=new Date().toISOString().slice(0,19).replace('T',' ');
+      ghPut('events.json',content64,'Update events.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ events.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
+  });
+  on($('#pushSchedBtn'),'click', function(){
+    try{
+      var token=(localStorage.getItem(GH_KEYS.token)||'').trim(); if(!token){alert('Configura el token.');return;}
+      var sha=null;
+      ghGet('schedules.json', token).then(function(res){ if(res.status===200){ return res.json().then(d=>{sha=d.sha;}); } });
+      var jsonStr=JSON.stringify(SCHEDULES,null,2);
+      var content64=toB64(jsonStr);
+      var now=new Date().toISOString().slice(0,19).replace('T',' ');
+      ghPut('schedules.json',content64,'Update schedules.json via in-app admin ('+now+')',sha,token).then(function(res){ if(res.ok){ alert('✅ schedules.json subido.'); } else { res.text().then(txt=>alert('❌ Error '+res.status+'\n'+txt)); }});
+    }catch(err){ alert('❌ '+err.message); }
+  });
+
   /* ===== PWA install: modal con guía ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
   function platformGuide(){
-    var ua=navigator.userAgent||''; var isIOS=/iP(ad|hone|od)/.test(ua); var isSafari=isIOS || (/Safari/.test(ua)&&!/Chrome/.test(ua));
-    var isAndroid=/Android/i.test(ua);
+    var ua=navigator.userAgent||''; var isIOS=/iP(ad|hone|od)/.test(ua); var isAndroid=/Android/i.test(ua);
     if(isIOS){
-      return '<ol><li>Abre en <b>Safari</b>.</li><li>Toca <b>Compartir</b>.</li><li>Elige <b>Añadir a pantalla de inicio</b>.</li><li>Confirma con <b>Añadir</b>.</li></ol>';
+      return '<ol><li>Abre en <b>Safari</b>.</li><li>Toca <b>Compartir</b>.</li><li><b>Añadir a pantalla de inicio</b>.</li><li>Confirma con <b>Añadir</b>.</li></ol>';
     }else if(isAndroid){
-      return '<ol><li>Abre en <b>Chrome</b>.</li><li>Toca <b>⋮</b> &gt; <b>Añadir a pantalla de inicio</b>.</li><li>Sigue las instrucciones.</li></ol>';
+      return '<ol><li>Abre en <b>Chrome</b>.</li><li>Menú <b>⋮</b> → <b>Añadir a pantalla de inicio</b>.</li><li>Sigue las instrucciones.</li></ol>';
     }else{
-      return '<p>En escritorio, usa la opción <b>Instalar app</b> del navegador.</p>';
+      return '<p>En escritorio, usa el icono de <b>Instalar app</b> en la barra de direcciones.</p>';
     }
   }
   function openInstallModal(){
@@ -1297,23 +1611,25 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Init ===== */
+  function initIncTypesAndUI(){
+    fillIncTypes();
+    $('#incPlace').value=STAY;
+    updateIncUI();
+  }
   $('#stayWeb').textContent=I18N[LANG].web;
   $('#stayCall').textContent=I18N[LANG].call;
   $('#stayWA').textContent=I18N[LANG].whatsapp;
   $('#stayEmail').textContent=I18N[LANG].email;
   $('#stayDir').textContent=I18N[LANG].directions;
-
-  $('#stayPlace').value=STAY;
-  $('#incPlace').value=STAY;
+  $('#stayPlace').value=STAY; $('#incPlace').value=STAY;
 
   loadSchedules();
   loadEvents();
   renderAcc();
   updateStayUI();
-  fillIncTypes(); updateIncUI();
+  initIncTypesAndUI();
   renderMusts();
   renderFood();
-  preRender();
 
   /* ===== Service Worker ===== */
   if('serviceWorker' in navigator){
