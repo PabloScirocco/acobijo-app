@@ -64,7 +64,7 @@ main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
 .hero-inner{display:flex;align-items:center;gap:14px;padding:16px}
 .hero h2{margin:0;font-size:1.3rem}
-.badge{display:none} /* Oculto */
+.badge{display:none}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
   align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
@@ -102,7 +102,7 @@ body.dark .acc-item{background:#0f1a2b}
 .acc-b{display:none;padding:.8rem}
 .acc-item.open .acc-b{display:block}
 
-/* Bottom nav (4) */
+/* Bottom nav */
 .navbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
 body.dark .navbar{background:#0f1a2b}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:none;background:transparent;cursor:pointer;font-size:.8rem;color:var(--muted)}
@@ -122,7 +122,7 @@ body.modal-open{overflow:hidden}
 .input,.select,.textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .textarea{min-height:96px}
 
-/* Weather (Mi estancia) */
+/* Weather */
 .wx{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--wx2),var(--wx1));padding:12px}
 .wx-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .wx-today{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:linear-gradient(180deg,var(--wx4),var(--wx2));border:1px solid var(--line);border-radius:14px;padding:10px}
@@ -134,7 +134,7 @@ body.modal-open{overflow:hidden}
 .wx-day .d{font-weight:700}
 .wx-day .t{font-size:.9rem}
 
-/* Musts pills */
+/* Pills */
 .pill{display:inline-flex;gap:.35rem;align-items:center;border:1px solid var(--line);border-radius:999px;padding:.25rem .55rem;font-size:.85rem;background:#fff}
 body.dark .pill{background:#0f1a2b}
 
@@ -481,7 +481,7 @@ body.dark .pill{background:#0f1a2b}
   </div>
 </div>
 
-<!-- JSZip (opcional) -->
+<!-- JSZip -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script>
@@ -742,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function(){
     t("c-all",T.cAll); t("c-oy",T.cOy); t("c-ra",T.cRa); t("c-he",T.cHe); t("c-ca",T.cCa);
     t("t-oy-title",T.oyTitle); t("t-oy-hint",T.oyHint); t("t-ra-title",T.raTitle); t("t-ra-hint",T.raHint);
     t("t-he-title",T.heTitle); t("t-he-hint",T.heHint); t("t-ca-title",T.caTitle); t("t-ca-hint",T.caHint);
-    t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
+    t("schedNote",T.schedNote);
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc); t("drawerHint",T.drawerHint);
     t("t-next-events",T.nextEvents);
@@ -753,7 +753,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
     t("musts-title",T.mustsTitle); t("musts-hint",T.mustsHint);
     t("food-title",T.foodTitle); t("food-hint",T.foodHint);
-    t("d-musts", T.mustsTitle || "Imprescindibles"); t("d-food", T.foodTitle || "Gastronomía");
     // Install modal
     t("instTitle", T.instTitle); t("instNow", T.instNow);
     // Empty events msg
@@ -974,7 +973,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   $all('.acc-h').forEach(h=>on(h,'click', function(){ h.parentElement.classList.toggle('open'); }));
 
-  /* ===== Mi estancia (contactos + horarios + clima) ===== */
+  /* ===== Mi estancia ===== */
   var STAY = localStorage.getItem('stay_place') || 'oyambre';
   var COORDS = {
     oyambre:{lat:43.393, lon:-4.352},
@@ -1059,24 +1058,167 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#incType'),'change', updateIncUI);
   on($('#incMsg'),'input', updateIncUI);
 
-  /* ===== Imprescindibles y Gastronomía  (idénticos a la versión anterior ampliada) ===== */
+  /* ===== Helpers enlaces ===== */
   function gglImages(q){ return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q); }
   function gglMaps(q){ return 'https://www.google.com/maps/search/'+encodeURIComponent(q); }
 
-  var MUSTS=[/* ——— (Contenido ampliado: Santander, San Vicente, Santillana, Suances, Potes & Liébana, Alto Asón, Valle de Cabuérniga, Hermida, El Soplao, Isla·Noja·Santoña, Comillas, Cabárceno) ——— */
-    /* (Se mantiene igual que el index anterior que te pasé, con Cabárceno -> https://entradas.parquedecabarceno.com/ ) */
+  /* ===== MUSTS (Imprescindibles) ===== */
+  var MUSTS=[
+    {
+      slug:'santander',
+      name:{es:'Santander'},
+      desc:{es:'Capital elegante y marítima. Combina bahía, playa y cultura: paseo por el frente marítimo, playas del Sardinero y la Magdalena, y vida urbana en Cañadío y el Mercado del Este.'},
+      see:[
+        { name:{es:'Centro Botín y Jardines de Pereda'}, desc:{es:'Icono cultural junto a la bahía; terraza-mirador y exposiciones.'}, map: gglMaps('Centro Botín'), images: gglImages('Centro Botín Santander') },
+        { name:{es:'Catedral y Plaza del Ayuntamiento'}, desc:{es:'Casco histórico y galerías subterráneas.'}, map: gglMaps('Catedral de Santander'), images: gglImages('Catedral de Santander') },
+        { name:{es:'Playa del Sardinero'}, desc:{es:'Clásico arenal urbano con paseo marítimo.'}, map: gglMaps('Playa del Sardinero'), images: gglImages('Playa del Sardinero') },
+        { name:{es:'Península y Palacio de la Magdalena'}, desc:{es:'Jardines, playas y vistas al Cantábrico.'}, map: gglMaps('Palacio de la Magdalena'), images: gglImages('Palacio de la Magdalena') },
+        { name:{es:'Faro de Cabo Mayor'}, desc:{es:'Acantilados y panorámicas; acceso a Mataleñas.'}, map: gglMaps('Faro de Cabo Mayor'), images: gglImages('Faro de Cabo Mayor') },
+        { name:{es:'Senda de Mataleñas'}, desc:{es:'Ruta litoral entre Cabo Mayor y Mataleñas. Vistas espectaculares.'}, map: gglMaps('Senda de Mataleñas Santander'), images: gglImages('Senda de Mataleñas') },
+        { name:{es:'Diques de Gamazo'}, desc:{es:'Paseo marítimo con graderío y vistas a la bahía.'}, map: gglMaps('Diques de Gamazo Santander'), images: gglImages('Diques de Gamazo') },
+        { name:{es:'Palacio de Festivales'}, desc:{es:'Arquitectura singular y programación cultural.'}, map: gglMaps('Palacio de Festivales de Cantabria'), images: gglImages('Palacio de Festivales Santander') },
+        { name:{es:'Parque de Las Llamas'}, desc:{es:'Gran pulmón verde urbano con laguna y pasarelas.'}, map: gglMaps('Parque de Las Llamas Santander'), images: gglImages('Parque de Las Llamas Santander') },
+        { name:{es:'Mercado del Este'}, desc:{es:'Galería histórica con tiendas y gastronomía.'}, map: gglMaps('Mercado del Este Santander'), images: gglImages('Mercado del Este Santander') },
+        { name:{es:'Plaza de Cañadío'}, desc:{es:'Zona de ambiente y terrazas, muy viva por la noche.'}, map: gglMaps('Plaza de Cañadío Santander'), images: gglImages('Plaza de Cañadío Santander') }
+      ]
+    },
+    {
+      slug:'san-vicente',
+      name:{es:'San Vicente de la Barquera'},
+      desc:{es:'Villa marinera con vistas a Picos de Europa y largas playas abiertas. Puentes, iglesia gótica y casco histórico amurallado.'},
+      see:[
+        { name:{es:'Puente de La Maza'}, desc:{es:'Histórico acceso a la villa sobre la ría.'}, map: gglMaps('Puente de La Maza San Vicente de la Barquera'), images: gglImages('Puente de La Maza') },
+        { name:{es:'Iglesia de Santa María de los Ángeles'}, desc:{es:'Templo gótico en lo alto de la Puebla Vieja.'}, map: gglMaps('Iglesia Santa María de los Ángeles San Vicente de la Barquera'), images: gglImages('Iglesia Santa María de los Ángeles San Vicente') },
+        { name:{es:'Castillo del Rey'}, desc:{es:'Fortaleza medieval con mirador panorámico.'}, map: gglMaps('Castillo del Rey San Vicente de la Barquera'), images: gglImages('Castillo del Rey San Vicente') },
+        { name:{es:'Playa de Merón y Parque Natural de Oyambre'}, desc:{es:'Dunas, mar abierto y entorno protegido.'}, map: gglMaps('Playa de Merón'), images: gglImages('Playa de Merón') }
+      ]
+    },
+    {
+      slug:'santillana',
+      name:{es:'Santillana del Mar'},
+      desc:{es:'“La villa de las tres mentiras”: ni santa, ni llana, ni tiene mar… pero es de los pueblos más bonitos de España. Piedra, blasones y Altamira.'},
+      see:[
+        { name:{es:'Colegiata de Santa Juliana'}, desc:{es:'Joyas románicas y claustro imprescindible.'}, map: gglMaps('Colegiata Santa Juliana Santillana del Mar'), images: gglImages('Colegiata Santillana del Mar') },
+        { name:{es:'Museo y Neocueva de Altamira'}, desc:{es:'Arte rupestre Patrimonio de la Humanidad.'}, map: gglMaps('Museo de Altamira'), images: gglImages('Altamira Neocueva'), tickets:'https://www.cultura.gob.es/mnaltamira/visita/compra-entradas.html' },
+        { name:{es:'Casco histórico y torres'}, desc:{es:'Calles empedradas, casonas y museos.'}, map: gglMaps('Santillana del Mar casco histórico'), images: gglImages('Santillana del Mar casco') }
+      ]
+    },
+    {
+      slug:'suances',
+      name:{es:'Suances'},
+      desc:{es:'Destino surfero y familiar: acantilados, la playa de Los Locos y el faro en la Punta del Dichoso.'},
+      see:[
+        { name:{es:'Playa de Los Locos'}, desc:{es:'Meca del surf; espectaculares puestas de sol.'}, map: gglMaps('Playa de Los Locos Suances'), images: gglImages('Playa de Los Locos Suances') },
+        { name:{es:'Playa de La Concha'}, desc:{es:'Gran arenal urbano y paseo marítimo.'}, map: gglMaps('Playa de La Concha Suances'), images: gglImages('Playa de La Concha Suances') },
+        { name:{es:'Faro de Suances (Punta del Dichoso)'}, desc:{es:'Miradores sobre la costa y la ría.'}, map: gglMaps('Faro de Suances Punta del Dichoso'), images: gglImages('Faro de Suances Punta del Dichoso') }
+      ]
+    },
+    {
+      slug:'potes-liebana',
+      name:{es:'Potes y Liébana'},
+      desc:{es:'Valle rodeado por Picos de Europa: pueblos de piedra, monasterios, orujo y el famoso teleférico de Fuente Dé.'},
+      see:[
+        { name:{es:'Potes y Torre del Infantado'}, desc:{es:'Centro medieval con puentes y casonas.'}, map: gglMaps('Potes Torre del Infantado'), images: gglImages('Potes Cantabria') },
+        { name:{es:'Monasterio de Santo Toribio'}, desc:{es:'Lugar jubilar con el Lignum Crucis.'}, map: gglMaps('Monasterio de Santo Toribio de Liébana'), images: gglImages('Santo Toribio Liébana') },
+        { name:{es:'Teleférico de Fuente Dé'}, desc:{es:'Ascenso directo a cumbres y rutas.'}, map: gglMaps('Teleférico de Fuente Dé'), images: gglImages('Teleférico Fuente Dé') }
+      ]
+    },
+    {
+      slug:'alto-ason',
+      name:{es:'Comarca del Alto Asón'},
+      desc:{es:'Paraíso kárstico de cuevas, cascadas y montañas. Epicentro en Ramales de la Victoria.'},
+      see:[
+        { name:{es:'Cueva de Cullalvera (Ramales)'}, desc:{es:'Gran boca de entrada y visita accesible.'}, map: gglMaps('Cueva de Cullalvera Ramales'), images: gglImages('Cueva de Cullalvera') },
+        { name:{es:'Cueva Coventosa'}, desc:{es:'Espeleología y sifones para expertos.'}, map: gglMaps('Cueva Coventosa'), images: gglImages('Cueva Coventosa') },
+        { name:{es:'Nacimiento del río Asón'}, desc:{es:'Impresionante cascada desde el farallón.'}, map: gglMaps('Cascada del Asón'), images: gglImages('Cascada del Asón') }
+      ]
+    },
+    {
+      slug:'cabuerniga',
+      name:{es:'Valle de Cabuérniga'},
+      desc:{es:'Bosques, arquitectura pasiega y pueblos con encanto. Naturaleza y gastronomía de interior.'},
+      see:[
+        { name:{es:'Ruente y la Fuentona'}, desc:{es:'Manantial kárstico y pasarelas.'}, map: gglMaps('La Fuentona de Ruente'), images: gglImages('Fuentona de Ruente') },
+        { name:{es:'Cascadas de Lamiña'}, desc:{es:'Ruta fácil entre robledales y saltos de agua.'}, map: gglMaps('Cascadas de Lamiña'), images: gglImages('Cascadas de Lamiña') },
+        { name:{es:'Los Tojos'}, desc:{es:'Arquitectura tradicional y miradores.'}, map: gglMaps('Los Tojos Cantabria'), images: gglImages('Los Tojos Cantabria') },
+        { name:{es:'Bárcena Mayor'}, desc:{es:'Uno de los pueblos más bonitos; piedra y madera.'}, map: gglMaps('Bárcena Mayor'), images: gglImages('Bárcena Mayor') }
+      ]
+    },
+    {
+      slug:'hermida',
+      name:{es:'Desfiladero de La Hermida'},
+      desc:{es:'Cañón fluvial que conecta la costa con Liébana. Carretera escénica, miradores y termas.'},
+      see:[
+        { name:{es:'Mirador de Santa Catalina'}, desc:{es:'Vistas aéreas del desfiladero.'}, map: gglMaps('Mirador de Santa Catalina Cantabria'), images: gglImages('Mirador de Santa Catalina Desfiladero de la Hermida') },
+        { name:{es:'Balneario de La Hermida'}, desc:{es:'Aguas termales en pleno cañón.'}, map: gglMaps('Balneario de La Hermida'), images: gglImages('Balneario de La Hermida') }
+      ]
+    },
+    {
+      slug:'soplao',
+      name:{es:'Cueva El Soplao'},
+      desc:{es:'Caverna única por sus formaciones excéntricas y su patrimonio minero. Varias modalidades de visita.'},
+      see:[
+        { name:{es:'Visita turística (clásica)'}, desc:{es:'Recorrido guiado accesible por la zona visitable.'}, map: gglMaps('Cueva El Soplao visitas'), images: gglImages('Cueva El Soplao interior') },
+        { name:{es:'Visita aventura'}, desc:{es:'Experiencia espeleológica con mono y casco, por galerías naturales.'}, map: gglMaps('Cueva El Soplao aventura'), images: gglImages('Cueva El Soplao aventura') },
+        { name:{es:'Visita geominera'}, desc:{es:'Enfocada a historia minera y geología.'}, map: gglMaps('El Soplao geominera'), images: gglImages('El Soplao minas') },
+        { name:{es:'Mirador de El Soplao'}, desc:{es:'Vistas a la costa y Picos de Europa.'}, map: gglMaps('Mirador El Soplao'), images: gglImages('Mirador El Soplao') }
+      ]
+    },
+    {
+      slug:'isla-noja-santona',
+      name:{es:'Isla · Noja · Santoña'},
+      desc:{es:'Playas kilométricas, marismas y rutas costeras. Ideal para familias y senderismo.'},
+      see:[
+        { name:{es:'Playa de Trengandín (Noja)'}, desc:{es:'Arena fina y rocas negras al aire.'}, map: gglMaps('Playa de Trengandín Noja'), images: gglImages('Playa de Trengandín') },
+        { name:{es:'Playa del Joyel'}, desc:{es:'Espacio protegido junto al Parque de las Marismas.'}, map: gglMaps('Playa del Joyel'), images: gglImages('Playa del Joyel') },
+        { name:{es:'Playas de Isla'}, desc:{es:'Arenales familiares con marismas y paseos.'}, map: gglMaps('Playas de Isla Cantabria'), images: gglImages('Playa de Isla Cantabria') },
+        { name:{es:'Santoña, Monte Buciero y Faro del Caballo'}, desc:{es:'Ruta exigente con escaleras y vistas increíbles.'}, map: gglMaps('Faro del Caballo Santoña'), images: gglImages('Faro del Caballo') }
+      ]
+    },
+    {
+      slug:'comillas',
+      name:{es:'Comillas'},
+      desc:{es:'Modernismo, playa y ambiente señorial. Imprescindible para amantes de Gaudí y la arquitectura.'},
+      see:[
+        { name:{es:'El Capricho de Gaudí'}, desc:{es:'Pabellón modernista con azulejos de girasol.'}, map: gglMaps('El Capricho de Gaudí Comillas'), images: gglImages('El Capricho de Gaudí Comillas') },
+        { name:{es:'Palacio de Sobrellano y Capilla-Panteón'}, desc:{es:'Neogótico monumental frente a la Universidad.'}, map: gglMaps('Palacio de Sobrellano Comillas'), images: gglImages('Palacio de Sobrellano') },
+        { name:{es:'Universidad Pontificia'}, desc:{es:'Imponente edificio de ladrillo y piedra en lo alto.'}, map: gglMaps('Universidad Pontificia de Comillas'), images: gglImages('Universidad Pontificia Comillas') },
+        { name:{es:'Puerto y Playa de Comillas'}, desc:{es:'Ambiente marinero y baño tranquilo.'}, map: gglMaps('Playa de Comillas'), images: gglImages('Playa de Comillas') }
+      ]
+    },
+    {
+      slug:'cabarceno',
+      name:{es:'Parque de la Naturaleza de Cabárceno'},
+      desc:{es:'Fauna en semilibertad en una antigua mina a cielo abierto. Telecabina incluida en la entrada.'},
+      see:[
+        { name:{es:'Recorridos panorámicos'}, desc:{es:'Itinerarios en coche con miradores.'}, map: gglMaps('Parque de la Naturaleza de Cabárceno'), images: gglImages('Cabárceno vistas') },
+        { name:{es:'Telecabina'}, desc:{es:'Sobrevuela recintos y lagos del parque.'}, map: gglMaps('Telecabina Cabárceno'), images: gglImages('Telecabina Cabárceno') },
+        { name:{es:'Entradas online'}, desc:{es:'Compra anticipada recomendada (incluye telecabina).'}, tickets:'https://entradas.parquedecabarceno.com/' }
+      ]
+    }
   ];
-  /* Nota: dejo MUSTS y FOOD como estaban en la versión anterior completa y funcionando que ya pegaste.
-     Si quieres, te lo vuelvo a expandir aquí mismo otra vez, pero pesa mucho y ya lo tienes arriba. */
 
-  var FOOD=[/* ——— Igual que antes (lista de productos y descripciones) ——— */];
+  /* ===== GASTRONOMÍA ===== */
+  var FOOD=[
+    { name:{es:'Anchoas de Santoña'}, desc:{es:'Filetes artesanos en aceite de oliva. Producto estrella de la costa oriental.'} },
+    { name:{es:'Cocido montañés'}, desc:{es:'Potaje de alubia blanca y berza, con compango. Plato de interior contundente.'} },
+    { name:{es:'Rabas'}, desc:{es:'Tiras de calamar rebozadas, la tapa santanderina por excelencia.'} },
+    { name:{es:'Almejas a la marinera'}, desc:{es:'Salsa de vino blanco, ajo y perejil. Clásico de las marismas.'} },
+    { name:{es:'Bonito con tomate'}, desc:{es:'Estacional (verano), con salsa de tomate casera.'} },
+    { name:{es:'Queso Picón Bejes-Tresviso'}, desc:{es:'Azul con maduración en cueva, intenso y cremoso.'} },
+    { name:{es:'Sobaos y Quesadas'}, desc:{es:'Repostería de los Valles Pasiegos, imprescindible para desayunos.'} },
+    { name:{es:'Leche frita'}, desc:{es:'Postre tradicional con canela y azúcar.'} },
+    { name:{es:'Orujo de Liébana'}, desc:{es:'Destilado típico; también en cremas y licores.'} },
+    { name:{es:'Corbatas de Unquera / San Vicente'}, desc:{es:'Hojaldre glaseado en forma de corbata.'} },
+    { name:{es:'Pastel de cabracho'}, desc:{es:'Pastel frío de pescado, habitualmente con mahonesa.'} }
+  ];
 
+  /* ===== Render MUSTS & FOOD ===== */
   function i18nTxt(obj){ return (obj && (obj[LANG]||obj.es||''))||''; }
 
   function renderMusts(){
     var wrap=$('#mustsAcc'); if(!wrap) return;
     var T=I18N[LANG];
-    /* Reutiliza el MUSTS extenso ya cargado en esta versión */
     wrap.innerHTML = (MUSTS||[]).map(function(m){
       var head = esc(i18nTxt(m.name));
       var desc = esc(i18nTxt(m.desc));
@@ -1084,9 +1226,9 @@ document.addEventListener('DOMContentLoaded', function(){
       if(m.see && m.see.length){
         body+='<div class="pill">'+esc(T.see||'Qué ver')+'</div>';
         body+='<div class="acc" style="margin-top:8px">'+ m.see.map(function(s){
-          var sName=esc(i18nTxt(s.name)); var sDesc=esc(i18nTxt(s.desc));
-          var map = s.map?('<a class="btn sm" href="'+esc(s.map)+'" target="_blank" rel="noopener">'+esc(T.map)+'</a>'):'';
-          var imgs= s.images?('<a class="btn sm" href="'+esc(s.images)+'" target="_blank" rel="noopener">'+esc(T.images)+'</a>'):'';
+          var sName=esc(i18nTxt(s.name)); var sDesc=esc(i18nTxt(s.desc||{es:''}));
+          var map = s.map?('<a class="btn sm" href="'+esc(typeof s.map==='string'?s.map:gglMaps(sName))+'" target="_blank" rel="noopener">'+esc(T.map)+'</a>'):'';
+          var imgs= s.images?('<a class="btn sm" href="'+esc(typeof s.images==='string'?s.images:gglImages(sName))+'" target="_blank" rel="noopener">'+esc(T.images)+'</a>'):'';
           var tix = s.tickets?('<a class="btn sm" href="'+esc(s.tickets)+'" target="_blank" rel="noopener">'+esc(T.tickets)+'</a>'):'';
           return '<div class="acc-item"><div class="acc-h">'+sName+' <span>▼</span></div><div class="acc-b">'
                  + '<p>'+sDesc+'</p><div class="row">'+map+imgs+tix+'</div></div></div>';
@@ -1212,7 +1354,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
   on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
 
-  /* GitHub minimal (manual) */
+  /* GitHub minimal */
   var GH_KEYS={repo:'ghRepo',branch:'ghBranch',token:'ghToken'};
   function loadGhCfgToForm(){ $('#ghRepo').value=localStorage.getItem(GH_KEYS.repo)||''; $('#ghBranch').value=localStorage.getItem(GH_KEYS.branch)||'main'; $('#ghToken').value=localStorage.getItem(GH_KEYS.token)||''; }
   function saveGhCfgFromForm(){ localStorage.setItem(GH_KEYS.repo,($('#ghRepo').value||'').trim()); localStorage.setItem(GH_KEYS.branch,($('#ghBranch').value||'').trim()||'main'); var t=($('#ghToken').value||'').trim(); if(t) localStorage.setItem(GH_KEYS.token,t); alert('Configuración guardada.'); }
@@ -1244,7 +1386,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(err){ alert('❌ '+err.message); }
   });
 
-  /* ===== PWA install: guía traducida ===== */
+  /* ===== PWA install ===== */
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; });
   function platformGuide(){
