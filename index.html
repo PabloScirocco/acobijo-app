@@ -64,7 +64,7 @@ main{padding:12px 12px 76px;max-width:980px;margin:0 auto}
 body.dark .hero{background:radial-gradient(120% 80% at 100% 0%,#143356 0%,#0f2239 50%,#0b1220 100%)}
 .hero-inner{display:flex;align-items:center;gap:14px;padding:16px}
 .hero h2{margin:0;font-size:1.3rem}
-.badge{display:none}
+.badge{display:none} /* Ocultamos “PWA · Offline · Multidioma” como pediste */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;
   align-items:flex-start;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.06)}
@@ -181,7 +181,7 @@ body.dark .pill{background:#0f1a2b}
         <img src="assets/logo.png" alt="A Cobijo">
         <div>
           <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div>
+          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div><!-- oculto por CSS -->
         </div>
       </div>
       <div class="tiles">
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function(){
         incHint:"Se abre WhatsApp o tu app de correo con el mensaje preparado.",
         incType:"Tipo de incidencia", incMsg:"Describe brevemente el problema",
         incBtnWA:"WhatsApp", incBtnEmail:"Email",
-        // Incidencias opciones
+        // Incidencias
         incTypes:[
           {key:'electricity', label:"Electricidad"},
           {key:'water', label:"Agua"},
@@ -723,7 +723,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var incWA=$('#incWA'), incEmail=$('#incEmail'); if(incWA) incWA.textContent=T.incBtnWA; if(incEmail) incEmail.textContent=T.incBtnEmail;
     t("musts-title",T.mustsTitle); t("musts-hint",T.mustsHint);
     t("food-title",T.foodTitle); t("food-hint",T.foodHint);
-    // Home tiles labels extra
+    // Home tiles extra
     t("t-musts", T.mustsTitle || "Imprescindibles");
     t("t-musts-sub", T.mustsHint || "Qué ver");
     t("t-food", T.foodTitle || "Gastronomía");
@@ -731,7 +731,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // Drawer labels
     t("d-musts", T.mustsTitle || "Imprescindibles");
     t("d-food", T.foodTitle || "Gastronomía");
-    // Re-generar opciones de incidencia traducidas
+    // Re-generar tipos de incidencia traducidos
     fillIncTypes();
   }
   applyLang();
@@ -784,7 +784,8 @@ document.addEventListener('DOMContentLoaded', function(){
   function waLink(camping,message){var n=WHATSAPP[String(camping||'').toLowerCase()]; return n?('https://wa.me/'+n+'?text='+encodeURIComponent(message||'')):null;}
 
   // ICS helpers
-  function dtToICS(dt){ var d=new Date(dt);
+  function dtToICS(dt){ // UTC Zulu
+    var d=new Date(dt);
     return d.getUTCFullYear()
       + pad2(d.getUTCMonth()+1)
       + pad2(d.getUTCDate())+'T'
@@ -799,7 +800,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var desc=i18nField(ev.descripcion)||'';
       var loc=i18nField(ev.lugar)|| (PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'');
       var start=new Date(ev.fecha);
-      var end=new Date(start.getTime()+90*60000);
+      var end=new Date(start.getTime()+90*60000); // 90 min
       var uid=(ev.id||('ev-'+Date.now()))+'@acobijo.app';
       var now=new Date();
       var ics = [
@@ -1038,198 +1039,208 @@ document.addEventListener('DOMContentLoaded', function(){
   function gglMaps(q){ return 'https://www.google.com/maps/search/'+encodeURIComponent(q); }
 
   var MUSTS=[
-    /* COMILLAS */
     {
       slug:'comillas',
       name:{es:'Comillas', en:'Comillas', fr:'Comillas', de:'Comillas', nl:'Comillas'},
       desc:{
-        es:'Villa señorial con arquitectura modernista y playa. Perfecta para combinar patrimonio, paseos y mar.',
+        es:'Villa señorial con arquitectura modernista, playa y ambiente tranquilo. Ideal para combinar patrimonio y mar.',
         en:'Elegant seaside town with Modernista architecture and a relaxed vibe.',
         fr:'Bourg élégant au bord de mer, architecture moderniste et atmosphère paisible.',
         de:'Elegante Küstenstadt mit modernistischer Architektur und entspanntem Flair.',
         nl:'Elegante kustplaats met modernistische architectuur en ontspannen sfeer.'
       },
       see:[
-        {name:{es:'El Capricho de Gaudí',en:'Gaudí’s El Capricho',fr:'El Capricho de Gaudí',de:'El Capricho von Gaudí',nl:'El Capricho van Gaudí'},
-         desc:{es:'Pabellón modernista del genio catalán, icono de Comillas.',en:'Gaudí’s whimsical pavilion and town icon.'},
-         map: gglMaps('El Capricho de Gaudí Comillas'), images: gglImages('El Capricho de Gaudí'), tickets:'https://elcaprichodegaudi.com/'},
-        {name:{es:'Universidad Pontificia',en:'Pontifical University',fr:'Université pontificale',de:'Päpstliche Universität',nl:'Pauselijke Universiteit'},
-         desc:{es:'Imponente conjunto neogótico con vistas a la villa.',en:'Stunning neo-Gothic complex overlooking town.'},
-         map: gglMaps('Universidad Pontificia Comillas'), images: gglImages('Universidad Pontificia Comillas')},
+        {name:{es:'El Capricho de Gaudí',en:'Gaudí’s El Capricho'},
+         desc:{es:'Pabellón modernista del genio catalán, icono de Comillas.', en:'Gaudí’s whimsical pavilion and town icon.'},
+         map: gglMaps('El Capricho de Gaudí Comillas'),
+         images: gglImages('El Capricho de Gaudí'),
+         tickets:'https://elcaprichodegaudi.com/'},
+        {name:{es:'Universidad Pontificia',en:'Pontifical University'},
+         desc:{es:'Imponente conjunto neogótico con vistas.', en:'Stunning neo-Gothic complex overlooking town.'},
+         map: gglMaps('Universidad Pontificia Comillas'),
+         images: gglImages('Universidad Pontificia Comillas')},
         {name:{es:'Palacio de Sobrellano y Capilla-Panteón',en:'Sobrellano Palace & Chapel'},
-         desc:{es:'Residencia marquesal y capilla modernista con piezas únicas.',en:'Marquis’ residence and Modernista chapel.'},
-         map: gglMaps('Palacio de Sobrellano Comillas'), images: gglImages('Palacio de Sobrellano Comillas')},
-        {name:{es:'Cementerio de Comillas',en:'Comillas Cemetery'},
-         desc:{es:'Recinto sobre la antigua iglesia, con esculturas modernistas y miradores al mar.',en:'Old churchyard with Modernista sculptures and sea views.'},
-         map: gglMaps('Cementerio de Comillas'), images: gglImages('Cementerio de Comillas')},
-        {name:{es:'Playa y Puerto de Comillas',en:'Comillas Beach & Harbour'},
-         desc:{es:'Arenal familiar, paseo marítimo y lonja tradicional.',en:'Family-friendly beach, seafront promenade and small harbour.'},
-         map: gglMaps('Playa de Comillas'), images: gglImages('Playa de Comillas')}
+         desc:{es:'Residencia marquesal y capilla modernista.', en:'Marquis’ residence and Modernista chapel.'},
+         map: gglMaps('Palacio de Sobrellano Comillas'),
+         images: gglImages('Palacio de Sobrellano Comillas')}
       ]
     },
 
-    /* SAN VICENTE */
     { slug:'san-vicente',
       name:{es:'San Vicente de la Barquera', en:'San Vicente de la Barquera', fr:'San Vicente de la Barquera', de:'San Vicente de la Barquera', nl:'San Vicente de la Barquera'},
       desc:{es:'Villa marinera con puentes medievales, marismas y vistas a los Picos de Europa.',
             en:'Fishing town with medieval bridges and marshes, facing the Picos de Europa.'},
       see:[
-        {name:{es:'Puente de la Maza',en:'Puente de la Maza'}, desc:{es:'Puente medieval sobre la ría, símbolo local.',en:'Iconic medieval bridge.'},
+        {name:{es:'Puente de la Maza',en:'Puente de la Maza'}, desc:{es:'Emblemático puente medieval.',en:'Iconic medieval bridge.'},
          map:gglMaps('Puente de la Maza'), images:gglImages('Puente de la Maza San Vicente')},
-        {name:{es:'Castillo del Rey',en:'King’s Castle'}, desc:{es:'Fortaleza con miradores a la ría y la villa.',en:'Castle with viewpoints.'},
-         map:gglMaps('Castillo del Rey San Vicente'), images:gglImages('Castillo del Rey San Vicente')},
-        {name:{es:'Iglesia de Santa María de los Ángeles',en:'Santa María de los Ángeles'}, desc:{es:'Templo gótico del s. XIII-XVI en la Puebla Vieja.',en:'Gothic church in the Old Town.'},
-         map:gglMaps('Iglesia de Santa María de los Ángeles San Vicente'), images:gglImages('Santa María de los Ángeles San Vicente')},
-        {name:{es:'Parque Natural de Oyambre',en:'Oyambre Natural Park'}, desc:{es:'Dunas, playas y marismas protegidas alrededor de la ría.',en:'Protected dunes, beaches and marshes.'},
-         map:gglMaps('Parque Natural de Oyambre'), images:gglImages('Parque Natural de Oyambre')}
+        {name:{es:'Castillo del Rey',en:'King’s Castle'}, desc:{es:'Fortaleza con miradores.',en:'Castle with viewpoints.'},
+         map:gglMaps('Castillo del Rey San Vicente'), images:gglImages('Castillo del Rey San Vicente')}
       ]
     },
 
-    /* SANTANDER */
     { slug:'santander',
       name:{es:'Santander', en:'Santander', fr:'Santander', de:'Santander', nl:'Santander'},
-      desc:{es:'Capital abierta a la bahía, playas urbanas y el Palacio de la Magdalena.',
-            en:'Capital on a beautiful bay, urban beaches and the Magdalena Palace.'},
+      desc:{es:'Capital abierta a la bahía, playas urbanas y Palacio de la Magdalena.',
+            en:'Capital on a beautiful bay, urban beaches and Magdalena Palace.'},
       see:[
-        {name:{es:'Palacio de la Magdalena',en:'Magdalena Palace'}, desc:{es:'Residencia real en península con parque y vistas.',en:'Royal residence on a scenic peninsula.'},
+        {name:{es:'Palacio de la Magdalena',en:'Magdalena Palace'},
+         desc:{es:'Residencia real y parque peninsular.',en:'Royal residence on a scenic peninsula.'},
          map:gglMaps('Palacio de la Magdalena Santander'), images:gglImages('Palacio de la Magdalena Santander')},
-        {name:{es:'Centro Botín',en:'Centro Botín'}, desc:{es:'Arte contemporáneo junto al muelle y jardines de Pereda.',en:'Harborfront contemporary art center.'},
-         map:gglMaps('Centro Botín'), images:gglImages('Centro Botín')},
-        {name:{es:'Playas del Sardinero',en:'El Sardinero Beaches'}, desc:{es:'Kilómetros de arena dorada con paseo marítimo.',en:'Long sandy urban beaches.'},
-         map:gglMaps('Playa del Sardinero'), images:gglImages('Playa del Sardinero')},
-        {name:{es:'Faro de Cabo Mayor',en:'Cabo Mayor Lighthouse'}, desc:{es:'Acantilados y senderos costeros con miradores.',en:'Clifftop lighthouse and coastal trails.'},
-         map:gglMaps('Faro de Cabo Mayor'), images:gglImages('Faro de Cabo Mayor')},
-        {name:{es:'Mercado de la Esperanza',en:'La Esperanza Market'}, desc:{es:'Pescados y mariscos frescos en edificio modernista.',en:'Fresh seafood in a Modernista market hall.'},
-         map:gglMaps('Mercado de la Esperanza Santander'), images:gglImages('Mercado de la Esperanza Santander')}
+        {name:{es:'Centro Botín',en:'Centro Botín'},
+         desc:{es:'Arte contemporáneo en el muelle.',en:'Harborfront contemporary art center.'},
+         map:gglMaps('Centro Botín Santander'), images:gglImages('Centro Botín Santander')},
+
+        {name:{es:'Plaza de Cañadío',en:'Plaza de Cañadío'},
+         desc:{es:'Ambiente local, terrazas y vida nocturna.',en:'Lively square with cafés and nightlife.'},
+         map:gglMaps('Plaza de Cañadío Santander'), images:gglImages('Plaza de Cañadío Santander')},
+
+        {name:{es:'Diques de Gamazo',en:'Gamazo Dock'},
+         desc:{es:'Histórico dique portuario, paseo junto a la bahía.',en:'Historic dockside area by the bay.'},
+         map:gglMaps('Diques de Gamazo Santander'), images:gglImages('Diques de Gamazo Santander')},
+
+        {name:{es:'Palacio de Festivales',en:'Palacio de Festivales'},
+         desc:{es:'Auditorio emblemático con programación cultural.',en:'Iconic auditorium with cultural program.'},
+         map:gglMaps('Palacio de Festivales de Cantabria'), images:gglImages('Palacio de Festivales de Cantabria')},
+
+        {name:{es:'Parque de Las Llamas',en:'Las Llamas Park'},
+         desc:{es:'Gran parque urbano con pasarelas y lagunas.',en:'Large urban park with walkways and lagoons.'},
+         map:gglMaps('Parque de Las Llamas Santander'), images:gglImages('Parque de Las Llamas Santander')},
+
+        {name:{es:'Senda de Mataleñas',en:'Mataleñas Coastal Path'},
+         desc:{es:'Sendero de acantilados entre el Sardinero y el faro.',en:'Cliff path between El Sardinero and the lighthouse.'},
+         map:gglMaps('Senda de Mataleñas'), images:gglImages('Senda de Mataleñas')},
+
+        {name:{es:'Mercado del Este',en:'Mercado del Este'},
+         desc:{es:'Mercado histórico con tiendas y gastro.',en:'Historic market with shops and food spots.'},
+         map:gglMaps('Mercado del Este Santander'), images:gglImages('Mercado del Este Santander')}
       ]
     },
 
-    /* SANTILLANA */
     { slug:'santillana',
       name:{es:'Santillana del Mar', en:'Santillana del Mar', fr:'Santillana del Mar', de:'Santillana del Mar', nl:'Santillana del Mar'},
-      desc:{es:'Conjunto histórico medieval a un paso de Altamira.',
-            en:'Medieval jewel near the Altamira caves.'},
+      desc:{es:'Conjunto histórico medieval cercano a Altamira.',
+            en:'Medieval jewel near Altamira caves.'},
       see:[
-        {name:{es:'Colegiata de Santa Juliana',en:'Collegiate Church'}, desc:{es:'Románico cántabro esencial con claustro.',en:'Key Romanesque monument with cloister.'},
+        {name:{es:'Colegiata de Santa Juliana',en:'Collegiate Church'},
+         desc:{es:'Románico cántabro esencial.',en:'Key Romanesque monument.'},
          map:gglMaps('Colegiata Santa Juliana'), images:gglImages('Colegiata Santa Juliana')},
-        {name:{es:'Museo de Altamira (Neocueva)',en:'Altamira Museum'}, desc:{es:'Rélica de las pinturas paleolíticas y museo.',en:'Replica of Paleolithic cave art and museum.'},
-         map:gglMaps('Museo de Altamira'), images:gglImages('Museo de Altamira'), tickets:'https://www.culturaydeporte.gob.es/museodealtamira'},
-        {name:{es:'Torre de Don Borja y casco histórico',en:'Don Borja Tower & Old Town'}, desc:{es:'Casas blasonadas, calles empedradas y artesanía.',en:'Coats-of-arms houses and cobbled streets.'},
-         map:gglMaps('Torre de Don Borja Santillana'), images:gglImages('Santillana del Mar casco histórico')}
+        {name:{es:'Neocueva de Altamira (Museo)',en:'Altamira Museum'},
+         desc:{es:'Réplica de las pinturas paleolíticas.',en:'Replica of Paleolithic cave art.'},
+         map:gglMaps('Museo de Altamira'),
+         images:gglImages('Museo de Altamira'),
+         tickets:'https://www.cultura.gob.es/mnaltamira/visita/compra-entradas.html'}
       ]
     },
 
-    /* SUANCES */
+    { slug:'valle-cabuerniga',
+      name:{es:'Valle de Cabuérniga', en:'Cabuérniga Valley', fr:'Vallée de Cabuérniga', de:'Tal von Cabuérniga', nl:'Vallei van Cabuérniga'},
+      desc:{es:'Paisaje tradicional cántabro entre el Saja y la reserva del Saja-Besaya.',
+            en:'Traditional Cantabrian scenery between River Saja and the Saja-Besaya reserve.'},
+      see:[
+        {name:{es:'Ruente (La Fuentona)',en:'Ruente (La Fuentona)'},
+         desc:{es:'Manantial kárstico y puente; puerta del Parque Natural Saja-Besaya.',en:'Karst spring and bridge; gateway to Saja-Besaya park.'},
+         map:gglMaps('Ruente La Fuentona'), images:gglImages('Ruente La Fuentona')},
+        {name:{es:'Cascadas de Lamiña',en:'Lamiña Waterfalls'},
+         desc:{es:'Ruta entre bosques hacia saltos de agua.',en:'Woodland trail to small waterfalls.'},
+         map:gglMaps('Cascadas de Lamiña'), images:gglImages('Cascadas de Lamiña')},
+        {name:{es:'Los Tojos',en:'Los Tojos'},
+          desc:{es:'Municipio de alta montaña y miradores.',en:'Highland municipality with viewpoints.'},
+          map:gglMaps('Los Tojos Cantabria'), images:gglImages('Los Tojos Cantabria')}
+      ]
+    },
+
     { slug:'suances',
       name:{es:'Suances', en:'Suances', fr:'Suances', de:'Suances', nl:'Suances'},
       desc:{es:'Playas abiertas al Cantábrico y atardeceres en La Tablía.',
             en:'Open Atlantic beaches and great sunsets at La Tablía.'},
       see:[
-        {name:{es:'Playa de Los Locos',en:'Los Locos Beach'}, desc:{es:'Famosa por el surf y los miradores.',en:'Surf hotspot with viewpoints.'},
-         map:gglMaps('Playa de Los Locos Suances'), images:gglImages('Playa de Los Locos Suances')},
-        {name:{es:'Punta del Dichoso (Faro de Suances)',en:'Punta del Dichoso (Lighthouse)'}, desc:{es:'Acantilados frente a la entrada de la ría.',en:'Clifftop lookout at the ria entrance.'},
-         map:gglMaps('Punta del Dichoso Faro de Suances'), images:gglImages('Faro de Suances Punta del Dichoso')},
-        {name:{es:'Playa de La Concha y Paseo Marítimo',en:'La Concha Beach & Promenade'}, desc:{es:'Ambiente familiar y servicios.',en:'Family-friendly beach with amenities.'},
-         map:gglMaps('Playa de la Concha Suances'), images:gglImages('Playa de la Concha Suances')}
+        {name:{es:'Playa de Los Locos',en:'Los Locos Beach'},
+         desc:{es:'Famosa por el surf.',en:'Surf hotspot.'},
+         map:gglMaps('Playa de Los Locos Suances'), images:gglImages('Playa de Los Locos Suances')}
       ]
     },
 
-    /* POTES & LIÉBANA */
     { slug:'potes-liebana',
       name:{es:'Potes & Liébana', en:'Potes & Liébana', fr:'Potes & Liébana', de:'Potes & Liébana', nl:'Potes & Liébana'},
-      desc:{es:'Puerta occidental a Picos de Europa: torres medievales, orujo y montañas.',
-            en:'Western gateway to Picos de Europa; medieval towers and mountain vibes.'},
+      desc:{es:'Puerta occidental a los Picos de Europa, torres medievales y orujo.',
+            en:'Western gateway to Picos de Europa; medieval towers and orujo.'},
       see:[
-        {name:{es:'Teleférico de Fuente Dé',en:'Fuente Dé Cable Car'}, desc:{es:'Salto a 1.823 m con rutas en altura.',en:'Uplift to 1,823 m and high-mountain trails.'},
-         map:gglMaps('Teleférico Fuente Dé'), images:gglImages('Teleférico Fuente Dé'), tickets:'https://www.cantur.com/'},
-        {name:{es:'Monasterio de Santo Toribio de Liébana',en:'Santo Toribio Monastery'}, desc:{es:'Lugar histórico del Lignum Crucis y peregrinación.',en:'Historic monastery and pilgrimage site.'},
-         map:gglMaps('Monasterio de Santo Toribio de Liébana'), images:gglImages('Monasterio de Santo Toribio de Liébana')},
-        {name:{es:'Casco antiguo de Potes',en:'Potes Old Town'}, desc:{es:'Puentes sobre el Deva y barrios tradicionales.',en:'Stone bridges and traditional quarters.'},
-         map:gglMaps('Potes casco antiguo'), images:gglImages('Potes casco antiguo')}
+        {name:{es:'Teleférico de Fuente Dé',en:'Fuente Dé Cable Car'},
+         desc:{es:'Vistas a 1.823 m.',en:'Views at 1,823 m.'},
+         map:gglMaps('Teleférico Fuente Dé'), images:gglImages('Teleférico Fuente Dé'), tickets:'https://www.cantur.com/'}
       ]
     },
 
-    /* VALLE DE CABUÉRNIGA */
-    { slug:'cabuerniga',
-      name:{es:'Valle de Cabuérniga', en:'Cabuérniga Valley', fr:'Vallée de Cabuérniga', de:'Tal von Cabuérniga', nl:'Cabuérniga-vallei'},
-      desc:{es:'Bosques del Saja-Besaya, pueblos de piedra y gastronomía de interior.',
-            en:'Saja-Besaya forests, stone villages and country gastronomy.'},
-      see:[
-        {name:{es:'Bárcena Mayor',en:'Bárcena Mayor'}, desc:{es:'Uno de los pueblos más bonitos, arquitectura montañesa.',en:'One of the prettiest villages; mountain architecture.'},
-         map:gglMaps('Bárcena Mayor'), images:gglImages('Bárcena Mayor')},
-        {name:{es:'Ucieda (Saja-Besaya)',en:'Ucieda (Saja-Besaya)'}, desc:{es:'Hayedos, áreas recreativas y rutas señalizadas.',en:'Beech forests and signed trails.'},
-         map:gglMaps('Ucieda Saja-Besaya'), images:gglImages('Ucieda Saja Besaya')},
-        {name:{es:'Miradores del valle',en:'Valley Viewpoints'}, desc:{es:'Faya de los Lobos, Collado de Carmona, panorámicas.',en:'Faya de los Lobos, Collado de Carmona and panoramas.'},
-         map:gglMaps('Mirador Faya de los Lobos'), images:gglImages('Faya de los Lobos mirador')}
-      ]
-    },
-
-    /* ALTO ASÓN */
     { slug:'alto-ason',
       name:{es:'Comarca del Alto Asón', en:'Alto Asón Area', fr:'Région de l’Asón', de:'Region Alto Asón', nl:'Regio Alto Asón'},
-      desc:{es:'Cuevas, cascadas y paisajes kársticos (Ramales, Arredondo, Soba).',
-            en:'Karst landscapes, caves and waterfalls (Ramales, Arredondo, Soba).'},
+      desc:{es:'Cuevas, cascadas y paisajes kársticos (Ramales, Soba).',
+            en:'Karst landscapes, caves and waterfalls (Ramales, Soba).'},
       see:[
-        {name:{es:'Cascada del Asón',en:'Asón Waterfall'}, desc:{es:'Imponente caída de agua desde el karst.',en:'Spectacular waterfall from karst cliffs.'},
-         map:gglMaps('Cascada del Asón'), images:gglImages('Cascada del Asón')},
-        {name:{es:'Nacimiento del Gándara',en:'Gándara Springs'}, desc:{es:'Miradores y resurgencias en Soba.',en:'Lookouts and springs in Soba.'},
-         map:gglMaps('Nacimiento del Gándara'), images:gglImages('Nacimiento del Gándara')},
-        {name:{es:'Cuevas de Covalanas y Cullalvera',en:'Covalanas & Cullalvera Caves'}, desc:{es:'Arte rupestre y gran boca de entrada.',en:'Rock art and huge cave entrance.'},
+        {name:{es:'Cueva Cullalvera',en:'Cullalvera Cave'},
+         desc:{es:'Espectacular boca de entrada.',en:'Huge cave entrance.'},
+         map:gglMaps('Cueva Cullalvera'), images:gglImages('Cueva Cullalvera')},
+        {name:{es:'Cueva Covalanas',en:'Covalanas Cave'},
+         desc:{es:'Arte rupestre rojo.',en:'Red Paleolithic art.'},
          map:gglMaps('Cueva Covalanas'), images:gglImages('Cueva Covalanas')}
       ]
     },
 
-    /* DESFILADERO DE LA HERMIDA */
     { slug:'hermida',
       name:{es:'Desfiladero de la Hermida', en:'Hermida Gorge', fr:'Défilé de la Hermida', de:'Hermida-Schlucht', nl:'Hermida-kloof'},
       desc:{es:'Cañón fluvial camino de Liébana, termas y miradores.',
             en:'River gorge to Liébana, hot springs and viewpoints.'},
       see:[
-        {name:{es:'Mirador de Santa Catalina',en:'Santa Catalina Viewpoint'}, desc:{es:'Balcón sobre el desfiladero.',en:'Balcony over the gorge.'},
-         map:gglMaps('Mirador de Santa Catalina'), images:gglImages('Mirador de Santa Catalina')},
-        {name:{es:'Iglesia de Santa María de Lebeña',en:'Santa María de Lebeña'}, desc:{es:'Joya prerrománica a pie de desfiladero.',en:'Pre-Romanesque jewel by the gorge.'},
-         map:gglMaps('Santa María de Lebeña'), images:gglImages('Santa María de Lebeña')},
-        {name:{es:'Balneario de La Hermida',en:'La Hermida Spa'}, desc:{es:'Aguas termales entre montañas.',en:'Thermal waters in the mountains.'},
-         map:gglMaps('Balneario de La Hermida'), images:gglImages('Balneario de La Hermida')}
+        {name:{es:'Mirador de Santa Catalina',en:'Santa Catalina Viewpoint'},
+         desc:{es:'Balcón sobre el desfiladero.',en:'Balcony over the gorge.'},
+         map:gglMaps('Mirador de Santa Catalina'), images:gglImages('Mirador de Santa Catalina')}
       ]
     },
 
-    /* EL SOPLAO */
     { slug:'soplao',
       name:{es:'Cueva El Soplao', en:'El Soplao Cave', fr:'Grotte El Soplao', de:'Höhle El Soplao', nl:'Grot El Soplao'},
-      desc:{es:'Cueva única por sus formaciones excéntricas (helictitas).',
-            en:'Spectacular cave famed for helictites.'},
+      desc:{es:'Cueva única por sus formaciones excéntricas.', en:'Spectacular cave famed for helictites.'},
       see:[
-        {name:{es:'Visita turística',en:'Tour visit'}, desc:{es:'Recorrido acondicionado para todos los públicos.',en:'Prepared tour for all audiences.'},
-         map:gglMaps('Cueva El Soplao'), images:gglImages('Cueva El Soplao'), tickets:'https://www.elsoplao.es/'}
+        {name:{es:'Visita turística',en:'Tour visit'},
+         desc:{es:'Recorrido acondicionado y apto para todos.',en:'Standard prepared route for all audiences.'},
+         map:gglMaps('Cueva El Soplao'), images:gglImages('Cueva El Soplao'), tickets:'https://www.elsoplao.es/'},
+        {name:{es:'Visita espeleológica',en:'Caving visit'},
+         desc:{es:'Tramo espeleológico con casco y guía.',en:'Caving-style route with helmet and guide.'},
+         map:gglMaps('Cueva El Soplao visita espeleológica'), images:gglImages('Cueva El Soplao visita espeleológica'), tickets:'https://www.elsoplao.es/'},
+        {name:{es:'Ferrata minera',en:'Mining via ferrata'},
+         desc:{es:'Itinerario de aventura en entorno minero.',en:'Adventure route in mining setting.'},
+         map:gglMaps('Ferrata minera El Soplao'), images:gglImages('Ferrata minera El Soplao'), tickets:'https://www.elsoplao.es/'},
+        {name:{es:'Mirador del Soplao',en:'El Soplao Viewpoint'},
+         desc:{es:'Vistas panorámicas hacia la costa y Picos.',en:'Panoramic views to the coast and Picos.'},
+         map:gglMaps('Mirador del Soplao'), images:gglImages('Mirador del Soplao')}
       ]
     },
 
-    /* ISLA-NOJA-SANTOÑA */
     { slug:'isla-noja-santona',
       name:{es:'Isla · Noja · Santoña', en:'Isla · Noja · Santoña', fr:'Isla · Noja · Santoña', de:'Isla · Noja · Santoña', nl:'Isla · Noja · Santoña'},
       desc:{es:'Playas, marismas y anchoas con sello propio.',
             en:'Beaches, marshes and famous anchovies.'},
       see:[
-        {name:{es:'Marismas de Santoña',en:'Santoña Marshes'}, desc:{es:'Reserva natural y observación de aves.',en:'Nature reserve and birding.'},
+        {name:{es:'Marismas de Santoña',en:'Santoña Marshes'},
+         desc:{es:'Reserva natural y aves.',en:'Nature reserve and birding.'},
          map:gglMaps('Marismas de Santoña'), images:gglImages('Marismas de Santoña')},
-        {name:{es:'Monte Buciero (Faro del Caballo)',en:'Monte Buciero (Faro del Caballo)'}, desc:{es:'Ruta exigente con escaleras; consulta estado y seguridad.',en:'Demanding stair hike; check current access and safety.'},
-         map:gglMaps('Monte Buciero Faro del Caballo'), images:gglImages('Faro del Caballo Santoña')},
-        {name:{es:'Playa de Trengandín (Noja)',en:'Trengandín Beach'}, desc:{es:'Gran arenal con rocas y aguas claras.',en:'Long sandy beach with rock outcrops.'},
-         map:gglMaps('Playa de Trengandín Noja'), images:gglImages('Playa de Trengandín')}
+        {name:{es:'Playa del Joyel (Noja)',en:'Joyel Beach (Noja)'},
+         desc:{es:'Amplia playa familiar junto a la marisma.',en:'Wide family beach next to the marsh.'},
+         map:gglMaps('Playa del Joyel Noja'), images:gglImages('Playa del Joyel Noja')},
+        {name:{es:'Playa de Isla',en:'Isla Beach'},
+         desc:{es:'Arenales y calas con encanto.',en:'Charming sandy beaches and coves.'},
+         map:gglMaps('Playa de Isla Cantabria'), images:gglImages('Playa de Isla Cantabria')}
       ]
     },
 
-    /* CABÁRCENO */
     { slug:'cabarceno',
       name:{es:'Parque de la Naturaleza de Cabárceno', en:'Cabárceno Nature Park', fr:'Parc de Cabárceno', de:'Naturpark Cabárceno', nl:'Natuurpark Cabárceno'},
       desc:{es:'Fauna en semilibertad en antigua mina a cielo abierto.',
             en:'Semi-free wildlife in a former open-pit mine.'},
       see:[
-        {name:{es:'Telecabina y rutas',en:'Cable car & routes'}, desc:{es:'Recorridos por recintos con grandes panorámicas.',en:'Scenic routes across large enclosures.'},
-         map:gglMaps('Parque de la Naturaleza de Cabárceno'), images:gglImages('Cabárceno')},
-        {name:{es:'Exhibición de aves rapaces',en:'Birds of prey show'}, desc:{es:'Demostración educativa (consulta horarios).',en:'Educational show (check times).'},
-         map:gglMaps('Cabárceno aves rapaces'), images:gglImages('Cabárceno aves rapaces'), tickets:'https://www.cantur.com/'}
+        {name:{es:'Telecabina y recintos',en:'Cable car & enclosures'},
+         desc:{es:'Vistas y animales.',en:'Views and animals.'},
+         map:gglMaps('Cabárceno'), images:gglImages('Cabárceno'),
+         tickets:'https://entradas.parquedecabarceno.com/'}
       ]
     }
   ];
@@ -1247,13 +1258,13 @@ document.addEventListener('DOMContentLoaded', function(){
            en:'Baked dessert made with milk and fresh cheese.'}},
     {name:{es:'Cocido montañés',en:'Cocido Montañés',fr:'Cocido montañés',de:'Cocido Montañés',nl:'Cocido Montañés'},
      desc:{es:'Puchero de alubia blanca y berza, contundente y tradicional.',
-           en:'Hearty bean & greens stew, a mountain classic.'}},
+           en:'Hearty bean and greens stew, a mountain classic.'}},
     {name:{es:'Queso Picón Bejes-Tresviso',en:'Picón Bejes-Tresviso cheese',fr:'Fromage Picón Bejes-Tresviso',de:'Käse Picón Bejes-Tresviso',nl:'Kaas Picón Bejes-Tresviso'},
      desc:{es:'Azul con DOP, afinado en cuevas de Liébana.',
            en:'Blue cheese (PDO) matured in Liébana caves.'}},
     {name:{es:'Rabas',en:'Rabas (fried squid)',fr:'Rabas (calamar frit)',de:'Rabas (frittierter Tintenfisch)',nl:'Rabas (gefrituurde inktvis)'},
      desc:{es:'Tiras de calamar rebozadas, icono del aperitivo santanderino.',
-           en:'Battered squid strips; an iconic Santander aperitivo.'}},
+           en:'Battered squid strips; iconic Santander aperitivo.'}},
     {name:{es:'Orujo de Liébana',en:'Orujo from Liébana',fr:'Orujo de Liébana',de:'Orujo aus Liébana',nl:'Orujo uit Liébana'},
      desc:{es:'Aguardiente tradicional con destilerías artesanas.',
            en:'Traditional pomace brandy from mountain valleys.'}},
@@ -1294,7 +1305,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       return '<div class="acc-item"><div class="acc-h" data-m="'+esc(m.slug)+'">'+head+' <span>▼</span></div><div class="acc-b">'+body+'</div></div>';
     }).join('');
-    // activar toggles internos
+    // toggles internos
     $all('#mustsAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
   }
 
@@ -1411,7 +1422,6 @@ document.addEventListener('DOMContentLoaded', function(){
   function loadSchedulesAdmin(){ var a=$('#schedJsonArea'); if(!a) return; try{ a.value=JSON.stringify(SCHEDULES,null,2); }catch(e){ a.value='{}'; } }
   on($('#schedApplyBtn'),'click', function(){ var a=$('#schedJsonArea'); try{ var obj=JSON.parse(a.value); if(!obj||typeof obj!=='object') throw 0; SCHEDULES=obj; renderAcc(); renderStayHours(); alert('Horarios aplicados.'); }catch(e){ alert('JSON inválido.'); } });
   on($('#exportSchedBtn'),'click', function(){ var blob=new Blob([JSON.stringify(SCHEDULES,null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='schedules.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
-  on($('#importSchedFile'),'click', function(e){}); // placeholder para iOS click
   on($('#importSchedFile'),'change', function(e){ var f=e.target.files && e.target.files[0]; if(!f) return; f.text().then(function(txt){ var data=JSON.parse(txt); if(!data||typeof data!=='object') throw 0; SCHEDULES=data; renderAcc(); loadSchedulesAdmin(); renderStayHours(); }).catch(function(){ alert('No se pudo leer schedules.json'); }).finally(function(){ e.target.value=''; }); });
 
   /* GitHub minimal (manual) */
