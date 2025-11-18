@@ -177,6 +177,7 @@ body.dark .note{background:#1f1a10}
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
     <div class="item" data-nav="favorites">💚 <strong id="d-favs">Favoritos del equipo</strong></div>
     <div class="item" data-nav="precheck">📝 <strong id="d-pre">Pre-checkin</strong></div>
+    <div class="item" data-nav="suggest">💬 <strong id="d-sug">Sugerencias</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
     <div class="muted" id="drawerHint">Elige sección</div>
   </aside>
@@ -200,6 +201,7 @@ body.dark .note{background:#1f1a10}
         <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles</strong><div class="muted" id="t-musts-sub">Qué ver en Cantabria</div></div></div>
         <div class="tile" data-nav="food"><div class="big">🍽️</div><div><strong id="t-food">Gastronomía</strong><div class="muted" id="t-food-sub">Sabores cántabros</div></div></div>
         <div class="tile" data-nav="favorites"><div class="big">💚</div><div><strong id="t-favs">Favoritos del equipo</strong><div class="muted" id="t-favs-sub">Recomendaciones reales</div></div></div>
+        <div class="tile" data-nav="suggest"><div class="big">💬</div><div><strong id="t-sug">Sugerencias</strong><div class="muted" id="t-sug-sub">Ayúdanos a mejorar</div></div></div>
         <div class="tile" data-nav="precheck"><div class="big">📝</div><div><strong id="t-pre">Pre-checkin</strong><div class="muted" id="t-pre-sub">Ahorra tiempo al llegar</div></div></div>
         <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
       </div>
@@ -408,6 +410,48 @@ body.dark .note{background:#1f1a10}
     <div id="favAcc" class="acc"></div>
   </section>
 
+  <!-- SUGERENCIAS -->
+  <section id="view-suggest" class="view">
+    <h2 id="sug-title">Buzón de sugerencias</h2>
+    <p class="muted" id="sug-hint">Cuéntanos qué mejorarías para tu próxima estancia. El mensaje se envía al alojamiento que elijas.</p>
+
+    <div class="card" style="background:var(--tint)">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div>
+          <label style="font-weight:700" for="sugPlace" id="sug-where">¿En qué alojamiento has estado?</label>
+          <select id="sugPlace" class="select">
+            <option value="oyambre">Oyambre</option>
+            <option value="ramales">Ramales</option>
+            <option value="ruiloba">Ruiloba</option>
+            <option value="cardeo">El Cardeo</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-weight:700" for="sugType" id="sug-type-label">Tipo de comentario</label>
+          <select id="sugType" class="select"></select>
+        </div>
+        <div>
+          <label style="font-weight:700" for="sugRate" id="sug-rate-label">Valoración global (1–5)</label>
+          <input id="sugRate" class="input" type="number" min="1" max="5" step="1" placeholder="5">
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label style="font-weight:700" for="sugMsg" id="sug-msg-label">Tu mensaje</label>
+        <textarea id="sugMsg" class="textarea" placeholder="Ej.: Mejoraría la zona de juegos infantiles, añadiría más sombra en la piscina..."></textarea>
+      </div>
+
+      <p class="small muted" style="margin-top:8px" id="sug-privacy">
+        No se guarda nada en servidores de la app: tu mensaje se envía por WhatsApp o email directamente al alojamiento.
+      </p>
+
+      <div class="row" style="margin-top:10px">
+        <a id="sugWA" class="btn primary" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <a id="sugEmail" class="btn" target="_blank" rel="noopener">Enviar por email</a>
+      </div>
+    </div>
+  </section>
+
   <!-- PRE-CHECKIN -->
   <section id="view-precheck" class="view">
     <h2 id="pre-title">Pre-checkin</h2>
@@ -606,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
         dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios",
-        dMusts:"Imprescindibles", dFood:"Gastronomía", dFavs:"Favoritos del equipo", dPre:"Pre-checkin", drawerHint:"Elige sección",
+        dMusts:"Imprescindibles", dFood:"Gastronomía", dFavs:"Favoritos del equipo", dPre:"Pre-checkin", dSug:"Sugerencias", drawerHint:"Elige sección",
         nextEvents:"Próximos eventos",
         stay:"Mi estancia", staySub:"Contactos, clima, horarios",
         stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
@@ -628,7 +672,26 @@ document.addEventListener('DOMContentLoaded', function(){
         foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos que deberías probar.",
         favTitle:"Los favoritos de nuestro equipo", favHint:"Selección personal por categoría.",
         preTitle:"Pre-checkin", preWhere:"¿En qué alojamiento tiene la reserva?",
-        preSend:"Enviar pre-checkin", preAdded:"Acompañante añadido", preDel:"Eliminar", geo:"Calcular distancias"
+        preSend:"Enviar pre-checkin", preAdded:"Acompañante añadido", preDel:"Eliminar", geo:"Calcular distancias",
+        suggestTitle:"Buzón de sugerencias",
+        suggestHint:"Cuéntanos qué mejorarías para tu próxima estancia. El mensaje se envía al alojamiento que elijas.",
+        suggestTypeLabel:"Tipo de comentario",
+        suggestMsgLabel:"Tu mensaje",
+        suggestRateLabel:"Valoración global (1–5)",
+        suggestBtnWA:"Enviar por WhatsApp",
+        suggestBtnEmail:"Enviar por email",
+        suggestTile:"Sugerencias",
+        suggestTileSub:"Ayúdanos a mejorar",
+        suggestWhere:"¿En qué alojamiento has estado?",
+        suggestTypes:[
+          {key:'general', label:"Sugerencia general"},
+          {key:'app', label:"Sobre esta app"},
+          {key:'cleaning', label:"Limpieza"},
+          {key:'installations', label:"Instalaciones / servicios"},
+          {key:'staff', label:"Atención del personal"},
+          {key:'activities', label:"Actividades / animación"},
+          {key:'other', label:"Otros"}
+        ]
     },
     en:{app:"Grupo A Cobijo",hello:"Welcome!",badge:"PWA · Offline · Multilingual",
         ev:"Events", evSub:"What's on today",
@@ -647,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Indicative info. Check reception for seasonal changes. Opening hours may vary by date.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
         dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules",
-        dMusts:"Essentials", dFood:"Gastronomy", dFavs:"Team’s favorites", dPre:"Pre-checkin", drawerHint:"Choose a section",
+        dMusts:"Essentials", dFood:"Gastronomy", dFavs:"Team’s favorites", dPre:"Pre-checkin", dSug:"Feedback", drawerHint:"Choose a section",
         nextEvents:"Upcoming events",
         stay:"My stay", staySub:"Contacts, weather, schedules",
         stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
@@ -669,7 +732,26 @@ document.addEventListener('DOMContentLoaded', function(){
         foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes to try.",
         favTitle:"Our team’s favorites", favHint:"Personal picks by category.",
         preTitle:"Pre-checkin", preWhere:"Which accommodation is your booking for?",
-        preSend:"Send pre-checkin", preAdded:"Companion added", preDel:"Remove", geo:"Get distances"
+        preSend:"Send pre-checkin", preAdded:"Companion added", preDel:"Remove", geo:"Get distances",
+        suggestTitle:"Feedback box",
+        suggestHint:"Tell us how we can improve your next stay. Your message is sent directly to the accommodation you choose.",
+        suggestTypeLabel:"Type of feedback",
+        suggestMsgLabel:"Your message",
+        suggestRateLabel:"Overall rating (1–5)",
+        suggestBtnWA:"Send via WhatsApp",
+        suggestBtnEmail:"Send via email",
+        suggestTile:"Feedback",
+        suggestTileSub:"Help us improve",
+        suggestWhere:"Which accommodation have you stayed at?",
+        suggestTypes:[
+          {key:'general', label:"General suggestion"},
+          {key:'app', label:"About this app"},
+          {key:'cleaning', label:"Cleaning"},
+          {key:'installations', label:"Facilities / services"},
+          {key:'staff', label:"Staff attention"},
+          {key:'activities', label:"Activities / entertainment"},
+          {key:'other', label:"Other"}
+        ]
     },
     fr:{app:"Grupo A Cobijo",hello:"Bienvenue !",badge:"PWA · Hors ligne · Multilingue",
         ev:"Événements", evSub:"Aujourd’hui",
@@ -688,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Infos indicatives. Vérifiez à la réception. Les horaires peuvent varier selon la date.",
         nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
         dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires",
-        dMusts:"Incontournables", dFood:"Gastronomie", dFavs:"Coups de cœur", dPre:"Pre-checkin", drawerHint:"Choisissez une section",
+        dMusts:"Incontournables", dFood:"Gastronomie", dFavs:"Coups de cœur", dPre:"Pre-checkin", dSug:"Suggestions", drawerHint:"Choisissez une section",
         nextEvents:"Événements à venir",
         stay:"Mon séjour", staySub:"Contacts, météo, horaires",
         stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
@@ -710,7 +792,26 @@ document.addEventListener('DOMContentLoaded', function(){
         foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques à goûter.",
         favTitle:"Nos coups de cœur", favHint:"Sélection par catégorie.",
         preTitle:"Pre-checkin", preWhere:"Quel hébergement avez-vous réservé ?",
-        preSend:"Envoyer le pre-checkin", preAdded:"Accompagnant ajouté", preDel:"Supprimer", geo:"Calculer distances"
+        preSend:"Envoyer le pre-checkin", preAdded:"Accompagnant ajouté", preDel:"Supprimer", geo:"Calculer distances",
+        suggestTitle:"Boîte à suggestions",
+        suggestHint:"Dites-nous ce que nous pourrions améliorer pour un prochain séjour. Le message est envoyé directement à l’établissement choisi.",
+        suggestTypeLabel:"Type de commentaire",
+        suggestMsgLabel:"Votre message",
+        suggestRateLabel:"Appréciation globale (1–5)",
+        suggestBtnWA:"Envoyer par WhatsApp",
+        suggestBtnEmail:"Envoyer par email",
+        suggestTile:"Suggestions",
+        suggestTileSub:"Aidez-nous à nous améliorer",
+        suggestWhere:"Dans quel établissement avez-vous séjourné ?",
+        suggestTypes:[
+          {key:'general', label:"Suggestion générale"},
+          {key:'app', label:"À propos de cette app"},
+          {key:'cleaning', label:"Propreté"},
+          {key:'installations', label:"Installations / services"},
+          {key:'staff', label:"Accueil du personnel"},
+          {key:'activities', label:"Activités / animation"},
+          {key:'other', label:"Autres"}
+        ]
     },
     de:{app:"Grupo A Cobijo",hello:"Willkommen!",badge:"PWA · Offline · Mehrsprachig",
         ev:"Events", evSub:"Heute",
@@ -729,7 +830,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Unverbindliche Infos. Änderungen möglich – bitte an der Rezeption nachfragen.",
         nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
         dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten",
-        dMusts:"Highlights", dFood:"Gastronomie", dFavs:"Team-Favoriten", dPre:"Pre-checkin", drawerHint:"Bereich wählen",
+        dMusts:"Highlights", dFood:"Gastronomie", dFavs:"Team-Favoriten", dPre:"Pre-checkin", dSug:"Feedback", drawerHint:"Bereich wählen",
         nextEvents:"Kommende Events",
         stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
         stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
@@ -751,7 +852,26 @@ document.addEventListener('DOMContentLoaded', function(){
         foodTitle:"Kantabrische Küche", foodHint:"Typische Produkte und Gerichte.",
         favTitle:"Favoriten unseres Teams", favHint:"Auswahl nach Kategorie.",
         preTitle:"Pre-checkin", preWhere:"Für welche Unterkunft ist die Buchung?",
-        preSend:"Pre-checkin senden", preAdded:"Begleitperson hinzugefügt", preDel:"Entfernen", geo:"Distanzen berechnen"
+        preSend:"Pre-checkin senden", preAdded:"Begleitperson hinzugefügt", preDel:"Entfernen", geo:"Distanzen berechnen",
+        suggestTitle:"Feedback-Box",
+        suggestHint:"Sag uns, was wir für deinen nächsten Aufenthalt verbessern können. Die Nachricht geht direkt an die gewählte Unterkunft.",
+        suggestTypeLabel:"Art des Feedbacks",
+        suggestMsgLabel:"Deine Nachricht",
+        suggestRateLabel:"Gesamtbewertung (1–5)",
+        suggestBtnWA:"Per WhatsApp senden",
+        suggestBtnEmail:"Per E-Mail senden",
+        suggestTile:"Feedback",
+        suggestTileSub:"Hilf uns, besser zu werden",
+        suggestWhere:"In welcher Unterkunft warst du?",
+        suggestTypes:[
+          {key:'general', label:"Allgemeine Anregung"},
+          {key:'app', label:"Zur App"},
+          {key:'cleaning', label:"Reinigung"},
+          {key:'installations', label:"Anlagen / Service"},
+          {key:'staff', label:"Personal"},
+          {key:'activities', label:"Aktivitäten / Animation"},
+          {key:'other', label:"Sonstiges"}
+        ]
     },
     nl:{app:"Grupo A Cobijo",hello:"Welkom!",badge:"PWA · Offline · Meertalig",
         ev:"Evenementen", evSub:"Vandaag",
@@ -770,7 +890,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Indicatieve info. Tijden kunnen per datum verschillen.",
         nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
         dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden",
-        dMusts:"Must-sees", dFood:"Gastronomie", dFavs:"Favorieten van het team", dPre:"Pre-checkin", drawerHint:"Kies een sectie",
+        dMusts:"Must-sees", dFood:"Gastronomie", dFavs:"Favorieten van het team", dPre:"Pre-checkin", dSug:"Suggesties", drawerHint:"Kies een sectie",
         nextEvents:"Aankomende evenementen",
         stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
         stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
@@ -792,13 +912,33 @@ document.addEventListener('DOMContentLoaded', function(){
         foodTitle:"Cantabrische gastronomie", foodHint:"Typische producten en gerechten.",
         favTitle:"Favorieten van ons team", favHint:"Selectie per categorie.",
         preTitle:"Pre-checkin", preWhere:"Voor welke accommodatie is de boeking?",
-        preSend:"Pre-checkin verzenden", preAdded:"Metgezel toegevoegd", preDel:"Verwijderen", geo:"Afstanden berekenen"
+        preSend:"Pre-checkin verzenden", preAdded:"Metgezel toegevoegd", preDel:"Verwijderen", geo:"Afstanden berekenen",
+        suggestTitle:"Suggestiebox",
+        suggestHint:"Vertel ons wat we kunnen verbeteren voor je volgende verblijf. Het bericht gaat rechtstreeks naar de gekozen accommodatie.",
+        suggestTypeLabel:"Type opmerking",
+        suggestMsgLabel:"Je bericht",
+        suggestRateLabel:"Algemene beoordeling (1–5)",
+        suggestBtnWA:"Verstuur via WhatsApp",
+        suggestBtnEmail:"Verstuur via e-mail",
+        suggestTile:"Suggesties",
+        suggestTileSub:"Help ons verbeteren",
+        suggestWhere:"In welke accommodatie verbleef je?",
+        suggestTypes:[
+          {key:'general', label:"Algemene suggestie"},
+          {key:'app', label:"Over deze app"},
+          {key:'cleaning', label:"Schoonmaak"},
+          {key:'installations', label:"Voorzieningen / service"},
+          {key:'staff', label:"Personeel"},
+          {key:'activities', label:"Activiteiten / animatie"},
+          {key:'other', label:"Overig"}
+        ]
     }
   };
 
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+
   function applyLang(){
     var T=I18N[LANG];
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
@@ -814,7 +954,7 @@ document.addEventListener('DOMContentLoaded', function(){
     t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
-    t("d-musts", T.dMusts); t("d-food", T.dFood); t("d-favs", T.dFavs); t("d-pre", T.dPre);
+    t("d-musts", T.dMusts); t("d-food", T.dFood); t("d-favs", T.dFavs); t("d-pre", T.dPre); t("d-sug", T.dSug);
     t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
     t("t-stay",T.stay); t("t-stay-sub",T.staySub);
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
@@ -835,15 +975,28 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-favs-sub", T.favHint || "Selección personal");
     t("t-pre", T.preTitle || "Pre-checkin");
     t("t-pre-sub", T.preWhere || "Alojamiento");
-    // Re-generar opciones de incidencia traducidas
+    t("t-sug", T.suggestTile || "Sugerencias");
+    t("t-sug-sub", T.suggestTileSub || "Ayúdanos a mejorar");
+    // Sugerencias
+    t("sug-title", T.suggestTitle);
+    t("sug-hint", T.suggestHint);
+    t("sug-where", T.suggestWhere || T.suggestTypeLabel);
+    t("sug-type-label", T.suggestTypeLabel);
+    t("sug-msg-label", T.suggestMsgLabel);
+    t("sug-rate-label", T.suggestRateLabel);
+    var sugWA=$('#sugWA'), sugEmail=$('#sugEmail');
+    if(sugWA) sugWA.textContent=T.suggestBtnWA;
+    if(sugEmail) sugEmail.textContent=T.suggestBtnEmail;
+    // Re-generar opciones de incidencia y sugerencias traducidas
     fillIncTypes();
+    fillSugTypes();
   }
   applyLang();
 
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); renderFavs(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); renderFavs(); updateSugUI(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -1070,7 +1223,7 @@ document.addEventListener('DOMContentLoaded', function(){
     ruiloba:{lat:43.387, lon:-4.264},
     cardeo:{lat:43.391, lon:-4.274}
   };
-  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); }
+  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); updateSugUI(); }
   function renderStayContacts(){
     var T=I18N[LANG], place=STAY;
     $('#stayPlace').value=place;
@@ -1120,6 +1273,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch(url).then(r=>r.json()).then(renderWeather).catch(function(){});
   }
   function updateStayUI(){ renderStayContacts(); renderStayHours(); fetchWeather(STAY); }
+
   on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
 
   /* ===== Incidencias ===== */
@@ -1134,6 +1288,9 @@ document.addEventListener('DOMContentLoaded', function(){
     var now=new Date(); var stamp = now.toLocaleString();
     var header = '['+T.incTitle+'] '+typeTxt+' · '+PLACE_LABEL[STAY];
     var body = 'Hola,\n\nTengo una incidencia: '+typeTxt+'.\n\nDetalle: '+msg+'\n\nAlojamiento: '+PLACE_LABEL[STAY]+'\nFecha/hora: '+stamp+'\n\nGracias.';
+    if(LANG!=='es'){
+      body = 'Hello,\n\nI would like to report an issue: '+typeTxt+'.\n\nDetails: '+msg+'\n\nAccommodation: '+PLACE_LABEL[STAY]+'\nDate/time: '+stamp+'\n\nThank you.';
+    }
     return {subject:header, body:body};
   }
   function updateIncUI(){
@@ -1146,6 +1303,45 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#incPlace'),'change', function(e){ setStayPlace(e.target.value); });
   on($('#incType'),'change', updateIncUI);
   on($('#incMsg'),'input', updateIncUI);
+
+  /* ===== Sugerencias ===== */
+  function fillSugTypes(){
+    var sel=$('#sugType'); if(!sel) return;
+    var opts=I18N[LANG].suggestTypes||I18N.es.suggestTypes;
+    sel.innerHTML = opts.map(function(o){ return '<option value="'+o.key+'">'+esc(o.label)+'</option>'; }).join('');
+  }
+  function buildSugMsg(){
+    var T=I18N[LANG];
+    var sel=$('#sugType');
+    var typeTxt = sel && sel.options[sel.selectedIndex]? sel.options[sel.selectedIndex].textContent : '';
+    var msg=$('#sugMsg').value||'';
+    var rate=$('#sugRate').value||'';
+    var place=$('#sugPlace').value||STAY;
+    var placeLabel=PLACE_LABEL[place]||place;
+    var now=new Date(); var stamp=now.toLocaleString();
+    var title=T.suggestTitle||'Feedback box';
+    var header='['+title+'] '+placeLabel;
+    var body;
+    if(LANG==='es'){
+      body='Hola,\n\nMe gustaría dejar la siguiente sugerencia en '+placeLabel+':\n\nTipo: '+typeTxt+'\nValoración global: '+(rate?rate+'/5':'(sin valorar)')+'\n\nDetalle:\n'+msg+'\n\nFecha/hora: '+stamp+'\n\nGracias.';
+    }else{
+      body='Hello,\n\nI would like to share the following feedback for '+placeLabel+':\n\nType: '+typeTxt+'\nOverall rating: '+(rate?rate+'/5':'(no rating)')+'\n\nDetails:\n'+msg+'\n\nDate/time: '+stamp+'\n\nThank you.';
+    }
+    return {subject:header, body:body, place:place};
+  }
+  function updateSugUI(){
+    var placeEl=$('#sugPlace'); if(!placeEl) return;
+    var place=placeEl.value||STAY;
+    var mail=EMAILS[place], wa=WHATSAPP[place];
+    var m=buildSugMsg();
+    var waA=$('#sugWA'), emA=$('#sugEmail');
+    if(waA) waA.href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
+    if(emA) emA.href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
+  }
+  on($('#sugPlace'),'change', function(e){ setStayPlace(e.target.value); updateSugUI(); });
+  on($('#sugType'),'change', updateSugUI);
+  on($('#sugMsg'),'input', updateSugUI);
+  on($('#sugRate'),'input', updateSugUI);
 
   /* ===== Distancias / Geolocalización ===== */
   var myPos=null;
@@ -1162,7 +1358,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return '<span class="badge-pill">📍 '+esc(label)+'</span>';
   }
   function askGeo(btnId){
-    var b=$(btnId); if(navigator.geolocation){
+    if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(p){
         myPos={lat:p.coords.latitude,lon:p.coords.longitude};
         $('#geoTxt1').textContent='OK'; $('#geoTxt2').textContent='OK';
@@ -1173,13 +1369,12 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#geoBtn1'),'click', function(){ askGeo('#geoBtn1'); });
   on($('#geoBtn2'),'click', function(){ askGeo('#geoBtn2'); });
 
-  /* ===== Imprescindibles y Gastronomía y Favoritos (datos) ===== */
+  /* ===== Imprescindibles, Gastronomía, Favoritos (datos) ===== */
   function gglImages(q){ return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q); }
   function gglMaps(q){ return 'https://www.google.com/maps/search/'+encodeURIComponent(q); }
 
   /* ==== IMPRESCINDIBLES (mega ampliado) ==== */
-  var MUSTS=[
-    {
+  var MUSTS=[{
       slug:'comillas',
       name:{es:'Comillas', en:'Comillas', fr:'Comillas', de:'Comillas', nl:'Comillas'},
       center:{lat:43.3857, lon:-4.2922},
@@ -1430,10 +1625,10 @@ document.addEventListener('DOMContentLoaded', function(){
       ]
     }
   ];
+];
 
   /* ==== GASTRONOMÍA (ampliada) ==== */
-  var FOOD=[
-    {name:{es:'Anchoas de Santoña',en:'Santoña Anchovies',fr:'Anchois de Santoña',de:'Sardellen aus Santoña',nl:'Ansjovis uit Santoña'},
+  var FOOD=[{name:{es:'Anchoas de Santoña',en:'Santoña Anchovies',fr:'Anchois de Santoña',de:'Sardellen aus Santoña',nl:'Ansjovis uit Santoña'},
      desc:{es:'Filetes en salazón y aceite, icono del litoral oriental.', en:'Salt-cured fillets in olive oil; eastern coast icon.'}},
     {name:{es:'Sobaos pasiegos',en:'Sobaos Pasiegos',fr:'Sobaos pasiegos',de:'Sobaos Pasiegos',nl:'Sobaos Pasiegos'},
      desc:{es:'Bizcocho de mantequilla con IGP de los Valles Pasiegos.', en:'Buttery sponge cake (PGI) from Pasiego valleys.'}},
@@ -1460,12 +1655,10 @@ document.addEventListener('DOMContentLoaded', function(){
     {name:{es:'Almejas a la marinera',en:'Clams “a la marinera”'},
      desc:{es:'Salsa de vino, ajo y perejil; puro Cantábrico.', en:'White wine, garlic & parsley sauce.'}},
     {name:{es:'Carne de vaca Tudanca',en:'Tudanca beef'},
-     desc:{es:'Raza autóctona; sabor intenso y textura firme.', en:'Local cattle breed; deep flavor.'}}
-  ];
+     desc:{es:'Raza autóctona; sabor intenso y textura firme.', en:'Local cattle breed; deep flavor.'}}];
 
   /* ==== Favoritos del equipo (con distancias) ==== */
-  var FAVS={
-    pueblos:[
+  var FAVS={pueblos:[
       {name:'Santander', desc:'Capital abierta a la bahía, cultura contemporánea y playas urbanas; ideal para combinar museo y paseo marítimo en el mismo día.', lat:43.4623, lon:-3.8099, map:gglMaps('Santander Cantabria'), images:gglImages('Santander Cantabria')},
       {name:'Comillas', desc:'Arquitectura modernista (Gaudí), palacios y playa coqueta; tamaño perfecto para una tarde completa.', lat:43.3857, lon:-4.2922, map:gglMaps('Comillas'), images:gglImages('Comillas')},
       {name:'San Vicente de la Barquera', desc:'Ambiente marinero, puentes medievales y vistas a Picos. Mariscos top.', lat:43.3856, lon:-4.3987, map:gglMaps('San Vicente de la Barquera'), images:gglImages('San Vicente de la Barquera')},
@@ -1520,11 +1713,8 @@ document.addEventListener('DOMContentLoaded', function(){
       {name:'Mirador El Remedio', desc:'Pequeño mirador junto a la ermita y restaurante, sobre el Cantábrico.', lat:43.3989, lon:-4.2826, map:gglMaps('Mirador El Remedio Ruiloba'), images:gglImages('Mirador El Remedio Ruiloba')},
       {name:'Santa Catalina (Peñarrubia)', desc:'Pasarela espectacular sobre el Desfiladero de la Hermida.', lat:43.2753, lon:-4.5654, map:gglMaps('Mirador de Santa Catalina'), images:gglImages('Mirador de Santa Catalina')},
       {name:'Estación del teleférico Fuente Dé', desc:'Espectáculo garantizado al pie de las paredes calizas; subida imprescindible.', lat:43.144, lon:-4.8127, map:gglMaps('Teleférico Fuente Dé'), images:gglImages('Teleférico Fuente Dé')},
-      {name:'Puerto de Lunada', desc:'Frontera natural con Burgos; puertos, neveros y horizontes infinitos.', lat:43.133, lon:-3.57, map:gglMaps('Puerto de Lunada'), images:gglImages('Puerto de Lunada')}
-    ]
-  };
+      {name:'Puerto de Lunada', desc:'Frontera natural con Burgos; puertos, neveros y horizontes infinitos.', lat:43.133, lon:-3.57, map:gglMaps('Puerto de Lunada'), images:gglImages('Puerto de Lunada')}]};
 
-  /* ===== Render Musts & Food & Favs ===== */
   function i18nTxt(obj){ return (obj && (obj[LANG]||obj.es||''))||''; }
 
   function renderMusts(){
@@ -1548,7 +1738,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       return '<div class="acc-item"><div class="acc-h" data-m="'+esc(m.slug)+'">'+head+' <span>▼</span></div><div class="acc-b">'+body+'</div></div>';
     }).join('');
-    // toggles internos
     $all('#mustsAcc .acc-h').forEach(function(h){ on(h,'click', function(){ h.parentElement.classList.toggle('open'); }); });
   }
 
@@ -1755,94 +1944,77 @@ document.addEventListener('DOMContentLoaded', function(){
       +'<div><label>Apellidos</label><input class="input c-surname" placeholder="Apellidos"></div>'
       +'<div><label>DNI / Pasaporte</label><input class="input c-id" placeholder="DNI o Pasaporte"></div>'
       +'<div><label>Fecha de nacimiento</label><input class="input c-birth" type="date"></div>'
-      +'<div><button class="btn sm del-comp" type="button">🗑️ '+esc(I18N[LANG].preDel||'Eliminar')+'</button></div>'
+      +'<div><button type="button" class="btn sm c-del">🗑️ Eliminar</button></div>'
       +'</div>';
   }
-  var compCount=0;
-  on($('#addComp'),'click', function(){
-    compCount++; var box=$('#companions'); var wrap=document.createElement('div'); wrap.innerHTML=compTpl(compCount); box.appendChild(wrap.firstChild);
-  });
-  on($('#companions'),'click', function(e){
-    if(e.target && e.target.classList.contains('del-comp')){
-      var p=e.target.closest('[data-cidx]'); if(p) p.remove();
+  var compIdx=0;
+  function wireCompRow(row){
+    var btn=row.querySelector('.c-del');
+    if(btn){
+      on(btn,'click',function(){
+        row.parentElement.removeChild(row);
+      });
     }
+  }
+  on($('#addComp'),'click', function(){
+    compIdx++;
+    var cont=$('#companions');
+    var wrapper=document.createElement('div');
+    wrapper.innerHTML=compTpl(compIdx);
+    var row=wrapper.firstChild;
+    cont.appendChild(row);
+    wireCompRow(row);
+    alert(I18N[LANG].preAdded || 'Acompañante añadido');
   });
 
-  function buildPreBody(){
-    var place=$('#prePlace').value;
-    var name=$('#preName').value||''; var sn=$('#preSurname').value||''; var id=$('#preId').value||''; var b=$('#preBirth').value||''; var plate=$('#prePlate').value||'';
+  function buildPreMsg(){
+    var place=$('#prePlace').value||STAY;
+    var placeLabel=PLACE_LABEL[place]||place;
+    var name=$('#preName').value||'';
+    var surname=$('#preSurname').value||'';
+    var id=$('#preId').value||'';
+    var birth=$('#preBirth').value||'';
+    var plate=$('#prePlate').value||'';
     var comps=[];
     $all('#companions [data-cidx]').forEach(function(row){
       comps.push({
         name:row.querySelector('.c-name').value||'',
-        sn:row.querySelector('.c-surname').value||'',
+        surname:row.querySelector('.c-surname').value||'',
         id:row.querySelector('.c-id').value||'',
         birth:row.querySelector('.c-birth').value||''
       });
     });
-    var lines=[
-      'Pre-checkin desde la app',
-      'Alojamiento: '+PLACE_LABEL[place],
-      'Titular: '+name+' '+sn,
-      'DNI/Pasaporte: '+id,
-      'Fecha de nacimiento: '+b,
-      'Matrícula vehículo: '+plate,
-      'Acompañantes:'
-    ];
-    if(!comps.length){ lines.push('- (sin acompañantes)'); }
-    comps.forEach(function(c,i){
-      lines.push('- '+(i+1)+') '+c.name+' '+c.sn+' | Doc: '+c.id+' | Nac.: '+c.birth);
-    });
-    lines.push('');
-    lines.push('Nota: Según la ley de viajeros española, se solicitará en recepción el DNI o Pasaporte válido de todos los viajeros mayores de 14 años.');
-    return lines.join('\n');
+    var T=I18N[LANG];
+    var subject='[Pre-checkin] '+placeLabel;
+    var body='Datos de pre-checkin para '+placeLabel+':\n\nTitular:\nNombre: '+name+'\nApellidos: '+surname+'\nDocumento: '+id+'\nFecha de nacimiento: '+birth+'\nMatrícula: '+plate+'\n\nAcompañantes:\n';
+    if(!comps.length){ body+='(sin acompañantes indicados)\n'; }
+    else{
+      comps.forEach(function(c,i){
+        body+='-'+(i+1)+': '+c.name+' '+c.surname+' · '+c.id+' · '+c.birth+'\n';
+      });
+    }
+    body+='\n\nEnviado desde la app de '+T.app+'.';
+    return {place:place, subject:subject, body:body};
   }
-
   on($('#sendPreBtn'),'click', function(){
-    var place=$('#prePlace').value;
-    var to = EMAILS[place] || 'info@grupoacobijo.es';
-    var subject = 'Pre-checkin vía app';
-    var body = buildPreBody();
-    var link = 'mailto:'+encodeURIComponent(to)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-    location.href = link;
+    var data=buildPreMsg();
+    var mail=EMAILS[data.place];
+    var url='mailto:'+mail+'?subject='+encodeURIComponent(data.subject)+'&body='+encodeURIComponent(data.body);
+    location.href=url;
   });
 
-  /* ===== Init ===== */
-  function initIncTypesAndUI(){
-    fillIncTypes();
-    $('#incPlace').value=STAY;
-    updateIncUI();
-  }
-
-  $('#stayWeb').textContent=I18N[LANG].web;
-  $('#stayCall').textContent=I18N[LANG].call;
-  $('#stayWA').textContent=I18N[LANG].whatsapp;
-  $('#stayEmail').textContent=I18N[LANG].email;
-  $('#stayDir').textContent=I18N[LANG].directions;
-
-  $('#stayPlace').value=STAY;
-  $('#incPlace').value=STAY;
-
+  /* ===== Inicializar ===== */
+  renderAcc();
   loadSchedules();
   loadEvents();
-  renderAcc();
-  updateStayUI();
-  initIncTypesAndUI();
   renderMusts();
   renderFood();
   renderFavs();
+  updateStayUI();
+  updateIncUI();
+  updateSugUI();
 
-  /* ===== Service Worker ===== */
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./service-worker.js');
-    navigator.serviceWorker.addEventListener('message', (e) => {
-      if (e.data && e.data.type === 'SW_ACTIVE') {
-        console.log('PWA actualizada a', e.data.version);
-      }
-    });
-  }
-
-}); // DOMContentLoaded
+});
 </script>
 </body>
 </html>
