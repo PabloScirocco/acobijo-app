@@ -6,7 +6,7 @@
 <title>Grupo A Cobijo</title>
 <meta name="description" content="App de experiencia del cliente: eventos, horarios y accesos del Grupo A Cobijo.">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0ea5e9">
+<meta name="theme-color" content="#23566a">
 <link rel="icon" href="assets/icons/icon-192.png">
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,6 +148,7 @@ body.dark .pill{background:#0f1a2b}
 body.dark .note{background:#1f1a10}
 .emph{font-weight:700}
 </style>
+<link rel="stylesheet" href="assets/guest.css">
 </head>
 <body>
 
@@ -176,7 +177,6 @@ body.dark .note{background:#1f1a10}
     <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
     <div class="item" data-nav="favorites">💚 <strong id="d-favs">Favoritos del equipo</strong></div>
-    <div class="item" data-nav="precheck">📝 <strong id="d-pre">Pre-checkin</strong></div>
     <div class="item" data-nav="suggest">💬 <strong id="d-sug">Sugerencias</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
     <div class="muted" id="drawerHint">Elige sección</div>
@@ -186,34 +186,21 @@ body.dark .note{background:#1f1a10}
 <main>
   <!-- HOME -->
   <section id="view-home" class="view active">
-    <div class="hero">
-      <div class="hero-inner">
-        <img src="assets/logo.png" alt="A Cobijo">
-        <div>
-          <h2 id="t-hello">¡Bienvenido!</h2>
-          <div class="badge" id="t-badge">PWA · Offline · Multidioma</div><!-- oculto por CSS -->
-        </div>
-      </div>
-      <div class="tiles">
-        <div class="tile" data-nav="events"><div class="big">📅</div><div><strong id="t-ev">Eventos</strong><div class="muted" id="t-ev-sub">Qué hay hoy</div></div></div>
-        <div class="tile" data-nav="stay"><div class="big">🧳</div><div><strong id="t-stay">Mi estancia</strong><div class="muted" id="t-stay-sub">Contactos, clima, horarios</div></div></div>
-        <div class="tile" data-nav="incidents"><div class="big">🆘</div><div><strong id="t-inc">Incidencias</strong><div class="muted" id="t-inc-sub">WhatsApp/Email directos</div></div></div>
-        <div class="tile" data-nav="musts"><div class="big">⭐</div><div><strong id="t-musts">Imprescindibles</strong><div class="muted" id="t-musts-sub">Qué ver en Cantabria</div></div></div>
-        <div class="tile" data-nav="food"><div class="big">🍽️</div><div><strong id="t-food">Gastronomía</strong><div class="muted" id="t-food-sub">Sabores cántabros</div></div></div>
-        <div class="tile" data-nav="favorites"><div class="big">💚</div><div><strong id="t-favs">Favoritos del equipo</strong><div class="muted" id="t-favs-sub">Recomendaciones reales</div></div></div>
-        <div class="tile" data-nav="suggest"><div class="big">💬</div><div><strong id="t-sug">Sugerencias</strong><div class="muted" id="t-sug-sub">Ayúdanos a mejorar</div></div></div>
-        <div class="tile" data-nav="precheck"><div class="big">📝</div><div><strong id="t-pre">Pre-checkin</strong><div class="muted" id="t-pre-sub">Ahorra tiempo al llegar</div></div></div>
-        <div class="tile" id="installTile"><div class="big">⬇️</div><div><strong id="t-inst">Instalar</strong><div class="muted" id="t-inst-sub">Añadir a inicio</div></div></div>
-      </div>
+    <div class="welcome-hero">
+      <img src="assets/places/ramales.webp" alt="Paisaje natural de Camping Ramales" class="hero-photo" fetchpriority="high" width="1400" height="900">
+      <div class="welcome-content"><p class="eyebrow" data-copy="eyebrow"></p><h2 id="t-hello">Estás a cobijo.</h2><p data-copy="heroSub"></p><button class="btn hero-cta" data-nav="stay" data-copy="stayCta">Ver mi estancia</button></div>
+      <span class="hero-caption">CANTABRIA · GRUPO A COBIJO</span>
     </div>
-
+    <div class="stay-bar"><div><label for="homePlace" data-copy="choose">¿Dónde te alojas?</label><select id="homePlace" class="select"><option value="oyambre">Oyambre</option><option value="ramales">Ramales</option><option value="ruiloba">El Helguero · Ruiloba</option><option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option></select></div><div class="row"><a id="homeCall" class="btn primary">Llamar</a><a id="homeWA" class="btn">WhatsApp</a><a id="homeDir" class="btn">Cómo llegar</a></div></div>
+    <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
+<button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>COSTA & NATURALEZA</small><strong>Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="El Helguero" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>El Helguero</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>APARTAMENTOS</small><strong>El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>BY GRUPO A COBIJO</small><strong>Hotel Verdemar</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button><button class="btn" id="installTile"><span id="t-inst">Instalar app</span></button></div>
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
   </section>
 
   <!-- MI ESTANCIA -->
   <section id="view-stay" class="view">
-    <h2 id="t-stay-title">Mi estancia</h2>
+    <h2 id="t-stay-title">Mi estancia</h2><img id="stayPhoto" class="stay-photo" src="assets/places/oyambre.webp" alt="Oyambre">
     <p class="muted" id="t-stay-hint">Guardamos tu elección en este dispositivo.</p>
 
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
@@ -223,7 +210,7 @@ body.dark .note{background:#1f1a10}
           <option value="oyambre">Oyambre</option>
           <option value="ramales">Ramales</option>
           <option value="ruiloba">Ruiloba</option>
-          <option value="cardeo">El Cardeo</option>
+          <option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option>
         </select>
       </div>
       <div class="row" style="align-items:flex-end">
@@ -259,6 +246,7 @@ body.dark .note{background:#1f1a10}
         <div class="wx-day"><div class="d" id="d3">—</div><div class="i" id="i3">☀️</div><div class="t" id="t3">--/--°</div></div>
       </div>
     </div>
+<div id="hotelStayInfo" hidden><article class="card hotel-card" ><img class="place-photo" src="assets/places/verdemar.webp" alt="Suite del Hotel Verdemar" loading="lazy" width="700" height="440"><div class="eyebrow">BY GRUPO A COBIJO</div><h3>Hotel Verdemar</h3><p>Una escapada entre el mar y la naturaleza, en el Parque Natural de Oyambre, cerca de San Vicente de la Barquera y Comillas.</p><p class="muted">Barrio La Cotera nº 15 · 39593 Valdáliga, Cantabria</p><div class="row"><a class="btn primary" href="https://www.hotelacobijo.com/" target="_blank" rel="noopener">Web y reservas</a><a class="btn" href="tel:+34662204718">Llamar</a><a class="btn" href="mailto:reservas@hotelacobijo.com">Email</a><a class="btn" href="https://wa.me/34662204718" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="https://maps.google.com/?q=Hotel+Verdemar+Barrio+La+Cotera+15+Valdaliga" target="_blank" rel="noopener">Cómo llegar</a></div><details><summary>Habitaciones y equipamiento</summary><p>Suite con salón, sofá cama, jacuzzi y terraza; doble con jacuzzi; triple con altillo; doble con jardín; doble y habitación adaptada. Sábanas, toallas, calefacción, ventilador, televisión y secador.</p><p>La doble con jardín, la doble y la adaptada admiten mascotas, según las condiciones del hotel.</p><a href="https://www.hotelacobijo.com/Habitaciones/" target="_blank" rel="noopener">Consultar habitaciones</a></details><details><summary>Servicios e instalaciones</summary><p>Desayuno buffet, wifi, aparcamiento, jardín, ascensor y recepción. Piscinas exterior e interior, jacuzzi interior y baño turco.</p><p>Consulta con recepción horarios, disponibilidad y condiciones de uso.</p><a href="https://www.hotelacobijo.com/Servicios-e-Instalaciones/" target="_blank" rel="noopener">Consultar servicios</a></details><p class="hotel-links"><a href="https://www.hotelacobijo.com/Entorno/" target="_blank" rel="noopener">Entorno</a> · <a href="https://www.hotelacobijo.com/gallery/CGV.pdf" target="_blank" rel="noopener">Condiciones de reserva</a> · <a href="https://www.hotelacobijo.com/gallery/ADMINISI%C3%93N%20ANIMALES-%20VERDEMAR.pdf" target="_blank" rel="noopener">Condiciones para mascotas</a></p></article></div>
   </section>
 
   <!-- INCIDENCIAS -->
@@ -274,7 +262,7 @@ body.dark .note{background:#1f1a10}
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
             <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
+            <option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option>
           </select>
         </div>
         <div>
@@ -308,7 +296,7 @@ body.dark .note{background:#1f1a10}
       <button class="btn chip" data-camp="oyambre" id="c-oy">Oyambre</button>
       <button class="btn chip" data-camp="ramales" id="c-ra">Ramales</button>
       <button class="btn chip" data-camp="ruiloba" id="c-he">Ruiloba</button>
-      <button class="btn chip" data-camp="cardeo" id="c-ca">El Cardeo</button>
+      <button class="btn chip" data-camp="cardeo" id="c-ca">El Cardeo</button><button class="btn chip" data-camp="verdemar">Hotel Verdemar</button>
     </div>
     <div id="eventsGrid" class="grid"></div>
     <p class="muted" id="eventsEmpty" style="display:none">Sin eventos por ahora.</p>
@@ -319,7 +307,7 @@ body.dark .note{background:#1f1a10}
     <h2 id="t-campings-title">Nuestros campings</h2>
     <div class="grid">
       <article class="card" style="min-width:unset">
-        <h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
+        <img class="place-photo" src="assets/places/oyambre.webp" alt="oyambre" loading="lazy" width="700" height="440"><h3 id="t-oy-title">Camping Caravaning Playa de Oyambre</h3>
         <p class="muted" id="t-oy-hint">Todos los servicios · Frente al mar</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.oyambre.com" target="_blank" rel="noopener">Web</a>
@@ -330,7 +318,7 @@ body.dark .note{background:#1f1a10}
       </article>
 
       <article class="card" style="min-width:unset">
-        <h3 id="t-ra-title">Camping Ramales</h3>
+        <img class="place-photo" src="assets/places/ramales.webp" alt="ramales" loading="lazy" width="700" height="440"><h3 id="t-ra-title">Camping Ramales</h3>
         <p class="muted" id="t-ra-hint">Cuevas · Montaña · Actividades</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingramales.com" target="_blank" rel="noopener">Web</a>
@@ -341,7 +329,7 @@ body.dark .note{background:#1f1a10}
       </article>
 
       <article class="card" style="min-width:unset">
-        <h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
+        <img class="place-photo" src="assets/places/ruiloba.webp" alt="ruiloba" loading="lazy" width="700" height="440"><h3 id="t-he-title">Camping El Helguero (Ruiloba)</h3>
         <p class="muted" id="t-he-hint">Naturaleza · Familiar · Mascotas</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.campingelhelguero.com" target="_blank" rel="noopener">Web</a>
@@ -352,7 +340,7 @@ body.dark .note{background:#1f1a10}
       </article>
 
       <article class="card" style="min-width:unset">
-        <h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
+        <img class="place-photo" src="assets/places/cardeo.webp" alt="cardeo" loading="lazy" width="700" height="440"><h3 id="t-ca-title">Apartamentos / Taberna El Cardeo</h3>
         <p class="muted" id="t-ca-hint">Apartamentos + Taberna</p>
         <div class="row">
           <a class="btn" data-i18n-web href="https://www.elcardeo.es" target="_blank" rel="noopener">Web</a>
@@ -361,6 +349,7 @@ body.dark .note{background:#1f1a10}
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34664686158" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </article>
+<article class="card hotel-card" id="place-verdemar"><img class="place-photo" src="assets/places/verdemar.webp" alt="Suite del Hotel Verdemar" loading="lazy" width="700" height="440"><div class="eyebrow">BY GRUPO A COBIJO</div><h3>Hotel Verdemar</h3><p>Una escapada entre el mar y la naturaleza, en el Parque Natural de Oyambre, cerca de San Vicente de la Barquera y Comillas.</p><p class="muted">Barrio La Cotera nº 15 · 39593 Valdáliga, Cantabria</p><div class="row"><a class="btn primary" href="https://www.hotelacobijo.com/" target="_blank" rel="noopener">Web y reservas</a><a class="btn" href="tel:+34662204718">Llamar</a><a class="btn" href="mailto:reservas@hotelacobijo.com">Email</a><a class="btn" href="https://wa.me/34662204718" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="https://maps.google.com/?q=Hotel+Verdemar+Barrio+La+Cotera+15+Valdaliga" target="_blank" rel="noopener">Cómo llegar</a></div><details><summary>Habitaciones y equipamiento</summary><p>Suite con salón, sofá cama, jacuzzi y terraza; doble con jacuzzi; triple con altillo; doble con jardín; doble y habitación adaptada. Sábanas, toallas, calefacción, ventilador, televisión y secador.</p><p>La doble con jardín, la doble y la adaptada admiten mascotas, según las condiciones del hotel.</p><a href="https://www.hotelacobijo.com/Habitaciones/" target="_blank" rel="noopener">Consultar habitaciones</a></details><details><summary>Servicios e instalaciones</summary><p>Desayuno buffet, wifi, aparcamiento, jardín, ascensor y recepción. Piscinas exterior e interior, jacuzzi interior y baño turco.</p><p>Consulta con recepción horarios, disponibilidad y condiciones de uso.</p><a href="https://www.hotelacobijo.com/Servicios-e-Instalaciones/" target="_blank" rel="noopener">Consultar servicios</a></details><p class="hotel-links"><a href="https://www.hotelacobijo.com/Entorno/" target="_blank" rel="noopener">Entorno</a> · <a href="https://www.hotelacobijo.com/gallery/CGV.pdf" target="_blank" rel="noopener">Condiciones de reserva</a> · <a href="https://www.hotelacobijo.com/gallery/ADMINISI%C3%93N%20ANIMALES-%20VERDEMAR.pdf" target="_blank" rel="noopener">Condiciones para mascotas</a></p><button class="btn" data-place="verdemar" data-copy="stayCta">Ver mi estancia</button></article>
     </div>
   </section>
 
@@ -372,6 +361,7 @@ body.dark .note{background:#1f1a10}
       <div class="acc-item"><div class="acc-h" data-acc="ramales">Ramales <span>▼</span></div><div class="acc-b" id="acc-ramales"></div></div>
       <div class="acc-item"><div class="acc-h" data-acc="ruiloba">Ruiloba <span>▼</span></div><div class="acc-b" id="acc-ruiloba"></div></div>
       <div class="acc-item"><div class="acc-h" data-acc="cardeo">El Cardeo <span>▼</span></div><div class="acc-b" id="acc-cardeo"></div></div>
+      <div class="acc-item"><div class="acc-h" data-acc="verdemar">Hotel Verdemar <span>⌄</span></div><div class="acc-b" id="acc-verdemar"></div></div>
     </div>
     <p class="muted" id="schedNote">Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.</p>
   </section>
@@ -423,7 +413,7 @@ body.dark .note{background:#1f1a10}
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
             <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
+            <option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option>
           </select>
         </div>
         <div>
@@ -452,54 +442,7 @@ body.dark .note{background:#1f1a10}
     </div>
   </section>
 
-  <!-- PRE-CHECKIN -->
-  <section id="view-precheck" class="view">
-    <h2 id="pre-title">Pre-checkin</h2>
-    <p class="note">⚠️ <strong>Importante</strong>: Según la ley de viajeros española, le solicitaremos en recepción a la llegada: <strong>Documento Nacional de Identidad o Pasaporte válido</strong> de <strong>todos los viajeros mayores de 14 años</strong>. 🇪🇸🛂</p>
-    <div class="card" style="background:var(--tint)">
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-        <div>
-          <label style="font-weight:700" for="prePlace" id="pre-where">¿En qué alojamiento tiene la reserva?</label>
-          <select id="prePlace" class="select">
-            <option value="oyambre">Oyambre</option>
-            <option value="ramales">Ramales</option>
-            <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
-          </select>
-        </div>
-        <div>
-          <label>Nombre</label>
-          <input id="preName" class="input" placeholder="Nombre">
-        </div>
-        <div>
-          <label>Apellidos</label>
-          <input id="preSurname" class="input" placeholder="Apellidos">
-        </div>
-        <div>
-          <label>DNI / Pasaporte</label>
-          <input id="preId" class="input" placeholder="DNI o Pasaporte">
-        </div>
-        <div>
-          <label>Fecha de nacimiento</label>
-          <input id="preBirth" type="date" class="input">
-        </div>
-        <div>
-          <label>Matrícula del vehículo</label>
-          <input id="prePlate" class="input" placeholder="0000-XXX">
-        </div>
-      </div>
 
-      <div class="card" style="margin-top:12px">
-        <h3>👥 Acompañantes</h3>
-        <div id="companions"></div>
-        <button id="addComp" class="btn sm" type="button">➕ Añadir acompañante</button>
-      </div>
-
-      <div class="row" style="margin-top:12px">
-        <button id="sendPreBtn" class="btn primary">✉️ Enviar pre-checkin</button>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- Bottom nav -->
@@ -526,7 +469,7 @@ body.dark .note{background:#1f1a10}
             <option value="oyambre">Oyambre</option>
             <option value="ramales">Ramales</option>
             <option value="ruiloba">Ruiloba</option>
-            <option value="cardeo">El Cardeo</option>
+            <option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option>
           </select>
         </div>
         <div><label>Lugar (ES)</label><input id="evLugar" class="input" placeholder="Ej: Camping Ramales"></div>
@@ -614,7 +557,6 @@ document.addEventListener('DOMContentLoaded', function(){
   /* ===== Estado admin + PIN ===== */
   localStorage.setItem('admin','0');
   document.body.classList.remove('admin-on');
-  if(!localStorage.getItem('admin_pin')){ localStorage.setItem('admin_pin','311974'); }
 
   /* ===== Utils ===== */
   function $(sel){return document.querySelector(sel);}
@@ -627,7 +569,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Tema ===== */
   function detectTheme(){ var s=localStorage.getItem('theme'); if(s) return s; try{ if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'; }catch(e){} return 'light'; }
-  function applyTheme(m){ document.body.classList.toggle('dark', m==='dark'); var b=$('#themeBtn'); if(b) b.textContent=m==='dark'?'☀️':'🌙'; localStorage.setItem('theme',m); var meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#0ea5e9');}
+  function applyTheme(m){ document.body.classList.toggle('dark', m==='dark'); var b=$('#themeBtn'); if(b) b.textContent=m==='dark'?'☀️':'🌙'; localStorage.setItem('theme',m); var meta=document.querySelector('meta[name="theme-color"]'); if(meta) meta.setAttribute('content', m==='dark' ? '#0b1220' : '#23566a');}
   var THEME=detectTheme(); applyTheme(THEME);
   on($('#themeBtn'),'click', function(){ THEME=(THEME==='dark')?'light':'dark'; applyTheme(THEME); });
 
@@ -650,7 +592,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Info orientativa. Pregunta en recepción para cambios de temporada. Los horarios pueden variar según la fecha.",
         nHome:"Inicio", nEv:"Eventos", nPl:"Campings", nSc:"Horarios",
         dHome:"Inicio", dStay:"Mi estancia", dInc:"Incidencias", dEv:"Eventos", dPl:"Campings", dSc:"Horarios",
-        dMusts:"Imprescindibles", dFood:"Gastronomía", dFavs:"Favoritos del equipo", dPre:"Pre-checkin", dSug:"Sugerencias", drawerHint:"Elige sección",
+        dMusts:"Imprescindibles", dFood:"Gastronomía", dFavs:"Favoritos del equipo", dSug:"Sugerencias", drawerHint:"Elige sección",
         nextEvents:"Próximos eventos",
         stay:"Mi estancia", staySub:"Contactos, clima, horarios",
         stayTitle:"Mi estancia", stayHint:"Guardamos tu elección en este dispositivo.", stayWhich:"Selecciona tu alojamiento",
@@ -671,8 +613,7 @@ document.addEventListener('DOMContentLoaded', function(){
         see:"Qué ver", images:"Imágenes", map:"Mapa", tickets:"Entradas", more:"Más info", distance:"a {X} km",
         foodTitle:"Gastronomía cántabra", foodHint:"Productos y platos típicos que deberías probar.",
         favTitle:"Los favoritos de nuestro equipo", favHint:"Selección personal por categoría.",
-        preTitle:"Pre-checkin", preWhere:"¿En qué alojamiento tiene la reserva?",
-        preSend:"Enviar pre-checkin", preAdded:"Acompañante añadido", preDel:"Eliminar", geo:"Calcular distancias",
+        geo:"Calcular distancias",
         suggestTitle:"Buzón de sugerencias",
         suggestHint:"Cuéntanos qué mejorarías para tu próxima estancia. El mensaje se envía al alojamiento que elijas.",
         suggestTypeLabel:"Tipo de comentario",
@@ -710,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Indicative info. Check reception for seasonal changes. Opening hours may vary by date.",
         nHome:"Home", nEv:"Events", nPl:"Camps", nSc:"Schedules",
         dHome:"Home", dStay:"My stay", dInc:"Issues", dEv:"Events", dPl:"Camps", dSc:"Schedules",
-        dMusts:"Essentials", dFood:"Gastronomy", dFavs:"Team’s favorites", dPre:"Pre-checkin", dSug:"Feedback", drawerHint:"Choose a section",
+        dMusts:"Essentials", dFood:"Gastronomy", dFavs:"Team’s favorites", dSug:"Feedback", drawerHint:"Choose a section",
         nextEvents:"Upcoming events",
         stay:"My stay", staySub:"Contacts, weather, schedules",
         stayTitle:"My stay", stayHint:"We store your choice on this device.", stayWhich:"Choose your accommodation",
@@ -731,8 +672,7 @@ document.addEventListener('DOMContentLoaded', function(){
         see:"Highlights", images:"Images", map:"Map", tickets:"Tickets", more:"More info", distance:"{X} km away",
         foodTitle:"Cantabrian gastronomy", foodHint:"Typical products and dishes to try.",
         favTitle:"Our team’s favorites", favHint:"Personal picks by category.",
-        preTitle:"Pre-checkin", preWhere:"Which accommodation is your booking for?",
-        preSend:"Send pre-checkin", preAdded:"Companion added", preDel:"Remove", geo:"Get distances",
+        geo:"Get distances",
         suggestTitle:"Feedback box",
         suggestHint:"Tell us how we can improve your next stay. Your message is sent directly to the accommodation you choose.",
         suggestTypeLabel:"Type of feedback",
@@ -770,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Infos indicatives. Vérifiez à la réception. Les horaires peuvent varier selon la date.",
         nHome:"Accueil", nEv:"Évén.", nPl:"Campings", nSc:"Horaires",
         dHome:"Accueil", dStay:"Mon séjour", dInc:"Incidents", dEv:"Événements", dPl:"Campings", dSc:"Horaires",
-        dMusts:"Incontournables", dFood:"Gastronomie", dFavs:"Coups de cœur", dPre:"Pre-checkin", dSug:"Suggestions", drawerHint:"Choisissez une section",
+        dMusts:"Incontournables", dFood:"Gastronomie", dFavs:"Coups de cœur", dSug:"Suggestions", drawerHint:"Choisissez une section",
         nextEvents:"Événements à venir",
         stay:"Mon séjour", staySub:"Contacts, météo, horaires",
         stayTitle:"Mon séjour", stayHint:"Nous enregistrons votre choix sur cet appareil.", stayWhich:"Choisissez votre hébergement",
@@ -791,8 +731,7 @@ document.addEventListener('DOMContentLoaded', function(){
         see:"À voir", images:"Images", map:"Carte", tickets:"Billets", more:"Plus d’infos", distance:"à {X} km",
         foodTitle:"Gastronomie cantabrique", foodHint:"Produits et plats typiques à goûter.",
         favTitle:"Nos coups de cœur", favHint:"Sélection par catégorie.",
-        preTitle:"Pre-checkin", preWhere:"Quel hébergement avez-vous réservé ?",
-        preSend:"Envoyer le pre-checkin", preAdded:"Accompagnant ajouté", preDel:"Supprimer", geo:"Calculer distances",
+        geo:"Calculer distances",
         suggestTitle:"Boîte à suggestions",
         suggestHint:"Dites-nous ce que nous pourrions améliorer pour un prochain séjour. Le message est envoyé directement à l’établissement choisi.",
         suggestTypeLabel:"Type de commentaire",
@@ -830,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Unverbindliche Infos. Änderungen möglich – bitte an der Rezeption nachfragen.",
         nHome:"Start", nEv:"Events", nPl:"Camping", nSc:"Zeiten",
         dHome:"Start", dStay:"Mein Aufenthalt", dInc:"Störungen", dEv:"Events", dPl:"Camping", dSc:"Zeiten",
-        dMusts:"Highlights", dFood:"Gastronomie", dFavs:"Team-Favoriten", dPre:"Pre-checkin", dSug:"Feedback", drawerHint:"Bereich wählen",
+        dMusts:"Highlights", dFood:"Gastronomie", dFavs:"Team-Favoriten", dSug:"Feedback", drawerHint:"Bereich wählen",
         nextEvents:"Kommende Events",
         stay:"Mein Aufenthalt", staySub:"Kontakte, Wetter, Zeiten",
         stayTitle:"Mein Aufenthalt", stayHint:"Wir speichern die Auswahl lokal.", stayWhich:"Unterkunft wählen",
@@ -851,8 +790,7 @@ document.addEventListener('DOMContentLoaded', function(){
         see:"Sehenswert", images:"Bilder", map:"Karte", tickets:"Tickets", more:"Mehr Infos", distance:"{X} km entfernt",
         foodTitle:"Kantabrische Küche", foodHint:"Typische Produkte und Gerichte.",
         favTitle:"Favoriten unseres Teams", favHint:"Auswahl nach Kategorie.",
-        preTitle:"Pre-checkin", preWhere:"Für welche Unterkunft ist die Buchung?",
-        preSend:"Pre-checkin senden", preAdded:"Begleitperson hinzugefügt", preDel:"Entfernen", geo:"Distanzen berechnen",
+        geo:"Distanzen berechnen",
         suggestTitle:"Feedback-Box",
         suggestHint:"Sag uns, was wir für deinen nächsten Aufenthalt verbessern können. Die Nachricht geht direkt an die gewählte Unterkunft.",
         suggestTypeLabel:"Art des Feedbacks",
@@ -890,7 +828,7 @@ document.addEventListener('DOMContentLoaded', function(){
         schedNote:"Indicatieve info. Tijden kunnen per datum verschillen.",
         nHome:"Start", nEv:"Even.", nPl:"Campings", nSc:"Tijden",
         dHome:"Start", dStay:"Mijn verblijf", dInc:"Incidenten", dEv:"Evenementen", dPl:"Campings", dSc:"Tijden",
-        dMusts:"Must-sees", dFood:"Gastronomie", dFavs:"Favorieten van het team", dPre:"Pre-checkin", dSug:"Suggesties", drawerHint:"Kies een sectie",
+        dMusts:"Must-sees", dFood:"Gastronomie", dFavs:"Favorieten van het team", dSug:"Suggesties", drawerHint:"Kies een sectie",
         nextEvents:"Aankomende evenementen",
         stay:"Mijn verblijf", staySub:"Contacten, weer, tijden",
         stayTitle:"Mijn verblijf", stayHint:"We slaan je keuze lokaal op.", stayWhich:"Kies je accommodatie",
@@ -911,8 +849,7 @@ document.addEventListener('DOMContentLoaded', function(){
         see:"Wat te zien", images:"Beelden", map:"Kaart", tickets:"Tickets", more:"Meer info", distance:"op {X} km",
         foodTitle:"Cantabrische gastronomie", foodHint:"Typische producten en gerechten.",
         favTitle:"Favorieten van ons team", favHint:"Selectie per categorie.",
-        preTitle:"Pre-checkin", preWhere:"Voor welke accommodatie is de boeking?",
-        preSend:"Pre-checkin verzenden", preAdded:"Metgezel toegevoegd", preDel:"Verwijderen", geo:"Afstanden berekenen",
+        geo:"Afstanden berekenen",
         suggestTitle:"Suggestiebox",
         suggestHint:"Vertel ons wat we kunnen verbeteren voor je volgende verblijf. Het bericht gaat rechtstreeks naar de gekozen accommodatie.",
         suggestTypeLabel:"Type opmerking",
@@ -935,12 +872,17 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   };
 
+  var GUEST_COPY={"es": {"hello": "Estás a cobijo.", "heroSub": "Mar, naturaleza y tiempo para ti. Todo lo que necesitas para disfrutar de tu estancia en Cantabria.", "eyebrow": "TU ESTANCIA EN CANTABRIA", "choose": "¿Dónde te alojas?", "quick": "A un toque de lo que necesitas", "discover": "Cinco lugares. Una forma de acogerte.", "allPlaces": "Ver alojamientos", "empty": "No hay eventos programados por ahora. Aquí encontrarás la próxima programación.", "noMatch": "No hay eventos para estos filtros.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Ver mi estancia", "places": "Alojamientos"}, "en": {"hello": "Make yourself at home.", "heroSub": "Sea, nature and time for yourself. Everything you need for your stay in Cantabria.", "eyebrow": "YOUR STAY IN CANTABRIA", "choose": "Where are you staying?", "quick": "Your essentials, one tap away", "discover": "Five places. One warm welcome.", "allPlaces": "View accommodation", "empty": "No events are scheduled at the moment. The next programme will appear here.", "noMatch": "No events match these filters.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "View my stay", "places": "Accommodation"}, "fr": {"hello": "Bienvenue chez vous.", "heroSub": "La mer, la nature et du temps pour vous. Tout pour votre séjour en Cantabrie.", "eyebrow": "VOTRE SÉJOUR EN CANTABRIE", "choose": "Où séjournez-vous ?", "quick": "Vos essentiels à portée de main", "discover": "Cinq lieux. Un accueil chaleureux.", "allPlaces": "Voir les hébergements", "empty": "Aucun événement programmé pour le moment. Le prochain programme sera publié ici.", "noMatch": "Aucun événement pour ces filtres.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Voir mon séjour", "places": "Hébergements"}, "de": {"hello": "Hier sind Sie zu Hause.", "heroSub": "Meer, Natur und Zeit für sich. Alles für Ihren Aufenthalt in Kantabrien.", "eyebrow": "IHR AUFENTHALT IN KANTABRIEN", "choose": "Wo wohnen Sie?", "quick": "Das Wichtigste mit einem Tippen", "discover": "Fünf Orte. Herzlich willkommen.", "allPlaces": "Unterkünfte ansehen", "empty": "Zurzeit sind keine Veranstaltungen geplant. Das nächste Programm finden Sie hier.", "noMatch": "Keine Veranstaltungen für diese Filter.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Mein Aufenthalt", "places": "Unterkünfte"}, "nl": {"hello": "Voel je thuis.", "heroSub": "Zee, natuur en tijd voor jezelf. Alles voor je verblijf in Cantabrië.", "eyebrow": "JE VERBLIJF IN CANTABRIË", "choose": "Waar verblijf je?", "quick": "Alles wat je nodig hebt, dichtbij", "discover": "Vijf plekken. Eén warm welkom.", "allPlaces": "Bekijk accommodaties", "empty": "Er zijn momenteel geen evenementen gepland. Het volgende programma vind je hier.", "noMatch": "Geen evenementen voor deze filters.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Mijn verblijf bekijken", "places": "Accommodaties"}};
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
 
   function applyLang(){
-    var T=I18N[LANG];
+    var T=I18N[LANG], G=GUEST_COPY[LANG];
+    T.hello=G.hello; T.campingsTitle=G.places; T.dPl=G.places; T.cAll=({es:'Todos los alojamientos',en:'All accommodation',fr:'Tous les hébergements',de:'Alle Unterkünfte',nl:'Alle accommodaties'})[LANG];
+    document.documentElement.lang=LANG;
+    document.querySelectorAll('[data-copy]').forEach(el=>el.textContent=G[el.dataset.copy]);
+    t('n-stay',T.dStay); t('n-inc',T.dInc);
     t("t-app",T.app); t("t-hello",T.hello); t("t-badge",T.badge);
     t("t-ev",T.ev); t("t-ev-sub",T.evSub);
     t("t-pl",T.pl); t("t-pl-sub",T.plSub);
@@ -954,9 +896,9 @@ document.addEventListener('DOMContentLoaded', function(){
     t("schedNote",T.schedNote); t("n-home",T.nHome); t("n-ev",T.nEv);
     var lb=$('#langBtn'); if(lb) lb.textContent='🌐 '+LANG.toUpperCase();
     t("d-home",T.dHome); t("d-stay",T.dStay); t("d-inc",T.dInc); t("d-ev",T.dEv); t("d-pl",T.dPl); t("d-sc",T.dSc);
-    t("d-musts", T.dMusts); t("d-food", T.dFood); t("d-favs", T.dFavs); t("d-pre", T.dPre); t("d-sug", T.dSug);
+    t("d-musts", T.dMusts); t("d-food", T.dFood); t("d-favs", T.dFavs);  t("d-sug", T.dSug);
     t("drawerHint",T.drawerHint); t("t-next-events",T.nextEvents);
-    t("t-stay",T.stay); t("t-stay-sub",T.staySub);
+    t("t-inc",T.dInc); t("t-inc-sub",T.whatsapp+" · "+T.email); t("t-stay",T.stay); t("t-stay-sub",T.staySub);
     t("t-stay-title",T.stayTitle); t("t-stay-hint",T.stayHint); t("t-stay-which",T.stayWhich);
     t("t-stay-hours",T.stayHours); t("t-weather-title",T.weatherTitle); t("t-max",T.max); t("t-min",T.min);
     t("i-title",T.incTitle); t("i-hint",T.incHint); t("i-where",T.incWhere); t("i-type",T.incType); t("i-msg",T.incMsg);
@@ -964,7 +906,7 @@ document.addEventListener('DOMContentLoaded', function(){
     t("musts-title",T.mustsTitle); t("musts-hint",T.mustsHint);
     t("food-title",T.foodTitle); t("food-hint",T.foodHint);
     t("fav-title",T.favTitle); t("fav-hint",T.favHint);
-    t("pre-title",T.preTitle); t("pre-where",T.preWhere);
+
     $('#geoTxt1').textContent=T.geo; $('#geoTxt2').textContent=T.geo;
     // Home tiles labels extra
     t("t-musts", T.mustsTitle || "Imprescindibles");
@@ -973,8 +915,8 @@ document.addEventListener('DOMContentLoaded', function(){
     t("t-food-sub", T.foodHint || "Productos típicos");
     t("t-favs", T.favTitle || "Favoritos");
     t("t-favs-sub", T.favHint || "Selección personal");
-    t("t-pre", T.preTitle || "Pre-checkin");
-    t("t-pre-sub", T.preWhere || "Alojamiento");
+
+
     t("t-sug", T.suggestTile || "Sugerencias");
     t("t-sug-sub", T.suggestTileSub || "Ayúdanos a mejorar");
     // Sugerencias
@@ -1001,22 +943,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Navegación ===== */
   function showView(id){
+    if(!document.getElementById('view-'+id)) id='home';
     $all('.view').forEach(v=>v.classList.remove('active'));
     var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
     $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
     $('#drawer').classList.remove('open');
+    window.scrollTo({top:0,behavior:'instant'});
   }
   $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
   on($('#menuBtn'),'click', function(){ $('#drawer').classList.add('open'); });
   on($('#drawerBack'),'click', function(){ $('#drawer').classList.remove('open'); });
 
   /* ===== Datos comunes ===== */
-  var PLACE_LINK={oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
-  var PLACE_LABEL={oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
-  var WHATSAPP={oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
-  var PHONES={oyambre:"+34942711461",ramales:"+34654463133",ruiloba:"+34942722124",cardeo:"+34664686158"};
-  var WEB={oyambre:"https://www.oyambre.com",ramales:"https://www.campingramales.com",ruiloba:"https://www.campingelhelguero.com",cardeo:"https://www.elcardeo.es"};
-  var EMAILS={oyambre:"camping@oyambre.com",ramales:"info@campingramales.com",ruiloba:"info@campingelhelguero.com",cardeo:"info@elcardeo.es"};
+  var PLACE_LINK={verdemar:"https://maps.google.com/?q=Hotel+Verdemar+Barrio+La+Cotera+15+Valdaliga",oyambre:"https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre",ramales:"https://maps.google.com/?q=Camping+Ramales",ruiloba:"https://maps.google.com/?q=Camping+El+Helguero",cardeo:"https://maps.app.goo.gl/XCzaYGDDLk2CQ8VK6"};
+  var PLACE_LABEL={verdemar:"Hotel Verdemar",oyambre:"Oyambre",ramales:"Ramales",ruiloba:"Ruiloba",cardeo:"El Cardeo"};
+  var WHATSAPP={verdemar:"34662204718",oyambre:"34675696212",ramales:"34654463133",ruiloba:"34652806564",cardeo:"34664686158"};
+  var PHONES={verdemar:"+34662204718",oyambre:"+34942711461",ramales:"+34654463133",ruiloba:"+34942722124",cardeo:"+34664686158"};
+  var WEB={verdemar:"https://www.hotelacobijo.com",oyambre:"https://www.oyambre.com",ramales:"https://www.campingramales.com",ruiloba:"https://www.campingelhelguero.com",cardeo:"https://www.elcardeo.es"};
+  var EMAILS={verdemar:"reservas@hotelacobijo.com",oyambre:"camping@oyambre.com",ramales:"info@campingramales.com",ruiloba:"reservas@campingelhelguero.com",cardeo:"info@elcardeo.es"};
 
   /* ===== Eventos (+ Favoritos + .ics) ===== */
   var EVENTS=[], DATE_FILTER='all', CAMP_FILTER='all';
@@ -1087,7 +1031,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function renderHomeSlider(){
     var wrap=$('#homeEvents'); if(!wrap) return;
     var next=EVENTS.slice().sort((a,b)=>new Date(a.fecha)-new Date(b.fecha)).slice(0,6);
-    if(!next.length){ wrap.innerHTML='<div class="muted">'+I18N[LANG].nextEvents+': —</div>'; return; }
+    if(!next.length){ wrap.innerHTML='<div class="empty-events">'+GUEST_COPY[LANG].empty+'</div>'; return; }
     wrap.innerHTML = next.map(function(ev){
       var rawTitle=i18nField(ev.titulo)||'(sin título)';
       var rawPlace=i18nField(ev.lugar)||PLACE_LABEL[String(ev.camping||'').toLowerCase()]||'';
@@ -1118,6 +1062,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var byDate = DATE_FILTER==='all' ? true : categoryFor(ev.fecha)===DATE_FILTER;
       return byDate && byCamp;
     }).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+    if(empty) empty.textContent=EVENTS.length?GUEST_COPY[LANG].noMatch:GUEST_COPY[LANG].empty;
     if(!filtered.length){ grid.innerHTML=''; if(empty) empty.style.display='block'; return; }
     if(empty) empty.style.display='none';
     grid.innerHTML = filtered.map(function(ev){
@@ -1153,7 +1098,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function loadEvents(){
     fetch('./events.json?v='+(Date.now()),{cache:'no-store'})
-      .then(r=>r.json()).then(data=>{ EVENTS = Array.isArray(data)?data:[]; renderHomeSlider(); renderEventsGrid(); })
+      .then(r=>r.json()).then(data=>{ EVENTS = Array.isArray(data)?data.filter(ev=>new Date(ev.fecha)>=new Date(new Date().setHours(0,0,0,0))):[]; renderHomeSlider(); renderEventsGrid(); })
       .catch(()=>{ EVENTS=[]; renderHomeSlider(); renderEventsGrid(); });
   }
 
@@ -1169,6 +1114,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Horarios ===== */
   var SCHEDULES_DEFAULT={
+    verdemar:{"es": "Consulta con recepción los horarios de desayuno, piscinas, llegada y salida. Tel. +34 662 204 718.", "en": "Ask reception for breakfast, pool, arrival and departure times. Tel. +34 662 204 718.", "fr": "Contactez la réception pour les horaires du petit-déjeuner, des piscines, des arrivées et des départs. Tél. +34 662 204 718.", "de": "Fragen Sie die Rezeption nach Frühstücks-, Pool-, Anreise- und Abreisezeiten. Tel. +34 662 204 718.", "nl": "Vraag de receptie naar ontbijt-, zwembad-, aankomst- en vertrektijden. Tel. +34 662 204 718."},
     oyambre:{
       es:"<b>Recepción</b>: 8:30–22:00<br><b>Bar</b>: 8:30–23:00<br><b>Restaurante</b>: 13:30–15:00 / 19:00–22:00<br><b>Piscinas (toda la temporada)</b>: 9:00–21:00<br><b>Gimnasio</b>: 9:00–21:00<br><b>Lavandería</b>: 24 horas<br><b>Tienda</b>: 8:30–13:00 / 17:00–20:00<br><b>Barrera de entrada</b>: 8:00–23:59 (circulación prohibida 00:00–8:00)<br><b>Check-in parcelas</b>: 13:00 · <b>Check-in alojamientos</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Los horarios pueden variar según la fecha.</i>",
       en:"<b>Reception</b>: 08:30–22:00<br><b>Bar</b>: 08:30–23:00<br><b>Restaurant</b>: 13:30–15:00 / 19:00–22:00<br><b>Pools (all season)</b>: 09:00–21:00<br><b>Gym</b>: 09:00–21:00<br><b>Laundry</b>: 24h<br><b>Shop</b>: 08:30–13:00 / 17:00–20:00<br><b>Entry gate</b>: 08:00–23:59 (no driving 00:00–08:00)<br><b>Pitch check-in</b>: 13:00 · <b>Lodging check-in</b>: 17:00 · <b>Check-out</b>: 12:00<br><i>Hours may vary by date.</i>",
@@ -1200,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', function(){
   };
   var SCHEDULES = JSON.parse(JSON.stringify(SCHEDULES_DEFAULT));
   function renderAcc(){
-    ['oyambre','ramales','ruiloba','cardeo'].forEach(function(k){
+    ['oyambre','ramales','ruiloba','cardeo','verdemar'].forEach(function(k){
       var el=document.getElementById('acc-'+k);
       if(!el) return;
       var item=SCHEDULES[k]||SCHEDULES_DEFAULT[k]||{};
@@ -1217,16 +1163,23 @@ document.addEventListener('DOMContentLoaded', function(){
 
   /* ===== Mi estancia (contactos + horarios + clima) ===== */
   var STAY = localStorage.getItem('stay_place') || 'oyambre';
+  if(!PLACE_LABEL[STAY]) STAY='oyambre';
   var COORDS = {
     oyambre:{lat:43.393, lon:-4.352},
     ramales:{lat:43.263, lon:-3.465},
     ruiloba:{lat:43.387, lon:-4.264},
     cardeo:{lat:43.391, lon:-4.274}
   };
-  function setStayPlace(v){ STAY=String(v||'oyambre').toLowerCase(); localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); updateSugUI(); }
+  function setStayPlace(v){ STAY=PLACE_LABEL[v]?v:'oyambre'; localStorage.setItem('stay_place',STAY); updateStayUI(); updateIncUI(); updateSugUI(); }
   function renderStayContacts(){
     var T=I18N[LANG], place=STAY;
     $('#stayPlace').value=place;
+    $('#homePlace').value=place;
+    $('#stayPhoto').src='assets/places/'+place+'.webp'; $('#stayPhoto').alt=PLACE_LABEL[place];
+    $('#hotelStayInfo').hidden=place!=='verdemar';
+    $('#homeCall').href='tel:'+PHONES[place]; $('#homeCall').textContent=T.call;
+    $('#homeWA').href='https://wa.me/'+WHATSAPP[place];
+    $('#homeDir').href=PLACE_LINK[place]; $('#homeDir').textContent=T.directions;
     var web=WEB[place], tel=PHONES[place], wa=WHATSAPP[place], mail=EMAILS[place], dir=PLACE_LINK[place];
     $('#stayWeb').textContent=T.web; $('#stayWeb').onclick=function(){ location.href=web; };
     var call=$('#stayCall'); call.textContent=T.call; call.href='tel:'+tel;
@@ -1268,13 +1221,15 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
   function fetchWeather(place){
-    var c=COORDS[place]||COORDS.oyambre;
+    var c=COORDS[place]; if(!c){ $('#stayWeather').hidden=true; return; } $('#stayWeather').hidden=false;
     var url = 'https://api.open-meteo.com/v1/forecast?latitude='+c.lat+'&longitude='+c.lon+'&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
-    fetch(url).then(r=>r.json()).then(renderWeather).catch(function(){});
+    fetch(url).then(r=>r.json()).then(data=>{if(STAY===place) renderWeather(data);}).catch(function(){});
   }
   function updateStayUI(){ renderStayContacts(); renderStayHours(); fetchWeather(STAY); }
 
   on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
+  on($('#homePlace'),'change', function(e){ setStayPlace(e.target.value); });
+  $all('[data-place]').forEach(el=>on(el,'click',function(){setStayPlace(el.dataset.place);showView('stay');}));
 
   /* ===== Incidencias ===== */
   function fillIncTypes(){
@@ -1781,7 +1736,8 @@ document.addEventListener('DOMContentLoaded', function(){
   (function adminActivator(){
     var logo=$('#logoTap'); var taps=0,timer=null;
     function askForPin(){
-      var stored = localStorage.getItem('admin_pin') || '311974';
+      var stored = localStorage.getItem('admin_pin');
+      if(!stored){ alert('La administración no está configurada en este dispositivo. Gestiona el contenido desde el repositorio de GitHub.'); return false; }
       var entered = window.prompt('Introduce la contraseña de admin:','');
       if(entered===null) return false;
       if(entered===stored) return true;
@@ -1829,7 +1785,7 @@ document.addEventListener('DOMContentLoaded', function(){
       return '<tr data-id="'+ev.id+'">'
         + '<td class="muted" style="white-space:nowrap">'+esc(ev.id)+'</td>'
         + '<td><input class="input dt" type="datetime-local" value="'+val+'"><div class="muted">'+esc(dt.toLocaleString())+'</div></td>'
-        + '<td><select class="select camp"><option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option><option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option><option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option><option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option></select>'
+        + '<td><select class="select camp"><option value="oyambre" '+(ev.camping==='oyambre'?'selected':'')+'>oyambre</option><option value="ramales" '+(ev.camping==='ramales'?'selected':'')+'>ramales</option><option value="ruiloba" '+(ev.camping==='ruiloba'?'selected':'')+'>ruiloba</option><option value="cardeo" '+(ev.camping==='cardeo'?'selected':'')+'>cardeo</option><option value="verdemar" '+(ev.camping==='verdemar'?'selected':'')+'>verdemar</option></select>'
         + '<input class="input lugar" style="margin-top:6px" placeholder="Lugar (ES)" value="'+esc(lugarES)+'"></td>'
         + '<td><input class="input titulo" placeholder="Título (ES)" value="'+esc(titleES)+'">'
         + '<textarea class="textarea desc" rows="2" placeholder="Descripción (ES)" style="margin-top:6px">'+esc(((ev.descripcion&&ev.descripcion.es)||''))+'</textarea>'
@@ -1854,7 +1810,7 @@ document.addEventListener('DOMContentLoaded', function(){
       img: (tr.querySelector('.img').value||'').trim()
     };
   }
-  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; return ''; }
+  function defaultLugar(p){ if(p==='oyambre')return 'Camping Caravaning Playa de Oyambre'; if(p==='ramales')return 'Camping Ramales'; if(p==='ruiloba')return 'Camping El Helguero'; if(p==='cardeo')return 'Apartamentos El Cardeo'; if(p==='verdemar')return 'Hotel Verdemar'; return ''; }
   function saveRow(tr,id){
     var v=getRowValues(tr); if(!v.titulo||!v.dateLocal||!v.camping){alert('Rellena título, fecha y alojamiento.');return;}
     var idx=ADMIN_EVENTS.findIndex(e=>e.id===id); if(idx<0) return;
@@ -1936,72 +1892,9 @@ document.addEventListener('DOMContentLoaded', function(){
     else alert('Si no aparece el diálogo, usa los pasos indicados arriba.');
   });
 
-  /* ===== Pre-checkin ===== */
-  function compTpl(i){
-    return '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:6px" data-cidx="'+i+'">'
-      +'<div><label>Nombre</label><input class="input c-name" placeholder="Nombre"></div>'
-      +'<div><label>Apellidos</label><input class="input c-surname" placeholder="Apellidos"></div>'
-      +'<div><label>DNI / Pasaporte</label><input class="input c-id" placeholder="DNI o Pasaporte"></div>'
-      +'<div><label>Fecha de nacimiento</label><input class="input c-birth" type="date"></div>'
-      +'<div><button type="button" class="btn sm c-del">🗑️ Eliminar</button></div>'
-      +'</div>';
-  }
-  var compIdx=0;
-  function wireCompRow(row){
-    var btn=row.querySelector('.c-del');
-    if(btn){
-      on(btn,'click',function(){
-        row.parentElement.removeChild(row);
-      });
-    }
-  }
-  on($('#addComp'),'click', function(){
-    compIdx++;
-    var cont=$('#companions');
-    var wrapper=document.createElement('div');
-    wrapper.innerHTML=compTpl(compIdx);
-    var row=wrapper.firstChild;
-    cont.appendChild(row);
-    wireCompRow(row);
-    alert(I18N[LANG].preAdded || 'Acompañante añadido');
-  });
-
-  function buildPreMsg(){
-    var place=$('#prePlace').value||STAY;
-    var placeLabel=PLACE_LABEL[place]||place;
-    var name=$('#preName').value||'';
-    var surname=$('#preSurname').value||'';
-    var id=$('#preId').value||'';
-    var birth=$('#preBirth').value||'';
-    var plate=$('#prePlate').value||'';
-    var comps=[];
-    $all('#companions [data-cidx]').forEach(function(row){
-      comps.push({
-        name:row.querySelector('.c-name').value||'',
-        surname:row.querySelector('.c-surname').value||'',
-        id:row.querySelector('.c-id').value||'',
-        birth:row.querySelector('.c-birth').value||''
-      });
-    });
-    var T=I18N[LANG];
-    var subject='[Pre-checkin] '+placeLabel;
-    var body='Datos de pre-checkin para '+placeLabel+':\n\nTitular:\nNombre: '+name+'\nApellidos: '+surname+'\nDocumento: '+id+'\nFecha de nacimiento: '+birth+'\nMatrícula: '+plate+'\n\nAcompañantes:\n';
-    if(!comps.length){ body+='(sin acompañantes indicados)\n'; }
-    else{
-      comps.forEach(function(c,i){
-        body+='-'+(i+1)+': '+c.name+' '+c.surname+' · '+c.id+' · '+c.birth+'\n';
-      });
-    }
-    body+='\n\nEnviado desde la app de '+T.app+'.';
-    return {place:place, subject:subject, body:body};
-  }
-  on($('#sendPreBtn'),'click', function(){
-    var data=buildPreMsg();
-    var mail=EMAILS[data.place];
-    var url='mailto:'+mail+'?subject='+encodeURIComponent(data.subject)+'&body='+encodeURIComponent(data.body);
-    location.href=url;
-  });
-
+  // Keyboard access for the original menu and accordions.
+  $all('.drawer .item,.acc-h').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button');on(el,'keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});});
+  on(document,'keydown',e=>{if(e.key==='Escape') $('#drawer').classList.remove('open');});
   /* ===== Inicializar ===== */
   renderAcc();
   loadSchedules();
@@ -2012,6 +1905,10 @@ document.addEventListener('DOMContentLoaded', function(){
   updateStayUI();
   updateIncUI();
   updateSugUI();
+  var params=new URLSearchParams(location.search);
+  if(PLACE_LABEL[params.get('focus')]) setStayPlace(params.get('focus'));
+  if(params.get('nav')) showView(params.get('nav'));
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 
 });
 </script>

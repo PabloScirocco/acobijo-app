@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v5-2025-11-06';
+const VERSION      = 'v6-2026-09-25-guest';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -14,7 +14,7 @@ const CORE = [
   R('index.html'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
-  R('manifest.webmanifest')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------
@@ -38,7 +38,7 @@ self.addEventListener('activate', (event) => {
     // Borrar cachés antiguas
     const keys = await caches.keys();
     await Promise.all(keys
-      .filter(k => ![CACHE_STATIC, CACHE_DATA].includes(k))
+      .filter(k => k.startsWith('acobijo-') && ![CACHE_STATIC, CACHE_DATA].includes(k))
       .map(k => caches.delete(k)));
 
     // Navigation Preload (si disponible)
