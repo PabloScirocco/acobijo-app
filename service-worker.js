@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v7-2026-09-25-hotel-hours';
+const VERSION      = 'v8-2026-09-25-oyambre-restaurant';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -14,7 +14,7 @@ const CORE = [
   R('index.html'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
-  R('manifest.webmanifest'), R('assets/guest.css'), R('events.json'), R('schedules.json')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/restaurant.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------

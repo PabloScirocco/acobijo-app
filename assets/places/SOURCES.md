@@ -9,3 +9,9 @@ Consultadas el 25 de septiembre de 2026. Copias optimizadas en WebP para la app 
 - verdemar: https://www.hotelacobijo.com/gallery_gen/d80e5148cf7ad1a3e12b59d937be3261_2400x1800_fit.jpg
 
 Información del hotel: https://www.hotelacobijo.com/, /Habitaciones/, /Servicios-e-Instalaciones/, /Contacto/. No se publican horarios no confirmados.
+
+## Restaurante de Oyambre
+
+Información: https://www.oyambre.com/el-restaurante/
+Fotografías: https://www.oyambre.com/wp-content/uploads/2023/02/restaurante-001.jpg y https://www.oyambre.com/wp-content/uploads/2023/02/restaurante-002.jpg
+Horarios: los existentes en schedules.json (Oyambre). WhatsApp: número oficial general de Oyambre, +34 675 696 212.

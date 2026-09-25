@@ -149,6 +149,7 @@ body.dark .note{background:#1f1a10}
 .emph{font-weight:700}
 </style>
 <link rel="stylesheet" href="assets/guest.css">
+<link rel="stylesheet" href="assets/restaurant.css">
 </head>
 <body>
 
@@ -227,6 +228,12 @@ body.dark .note{background:#1f1a10}
       <div id="stayHours"></div>
     </div>
 
+<section id="oyambreRestaurant" class="card restaurant-card" aria-labelledby="restaurantTitle" hidden>
+  <div class="restaurant-gallery"><img src="assets/places/oyambre-restaurant-food.webp" alt="Ensaladas del restaurante de Oyambre" width="1000" height="750" loading="lazy"><img src="assets/places/oyambre-restaurant.webp" alt="Platos del restaurante de Oyambre" width="1000" height="750" loading="lazy"></div>
+  <div class="restaurant-content"><p class="eyebrow">CAMPING CARAVANING OYAMBRE</p><h3 id="restaurantTitle" data-restaurant="0">Restaurante de Oyambre</h3><p class="restaurant-intro" data-restaurant="1"></p><p class="muted" data-restaurant="2"></p>
+  <dl class="restaurant-hours"><div><dt data-restaurant="3">Restaurante</dt><dd id="restaurantHours"></dd></div><div><dt data-restaurant="4">Bar y cafetería</dt><dd id="restaurantBarHours"></dd></div></dl>
+  <p class="muted small" data-restaurant="5"></p><a id="restaurantWhatsApp" class="btn primary" target="_blank" rel="noopener" data-restaurant="6">Reservar mesa por WhatsApp</a><p class="muted small" data-restaurant="7"></p></div>
+</section>
     <div class="wx" style="margin-top:12px" id="stayWeather">
       <div class="wx-h">
         <h3 id="t-weather-title" style="margin:0">Clima</h3>
@@ -315,7 +322,8 @@ body.dark .note{background:#1f1a10}
           <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Caravaning+Playa+de+Oyambre" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34675696212" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-      </article>
+      <button id="oyambreRestaurantOpen" class="btn" data-restaurant="8">Ver restaurante</button>
+</article>
 
       <article class="card" style="min-width:unset">
         <img class="place-photo" src="assets/places/ramales.webp" alt="ramales" loading="lazy" width="700" height="440"><h3 id="t-ra-title">Camping Ramales</h3>
@@ -873,6 +881,7 @@ document.addEventListener('DOMContentLoaded', function(){
   };
 
   var GUEST_COPY={"es": {"hello": "Estás a cobijo.", "heroSub": "Mar, naturaleza y tiempo para ti. Todo lo que necesitas para disfrutar de tu estancia en Cantabria.", "eyebrow": "TU ESTANCIA EN CANTABRIA", "choose": "¿Dónde te alojas?", "quick": "A un toque de lo que necesitas", "discover": "Cinco lugares. Una forma de acogerte.", "allPlaces": "Ver alojamientos", "empty": "No hay eventos programados por ahora. Aquí encontrarás la próxima programación.", "noMatch": "No hay eventos para estos filtros.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Ver mi estancia", "places": "Alojamientos"}, "en": {"hello": "Make yourself at home.", "heroSub": "Sea, nature and time for yourself. Everything you need for your stay in Cantabria.", "eyebrow": "YOUR STAY IN CANTABRIA", "choose": "Where are you staying?", "quick": "Your essentials, one tap away", "discover": "Five places. One warm welcome.", "allPlaces": "View accommodation", "empty": "No events are scheduled at the moment. The next programme will appear here.", "noMatch": "No events match these filters.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "View my stay", "places": "Accommodation"}, "fr": {"hello": "Bienvenue chez vous.", "heroSub": "La mer, la nature et du temps pour vous. Tout pour votre séjour en Cantabrie.", "eyebrow": "VOTRE SÉJOUR EN CANTABRIE", "choose": "Où séjournez-vous ?", "quick": "Vos essentiels à portée de main", "discover": "Cinq lieux. Un accueil chaleureux.", "allPlaces": "Voir les hébergements", "empty": "Aucun événement programmé pour le moment. Le prochain programme sera publié ici.", "noMatch": "Aucun événement pour ces filtres.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Voir mon séjour", "places": "Hébergements"}, "de": {"hello": "Hier sind Sie zu Hause.", "heroSub": "Meer, Natur und Zeit für sich. Alles für Ihren Aufenthalt in Kantabrien.", "eyebrow": "IHR AUFENTHALT IN KANTABRIEN", "choose": "Wo wohnen Sie?", "quick": "Das Wichtigste mit einem Tippen", "discover": "Fünf Orte. Herzlich willkommen.", "allPlaces": "Unterkünfte ansehen", "empty": "Zurzeit sind keine Veranstaltungen geplant. Das nächste Programm finden Sie hier.", "noMatch": "Keine Veranstaltungen für diese Filter.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Mein Aufenthalt", "places": "Unterkünfte"}, "nl": {"hello": "Voel je thuis.", "heroSub": "Zee, natuur en tijd voor jezelf. Alles voor je verblijf in Cantabrië.", "eyebrow": "JE VERBLIJF IN CANTABRIË", "choose": "Waar verblijf je?", "quick": "Alles wat je nodig hebt, dichtbij", "discover": "Vijf plekken. Eén warm welkom.", "allPlaces": "Bekijk accommodaties", "empty": "Er zijn momenteel geen evenementen gepland. Het volgende programma vind je hier.", "noMatch": "Geen evenementen voor deze filters.", "hotel": "Hotel Verdemar by Grupo A Cobijo", "stayCta": "Mijn verblijf bekijken", "places": "Accommodaties"}};
+  var RESTAURANT_COPY={"es": ["Restaurante de Oyambre", "Sabores de Cantabria, dentro del camping.", "Desayunos, raciones y platos para disfrutar durante tu estancia.", "Restaurante", "Bar y cafetería", "Horarios orientativos; pueden variar según la temporada.", "Reservar mesa por WhatsApp", "Se abrirá WhatsApp con un mensaje preparado. La reserva queda pendiente de confirmación.", "Ver restaurante", "Hola, me gustaría reservar una mesa en el restaurante del Camping Oyambre.\nFecha: \nHora: \nNúmero de personas: \nNombre: \nGracias."], "en": ["Oyambre Restaurant", "A taste of Cantabria, right at the campsite.", "Breakfast, sharing plates and meals to enjoy during your stay.", "Restaurant", "Bar and café", "Indicative opening times; they may vary by season.", "Book a table via WhatsApp", "WhatsApp opens with a prepared message. Your booking is subject to confirmation.", "View restaurant", "Hello, I would like to book a table at Camping Oyambre restaurant.\nDate: \nTime: \nNumber of guests: \nName: \nThank you."], "fr": ["Restaurant d’Oyambre", "Les saveurs de Cantabrie, au camping.", "Petits-déjeuners, assiettes à partager et plats à savourer pendant votre séjour.", "Restaurant", "Bar et café", "Horaires indicatifs, variables selon la saison.", "Réserver une table par WhatsApp", "WhatsApp s’ouvrira avec un message préparé. La réservation reste à confirmer.", "Voir le restaurant", "Bonjour, je souhaite réserver une table au restaurant du Camping Oyambre.\nDate : \nHeure : \nNombre de personnes : \nNom : \nMerci."], "de": ["Restaurant Oyambre", "Kantabrische Küche direkt auf dem Campingplatz.", "Frühstück, Gerichte zum Teilen und Mahlzeiten für Ihren Aufenthalt.", "Restaurant", "Bar und Café", "Ungefähre Öffnungszeiten; saisonale Änderungen möglich.", "Tisch über WhatsApp reservieren", "WhatsApp öffnet sich mit einer vorbereiteten Nachricht. Die Reservierung muss bestätigt werden.", "Restaurant ansehen", "Hallo, ich möchte im Restaurant Camping Oyambre einen Tisch reservieren.\nDatum: \nUhrzeit: \nPersonenzahl: \nName: \nVielen Dank."], "nl": ["Restaurant Oyambre", "De smaken van Cantabrië, op de camping.", "Ontbijt, gerechten om te delen en maaltijden tijdens je verblijf.", "Restaurant", "Bar en café", "Indicatieve openingstijden; deze kunnen per seizoen verschillen.", "Tafel reserveren via WhatsApp", "WhatsApp opent met een klaarstaand bericht. De reservering moet nog worden bevestigd.", "Restaurant bekijken", "Hallo, ik wil graag een tafel reserveren in het restaurant van Camping Oyambre.\nDatum: \nTijd: \nAantal personen: \nNaam: \nBedankt."]};
   function detectLang(){ var s=localStorage.getItem('lang'); if(s) return s; var n=(navigator.language||'es').slice(0,2).toLowerCase(); return I18N[n]?n:'es'; }
   var LANG = detectLang();
   function t(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
@@ -932,6 +941,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // Re-generar opciones de incidencia y sugerencias traducidas
     fillIncTypes();
     fillSugTypes();
+    renderRestaurant();
   }
   applyLang();
 
@@ -1177,6 +1187,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $('#homePlace').value=place;
     $('#stayPhoto').src='assets/places/'+place+'.webp'; $('#stayPhoto').alt=PLACE_LABEL[place];
     $('#hotelStayInfo').hidden=place!=='verdemar';
+    $('#oyambreRestaurant').hidden=place!=='oyambre';
     $('#homeCall').href='tel:'+PHONES[place]; $('#homeCall').textContent=T.call;
     $('#homeWA').href='https://wa.me/'+WHATSAPP[place];
     $('#homeDir').href=PLACE_LINK[place]; $('#homeDir').textContent=T.directions;
@@ -1192,6 +1203,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var cont=$('#stayHours'); if(!cont) return;
     var item=(SCHEDULES[STAY]||SCHEDULES_DEFAULT[STAY]||{});
     cont.innerHTML = item[LANG] || item.es || '';
+    renderRestaurant();
   }
 
   // Weather
@@ -1230,6 +1242,21 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
   on($('#homePlace'),'change', function(e){ setStayPlace(e.target.value); });
   $all('[data-place]').forEach(el=>on(el,'click',function(){setStayPlace(el.dataset.place);showView('stay');}));
+
+  function renderRestaurant(){
+    var R=RESTAURANT_COPY[LANG]||RESTAURANT_COPY.es;
+    $all('[data-restaurant]').forEach(el=>el.textContent=R[Number(el.dataset.restaurant)]);
+    // Read the same schedule data as Mi estancia to avoid conflicting opening times.
+    var schedule=(SCHEDULES&&SCHEDULES.oyambre)||(SCHEDULES_DEFAULT&&SCHEDULES_DEFAULT.oyambre);
+    if(schedule){
+      var lines=(schedule.es||'').split(/<br\s*\/?\s*>/i);
+      function hours(label){ var line=lines.find(x=>x.includes('<b>'+label+'</b>')); var box=document.createElement('div'); box.innerHTML=line||''; return box.textContent.replace(/^[^:]+:\s*/,''); }
+      $('#restaurantHours').textContent=hours('Restaurante');
+      $('#restaurantBarHours').textContent=hours('Bar');
+    }
+    if(WHATSAPP) $('#restaurantWhatsApp').href='https://wa.me/'+WHATSAPP.oyambre+'?text='+encodeURIComponent(R[9]);
+  }
+  on($('#oyambreRestaurantOpen'),'click',function(){setStayPlace('oyambre');showView('stay');$('#oyambreRestaurant').scrollIntoView({block:'start'});});
 
   /* ===== Incidencias ===== */
   function fillIncTypes(){
@@ -1908,6 +1935,7 @@ document.addEventListener('DOMContentLoaded', function(){
   var params=new URLSearchParams(location.search);
   if(PLACE_LABEL[params.get('focus')]) setStayPlace(params.get('focus'));
   if(params.get('nav')) showView(params.get('nav'));
+  if(params.get('section')==='restaurant'){setStayPlace('oyambre');showView('stay');$('#oyambreRestaurant').scrollIntoView({block:'start'});}
   if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 
 });
