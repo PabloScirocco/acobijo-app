@@ -28,10 +28,10 @@
     "nl": "<b>Taverne</b>: 08:30–23:00<br><b>Restaurant (weekenden)</b>: 13:30–15:30 / 20:00–22:30<br><b>Appartementen</b>: check-in 16:00, check-out 12:00<br><small class=\"muted\">Indicatieve tijden; kunnen per datum variëren.</small>"
   },
   "verdemar": {
-    "es": "Consulta con recepción los horarios de desayuno, piscinas, llegada y salida. Tel. +34 662 204 718.",
-    "en": "Ask reception for breakfast, pool, arrival and departure times. Tel. +34 662 204 718.",
-    "fr": "Contactez la réception pour les horaires du petit-déjeuner, des piscines, des arrivées et des départs. Tél. +34 662 204 718.",
-    "de": "Fragen Sie die Rezeption nach Frühstücks-, Pool-, Anreise- und Abreisezeiten. Tel. +34 662 204 718.",
-    "nl": "Vraag de receptie naar ontbijt-, zwembad-, aankomst- en vertrektijden. Tel. +34 662 204 718."
+    "es": "<b>Recepción</b>: 8:30–21:00<br><b>Desayuno</b>: 8:30–11:00<br><b>Piscinas</b>: 10:00–20:00<br><b>Check-in</b>: 16:00–21:00<br><b>Check-out</b>: hasta las 12:00",
+    "en": "<b>Reception</b>: 8:30–21:00<br><b>Breakfast</b>: 8:30–11:00<br><b>Pools</b>: 10:00–20:00<br><b>Check-in</b>: 16:00–21:00<br><b>Check-out</b>: by 12:00",
+    "fr": "<b>Réception</b>: 8:30–21:00<br><b>Petit-déjeuner</b>: 8:30–11:00<br><b>Piscines</b>: 10:00–20:00<br><b>Arrivée</b>: 16:00–21:00<br><b>Départ</b>: jusqu’à 12:00",
+    "de": "<b>Rezeption</b>: 8:30–21:00<br><b>Frühstück</b>: 8:30–11:00<br><b>Schwimmbäder</b>: 10:00–20:00<br><b>Check-in</b>: 16:00–21:00<br><b>Check-out</b>: bis 12:00 Uhr",
+    "nl": "<b>Receptie</b>: 8:30–21:00<br><b>Ontbijt</b>: 8:30–11:00<br><b>Zwembaden</b>: 10:00–20:00<br><b>Inchecken</b>: 16:00–21:00<br><b>Uitchecken</b>: uiterlijk 12:00"
   }
 }
