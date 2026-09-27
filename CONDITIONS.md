@@ -29,3 +29,7 @@ Revisión: 27/09/2026. Los resúmenes están en assets/conditions.js, en cinco i
 - Mascotas: https://www.campingramales.com/wp-content/uploads/2024/04/admision-de-animales-ramales.pdf (4 páginas, septiembre de 2023). Comprobados admisión, 2 animales por reserva/habitación confirmada, 10 €/mascota/noche, documentación, supervisión, asistencia y responsabilidad. Zonas prohibidas propias de Ramales, sin copiar piscinas/gimnasio/pequeclub de Oyambre.
 - Tipos separados en Parcelas y Alojamientos (Bungalow, Zíngaro, Apartamento), con enlaces a las fichas oficiales /alojamientos/parcelas/, /bungalows/, /zingaros/ y /apartamentos/. Superficies y ocupaciones según dichas fichas.
 - Las condiciones de cancelación y pago de Ramales se mantienen.
+
+- Corrección de presentación de Ramales: parcelas, bungalow, zíngaro y apartamento se muestran como miniaturas con imagen en la galería; se retiran los bloques de texto separados.
+
+- Ruiloba: el titular confirma expresamente que las condiciones de mascotas son las mismas que en Oyambre. Se añade el mismo resumen traducido, con título Ruiloba. El enlace de mascotas publicado en la web de Ruiloba no devuelve un PDF válido durante la consulta, por lo que no se añade un enlace roto.
