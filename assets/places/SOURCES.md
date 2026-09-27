@@ -41,3 +41,10 @@ Ramales restaurant: https://www.campingramales.com/wp-content/uploads/2022/11/ba
 - `oyambre-confort.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/confort-001.jpg (imagen de la ficha oficial correspondiente).
 - `oyambre-gran-confort.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/gran-confort-001.jpg (imagen de la ficha oficial correspondiente).
 - `oyambre-hard-standing.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/hard-standing-001.jpg (imagen de la ficha oficial correspondiente).
+
+## Ramales: galería corregida · 27/09/2026
+Fotos de la web oficial recuperadas de Internet Archive debido a la indisponibilidad del servidor de origen. Miniaturas oficiales de 500×500, convertidas a WebP.
+- ramales-apartamento.webp: https://www.campingramales.com/wp-content/uploads/2022/02/apartamentos-001-2-500x500.jpg (captura 20240611052050; https://web.archive.org/web/20240611052050id_/https://www.campingramales.com/wp-content/uploads/2022/02/apartamentos-001-2-500x500.jpg)
+- ramales-bungalow.webp: https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-001-1-500x500.jpg (captura 20240611103638; https://web.archive.org/web/20240611103638id_/https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-001-1-500x500.jpg)
+- ramales-parcelas.webp: http://www.campingramales.com/wp-content/uploads/2022/02/parcelas-new-500x500.jpg (captura 20230505000756; https://web.archive.org/web/20230505000756id_/http://www.campingramales.com/wp-content/uploads/2022/02/parcelas-new-500x500.jpg)
+- ramales-zingaro.webp: https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-001-1-500x500.jpg (captura 20240613005859; https://web.archive.org/web/20240613005859id_/https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-001-1-500x500.jpg)
