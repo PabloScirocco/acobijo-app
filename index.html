@@ -412,9 +412,9 @@ body.dark .note{background:#1f1a10}
 
   <!-- FAVORITOS DEL EQUIPO -->
 <section id="view-routes" class="view" aria-labelledby="routesTitle">
-  <header class="routes-hero"><p class="eyebrow">GRUPO A COBIJO · WIKILOC</p><h2 id="routesTitle" data-route-copy="title">Sal a descubrir Cantabria.</h2><p data-route-copy="intro">Rutas de nuestro perfil de Wikiloc para disfrutar a tu ritmo. Elige tu alojamiento y encuentra tu próximo paseo.</p><a class="btn" href="https://es.wikiloc.com/wikiloc/user.do?id=1606031" target="_blank" rel="noopener" data-route-copy="profile">Nuestro perfil en Wikiloc ↗</a></header>
+  <header class="routes-hero"><p class="eyebrow">GRUPO A COBIJO · WIKILOC</p><h2 id="routesTitle" data-route-copy="title">Sal a descubrir Cantabria.</h2><p data-route-copy="intro">Rutas seleccionadas por Grupo A Cobijo en Wikiloc. Explora nuestras colecciones a pie y en bici.</p><a class="btn" href="https://es.wikiloc.com/wikiloc/user.do?id=1606031" target="_blank" rel="noopener" data-route-copy="profile">Nuestro perfil en Wikiloc ↗</a></header>
   <form id="routeFilters" class="card route-filters" aria-label="Filtros de rutas">
-    <label><span data-route-copy="place">Tu alojamiento</span><select id="routePlace" class="select"></select></label>
+    <label><span data-route-copy="place">Colección de rutas</span><select id="routePlace" class="select"></select></label>
     <label><span data-route-copy="activity">Actividad</span><select id="routeActivity" class="select"></select></label>
     <label><span data-route-copy="distance">Distancia</span><select id="routeDistance" class="select"></select></label>
     <label><span data-route-copy="duration">Duración</span><select id="routeDuration" class="select"></select></label>
@@ -424,7 +424,7 @@ body.dark .note{background:#1f1a10}
     <label><span data-route-copy="sort">Ordenar</span><select id="routeSort" class="select"></select></label>
     <button class="btn" type="reset" data-route-copy="reset">Limpiar filtros</button>
   </form>
-  <p id="routeContext" class="route-context"></p><p id="routeCount" role="status" aria-live="polite"></p>
+  <p id="routeContext" class="route-context"></p><a id="routeCollectionLink" class="btn" target="_blank" rel="noopener" hidden></a><p id="routeCount" role="status" aria-live="polite"></p>
   <div id="routeResults" class="route-grid"></div>
   <div id="routeEmpty" class="card" hidden><h3 data-route-copy="noResults">No hay rutas para estos filtros.</h3><p id="routeEmptyText"></p><button class="btn" type="button" id="routeEmptyReset" data-route-copy="reset">Limpiar filtros</button></div>
   <p class="muted route-footnote" data-route-copy="note">Distancias y tiempos registrados en Wikiloc; el tiempo real depende del ritmo y las paradas. En las rutas de solo ida, prevé la vuelta. Abre la ficha para consultar el recorrido y su estado.</p>
