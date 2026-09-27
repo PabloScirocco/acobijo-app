@@ -185,9 +185,9 @@ body.dark .note{background:#1f1a10}
  const copy=words[lang]||words.es;document.getElementById('welcomeFirst').textContent=copy[0];document.getElementById('welcomeSecond').textContent=copy[1];button.textContent=copy[2];
  let dismissed=false,locked=[];const previous=document.activeElement;
  function close(){if(dismissed)return;dismissed=true;screen.hidden=true;locked.forEach(el=>el.inert=false);if(screen.contains(document.activeElement)){if(previous&&previous!==document.body)previous.focus();else document.getElementById('menuBtn')?.focus({preventScroll:true});}}
- screen.hidden=false;button.addEventListener('click',close);screen.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
- document.addEventListener('DOMContentLoaded',()=>{if(dismissed)return;locked=Array.from(document.body.children).filter(el=>el!==screen&&!el.inert&&!['SCRIPT','STYLE'].includes(el.tagName));locked.forEach(el=>el.inert=true);button.focus({preventScroll:true});setTimeout(close,2200);});
- window.addEventListener('pageshow',e=>{if(e.persisted)close();});
+ screen.hidden=false;button.addEventListener('click',close);
+ document.addEventListener('DOMContentLoaded',()=>{if(dismissed)return;locked=Array.from(document.body.children).filter(el=>el!==screen&&!el.inert&&!['SCRIPT','STYLE'].includes(el.tagName));locked.forEach(el=>el.inert=true);button.focus({preventScroll:true});});
+ 
 })();
 </script>
 
