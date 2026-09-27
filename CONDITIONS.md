@@ -20,3 +20,7 @@ Revisión: 27/09/2026. Los resúmenes están en assets/conditions.js, en cinco i
 - El titular confirma cancelación gratuita hasta 15 días antes de llegada; sustituye el plazo antiguo de 7 días. La app retira el enlace al PDF de reservas antiguo de esta sección para evitar contradicciones.
 - Seguro facilitado por el titular: CGA_CC_ES[40].pdf, contrato 7815, 30 páginas; copia íntegra en assets/oyambre-insurance.pdf. Resumen en cinco idiomas. Precio no indicado en el documento: no se atribuye a Oyambre el 5% de Ruiloba.
 - Fuentes: tabla págs. 3–4; suscripción pág. 4; cancelación y exclusiones págs. 5–10; declaración específica de cancelación en 5 días hábiles pág. 9 (difiere del plazo general de 10 días pág. 2); interrupción pág. 11.
+
+## Mascotas en Oyambre
+- Documento enlazado en el pie de la web oficial, consultado el 27/09/2026: https://www.oyambre.com/wp-content/uploads/2024/04/admision-de-animales-oyambre.pdf (4 páginas, fechado septiembre de 2023).
+- Apartado específico en cinco idiomas: admisión previa, máximo publicado, suplemento publicado de 10 €/mascota/noche, documentación, zonas permitidas/prohibidas, supervisión, régimen separado de asistencia y responsabilidad. Se conserva acceso al documento íntegro.
