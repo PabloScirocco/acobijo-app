@@ -24,3 +24,8 @@ Revisión: 27/09/2026. Los resúmenes están en assets/conditions.js, en cinco i
 ## Mascotas en Oyambre
 - Documento enlazado en el pie de la web oficial, consultado el 27/09/2026: https://www.oyambre.com/wp-content/uploads/2024/04/admision-de-animales-oyambre.pdf (4 páginas, fechado septiembre de 2023).
 - Apartado específico en cinco idiomas: admisión previa, máximo publicado, suplemento publicado de 10 €/mascota/noche, documentación, zonas permitidas/prohibidas, supervisión, régimen separado de asistencia y responsabilidad. Se conserva acceso al documento íntegro.
+
+## Ramales · 27/09/2026
+- Mascotas: https://www.campingramales.com/wp-content/uploads/2024/04/admision-de-animales-ramales.pdf (4 páginas, septiembre de 2023). Comprobados admisión, 2 animales por reserva/habitación confirmada, 10 €/mascota/noche, documentación, supervisión, asistencia y responsabilidad. Zonas prohibidas propias de Ramales, sin copiar piscinas/gimnasio/pequeclub de Oyambre.
+- Tipos separados en Parcelas y Alojamientos (Bungalow, Zíngaro, Apartamento), con enlaces a las fichas oficiales /alojamientos/parcelas/, /bungalows/, /zingaros/ y /apartamentos/. Superficies y ocupaciones según dichas fichas.
+- Las condiciones de cancelación y pago de Ramales se mantienen.
