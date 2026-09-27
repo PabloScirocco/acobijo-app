@@ -160,6 +160,7 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/awards.css?v=20260927-29">
 <script defer src="assets/awards.js?v=20260927-29"></script>
 <link rel="stylesheet" href="assets/interactions.css?v=20260927-30">
+<link rel="stylesheet" href="assets/palette.css?v=20260927-31">
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
@@ -174,7 +175,7 @@ body.dark .note{background:#1f1a10}
 /* Brief welcome on a fresh page load, never on in-app navigation or resume. */
 #welcomeScreen{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:28px;background:radial-gradient(ellipse at 50% 25%,#fffdf8 0%,#f3ecdf 60%,#e8decb 100%);color:#23566a;text-align:center;box-sizing:border-box}
 #welcomeScreen[hidden]{display:none}
-.welcome-inner{max-width:440px;animation:welcome-in .45s ease-out both}.welcome-logo{width:160px;height:160px;object-fit:contain;display:block;margin:0 auto 32px}.welcome-small{font:600 13px/1.5 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.2em;margin:0 0 14px}.welcome-message{font:400 clamp(30px,7vw,46px)/1.2 Georgia,serif;margin:0}.welcome-message strong{display:block;font-weight:400;margin-top:8px}.welcome-enter{margin-top:34px;border:1px solid #23566a55;background:transparent;color:#23566a;padding:12px 28px;border-radius:30px;font:600 14px system-ui,sans-serif;cursor:pointer}.welcome-enter:focus-visible{outline:3px solid #23566a;outline-offset:5px}
+.welcome-inner{max-width:440px;mix-blend-mode:multiply;animation:welcome-in .45s ease-out both}.welcome-logo{width:160px;height:160px;object-fit:contain;display:block;margin:0 auto 32px}.welcome-small{font:600 13px/1.5 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.2em;margin:0 0 14px}.welcome-message{font:400 clamp(30px,7vw,46px)/1.2 Georgia,serif;margin:0}.welcome-message strong{display:block;font-weight:400;margin-top:8px}.welcome-enter{margin-top:34px;border:1px solid #23566a55;background:transparent;color:#23566a;padding:12px 28px;border-radius:30px;font:600 14px system-ui,sans-serif;cursor:pointer}.welcome-enter:focus-visible{outline:3px solid #23566a;outline-offset:5px}
 @keyframes welcome-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.welcome-inner{animation:none}}
 </style>
