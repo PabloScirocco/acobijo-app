@@ -9,9 +9,14 @@ Revisión: 27/09/2026. Los resúmenes están en assets/conditions.js, en cinco i
 - Seguro enlazado por Ruiloba: https://www.campingelhelguero.com/wp-content/uploads/2026/05/Condiciones-generales-de-venta.pdf — el archivo es la póliza 7815, no las condiciones de reserva del camping. Contrastar tabla pp. 3–4, cancelación pp. 5–10 e interrupción pp. 11–12. La web publica prima del 5%, contratación al reservar y prima no reembolsable.
 
 ## Puntos para confirmar con el propietario
-- Los documentos de Oyambre, Ramales y Verdemar describen más/menos de 7 días, pero no resuelven explícitamente el instante exacto del límite. La app remite a recepción para ese caso.
+- Los documentos de Ramales y Verdemar describen más/menos de 7 días, pero no resuelven explícitamente el instante exacto del límite. La app remite a recepción para ese caso.
 - El PDF de Ramales no especifica claramente cuándo pagar el saldo de los apartamentos. La app no extrapola el plazo de los bungalows.
 - El Cardeo y Verdemar incluyen edades de identificación distintas (14/16) en apartados diferentes; no se reproducen en el resumen de reservas.
 - Los textos incluyen referencias copiadas a otros establecimientos/webs. Los enlaces se mantienen como fuentes; no se corrigen documentos ajenos desde la app.
-- No se ha confirmado una póliza para Oyambre, Ramales, Cardeo ni Verdemar: no se les atribuye el seguro de Ruiloba.
+- No se ha confirmado una póliza para Ramales, Cardeo ni Verdemar: no se les atribuye el seguro de Ruiloba.
 - Los resúmenes explican lo publicado; no sustituyen la confirmación, las condiciones particulares ni la póliza contratada.
+
+## Corrección de Oyambre · 27/09/2026
+- El titular confirma cancelación gratuita hasta 15 días antes de llegada; sustituye el plazo antiguo de 7 días. La app retira el enlace al PDF de reservas antiguo de esta sección para evitar contradicciones.
+- Seguro facilitado por el titular: CGA_CC_ES[40].pdf, contrato 7815, 30 páginas; copia íntegra en assets/oyambre-insurance.pdf. Resumen en cinco idiomas. Precio no indicado en el documento: no se atribuye a Oyambre el 5% de Ruiloba.
+- Fuentes: tabla págs. 3–4; suscripción pág. 4; cancelación y exclusiones págs. 5–10; declaración específica de cancelación en 5 días hábiles pág. 9 (difiere del plazo general de 10 días pág. 2); interrupción pág. 11.
