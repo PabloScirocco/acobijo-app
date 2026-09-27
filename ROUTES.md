@@ -15,3 +15,5 @@ Distancia, desnivel, dificultad, tipo y tiempo total consultados en cada ficha. 
 La colección no implica salida desde el alojamiento. Solo se marca salida directa cuando el título identifica el camping; se conservan los puntos de salida externos. Los accesos de Cardeo y Verdemar abren la colección Oyambre por zona, con su nombre visible y sin atribuirles salidas directas. Cantabria está disponible para todos.
 
 Para actualizar: revisar las listas completas, deduplicar por ID conservando places (pertenencia a colección), comprobar estadísticas individuales en Wikiloc, actualizar assets/routes-data.js y versión de caché. Revisar filtros con work/test-routes.cjs desde el directorio de trabajo padre.
+
+Corrección del propietario (27-09-2026): todas las rutas ciclistas se muestran como bici de montaña. Se unifican gravel y montaña y se corrige la categoría carretera en la app, manteniendo los enlaces originales.
