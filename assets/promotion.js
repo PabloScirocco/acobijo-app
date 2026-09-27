@@ -2,11 +2,11 @@
 'use strict';
 const end=Date.parse('2026-11-02T00:00:00+01:00');
 const copy={
-es:['Exclusivo en la app','15 % de descuento','En cualquier reserva realizada hasta el 1 de noviembre de 2026, en cualquiera de nuestros establecimientos.','Código','Copiar código','Código copiado','No se pudo copiar. Selecciona el código APPCOBIJO para copiarlo.'],
-en:['App exclusive','15% off','On any booking made by 1 November 2026, at any of our establishments.','Code','Copy code','Code copied','Could not copy. Select APPCOBIJO to copy it.'],
-fr:['Exclusivité de l’application','15 % de réduction','Sur toute réservation effectuée jusqu’au 1er novembre 2026 inclus, dans l’un de nos établissements.','Code','Copier le code','Code copié','Copie impossible. Sélectionnez APPCOBIJO pour le copier.'],
-de:['Exklusiv in der App','15 % Rabatt','Auf jede Buchung bis einschließlich 1. November 2026 in allen unseren Unterkünften.','Code','Code kopieren','Code kopiert','Kopieren nicht möglich. Wählen Sie APPCOBIJO aus, um den Code zu kopieren.'],
-nl:['Exclusief in de app','15% korting','Op elke boeking die uiterlijk 1 november 2026 wordt gemaakt, bij al onze accommodaties.','Code','Code kopiëren','Code gekopieerd','Kopiëren is niet gelukt. Selecteer APPCOBIJO om de code te kopiëren.']};
+es:['Exclusivo en la app','15 % de descuento','En reservas realizadas hasta el 1 de noviembre de 2026 a través de las webs oficiales de cualquiera de nuestros establecimientos. No aplicable a tarifas especiales.','Código','Copiar código','Código copiado','No se pudo copiar. Selecciona el código APPCOBIJO para copiarlo.'],
+en:['App exclusive','15% off','On bookings made by 1 November 2026 through the official websites of any of our establishments. Not valid on special rates.','Code','Copy code','Code copied','Could not copy. Select APPCOBIJO to copy it.'],
+fr:['Exclusivité de l’application','15 % de réduction','Pour les réservations effectuées jusqu’au 1er novembre 2026 inclus sur les sites officiels de nos établissements. Non applicable aux tarifs spéciaux.','Code','Copier le code','Code copié','Copie impossible. Sélectionnez APPCOBIJO pour le copier.'],
+de:['Exklusiv in der App','15 % Rabatt','Für Buchungen bis einschließlich 1. November 2026 über die offiziellen Websites unserer Unterkünfte. Gilt nicht für Sondertarife.','Code','Code kopieren','Code kopiert','Kopieren nicht möglich. Wählen Sie APPCOBIJO aus, um den Code zu kopieren.'],
+nl:['Exclusief in de app','15% korting','Voor boekingen die uiterlijk 1 november 2026 via de officiële websites van onze accommodaties worden gemaakt. Niet geldig voor speciale tarieven.','Code','Code kopiëren','Code gekopieerd','Kopiëren is niet gelukt. Selecteer APPCOBIJO om de code te kopiëren.']};
 let banner,timer;
 const t=()=>copy[localStorage.getItem('lang')]||copy.es;
 function render(){if(!banner)return;banner.hidden=Date.now()>=end;if(banner.hidden)return;const c=t();banner.querySelectorAll('[data-promo-copy]').forEach(n=>n.textContent=c[Number(n.dataset.promoCopy)]);banner.querySelector('.promo-feedback').textContent='';clearTimeout(timer);timer=setTimeout(render,Math.min(Math.max(1,end-Date.now()),86400000));}
