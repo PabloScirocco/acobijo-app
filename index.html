@@ -153,6 +153,8 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/routes.css">
 <script defer src="assets/routes-data.js"></script>
 <script defer src="assets/routes.js"></script>
+<link rel="stylesheet" href="assets/stay-tools.css">
+<script defer src="assets/stay-tools.js"></script>
 <style>
 /* Keep the full establishment names readable and align card photographs. */
 .place-preview{display:flex;flex-direction:column;align-items:stretch}
@@ -234,6 +236,7 @@ body.dark .note{background:#1f1a10}
       </div>
     </div>
 
+    <section id="stayTools" class="card stay-tools" aria-label="Servicios de la estancia"></section>
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
       <div id="stayHours"></div>
@@ -980,6 +983,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fillIncTypes();
     fillSugTypes();
     renderRestaurant();
+    window.dispatchEvent(new CustomEvent("acobijo:stay-tools",{detail:{schedules:SCHEDULES,place:STAY,lang:LANG,contact:$("#stayWA").href}}));
   }
   applyLang();
 
@@ -1238,6 +1242,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var item=(SCHEDULES[STAY]||SCHEDULES_DEFAULT[STAY]||{});
     cont.innerHTML = item[LANG] || item.es || '';
     renderRestaurant();
+    window.dispatchEvent(new CustomEvent("acobijo:stay-tools",{detail:{schedules:SCHEDULES,place:STAY,lang:LANG,contact:$("#stayWA").href}}));
   }
 
   // Weather

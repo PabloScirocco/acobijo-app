@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v14-2026-09-27-mountain-bike';
+const VERSION      = 'v15-2026-09-27-stay-tools';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -14,7 +14,7 @@ const CORE = [
   R('index.html'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
-  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/restaurant.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('events.json'), R('schedules.json')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/restaurant.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------
