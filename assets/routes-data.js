@@ -231,7 +231,7 @@ window.ACOBIJO_ROUTES = [
       "ramales"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "ramales",
     "start": "Camping Ramales",
@@ -251,7 +251,7 @@ window.ACOBIJO_ROUTES = [
       "ramales"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "ramales",
     "start": "Camping Ramales",
@@ -271,7 +271,7 @@ window.ACOBIJO_ROUTES = [
       "ramales"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "ramales",
     "start": "Camping Ramales",
@@ -291,7 +291,7 @@ window.ACOBIJO_ROUTES = [
       "ramales"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "ramales",
     "start": "Camping Ramales",
@@ -333,7 +333,7 @@ window.ACOBIJO_ROUTES = [
       "oyambre"
     ],
     "activity": "bike",
-    "discipline": "gravel",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": null,
     "start": "Ruente",
@@ -433,7 +433,7 @@ window.ACOBIJO_ROUTES = [
       "oyambre"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "oyambre",
     "start": "Caravaning Oyambre",
@@ -493,7 +493,7 @@ window.ACOBIJO_ROUTES = [
       "oyambre"
     ],
     "activity": "bike",
-    "discipline": "road",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "oyambre",
     "start": "Caravaning Oyambre",
@@ -513,7 +513,7 @@ window.ACOBIJO_ROUTES = [
       "oyambre"
     ],
     "activity": "bike",
-    "discipline": "gravel",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "oyambre",
     "start": "Caravaning Oyambre",
@@ -533,7 +533,7 @@ window.ACOBIJO_ROUTES = [
       "oyambre"
     ],
     "activity": "bike",
-    "discipline": "gravel",
+    "discipline": "mtb",
     "author": "pablo-camping",
     "departurePlace": "oyambre",
     "start": "Caravaning Oyambre",
