@@ -48,3 +48,17 @@ Fotos de la web oficial recuperadas de Internet Archive debido a la indisponibil
 - ramales-bungalow.webp: https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-001-1-500x500.jpg (captura 20240611103638; https://web.archive.org/web/20240611103638id_/https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-001-1-500x500.jpg)
 - ramales-parcelas.webp: http://www.campingramales.com/wp-content/uploads/2022/02/parcelas-new-500x500.jpg (captura 20230505000756; https://web.archive.org/web/20230505000756id_/http://www.campingramales.com/wp-content/uploads/2022/02/parcelas-new-500x500.jpg)
 - ramales-zingaro.webp: https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-001-1-500x500.jpg (captura 20240613005859; https://web.archive.org/web/20240613005859id_/https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-001-1-500x500.jpg)
+
+## Ruiloba y Verdemar · 27/09/2026
+Las fotos de parcelas Ruiloba son generales y se identifican así en la galería; la web no distingue visualmente Standard/Confort.
+- ruiloba-standard.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_112922.jpg
+- ruiloba-confort.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20220526_112938.jpg
+- ruiloba-comillas.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/05/20240419_122922-copia-1.jpg
+- ruiloba-comillas-plus.webp: https://www.campingelhelguero.com/wp-content/uploads/2026/04/20260421_112122.jpg
+- ruiloba-cantabria.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/20230609_104009.jpg
+- ruiloba-ruiloba.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20230609_102755.jpg
+- ruiloba-morea.webp: https://www.campingelhelguero.com/wp-content/uploads/2026/04/20260421_120250.jpg
+- ruiloba-casa.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_112809-1.jpg
+- ruiloba-cabanas.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_111615.jpg
+- verdemar-exterior.webp: https://www.hotelacobijo.com/gallery_gen/0410896e0f595a8b9e483589b9e4a93f_fit.jpg
+- verdemar-piscina.webp: https://www.hotelacobijo.com/gallery_gen/98f1912b125269e15383acfe92047e8e_fit.jpg
