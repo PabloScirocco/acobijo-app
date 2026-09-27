@@ -15,7 +15,7 @@ function openForPlace(){const filter=$('#awardPlace');filter.value=names[place]?
 function renderGrid(){const target=$('#awardsGrid');target.replaceChildren();awards.filter(a=>$('#awardPlace').value==='all'||a.place===$('#awardPlace').value).sort((a,b)=>b.year-a.year).forEach(a=>target.append(card(a,false)));}
 function render(){if(!ready)return;const c=t();document.querySelectorAll('[data-award-copy]').forEach(n=>n.textContent=c[Number(n.dataset.awardCopy)]);renderGrid();
  const section=$('#stayAwards');const list=awards.filter(a=>a.place===place);section.hidden=!list.length;section.replaceChildren();if(!list.length)return;
- const heading=el('div','','section-heading');heading.append(el('h3',c[0],'section-title'));const b=el('button',c[6]+' ↗','text-link');b.type='button';b.onclick=openForPlace;heading.append(b);const grid=el('div','','award-stay-grid');list.slice(0,3).forEach(a=>grid.append(card(a,true)));section.append(heading,grid);
+ const heading=el('div','','section-heading');heading.append(el('h3',c[0],'section-title'));const b=el('button',c[6]+' ↗','text-link');b.type='button';b.onclick=openForPlace;heading.append(b);const grid=el('div','','award-stay-grid');list.forEach(a=>grid.append(card(a,true)));section.append(heading,grid);
 }
 window.addEventListener('acobijo:stay-tools',e=>{lang=e.detail.lang||'es';place=e.detail.place;render();});
 document.addEventListener('acobijo:language',()=>{lang=localStorage.getItem('lang')||'es';render();});
