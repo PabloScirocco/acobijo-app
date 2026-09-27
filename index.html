@@ -241,6 +241,12 @@ body.dark .note{background:#1f1a10}
   <dl class="restaurant-hours"><div><dt data-restaurant="3">Restaurante</dt><dd id="restaurantHours"></dd></div><div><dt data-restaurant="4">Bar y cafetería</dt><dd id="restaurantBarHours"></dd></div></dl>
   <p class="muted small" data-restaurant="5"></p><a id="restaurantWhatsApp" class="btn primary" target="_blank" rel="noopener" data-restaurant="6">Reservar mesa por WhatsApp</a><p class="muted small" data-restaurant="7"></p></div>
 </section>
+<section id="ramalesRestaurant" class="card restaurant-card" aria-labelledby="ramalesRestaurantTitle" hidden>
+  <div class="restaurant-gallery"><img src="https://www.campingramales.com/wp-content/uploads/2022/11/bar-restaurante-new.jpg" alt="Bar y restaurante de Camping Ramales" width="1000" height="750" loading="lazy" onerror="this.hidden=true;this.parentElement.style.gridTemplateColumns='1fr'"><img src="assets/places/ramales.webp" alt="Entorno natural de Camping Ramales" width="1000" height="750" loading="lazy"></div>
+  <div class="restaurant-content"><p class="eyebrow">CAMPING RAMALES</p><h3 id="ramalesRestaurantTitle" data-ramales-restaurant="0">Restaurante de Ramales</h3><p class="restaurant-intro" data-ramales-restaurant="1"></p><p class="muted" data-ramales-restaurant="2"></p>
+  <dl class="restaurant-hours"><div><dt data-ramales-restaurant="3">Restaurante</dt><dd id="ramalesRestaurantHours"></dd></div><div><dt data-ramales-restaurant="4">Bar y cafetería</dt><dd id="ramalesRestaurantBarHours"></dd></div></dl>
+  <p class="muted small" data-ramales-restaurant="5"></p><a id="ramalesRestaurantWhatsApp" class="btn primary" target="_blank" rel="noopener" data-ramales-restaurant="6">Reservar mesa por WhatsApp</a><p class="muted small" data-ramales-restaurant="7"></p></div>
+</section>
     <div class="wx" style="margin-top:12px" id="stayWeather">
       <div class="wx-h">
         <h3 id="t-weather-title" style="margin:0">Clima</h3>
@@ -341,6 +347,7 @@ body.dark .note{background:#1f1a10}
           <a class="btn" data-i18n-directions href="https://maps.google.com/?q=Camping+Ramales" target="_blank" rel="noopener">Cómo llegar</a>
           <a class="btn primary" data-i18n-whatsapp href="https://wa.me/34654463133" target="_blank" rel="noopener">WhatsApp</a>
         </div>
+      <button id="ramalesRestaurantOpen" class="btn" data-ramales-restaurant="8">Ver restaurante</button>
       </article>
 
       <article class="card" style="min-width:unset">
@@ -1189,6 +1196,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $('#stayPhoto').src='assets/places/'+place+'.webp'; $('#stayPhoto').alt=PLACE_LABEL[place];
     $('#hotelStayInfo').hidden=place!=='verdemar';
     $('#oyambreRestaurant').hidden=place!=='oyambre';
+    $('#ramalesRestaurant').hidden=place!=='ramales';
     $('#homeCall').href='tel:'+PHONES[place]; $('#homeCall').textContent=T.call;
     $('#homeWA').href='https://wa.me/'+WHATSAPP[place];
     $('#homeDir').href=PLACE_LINK[place]; $('#homeDir').textContent=T.directions;
@@ -1245,19 +1253,23 @@ document.addEventListener('DOMContentLoaded', function(){
   $all('[data-place]').forEach(el=>on(el,'click',function(){setStayPlace(el.dataset.place);showView('stay');}));
 
   function renderRestaurant(){
-    var R=RESTAURANT_COPY[LANG]||RESTAURANT_COPY.es;
-    $all('[data-restaurant]').forEach(el=>el.textContent=R[Number(el.dataset.restaurant)]);
-    // Read the same schedule data as Mi estancia to avoid conflicting opening times.
-    var schedule=(SCHEDULES&&SCHEDULES.oyambre)||(SCHEDULES_DEFAULT&&SCHEDULES_DEFAULT.oyambre);
-    if(schedule){
-      var lines=(schedule.es||'').split(/<br\s*\/?\s*>/i);
-      function hours(label){ var line=lines.find(x=>x.includes('<b>'+label+'</b>')); var box=document.createElement('div'); box.innerHTML=line||''; return box.textContent.replace(/^[^:]+:\s*/,''); }
-      $('#restaurantHours').textContent=hours('Restaurante');
-      $('#restaurantBarHours').textContent=hours('Bar');
-    }
-    if(WHATSAPP) $('#restaurantWhatsApp').href='https://wa.me/'+WHATSAPP.oyambre+'?text='+encodeURIComponent(R[9]);
+    ['oyambre','ramales'].forEach(function(place){
+      var R=(RESTAURANT_COPY[LANG]||RESTAURANT_COPY.es).map(text=>place==='ramales'?text.replace(/Oyambre/g,'Ramales'):text);
+      var prefix=place==='ramales'?'ramalesRestaurant':'restaurant';
+      var attr=place==='ramales'?'data-ramales-restaurant':'data-restaurant';
+      $all('['+attr+']').forEach(el=>el.textContent=R[Number(el.getAttribute(attr))]);
+      var schedule=(SCHEDULES&&SCHEDULES[place])||(SCHEDULES_DEFAULT&&SCHEDULES_DEFAULT[place]);
+      if(schedule){
+        var lines=(schedule[LANG]||schedule.es||'').split(/<br\s*\/?\s*>/i);
+        var labels={es:['Restaurante',place==='ramales'?'Cafetería':'Bar'],en:['Restaurant',place==='ramales'?'Café/Bar':'Bar'],fr:['Restaurant',place==='ramales'?'Cafétéria':'Bar'],de:['Restaurant',place==='ramales'?'Café/Bar':'Bar'],nl:['Restaurant',place==='ramales'?'Cafetaria':'Bar']}[LANG]||['Restaurante','Bar'];
+        function hours(label){var line=lines.find(x=>x.includes('<b>'+label+'</b>'));var box=document.createElement('div');box.innerHTML=line||'';return box.textContent.replace(/^[^:]+:\s*/,'');}
+        $('#'+prefix+'Hours').textContent=hours(labels[0]);
+        $('#'+prefix+'BarHours').textContent=hours(labels[1])||hours('Café');
+      }
+      if(WHATSAPP) $('#'+prefix+'WhatsApp').href='https://wa.me/'+WHATSAPP[place]+'?text='+encodeURIComponent(R[9]);
+    });
   }
-  on($('#oyambreRestaurantOpen'),'click',function(){setStayPlace('oyambre');showView('stay');$('#oyambreRestaurant').scrollIntoView({block:'start'});});
+  ['oyambre','ramales'].forEach(function(place){on($('#'+place+'RestaurantOpen'),'click',function(){setStayPlace(place);showView('stay');$('#'+place+'Restaurant').scrollIntoView({block:'start'});});});
 
   /* ===== Incidencias ===== */
   function fillIncTypes(){
@@ -1936,7 +1948,7 @@ document.addEventListener('DOMContentLoaded', function(){
   var params=new URLSearchParams(location.search);
   if(PLACE_LABEL[params.get('focus')]) setStayPlace(params.get('focus'));
   if(params.get('nav')) showView(params.get('nav'));
-  if(params.get('section')==='restaurant'){setStayPlace('oyambre');showView('stay');$('#oyambreRestaurant').scrollIntoView({block:'start'});}
+  if(params.get('section')==='restaurant'){var restaurantPlace=params.get('focus')==='ramales'?'ramales':'oyambre';setStayPlace(restaurantPlace);showView('stay');$('#'+restaurantPlace+'Restaurant').scrollIntoView({block:'start'});}
   if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 
 });

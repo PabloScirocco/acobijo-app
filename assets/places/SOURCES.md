@@ -15,3 +15,5 @@ Información del hotel: https://www.hotelacobijo.com/, /Habitaciones/, /Servicio
 Información: https://www.oyambre.com/el-restaurante/
 Fotografías: https://www.oyambre.com/wp-content/uploads/2023/02/restaurante-001.jpg y https://www.oyambre.com/wp-content/uploads/2023/02/restaurante-002.jpg
 Horarios: los existentes en schedules.json (Oyambre). WhatsApp: número oficial general de Oyambre, +34 675 696 212.
+
+Ramales restaurant: https://www.campingramales.com/wp-content/uploads/2022/11/bar-restaurante-new.jpg (official homepage image, remote; hidden on load failure). Supporting landscape: existing ramales.webp.
