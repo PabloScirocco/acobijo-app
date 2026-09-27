@@ -150,6 +150,9 @@ body.dark .note{background:#1f1a10}
 </style>
 <link rel="stylesheet" href="assets/guest.css">
 <link rel="stylesheet" href="assets/restaurant.css">
+<link rel="stylesheet" href="assets/routes.css">
+<script defer src="assets/routes-data.js"></script>
+<script defer src="assets/routes.js"></script>
 <style>
 /* Keep the full establishment names readable and align card photographs. */
 .place-preview{display:flex;flex-direction:column;align-items:stretch}
@@ -184,6 +187,7 @@ body.dark .note{background:#1f1a10}
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
+    <button class="item" data-nav="routes" type="button"><span aria-hidden="true">↗</span> <strong data-route-copy="nav">Rutas a pie y en bici</strong></button>
     <div class="item" data-nav="favorites">💚 <strong id="d-favs">Favoritos del equipo</strong></div>
     <div class="item" data-nav="suggest">💬 <strong id="d-sug">Sugerencias</strong></div>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
@@ -201,7 +205,7 @@ body.dark .note{background:#1f1a10}
     </div>
     <div class="stay-bar"><div><label for="homePlace" data-copy="choose">¿Dónde te alojas?</label><select id="homePlace" class="select"><option value="oyambre">Oyambre</option><option value="ramales">Ramales</option><option value="ruiloba">El Helguero · Ruiloba</option><option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option></select></div><div class="row"><a id="homeCall" class="btn primary">Llamar</a><a id="homeWA" class="btn">WhatsApp</a><a id="homeDir" class="btn">Cómo llegar</a></div></div>
     <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
-<button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button><button class="btn" id="installTile"><span id="t-inst">Instalar app</span></button></div>
+<button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="routes" data-route-copy="nav">Rutas a pie y en bici</button><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button><button class="btn" id="installTile"><span id="t-inst">Instalar app</span></button></div>
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
   </section>
@@ -233,6 +237,7 @@ body.dark .note{background:#1f1a10}
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
       <div id="stayHours"></div>
+      <button class="btn route-stay-link" data-nav="routes" data-routes-stay data-route-copy="nearStay">Explorar rutas de mi zona</button>
     </div>
 
 <section id="oyambreRestaurant" class="card restaurant-card" aria-labelledby="restaurantTitle" hidden>
@@ -406,6 +411,25 @@ body.dark .note{background:#1f1a10}
   </section>
 
   <!-- FAVORITOS DEL EQUIPO -->
+<section id="view-routes" class="view" aria-labelledby="routesTitle">
+  <header class="routes-hero"><p class="eyebrow">GRUPO A COBIJO · WIKILOC</p><h2 id="routesTitle" data-route-copy="title">Sal a descubrir Cantabria.</h2><p data-route-copy="intro">Rutas de nuestro perfil de Wikiloc para disfrutar a tu ritmo. Elige tu alojamiento y encuentra tu próximo paseo.</p><a class="btn" href="https://es.wikiloc.com/wikiloc/user.do?id=1606031" target="_blank" rel="noopener" data-route-copy="profile">Nuestro perfil en Wikiloc ↗</a></header>
+  <form id="routeFilters" class="card route-filters" aria-label="Filtros de rutas">
+    <label><span data-route-copy="place">Tu alojamiento</span><select id="routePlace" class="select"></select></label>
+    <label><span data-route-copy="activity">Actividad</span><select id="routeActivity" class="select"></select></label>
+    <label><span data-route-copy="distance">Distancia</span><select id="routeDistance" class="select"></select></label>
+    <label><span data-route-copy="duration">Duración</span><select id="routeDuration" class="select"></select></label>
+    <label><span data-route-copy="difficulty">Dificultad</span><select id="routeDifficulty" class="select"></select></label>
+    <label><span data-route-copy="departure">Salida</span><select id="routeDeparture" class="select"></select></label>
+    <label class="route-search"><span data-route-copy="search">Buscar una ruta</span><input id="routeSearch" class="input" type="search" autocomplete="off"></label>
+    <label><span data-route-copy="sort">Ordenar</span><select id="routeSort" class="select"></select></label>
+    <button class="btn" type="reset" data-route-copy="reset">Limpiar filtros</button>
+  </form>
+  <p id="routeContext" class="route-context"></p><p id="routeCount" role="status" aria-live="polite"></p>
+  <div id="routeResults" class="route-grid"></div>
+  <div id="routeEmpty" class="card" hidden><h3 data-route-copy="noResults">No hay rutas para estos filtros.</h3><p id="routeEmptyText"></p><button class="btn" type="button" id="routeEmptyReset" data-route-copy="reset">Limpiar filtros</button></div>
+  <p class="muted route-footnote" data-route-copy="note">Distancias y tiempos registrados en Wikiloc; el tiempo real depende del ritmo y las paradas. En las rutas de solo ida, prevé la vuelta. Abre la ficha para consultar el recorrido y su estado.</p>
+</section>
+
   <section id="view-favorites" class="view">
     <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
       <h2 id="fav-title">Los favoritos de nuestro equipo</h2>
@@ -962,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function(){
   on($('#langBtn'),'click', function(){ $('#langModal').style.display='flex'; });
   on($('#closeLang'),'click', function(e){ e.preventDefault(); $('#langModal').style.display='none'; });
   $all('.lang-option').forEach(function(b){
-    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); renderFavs(); updateSugUI(); $('#langModal').style.display='none'; });
+    on(b,'click', function(){ LANG=b.getAttribute('data-lang'); localStorage.setItem('lang',LANG); applyLang(); document.dispatchEvent(new Event('acobijo:language')); renderAcc(); loadEvents(); updateStayUI(); updateIncUI(); renderMusts(); renderFood(); renderFavs(); updateSugUI(); $('#langModal').style.display='none'; });
   });
 
   /* ===== Navegación ===== */
@@ -972,6 +996,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
     $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
     $('#drawer').classList.remove('open');
+    document.dispatchEvent(new CustomEvent('acobijo:view',{detail:id}));
     window.scrollTo({top:0,behavior:'instant'});
   }
   $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
