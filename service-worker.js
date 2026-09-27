@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v21-2026-09-27-welcome-enter';
+const VERSION      = 'v22-2026-09-27-visual-stay';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -14,7 +14,7 @@ const CORE = [
   R('index.html'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
-  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/restaurant.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('events.json'), R('schedules.json')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/visual.css'), R('assets/visual.js'), R('assets/conditions.js'), R('assets/restaurant.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------
@@ -75,12 +75,19 @@ async function networkFirst(req, cacheName) {
 
 async function staleWhileRevalidate(req, cacheName) {
   const cache = await caches.open(cacheName);
-  const key = new Request(new URL(req.url).pathname);
+  const url = new URL(req.url);
+  const pathKey = new Request(url.pathname);
+  // A versioned asset must never be satisfied by an older cached version.
+  const key = url.searchParams.has('v') ? req : pathKey;
   const cached = await cache.match(key);
-  const fetching = fetch(req)
-    .then(res => { cache.put(key, res.clone()); return res; })
-    .catch(() => null);
-  return cached || fetching || fetch(req);
+  const fetching = fetch(req).then(async res => {
+    if (res.ok) {
+      await cache.put(key, res.clone());
+      await cache.put(pathKey, res.clone());
+    }
+    return res;
+  }).catch(() => null);
+  return cached || await fetching || await cache.match(pathKey) || fetch(req);
 }
 
 // ---------- Fetch ----------
