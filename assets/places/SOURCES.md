@@ -33,3 +33,11 @@ Ramales restaurant: https://www.campingramales.com/wp-content/uploads/2022/11/ba
 - `oyambre-bungalow.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/oyambre-0001-768x576.jpg
 - `oyambre-cantabria.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/cantabria-0001-768x576.jpg
 - `oyambre-parcelas.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/confort-007-768x576.jpg
+
+## Tipos de alojamiento Oyambre — 27/09/2026
+- `oyambre-comillas.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-001.jpg (imagen de la ficha oficial correspondiente).
+- `oyambre-comillas-plus.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-plus-001-1.jpg (imagen de la ficha oficial correspondiente).
+- `oyambre-picos.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/picos-001.jpg (imagen de la ficha oficial correspondiente).
+- `oyambre-confort.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/confort-001.jpg (imagen de la ficha oficial correspondiente).
+- `oyambre-gran-confort.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/gran-confort-001.jpg (imagen de la ficha oficial correspondiente).
+- `oyambre-hard-standing.webp`: https://www.oyambre.com/wp-content/uploads/2023/02/hard-standing-001.jpg (imagen de la ficha oficial correspondiente).
