@@ -1,0 +1,12 @@
+/* Inline consent stays below the welcome screen and clear of the bottom nav. */
+.analytics-consent{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;margin:0 0 24px;padding:22px 24px;border:1px solid var(--line);border-radius:18px;background:var(--tint);color:var(--ink);scroll-margin-top:96px}
+.analytics-consent[hidden]{display:none}
+.analytics-consent h2{font-family:inherit;font-size:1.05rem;line-height:1.35;margin:0 0 8px}
+.analytics-consent p{margin:0 0 8px;max-width:68ch;font-size:.9rem;line-height:1.6;color:var(--muted)}
+.analytics-consent a{color:var(--brand);font-size:.85rem;text-underline-offset:3px}
+.analytics-consent-actions{display:grid;gap:10px;min-width:190px}
+.analytics-consent-actions .btn{width:100%;min-height:44px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-weight:600}
+.analytics-footer{display:flex;gap:12px 20px;flex-wrap:wrap;align-items:center;padding:32px 0 12px;border-top:1px solid var(--line);margin-top:36px;font-size:.8rem;color:var(--muted)}
+.analytics-footer .text-link{font:inherit;min-height:44px;color:var(--brand);text-decoration:underline;text-underline-offset:3px}
+body.dark .analytics-consent a,body.dark .analytics-footer .text-link{color:#9dc8d3}
+@media(max-width:700px){.analytics-consent{grid-template-columns:1fr;gap:16px;padding:20px}.analytics-consent-actions{grid-template-columns:1fr 1fr;min-width:0}.analytics-consent-actions .btn{font-size:.85rem;padding:10px;white-space:normal}.analytics-footer{display:block}.analytics-footer span{display:block}}
