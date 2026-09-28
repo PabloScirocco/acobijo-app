@@ -75,3 +75,33 @@ Copias de las galerías oficiales descargadas en la revisión previa; verificada
 - `ruiloba-casa-interior-2.webp` — Cocina. Ficha: https://www.campingelhelguero.com/boungalows-4/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_112601-1.jpg
 - `ruiloba-cabanas-interior-1.webp` — Dormitorio. Ficha: https://www.campingelhelguero.com/boungalows-7/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20220331_110626.jpg
 - `ruiloba-cabanas-interior-2.webp` — Salón. Ficha: https://www.campingelhelguero.com/boungalows-7/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20220331_110727.jpg
+
+## Interiores Oyambre, Ramales y Morea · 28/09/2026
+Descargados de las galerías de las webs oficiales e inspeccionados visualmente antes de incorporarlos.
+- `oyambre-comillas-interior-1.webp` — Salón. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-002.jpg
+- `oyambre-comillas-interior-2.webp` — Dormitorio. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-005.jpg
+- `oyambre-comillas-interior-3.webp` — Cocina. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-004.jpg
+- `oyambre-comillas-plus-interior-1.webp` — Cocina. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas-plus/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-plus-002-1.jpg
+- `oyambre-comillas-plus-interior-2.webp` — Dormitorio. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas-plus/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-plus-005-1.jpg
+- `oyambre-comillas-plus-interior-3.webp` — Salón. Ficha: https://www.oyambre.com/bungalows/bungalow-comillas-plus/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/comillas-plus-004-1.jpg
+- `oyambre-picos-interior-1.webp` — Salón. Ficha: https://www.oyambre.com/bungalows/bungalow-picos/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/06/bungalow-picos-003.jpg
+- `oyambre-picos-interior-2.webp` — Dormitorio con dos camas. Ficha: https://www.oyambre.com/bungalows/bungalow-picos/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/06/bungalow-picos-007.jpg
+- `oyambre-picos-interior-3.webp` — Cocina. Ficha: https://www.oyambre.com/bungalows/bungalow-picos/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/06/bungalow-picos-004.jpg
+- `oyambre-cantabria-interior-1.webp` — Salón. Ficha: https://www.oyambre.com/bungalows/bungalow-cantabria/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/cantabria-0003.jpg
+- `oyambre-cantabria-interior-2.webp` — Dormitorio con literas. Ficha: https://www.oyambre.com/bungalows/bungalow-cantabria/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/cantabria-0007.jpg
+- `oyambre-cantabria-interior-3.webp` — Dormitorio. Ficha: https://www.oyambre.com/bungalows/bungalow-cantabria/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/cantabria-0006.jpg
+- `oyambre-bungalow-interior-1.webp` — Salón. Ficha: https://www.oyambre.com/bungalows/bungalow-oyambre/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/oyambre-0003.jpg
+- `oyambre-bungalow-interior-2.webp` — Cocina. Ficha: https://www.oyambre.com/bungalows/bungalow-oyambre/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/oyambre-0004.jpg
+- `oyambre-bungalow-interior-3.webp` — Dormitorio. Ficha: https://www.oyambre.com/bungalows/bungalow-oyambre/ Imagen: https://www.oyambre.com/wp-content/uploads/2023/02/oyambre-0006.jpg
+- `ramales-bungalow-interior-1.webp` — Salón y cocina. Ficha: https://www.campingramales.com/alojamientos/bungalows/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-003-775x580.jpg
+- `ramales-bungalow-interior-2.webp` — Dormitorio. Ficha: https://www.campingramales.com/alojamientos/bungalows/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-004-775x580.jpg
+- `ramales-bungalow-interior-3.webp` — Dormitorio con literas. Ficha: https://www.campingramales.com/alojamientos/bungalows/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/bungalows-005-775x580.jpg
+- `ramales-zingaro-interior-1.webp` — Salón y cocina. Ficha: https://www.campingramales.com/alojamientos/zingaros/ Imagen: https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-002-1-775x580.jpg
+- `ramales-zingaro-interior-2.webp` — Dormitorio. Ficha: https://www.campingramales.com/alojamientos/zingaros/ Imagen: https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-004-1-775x580.jpg
+- `ramales-zingaro-interior-3.webp` — Dormitorio con literas. Ficha: https://www.campingramales.com/alojamientos/zingaros/ Imagen: https://www.campingramales.com/wp-content/uploads/2023/03/zingaros-005-1-775x580.jpg
+- `ramales-apartamento-interior-1.webp` — Salón y cocina. Ficha: https://www.campingramales.com/alojamientos/apartamentos/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/apartamentos-2024-03-775x580.jpg
+- `ramales-apartamento-interior-2.webp` — Dormitorio. Ficha: https://www.campingramales.com/alojamientos/apartamentos/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/apartamentos-2024-04-775x580.jpg
+- `ramales-apartamento-interior-3.webp` — Dormitorio con dos camas. Ficha: https://www.campingramales.com/alojamientos/apartamentos/ Imagen: https://www.campingramales.com/wp-content/uploads/2022/02/apartamentos-2024-05-775x580.jpg
+- `ruiloba-morea-interior-1.webp` — Salón. Ficha: https://www.campingelhelguero.com/boungalows-2/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2026/04/20260421_120056.jpg
+- `ruiloba-morea-interior-2.webp` — Dormitorio. Ficha: https://www.campingelhelguero.com/boungalows-2/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211007_161358.jpg
+- `ruiloba-morea-interior-3.webp` — Cocina. Ficha: https://www.campingelhelguero.com/boungalows-2/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211007_161531.jpg
