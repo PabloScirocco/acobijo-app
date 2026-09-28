@@ -62,3 +62,16 @@ Las fotos de parcelas Ruiloba son generales y se identifican así en la galería
 - ruiloba-cabanas.webp: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_111615.jpg
 - verdemar-exterior.webp: https://www.hotelacobijo.com/gallery_gen/0410896e0f595a8b9e483589b9e4a93f_fit.jpg
 - verdemar-piscina.webp: https://www.hotelacobijo.com/gallery_gen/98f1912b125269e15383acfe92047e8e_fit.jpg
+
+## Interiores Ruiloba · 28/09/2026
+Copias de las galerías oficiales descargadas en la revisión previa; verificadas visualmente y optimizadas a WebP.
+- `ruiloba-comillas-interior-1.webp` — Salón y cocina. Ficha: https://www.campingelhelguero.com/mobile-home-comillas/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/05/20240419_122205-copia-1.jpg
+- `ruiloba-comillas-plus-interior-1.webp` — Salón y cocina. Ficha: https://www.campingelhelguero.com/mobil-home-comillas-plus/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/05/20240419_124314-copia.jpg
+- `ruiloba-comillas-plus-interior-2.webp` — Dormitorio. Ficha: https://www.campingelhelguero.com/mobil-home-comillas-plus/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/05/20240419_124259-copia.jpg
+- `ruiloba-cantabria-interior-1.webp` — Salón. Ficha: https://www.campingelhelguero.com/bungalow-cantabria/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/20230210_102742.jpg
+- `ruiloba-ruiloba-interior-1.webp` — Cocina. Ficha: https://www.campingelhelguero.com/boungalows-3/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20230210_094004.jpg
+- `ruiloba-ruiloba-interior-2.webp` — Dormitorio. Ficha: https://www.campingelhelguero.com/boungalows-3/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20230210_094143.jpg
+- `ruiloba-casa-interior-1.webp` — Salón y cocina. Ficha: https://www.campingelhelguero.com/boungalows-4/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2025/04/20250401_123701-scaled.jpg
+- `ruiloba-casa-interior-2.webp` — Cocina. Ficha: https://www.campingelhelguero.com/boungalows-4/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20211019_112601-1.jpg
+- `ruiloba-cabanas-interior-1.webp` — Dormitorio. Ficha: https://www.campingelhelguero.com/boungalows-7/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20220331_110626.jpg
+- `ruiloba-cabanas-interior-2.webp` — Salón. Ficha: https://www.campingelhelguero.com/boungalows-7/ Imagen: https://www.campingelhelguero.com/wp-content/uploads/2024/02/imagen_20220331_110727.jpg
