@@ -168,12 +168,15 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/interactions.css?v=20260927-30">
 <link rel="stylesheet" href="assets/palette.css?v=20260927-31">
 <link rel="stylesheet" href="assets/promotion.css?v=20260927-33">
-<script defer src="assets/promotion.js?v=20260927-34"></script>
+<script defer src="assets/promotion.js?v=20260929-42"></script>
+<link rel="stylesheet" href="assets/markets.css?v=20260929-42">
+<script defer src="assets/markets-data.js?v=20260929-42"></script>
+<script defer src="assets/markets.js?v=20260929-42"></script>
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/analytics.css?v=20260928-38">
-<script defer src="assets/analytics.js?v=20260929-40" data-measurement-id="G-WQDFCB201D"></script>
+<script defer src="assets/analytics.js?v=20260929-42" data-measurement-id="G-WQDFCB201D"></script>
 <style>
 /* Keep the full establishment names readable and align card photographs. */
 .place-preview{display:flex;flex-direction:column;align-items:stretch}
@@ -234,6 +237,7 @@ body.dark .note{background:#1f1a10}
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
+    <button class="item" data-nav="markets" type="button"><span aria-hidden="true">▤</span> <strong data-market-copy="nav">Mercadillos</strong></button>
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
     <button class="item" data-nav="routes" type="button"><span aria-hidden="true">↗</span> <strong data-route-copy="nav">Rutas a pie y en bici</strong></button>
     <button class="item" data-nav="awards" id="awardsNav" type="button"><span aria-hidden="true">🏅</span><strong data-award-copy="0">Premios y reconocimientos</strong></button>
@@ -260,6 +264,7 @@ body.dark .note{background:#1f1a10}
     </section>
     <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
 <button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button><button class="btn" data-nav="routes" id="savedRoutesHome">♡ Mis rutas guardadas</button><button class="btn" data-nav="routes" data-route-copy="nav">Rutas a pie y en bici</button><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button></div>
+<button class="market-home" type="button" data-nav="markets"><span class="market-home-icon" aria-hidden="true">▤</span><span class="market-home-copy"><strong data-market-copy="homeTitle">Una mañana de mercadillo</strong><small data-market-copy="homeText">Consulta los días y lugares de los mercadillos de Cantabria.</small></span><span aria-hidden="true">↗</span></button>
 <button class="award-home" type="button" data-nav="awards"><span class="award-home-mark" aria-hidden="true">✧</span><span class="award-home-body"><strong data-award-copy="7">Distinciones con historia</strong><small data-award-copy="8">Conoce los premios de nuestros campings y de nuestro equipo.</small></span><span aria-hidden="true">↗</span></button>
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
@@ -511,6 +516,21 @@ body.dark .note{background:#1f1a10}
     </div>
     <div id="favAcc" class="acc"></div>
   </section>
+
+<section id="view-markets" class="view" aria-labelledby="marketsTitle">
+  <header class="market-hero"><div class="market-hero-copy"><p class="eyebrow" data-market-copy="eyebrow">MERCADILLOS DE CANTABRIA</p><h2 id="marketsTitle" data-market-copy="title">De pueblo en pueblo, de puesto en puesto.</h2><p data-market-copy="intro">Descubre una selección de mercadillos semanales de Cantabria. Elige un día y una localidad para preparar tu visita.</p></div><svg class="market-illustration" viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 70v80h120V70M22 70l14-35h108l14 35M22 70c0 18 27 18 27 0 0 18 27 18 27 0 0 18 28 18 28 0 0 18 27 18 27 0 0 18 27 18 27 0M49 70l7-35m20 35 3-35m25 35-3-35m30 35-7-35M30 116h120M42 116v34m96-34v34M44 103h22m18 0h18m17 0h17"/><path d="M51 103V93m41 10V89m35 14V94M36 162h108"/></svg></header>
+  <form id="marketFilters" class="card market-filters" aria-label="Mercadillos">
+    <label><span data-market-copy="day">Día de la semana</span><select id="marketDay" class="select"></select></label>
+    <label><span data-market-copy="district">Zona</span><select id="marketZone" class="select"></select></label>
+    <label><span data-market-copy="town">Localidad</span><select id="marketTown" class="select"></select></label>
+    <label class="market-search"><span data-market-copy="search">Buscar localidad o lugar</span><input id="marketSearch" class="input" type="search" autocomplete="off"></label>
+    <div class="market-filter-actions"><button id="marketToday" type="button" class="btn" data-market-copy="today">Día de hoy</button><button id="marketReset" type="button" class="btn" data-market-copy="reset">Restablecer filtros</button></div>
+  </form>
+  <p id="marketCount" class="market-count" role="status" aria-live="polite"></p>
+  <div id="marketResults" class="market-grid"></div>
+  <div id="marketEmpty" class="card market-empty" hidden><h3 data-market-copy="empty">No hay mercadillos con estos filtros.</h3><p data-market-copy="emptyHint">Prueba otro día o localidad.</p><button id="marketEmptyReset" type="button" class="btn" data-market-copy="reset">Restablecer filtros</button></div>
+  <p class="market-note" data-market-copy="notice">Los días indicados corresponden a la programación habitual. Consulta la información oficial antes de ir.</p>
+</section>
 
 <section id="view-contacts" class="view" aria-labelledby="contactsTitle">
   <header class="contact-hero"><p class="eyebrow">GRUPO A COBIJO</p><h2 id="contactsTitle" data-contact-copy="title">Servicios útiles</h2><p data-contact-copy="intro">Contactos seleccionados para ayudarte durante tu estancia.</p></header>
