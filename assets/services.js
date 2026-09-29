@@ -19,11 +19,12 @@ function approved(contact){
 }
 function localized(value,lang){return typeof value==='string'?value:value?.[lang]||value?.es||'';}
 function selectContacts(data,filters){
+ if(!Object.hasOwn(stays,filters.place))return [];
  const search=normalize(filters.search).trim();
- return data.filter(approved).filter(c=>(!filters.category||c.category===filters.category)&&(!filters.place||c.stays.includes(filters.place))&&(!search||normalize(c.name+' '+localized(c.displayName,filters.lang)+' '+(c.address||'')+' '+c.locality+' '+localized(c.description,filters.lang)).includes(search)))
+ return data.filter(approved).filter(c=>(!filters.category||c.category===filters.category)&&c.stays.includes(filters.place)&&(!search||normalize(c.name+' '+localized(c.displayName,filters.lang)+' '+(c.address||'')+' '+c.locality+' '+localized(c.description,filters.lang)).includes(search)))
  .map(contact=>({contact,km:distance(filters.position,contact.coordinates)}))
  .filter(row=>!filters.radius||(row.km!==null&&row.km<=Number(filters.radius)))
- .sort((a,b)=>filters.sort==='distance'&&a.km!==b.km?(a.km===null?1:b.km===null?-1:a.km-b.km):a.contact.name.localeCompare(b.contact.name,filters.lang||'es'));
+ .sort((a,b)=>filters.sort==='distance'&&a.km!==b.km?(a.km===null?1:b.km===null?-1:a.km-b.km):Number(b.contact.recommendedByOwner===true)-Number(a.contact.recommendedByOwner===true)||a.contact.name.localeCompare(b.contact.name,filters.lang||'es'));
 }
 function directions(contact){if(!text(contact.address))return null;const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('destination',contact.name+', '+contact.address+', '+contact.locality);return url.href;}
 function telephone(value){const phone=String(value||'').replace(/[\s().-]/g,'');return /^\+\d{8,15}$/.test(phone)?'tel:'+phone:null;}
@@ -39,11 +40,13 @@ document.addEventListener('DOMContentLoaded',()=>{
  function element(tag,text,cls){const node=document.createElement(tag);if(text!=null)node.textContent=text;if(cls)node.className=cls;return node;}
  function options(id,values){const select=$(id),previous=select.value;select.replaceChildren(...values.map(([value,text])=>{const opt=element('option',text);opt.value=value;return opt;}));if(values.some(([value])=>value===previous))select.value=previous;}
  function card(row){
-  const c=row.contact,name=localized(c.displayName,lang)||c.name,article=element('article',null,'card contact-card'+(c.kind==='bus'?' contact-bus':''));
+  const c=row.contact,name=localized(c.displayName,lang)||c.name,article=element('article',null,'card contact-card'+(c.recommendedByOwner===true?' contact-recommended':'')+(c.kind==='bus'?' contact-bus':''));
   const top=element('div',null,'contact-card-top');top.append(element('span',t[c.kind==='taxi-rank'?'taxiRank':c.kind]||t[categoryKeys[c.category]],'contact-category'));
-  if(position&&$('contactOrigin').value==='current'&&row.km!==null)top.append(element('span',row.km.toLocaleString(lang,{maximumFractionDigits:1})+' km','contact-distance'));
-  if(position&&$('contactOrigin').value==='current'&&row.km===null)top.append(element('span',t.distanceUnknown,'contact-distance'));
-  article.append(top,element('h3',name));
+  if(position&&row.km!==null)top.append(element('span',row.km.toLocaleString(lang,{maximumFractionDigits:1})+' km','contact-distance'));
+  if(position&&row.km===null)top.append(element('span',t.distanceUnknown,'contact-distance'));
+  article.append(top);
+  if(c.recommendedByOwner===true)article.append(element('p',t.recommended,'contact-recommendation'));
+  article.append(element('h3',name));
   const description=localized(c.description,lang);if(description)article.append(element('p',description,'contact-description'));
   article.append(element('p',[c.address,c.locality].filter(Boolean).join(', '),'contact-address'));
   if(c.kind==='taxi'&&!c.address)article.append(element('p',t.noFixedPoint,'contact-pickup'));
@@ -59,20 +62,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   return article;
  }
  function render(){
-  const ownPosition=$('contactOrigin').value==='current'?position:null;
-  const rows=selectContacts(data,{category:$('contactCategory').value,place:$('contactOrigin').value==='current'?'':$('contactOrigin').value,search:$('contactSearch').value,position:ownPosition,radius:ownPosition?$('contactRadius').value:'',sort:ownPosition?$('contactSort').value:'name',lang});
+  const ownPosition=position;
+  const rows=selectContacts(data,{category:$('contactCategory').value,place:$('contactOrigin').value,search:$('contactSearch').value,position:ownPosition,radius:ownPosition?$('contactRadius').value:'',sort:ownPosition?$('contactSort').value:'name',lang});
   $('contactRadius').disabled=!ownPosition;$('contactSort').disabled=!ownPosition;
   if(!ownPosition)$('contactSort').value='name';
   $('contactLocate').disabled=locating||!data.length;
-  $('contactLocate').textContent=locating?t.locating:ownPosition?t.originCurrentLocation:t.locateButton;
+  $('contactLocate').textContent=locating?t.locating:ownPosition?t.stopLocation:t.locateButton;
   $('contactLocationStatus').textContent=messageKey?t[messageKey]:'';
   $('contactCount').textContent=data.length?(rows.length===1?t.resultsSingular:t.resultsPlural).replace('{count}',rows.length):'';
   $('contactResults').replaceChildren(...rows.map(card));
   $('contactEmpty').hidden=!!data.length;
   $('contactNoMatches').hidden=!data.length||!!rows.length;
-  const emptyArea=!!$('contactOrigin').value&&$('contactOrigin').value!=='current'&&!data.some(c=>c.stays.includes($('contactOrigin').value));
+  const emptyArea=!data.some(c=>c.stays.includes($('contactOrigin').value));
   $('contactNoMatchesTitle').textContent=emptyArea?t.noAreaContacts:t.noMatches;
-  $('contactAllAreas').hidden=!emptyArea;
   $('contactDistanceNote').hidden=!ownPosition;
   $('contactFiltersFields').disabled=!data.length;
  }
@@ -81,37 +83,38 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-contact-copy]').forEach(el=>{if(t[el.dataset.contactCopy])el.textContent=t[el.dataset.contactCopy];});
   form.setAttribute('aria-label',t.title);$('contactSearch').placeholder=t.searchPlaceholder;
   options('contactCategory',[['',t.categoryAll],...availableCategories.map(key=>[key,t[categoryKeys[key]]])]);
-  options('contactOrigin',[['',t.allAreas],...Object.entries(stays),...(position?[['current',t.originCurrentLocation]]:[])]);
+  options('contactOrigin',Object.entries(stays));
   options('contactRadius',[['',t.rangeAll],['5',t.range5km],['10',t.range10km],['25',t.range25km]]);
   options('contactSort',[['distance',t.sortDistance],['name',t.sortName]]);
   render();
  }
+ function clearPosition(){request++;locating=false;position=null;messageKey='';$('contactRadius').value='';}
  function reset(){
-  request++;locating=false;position=null;messageKey='';
+  clearPosition();
   $('contactSearch').value='';$('contactCategory').value='';$('contactRadius').value='';$('contactSort').value='distance';
-  options('contactOrigin',[['',t.allAreas],...Object.entries(stays)]);$('contactOrigin').value=place;render();
+  options('contactOrigin',Object.entries(stays));$('contactOrigin').value=place;render();
  }
  function locate(){
   if(locating||!data.length)return;
+  if(position){clearPosition();render();return;}
   if(!navigator.geolocation){messageKey='locationUnsupported';render();return;}
   locating=true;messageKey='';const currentRequest=++request;render();
   navigator.geolocation.getCurrentPosition(result=>{
    if(currentRequest!==request)return;
    const value={lat:result.coords.latitude,lon:result.coords.longitude};
    locating=false;if(!validCoordinates(value)){messageKey='locationFailure';render();return;}
-   position=value;options('contactOrigin',[['',t.allAreas],...Object.entries(stays),['current',t.originCurrentLocation]]);$('contactOrigin').value='current';$('contactSort').value='distance';render();
+   position=value;$('contactSort').value='distance';render();
   },error=>{if(currentRequest!==request)return;locating=false;messageKey=error.code===1?'locationDenied':'locationFailure';render();},{enableHighAccuracy:false,timeout:12000,maximumAge:60000});
  }
  form.addEventListener('submit',e=>e.preventDefault());
  form.addEventListener('input',render);
- form.addEventListener('change',event=>{if(event.target.id==='contactOrigin'){request++;locating=false;messageKey='';if(event.target.value!=='current'){$('contactRadius').value='';}}render();});
+ form.addEventListener('change',event=>{if(event.target.id==='contactOrigin')clearPosition();render();});
  form.addEventListener('reset',e=>{e.preventDefault();reset();});
  $('contactLocate').addEventListener('click',locate);
  $('contactEmptyReset').addEventListener('click',reset);
- $('contactAllAreas').addEventListener('click',()=>{request++;locating=false;messageKey='';$('contactOrigin').value='';$('contactCategory').value='';$('contactSearch').value='';$('contactRadius').value='';render();});
  document.addEventListener('acobijo:language',translate);
- document.addEventListener('acobijo:view',event=>{if(event.detail!=='contacts'){request++;locating=false;position=null;messageKey='';options('contactOrigin',[['',t.allAreas],...Object.entries(stays)]);$('contactOrigin').value=place;render();}});
- window.addEventListener('acobijo:stay-tools',event=>{if(Object.hasOwn(stays,event.detail?.place)){const changed=place!==event.detail.place;place=event.detail.place;if(changed){request++;locating=false;messageKey='';if($('contactOrigin').value!=='current')$('contactOrigin').value=place;render();}}});
+ document.addEventListener('acobijo:view',event=>{if(event.detail!=='contacts'){clearPosition();options('contactOrigin',Object.entries(stays));$('contactOrigin').value=place;render();}});
+ window.addEventListener('acobijo:stay-tools',event=>{if(Object.hasOwn(stays,event.detail?.place)){const changed=place!==event.detail.place;place=event.detail.place;if(changed){clearPosition();$('contactOrigin').value=place;render();}}});
  document.querySelectorAll('[data-contacts-stay]').forEach(button=>button.addEventListener('click',reset));
  translate();$('contactOrigin').value=place;render();
 });

@@ -10,7 +10,8 @@ window.ACOBIJO_CONTACTS = [
     "category": "mobility",
     "stays": [
       "oyambre",
-      "cardeo"
+      "cardeo",
+      "ruiloba"
     ],
     "locality": "San Vicente de la Barquera · Santander",
     "approvedByOwner": true,
@@ -19,18 +20,18 @@ window.ACOBIJO_CONTACTS = [
     "phone": "+34 942 720 822",
     "website": "https://lacantabrica.com/",
     "description": {
-      "es": "Línea San Vicente de la Barquera ↔ Santander. Pasa por la zona de Camping Oyambre y Apartamentos El Cardeo.",
-      "en": "San Vicente de la Barquera ↔ Santander bus route, passing through the area around Camping Oyambre and Apartamentos El Cardeo.",
-      "fr": "Ligne San Vicente de la Barquera ↔ Santander, desservant les environs de Camping Oyambre et d’Apartamentos El Cardeo.",
-      "de": "Buslinie San Vicente de la Barquera ↔ Santander durch die Umgebung von Camping Oyambre und Apartamentos El Cardeo.",
-      "nl": "Buslijn San Vicente de la Barquera ↔ Santander, langs de omgeving van Camping Oyambre en Apartamentos El Cardeo."
+      "es": "Línea San Vicente de la Barquera ↔ Santander. Camping Oyambre y Apartamentos El Cardeo están entre las paradas de San Vicente de la Barquera y Comillas. Camping Ruiloba está entre las paradas de Comillas y Cóbreces.",
+      "en": "San Vicente de la Barquera ↔ Santander bus route. Camping Oyambre and Apartamentos El Cardeo are between the San Vicente de la Barquera and Comillas stops. Camping Ruiloba is between the Comillas and Cóbreces stops.",
+      "fr": "Ligne San Vicente de la Barquera ↔ Santander. Camping Oyambre et Apartamentos El Cardeo se trouvent entre les arrêts de San Vicente de la Barquera et Comillas. Camping Ruiloba se trouve entre les arrêts de Comillas et Cóbreces.",
+      "de": "Buslinie San Vicente de la Barquera ↔ Santander. Camping Oyambre und Apartamentos El Cardeo liegen zwischen den Haltestellen San Vicente de la Barquera und Comillas. Camping Ruiloba liegt zwischen den Haltestellen Comillas und Cóbreces.",
+      "nl": "Buslijn San Vicente de la Barquera ↔ Santander. Camping Oyambre en Apartamentos El Cardeo liggen tussen de haltes San Vicente de la Barquera en Comillas. Camping Ruiloba ligt tussen de haltes Comillas en Cóbreces."
     },
     "notice": {
-      "es": "Pago solo en efectivo. Se admiten billetes de hasta 20 €.",
-      "en": "Cash only. Banknotes up to €20 are accepted.",
-      "fr": "Paiement en espèces uniquement. Billets de 20 € maximum.",
-      "de": "Nur Barzahlung. Banknoten bis 20 € werden akzeptiert.",
-      "nl": "Alleen contant betalen. Biljetten tot en met €20 worden geaccepteerd."
+      "es": "Pago solo en efectivo. Se admiten billetes de hasta 20 €. Salvo en la parada de origen, los horarios son aproximados. Pueden producirse retrasos.",
+      "en": "Cash only. Banknotes up to €20 are accepted. Except at the route’s starting stop, scheduled times are approximate. Delays may occur.",
+      "fr": "Paiement en espèces uniquement. Billets de 20 € maximum. Sauf à l’arrêt de départ, les horaires sont approximatifs. Des retards sont possibles.",
+      "de": "Nur Barzahlung. Banknoten bis 20 € werden akzeptiert. Außer an der Starthaltestelle sind die Fahrplanzeiten ungefähre Angaben. Verspätungen sind möglich.",
+      "nl": "Alleen contant betalen. Biljetten tot en met €20 worden geaccepteerd. Behalve bij de beginhalte zijn de tijden bij benadering. Vertragingen zijn mogelijk."
     },
     "sources": [
       "https://lacantabrica.com/",
@@ -40,7 +41,10 @@ window.ACOBIJO_CONTACTS = [
     "ownerConfirmed": [
       "route-accommodations",
       "cash-only",
-      "maximum-note-20-eur"
+      "maximum-note-20-eur",
+      "relative-stops",
+      "approximate-intermediate-times",
+      "possible-delays"
     ]
   },
   {
@@ -58,7 +62,8 @@ window.ACOBIJO_CONTACTS = [
     "website": "https://www.taxiteslasanvicente.com/",
     "sources": [
       "https://www.taxiteslasanvicente.com/"
-    ]
+    ],
+    "recommendedByOwner": true
   },
   {
     "id": "taxi-oyambre",
@@ -153,7 +158,8 @@ window.ACOBIJO_CONTACTS = [
     },
     "sources": [
       "https://www.afodeb.es/talleres-velez"
-    ]
+    ],
+    "recommendedByOwner": true
   },
   {
     "id": "caravaning-cantabria",
@@ -185,7 +191,8 @@ window.ACOBIJO_CONTACTS = [
       "https://caravaningcantabria.es/contacto/",
       "https://caravaningcantabria.es/sobre-nosotros/"
     ],
-    "coordinateSource": "https://caravaningcantabria.es/contacto/"
+    "coordinateSource": "https://caravaningcantabria.es/contacto/",
+    "recommendedByOwner": true
   },
   {
     "id": "pharmacy-san-vicente-mur",
@@ -320,7 +327,8 @@ window.ACOBIJO_CONTACTS = [
     "sources": [
       "https://farmaciaruiloba.com/",
       "https://www.cofcantabria.org/Entidades/Listado.aspx?IdMenu=df34e502-507b-494f-a119-68244e4a5d9c&Idioma=es-ES"
-    ]
+    ],
+    "recommendedByOwner": true
   },
   {
     "id": "police-san-vicente",
@@ -541,10 +549,6 @@ window.ACOBIJO_CONTACTS = [
     "locality": "39770 Laredo",
     "phone": "+34942638500",
     "stays": [
-      "oyambre",
-      "cardeo",
-      "verdemar",
-      "ruiloba",
       "ramales"
     ],
     "website": "https://hospitaldelaredo.es/",
@@ -770,7 +774,8 @@ window.ACOBIJO_CONTACTS = [
       "https://cantabria.vucolvet.org/sociedades-profesionales"
     ],
     "phone": "+34 942 710 041",
-    "website": "https://www.laclinicadepablo.com/"
+    "website": "https://www.laclinicadepablo.com/",
+    "recommendedByOwner": true
   },
   {
     "id": "vet-comillas",
@@ -1088,5 +1093,46 @@ window.ACOBIJO_CONTACTS = [
       "de": "Eine Einkaufsmöglichkeit in Torrelavega mit längerer Anfahrt.",
       "nl": "Een optie in Torrelavega waarvoor je verder moet rijden."
     }
+  },
+  {
+    "id": "bus-ramales-laredo",
+    "name": "Autobús Ramales ↔ Laredo",
+    "category": "mobility",
+    "kind": "bus",
+    "stays": [
+      "ramales"
+    ],
+    "locality": "Ramales de la Victoria · Laredo",
+    "approvedByOwner": true,
+    "reviewedAt": "2026-09-29",
+    "displayName": {
+      "es": "Autobús Ramales ↔ Laredo",
+      "en": "Ramales ↔ Laredo bus",
+      "fr": "Bus Ramales ↔ Laredo",
+      "de": "Bus Ramales ↔ Laredo",
+      "nl": "Bus Ramales ↔ Laredo"
+    },
+    "phone": "+34 910 207 007",
+    "website": "https://www.alsa.es/horarios-autobuses",
+    "description": {
+      "es": "Servicio directo entre Ramales de la Victoria y Laredo, operado por Turytrans (ALSA). Forma parte de la línea K4816 Laredo–Ramales–Bustablado.",
+      "en": "Direct bus service between Ramales de la Victoria and Laredo, operated by Turytrans (ALSA). Part of route K4816 Laredo–Ramales–Bustablado.",
+      "fr": "Liaison directe entre Ramales de la Victoria et Laredo, assurée par Turytrans (ALSA). Elle fait partie de la ligne K4816 Laredo–Ramales–Bustablado.",
+      "de": "Direkte Busverbindung zwischen Ramales de la Victoria und Laredo, betrieben von Turytrans (ALSA). Teil der Linie K4816 Laredo–Ramales–Bustablado.",
+      "nl": "Rechtstreekse busverbinding tussen Ramales de la Victoria en Laredo, uitgevoerd door Turytrans (ALSA). Onderdeel van lijn K4816 Laredo–Ramales–Bustablado."
+    },
+    "notice": {
+      "es": "Consulta los horarios para la fecha de tu viaje. El teléfono corresponde a atención al cliente de ALSA.",
+      "en": "Check the timetable for your travel date. The phone number is for ALSA customer service.",
+      "fr": "Consultez les horaires pour la date de votre voyage. Le numéro de téléphone est celui du service client ALSA.",
+      "de": "Prüfen Sie den Fahrplan für Ihren Reisetag. Die Telefonnummer gehört zum ALSA-Kundenservice.",
+      "nl": "Bekijk de dienstregeling voor je reisdatum. Het telefoonnummer is van de klantenservice van ALSA."
+    },
+    "sources": [
+      "https://transportedecantabria.es/web/ctl/estaciones-autobus/-/estacion/43302",
+      "https://www.transportedecantabria.es/consulta-servicios-publicos-regionales-disponibles-municipio",
+      "https://www.alsa.es/horarios-autobuses",
+      "https://www.alsa.es/ayuda/como-contactar-desde-el-extranjero/-/asset_publisher/gtBV5MaTtZVE/"
+    ]
   }
 ];
