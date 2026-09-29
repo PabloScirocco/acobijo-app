@@ -151,6 +151,12 @@ body.dark .note{background:#1f1a10}
 </style>
 <link rel="stylesheet" href="assets/guest.css?v=20260929-39">
 <link rel="stylesheet" href="assets/restaurant.css">
+<link rel="stylesheet" href="assets/services.css?v=20260929-40">
+<script defer src="assets/services-data.js?v=20260929-40"></script>
+<script defer src="assets/services-copy.js?v=20260929-40"></script>
+<script defer src="assets/services.js?v=20260929-40"></script>
+<link rel="stylesheet" href="assets/services-emergencies.css?v=20260929-40">
+<script defer src="assets/services-emergencies.js?v=20260929-40"></script>
 <link rel="stylesheet" href="assets/routes.css">
 <script defer src="assets/routes-data.js"></script>
 <script defer src="assets/routes.js?v=20260927-30"></script>
@@ -167,7 +173,7 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/analytics.css?v=20260928-38">
-<script defer src="assets/analytics.js?v=20260928-38" data-measurement-id="G-WQDFCB201D"></script>
+<script defer src="assets/analytics.js?v=20260929-40" data-measurement-id="G-WQDFCB201D"></script>
 <style>
 /* Keep the full establishment names readable and align card photographs. */
 .place-preview{display:flex;flex-direction:column;align-items:stretch}
@@ -222,6 +228,7 @@ body.dark .note{background:#1f1a10}
   <aside class="panel" role="menu" aria-label="Navegación">
     <div class="item" data-nav="home">🏠 <strong id="d-home">Inicio</strong></div>
     <div class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></div>
+    <button class="item" data-nav="contacts" type="button"><span aria-hidden="true">⌖</span> <strong data-contact-copy="nav">Servicios útiles</strong></button>
     <div class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></div>
     <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
@@ -252,7 +259,7 @@ body.dark .note{background:#1f1a10}
       <button class="btn install-button" id="installTile" type="button" aria-haspopup="dialog" aria-controls="installModal"><span id="t-inst">Instalar la app</span><span aria-hidden="true">↓</span></button>
     </section>
     <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
-<button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="routes" id="savedRoutesHome">♡ Mis rutas guardadas</button><button class="btn" data-nav="routes" data-route-copy="nav">Rutas a pie y en bici</button><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button></div>
+<button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button><button class="btn" data-nav="routes" id="savedRoutesHome">♡ Mis rutas guardadas</button><button class="btn" data-nav="routes" data-route-copy="nav">Rutas a pie y en bici</button><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button></div>
 <button class="award-home" type="button" data-nav="awards"><span class="award-home-mark" aria-hidden="true">✧</span><span class="award-home-body"><strong data-award-copy="7">Distinciones con historia</strong><small data-award-copy="8">Conoce los premios de nuestros campings y de nuestro equipo.</small></span><span aria-hidden="true">↗</span></button>
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
     <div id="homeEvents" class="hscroll"></div>
@@ -282,6 +289,7 @@ body.dark .note{background:#1f1a10}
       </div>
     </div>
 
+    <button type="button" class="btn contact-stay-link" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button>
     <section id="stayTools" class="card stay-tools" aria-label="Servicios de la estancia"></section>
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
@@ -503,6 +511,27 @@ body.dark .note{background:#1f1a10}
     </div>
     <div id="favAcc" class="acc"></div>
   </section>
+
+<section id="view-contacts" class="view" aria-labelledby="contactsTitle">
+  <header class="contact-hero"><p class="eyebrow">GRUPO A COBIJO</p><h2 id="contactsTitle" data-contact-copy="title">Servicios útiles</h2><p data-contact-copy="intro">Contactos seleccionados para ayudarte durante tu estancia.</p></header>
+  <section id="contactEmergencies"></section>
+  <form id="contactFilters" class="card contact-filters">
+    <fieldset id="contactFiltersFields" class="contact-filter-fields">
+      <label><span data-contact-copy="originLabel">Cerca de</span><select id="contactOrigin" class="select"></select></label>
+      <label><span data-contact-copy="categoryLabel">Categoría</span><select id="contactCategory" class="select"></select></label>
+      <label><span data-contact-copy="rangeLabel">Distancia</span><select id="contactRadius" class="select" disabled></select></label>
+      <label class="contact-search"><span data-contact-copy="searchPlaceholder">Busca por nombre o localidad</span><input id="contactSearch" class="input" type="search" autocomplete="off"></label>
+      <label><span data-contact-copy="sortLabel">Ordenar por</span><select id="contactSort" class="select" disabled></select></label>
+      <div class="contact-filter-actions"><button id="contactLocate" type="button" class="btn primary" data-contact-copy="locateButton">Usar mi ubicación</button><button type="reset" class="btn" data-contact-copy="resetFilters">Restablecer filtros</button></div>
+    </fieldset>
+    <p data-contact-copy="locationPrivacy">Tu ubicación solo se usa para ordenar los contactos y no se guarda.</p><p id="contactLocationStatus" class="contact-location-status" role="status" aria-live="polite"></p>
+  </form>
+  <p id="contactCount" role="status" aria-live="polite"></p>
+  <div id="contactResults" class="contact-grid"></div>
+  <div id="contactEmpty" class="card contact-empty"><span class="contact-empty-icon" aria-hidden="true">⌖</span><h3 data-contact-copy="emptyTitle">Directorio en preparación</h3><p data-contact-copy="emptyBody">Aquí encontrarás los contactos seleccionados por Grupo A Cobijo.</p></div>
+  <div id="contactNoMatches" class="card contact-empty" hidden><h3 id="contactNoMatchesTitle" data-contact-copy="noMatches">No hay contactos con estos filtros.</h3><button id="contactAllAreas" type="button" class="btn" data-contact-copy="otherAreas" hidden>Ver contactos de todas las zonas</button><button id="contactEmptyReset" type="button" class="btn" data-contact-copy="resetFilters">Restablecer filtros</button></div>
+  <p id="contactDistanceNote" class="muted" data-contact-copy="distanceDisclaimer" hidden>Las distancias son aproximadas y en línea recta.</p><p id="contactUnlocatedNote" class="muted" data-contact-copy="unlocatedNote">Los servicios sin una ubicación fija no se incluyen al filtrar por distancia.</p>
+</section>
 
   <!-- SUGERENCIAS -->
   <section id="view-suggest" class="view">

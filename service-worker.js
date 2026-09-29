@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v39-2026-09-29-complete-translations';
+const VERSION      = 'v40-2026-09-29-useful-contacts';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -14,7 +14,7 @@ const CORE = [
   R('index.html'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
-  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/visual.css'), R('assets/awards.css'), R('assets/awards.js'), R('assets/interactions.js'), R('assets/interactions.css'), R('assets/palette.css'), R('assets/promotion.css'), R('assets/promotion.js'), R('assets/visual.js'), R('assets/conditions.js'), R('assets/restaurant.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('assets/analytics.js'), R('assets/analytics.css'), R('events.json'), R('schedules.json')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/visual.css'), R('assets/awards.css'), R('assets/awards.js'), R('assets/interactions.js'), R('assets/interactions.css'), R('assets/palette.css'), R('assets/promotion.css'), R('assets/promotion.js'), R('assets/visual.js'), R('assets/conditions.js'), R('assets/restaurant.css'), R('assets/services.css'), R('assets/services-data.js'), R('assets/services-copy.js'), R('assets/services.js'), R('assets/services-emergencies.js'), R('assets/services-emergencies.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('assets/analytics.js'), R('assets/analytics.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------
