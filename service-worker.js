@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v38-2026-09-28-guest-analytics';
+const VERSION      = 'v39-2026-09-29-complete-translations';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
