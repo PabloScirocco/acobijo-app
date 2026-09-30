@@ -9,7 +9,7 @@
   const storageKey = 'acobijo_analytics_consent_v1';
   const consentLifetime = 180 * 24 * 60 * 60 * 1000;
   const places = ['oyambre', 'ramales', 'ruiloba', 'cardeo', 'verdemar'];
-  const views = ['home', 'stay', 'incidents', 'events', 'places', 'schedules', 'musts', 'food', 'markets', 'contacts', 'routes', 'awards', 'favorites', 'suggest'];
+  const views = ['home', 'stay', 'incidents', 'events', 'places', 'schedules', 'musts', 'food', 'sea', 'markets', 'contacts', 'routes', 'awards', 'favorites', 'suggest'];
   const officialHosts = {
     'oyambre.com': 'oyambre', 'campingramales.com': 'ramales',
     'campingelhelguero.com': 'ruiloba', 'elhelguero.es': 'ruiloba',

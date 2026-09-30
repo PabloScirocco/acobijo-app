@@ -172,11 +172,17 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/markets.css?v=20260929-42">
 <script defer src="assets/markets-data.js?v=20260929-42"></script>
 <script defer src="assets/markets.js?v=20260929-42"></script>
+<link rel="stylesheet" href="assets/marine.css?v=20260930-43">
+<script defer src="assets/marine-data.js?v=20260930-43"></script>
+<script defer src="assets/marine-copy.js?v=20260930-43"></script>
+<script defer src="assets/sun-times.js?v=20260930-43"></script>
+<script defer src="assets/marine-api.js?v=20260930-43"></script>
+<script defer src="assets/marine.js?v=20260930-43"></script>
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/analytics.css?v=20260928-38">
-<script defer src="assets/analytics.js?v=20260929-42" data-measurement-id="G-WQDFCB201D"></script>
+<script defer src="assets/analytics.js?v=20260930-43" data-measurement-id="G-WQDFCB201D"></script>
 <style>
 /* Keep the full establishment names readable and align card photographs. */
 .place-preview{display:flex;flex-direction:column;align-items:stretch}
@@ -237,6 +243,7 @@ body.dark .note{background:#1f1a10}
     <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
     <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
     <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
+    <button class="item" data-nav="sea" type="button"><span aria-hidden="true">≈</span> <strong data-sea-copy="nav">Mar y playas</strong></button>
     <button class="item" data-nav="markets" type="button"><span aria-hidden="true">▤</span> <strong data-market-copy="nav">Mercadillos</strong></button>
     <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
     <button class="item" data-nav="routes" type="button"><span aria-hidden="true">↗</span> <strong data-route-copy="nav">Rutas a pie y en bici</strong></button>
@@ -264,6 +271,7 @@ body.dark .note{background:#1f1a10}
     </section>
     <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
 <button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="section-heading"><h3 class="section-title" data-copy="discover"></h3><button class="text-link" data-nav="places" data-copy="allPlaces"></button></div><div class="place-strip"><button class="place-preview" data-place="oyambre"><img src="assets/places/oyambre.webp" alt="Caravaning Oyambre" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Caravaning Oyambre</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ramales"><img src="assets/places/ramales.webp" alt="Camping Ramales" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>VALLE DEL ASÓN</small><strong>Camping Ramales</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="ruiloba"><img src="assets/places/ruiloba.webp" alt="Camping Ruiloba" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>RUILOBA</small><strong>Camping Ruiloba</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="cardeo"><img src="assets/places/cardeo.webp" alt="Apartamentos El Cardeo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Apartamentos El Cardeo</strong><span aria-hidden="true">↗</span></span></button><button class="place-preview" data-place="verdemar"><img src="assets/places/verdemar.webp" alt="Hotel Verdemar by Grupo A Cobijo" loading="lazy" width="560" height="400"><span class="place-preview-body"><small>OYAMBRE</small><strong>Hotel Verdemar by Grupo A Cobijo</strong><span aria-hidden="true">↗</span></span></button></div><div class="explore-links"><button class="btn" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button><button class="btn" data-nav="routes" id="savedRoutesHome">♡ Mis rutas guardadas</button><button class="btn" data-nav="routes" data-route-copy="nav">Rutas a pie y en bici</button><button class="btn" data-nav="musts" id="t-musts">Imprescindibles</button><button class="btn" data-nav="food" id="t-food">Gastronomía</button><button class="btn" data-nav="favorites" id="t-favs">Favoritos del equipo</button><button class="btn" data-nav="suggest" id="t-sug">Sugerencias</button></div>
+<button class="sea-home" type="button" data-nav="sea" data-sea-stay><span class="sea-home-icon" aria-hidden="true">≈</span><span class="sea-home-copy"><strong data-sea-copy="homeTitle">Antes de ir a la playa</strong><small data-sea-copy="homeText">Mareas, olas y puesta de sol</small><small class="sea-home-favorite" id="seaHomeFavorite" hidden></small></span><span aria-hidden="true">↗</span></button>
 <button class="market-home" type="button" data-nav="markets"><span class="market-home-icon" aria-hidden="true">▤</span><span class="market-home-copy"><strong data-market-copy="homeTitle">Una mañana de mercadillo</strong><small data-market-copy="homeText">Consulta los días y lugares de los mercadillos de Cantabria.</small></span><span aria-hidden="true">↗</span></button>
 <button class="award-home" type="button" data-nav="awards"><span class="award-home-mark" aria-hidden="true">✧</span><span class="award-home-body"><strong data-award-copy="7">Distinciones con historia</strong><small data-award-copy="8">Conoce los premios de nuestros campings y de nuestro equipo.</small></span><span aria-hidden="true">↗</span></button>
     <h3 style="margin:14px 4px 8px" id="t-next-events">Próximos eventos</h3>
@@ -294,6 +302,7 @@ body.dark .note{background:#1f1a10}
       </div>
     </div>
 
+    <button type="button" class="btn" data-nav="sea" data-sea-stay data-sea-copy="nav">Mar y playas</button>
     <button type="button" class="btn contact-stay-link" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button>
     <section id="stayTools" class="card stay-tools" aria-label="Servicios de la estancia"></section>
     <div class="card" style="margin-top:12px">
@@ -516,6 +525,31 @@ body.dark .note{background:#1f1a10}
     </div>
     <div id="favAcc" class="acc"></div>
   </section>
+
+<section id="view-sea" class="view" aria-labelledby="seaTitle">
+  <header class="sea-hero"><p class="eyebrow" data-sea-copy="eyebrow">COSTA DE CANTABRIA</p><h2 id="seaTitle" data-sea-copy="title">Tu día junto al mar.</h2><p data-sea-copy="intro">Elige una playa para consultar las mareas, el oleaje previsto y la puesta de sol.</p></header>
+  <div class="card sea-controls"><label><span data-sea-copy="beach">Playa</span><select id="seaBeach" class="select"></select></label><button id="seaSave" type="button" class="btn sea-save" aria-pressed="false">♡ Guardar como favorita</button><a id="seaDirections" class="btn" data-sea-copy="directions">Cómo llegar</a></div>
+  <p class="sea-favorite-note" data-sea-copy="favoriteHint">Tu playa favorita se guarda solo en este dispositivo.</p><p id="seaSaveStatus" role="status" aria-live="polite"></p>
+  <p class="sea-note" data-sea-copy="localTime">Horas de Cantabria · Europe/Madrid</p>
+  <div class="sea-summary">
+    <article class="card"><h3 data-sea-copy="nextTide">Próxima marea</h3><strong class="sea-value" id="seaNextTime">—</strong><p id="seaNextKind"></p><p class="sea-countdown" id="seaCountdown"></p></article>
+    <article class="card"><h3 data-sea-copy="maxWaves">Máximo previsto de olas</h3><strong class="sea-value" id="seaWaveHeight">—</strong><p id="seaWavePeriod" class="sea-wave-period"></p></article>
+    <article class="card sea-sun-card"><h3 data-sea-copy="sunset">Puesta de sol aproximada</h3><strong class="sea-value" id="seaSunset">—</strong><p id="seaSunDate"></p><p id="seaSunrise"></p></article>
+  </div>
+  <p class="sea-note" data-sea-copy="waveDefinition">Altura significativa máxima prevista para el período indicado, en aguas abiertas. En la orilla puede variar.</p>
+  <p class="sea-note" data-sea-copy="sunNote">Cálculo astronómico aproximado; el relieve y las nubes pueden ocultar el sol antes.</p>
+  <div class="sea-source-line"><a id="seaOfficial" class="text-link" data-sea-copy="openOfficial">Ver en Puertos del Estado</a><p id="seaDataStatus" role="status" aria-live="polite"></p><button id="seaRefresh" type="button" class="btn" data-sea-copy="refresh">Actualizar</button></div>
+  <p class="sea-note" data-sea-copy="source">Fuente: Puertos del Estado</p><p class="sea-note" id="seaReference"></p>
+  <h3 class="sea-forecast-heading" data-sea-copy="forecast">Mareas y oleaje previstos</h3>
+  <div id="seaForecastEmpty" class="sea-empty" hidden></div>
+  <p id="seaCoverage" class="sea-note"></p>
+  <div id="seaNativeForecast" class="sea-native-grid" hidden>
+    <article class="card"><h3 data-sea-copy="tideTable">Pleamares y bajamares</h3><div class="sea-table-wrap"><table class="sea-table"><thead><tr><th scope="col" data-sea-copy="date">Día</th><th scope="col" data-sea-copy="high">Pleamar</th><th scope="col" data-sea-copy="low">Bajamar</th></tr></thead><tbody id="seaTideRows"></tbody></table></div><p class="sea-note" data-sea-copy="tideNote">Previsión de nivel del mar de Puertos del Estado, con efectos meteorológicos. Horas locales.</p></article>
+    <article class="card"><h3 data-sea-copy="waveForecast">Previsión de olas por período</h3><ol class="sea-waves" id="seaWaveBars"></ol><p class="sea-note" data-sea-copy="wavePeriod">Cada período corresponde a un día UTC. Mostramos su inicio y fin en hora de Cantabria.</p></article>
+  </div>
+  <details class="card sea-official-graphs"><summary data-sea-copy="officialGraphs">Gráficos oficiales</summary><p class="sea-note" data-sea-copy="externalNote">Consulta los gráficos ampliados en Puertos del Estado. Requieren conexión.</p><a id="seaOfficialGraphs" class="btn" data-sea-copy="loadGraphs">Abrir gráficos oficiales ↗</a><div class="sea-graph-notes"><p data-sea-copy="utcNote">Los gráficos oficiales muestran horas GMT/UTC: en Cantabria se suma 1 hora en invierno y 2 en verano.</p><p id="seaExternalLanguage" data-sea-copy="externalLanguage">Visor oficial disponible en español e inglés.</p></div></details>
+  <p class="sea-note" data-sea-copy="safety">Consulta las banderas y sigue las indicaciones de los socorristas.</p>
+</section>
 
 <section id="view-markets" class="view" aria-labelledby="marketsTitle">
   <header class="market-hero"><div class="market-hero-copy"><p class="eyebrow" data-market-copy="eyebrow">MERCADILLOS DE CANTABRIA</p><h2 id="marketsTitle" data-market-copy="title">De pueblo en pueblo, de puesto en puesto.</h2><p data-market-copy="intro">Descubre una selección de mercadillos semanales de Cantabria. Elige un día y una localidad para preparar tu visita.</p></div><svg class="market-illustration" viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 70v80h120V70M22 70l14-35h108l14 35M22 70c0 18 27 18 27 0 0 18 27 18 27 0 0 18 28 18 28 0 0 18 27 18 27 0 0 18 27 18 27 0M49 70l7-35m20 35 3-35m25 35-3-35m30 35-7-35M30 116h120M42 116v34m96-34v34M44 103h22m18 0h18m17 0h17"/><path d="M51 103V93m41 10V89m35 14V94M36 162h108"/></svg></header>
