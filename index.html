@@ -178,6 +178,9 @@ body.dark .note{background:#1f1a10}
 <script defer src="assets/sun-times.js?v=20260930-43"></script>
 <script defer src="assets/marine-api.js?v=20260930-43"></script>
 <script defer src="assets/marine.js?v=20260930-43"></script>
+<link rel="stylesheet" href="assets/navigation.css?v=20261001-44">
+<script defer src="assets/navigation-copy.js?v=20261001-44"></script>
+<script defer src="assets/navigation.js?v=20261001-44b"></script>
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
@@ -234,27 +237,34 @@ body.dark .note{background:#1f1a10}
 <!-- Drawer -->
 <div class="drawer" id="drawer">
   <div class="back" id="drawerBack"></div>
-  <aside class="panel" role="menu" aria-label="Navegación">
-    <div class="item" data-nav="home">🏠 <strong id="d-home">Inicio</strong></div>
-    <div class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></div>
-    <button class="item" data-nav="contacts" type="button"><span aria-hidden="true">⌖</span> <strong data-contact-copy="nav">Servicios útiles</strong></button>
-    <div class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></div>
-    <div class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></div>
-    <div class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></div>
-    <div class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></div>
-    <div class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></div>
-    <button class="item" data-nav="sea" type="button"><span aria-hidden="true">≈</span> <strong data-sea-copy="nav">Mar y playas</strong></button>
-    <button class="item" data-nav="markets" type="button"><span aria-hidden="true">▤</span> <strong data-market-copy="nav">Mercadillos</strong></button>
-    <div class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></div>
-    <button class="item" data-nav="routes" type="button"><span aria-hidden="true">↗</span> <strong data-route-copy="nav">Rutas a pie y en bici</strong></button>
-    <button class="item" data-nav="awards" id="awardsNav" type="button"><span aria-hidden="true">🏅</span><strong data-award-copy="0">Premios y reconocimientos</strong></button>
-    <div class="item" data-nav="favorites">💚 <strong id="d-favs">Favoritos del equipo</strong></div>
-    <div class="item" data-nav="suggest">💬 <strong id="d-sug">Sugerencias</strong></div>
+  <nav class="panel" aria-label="Navegación">
+      <button type="button" class="item" data-nav="home">🏠 <strong id="d-home">Inicio</strong></button>
+    <section class="drawer-group" aria-labelledby="menu-stayGroup"><h2 class="drawer-group-title" id="menu-stayGroup" data-navigation-copy="stayGroup">Durante tu estancia</h2>
+      <button type="button" class="item" data-nav="stay">🧳 <strong id="d-stay">Mi estancia</strong></button>
+      <button type="button" class="item" data-nav="schedules">🕒 <strong id="d-sc">Horarios</strong></button>
+      <button class="item" data-nav="contacts" type="button"><span aria-hidden="true">⌖</span> <strong data-contact-copy="nav">Servicios útiles</strong></button>
+      <button type="button" class="item" data-nav="incidents">🆘 <strong id="d-inc">Incidencias</strong></button>
+      <button type="button" class="item" data-nav="events">📅 <strong id="d-ev">Eventos</strong></button>
+      <button type="button" class="item" data-nav="suggest">💬 <strong id="d-sug">Sugerencias</strong></button>
+    </section>
+    <section class="drawer-group" aria-labelledby="menu-discoverGroup"><h2 class="drawer-group-title" id="menu-discoverGroup" data-navigation-copy="discoverGroup">Descubre Cantabria</h2>
+      <button type="button" class="item" data-nav="musts">⭐ <strong id="d-musts">Imprescindibles</strong></button>
+      <button class="item" data-nav="sea" type="button"><span aria-hidden="true">≈</span> <strong data-sea-copy="nav">Mar y playas</strong></button>
+      <button class="item" data-nav="markets" type="button"><span aria-hidden="true">▤</span> <strong data-market-copy="nav">Mercadillos</strong></button>
+      <button type="button" class="item" data-nav="food">🍽️ <strong id="d-food">Gastronomía</strong></button>
+      <button class="item" data-nav="routes" type="button"><span aria-hidden="true">↗</span> <strong data-route-copy="nav">Rutas a pie y en bici</strong></button>
+      <button type="button" class="item" data-nav="favorites">💚 <strong id="d-favs">Favoritos del equipo</strong></button>
+    </section>
+    <section class="drawer-group" aria-labelledby="menu-groupGroup"><h2 class="drawer-group-title" id="menu-groupGroup" data-navigation-copy="groupGroup">Grupo A Cobijo</h2>
+      <button type="button" class="item" data-nav="places">🏕️ <strong id="d-pl">Campings</strong></button>
+      <button class="item" data-nav="awards" id="awardsNav" type="button"><span aria-hidden="true">🏅</span><strong data-award-copy="0">Premios y reconocimientos</strong></button>
+    </section>
     <div class="item admin-btn" id="openAdmin">🛠️ <strong>Admin</strong></div>
     <div class="muted" id="drawerHint">Elige sección</div>
-  </aside>
+  </nav>
 </div>
 
+<div id="navigationBack" class="navigation-back" hidden><button type="button" id="navBack" class="btn"><span class="navigation-back-icon" aria-hidden="true">←</span><span data-navigation-copy="back">Volver</span></button></div>
 <main>
   <!-- HOME -->
   <section id="view-home" class="view active">
@@ -1281,14 +1291,16 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   /* ===== Navegación ===== */
-  function showView(id){
+  var navigation;
+  function showView(id,options){if(navigation){navigation.go(id,options);return;}renderView(id);}
+  function renderView(id){
     if(!document.getElementById('view-'+id)) id='home';
     $all('.view').forEach(v=>v.classList.remove('active'));
     var target=document.getElementById('view-'+id); if(target) target.classList.add('active');
     $all('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-nav')===id));
     $('#drawer').classList.remove('open');
     document.dispatchEvent(new CustomEvent('acobijo:view',{detail:id}));
-    window.scrollTo({top:0,behavior:'instant'});
+
   }
   $all('[data-nav]').forEach(el=>on(el,'click', function(){ showView(el.getAttribute('data-nav')); }));
   on($('#menuBtn'),'click', function(){ $('#drawer').classList.add('open'); });
@@ -1565,9 +1577,9 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   function updateStayUI(){ renderStayContacts(); renderStayHours(); fetchWeather(STAY); }
 
-  on($('#stayPlace'),'change', function(e){ setStayPlace(e.target.value); });
-  on($('#homePlace'),'change', function(e){ setStayPlace(e.target.value); });
-  $all('[data-place]').forEach(el=>on(el,'click',function(){setStayPlace(el.dataset.place);showView('stay');}));
+  on($('#stayPlace'),'change', function(e){ showView('stay',{place:e.target.value}); });
+  on($('#homePlace'),'change', function(e){ showView('home',{place:e.target.value}); });
+  $all('[data-place]').forEach(el=>on(el,'click',function(){showView('stay',{place:el.dataset.place});}));
 
   function renderRestaurant(){
     ['oyambre','ramales'].forEach(function(place){
@@ -1586,7 +1598,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if(WHATSAPP) $('#'+prefix+'WhatsApp').href='https://wa.me/'+WHATSAPP[place]+'?text='+encodeURIComponent(R[9]);
     });
   }
-  ['oyambre','ramales'].forEach(function(place){on($('#'+place+'RestaurantOpen'),'click',function(){setStayPlace(place);showView('stay');$('#'+place+'Restaurant').scrollIntoView({block:'start'});});});
+  ['oyambre','ramales'].forEach(function(place){on($('#'+place+'RestaurantOpen'),'click',function(){showView('stay',{place:place,section:'restaurant'});});});
 
   /* ===== Incidencias ===== */
   function fillIncTypes(){
@@ -1609,7 +1621,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $('#incWA').href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
     $('#incEmail').href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
   }
-  on($('#incPlace'),'change', function(e){ setStayPlace(e.target.value); });
+  on($('#incPlace'),'change', function(e){ showView('incidents',{place:e.target.value}); });
   on($('#incType'),'change', updateIncUI);
   on($('#incMsg'),'input', updateIncUI);
 
@@ -1642,7 +1654,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if(waA) waA.href='https://wa.me/'+wa+'?text='+encodeURIComponent(m.body);
     if(emA) emA.href='mailto:'+mail+'?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
   }
-  on($('#sugPlace'),'change', function(e){ setStayPlace(e.target.value); updateSugUI(); });
+  on($('#sugPlace'),'change', function(e){ showView('suggest',{place:e.target.value}); });
   on($('#sugType'),'change', updateSugUI);
   on($('#sugMsg'),'input', updateSugUI);
   on($('#sugRate'),'input', updateSugUI);
@@ -3807,7 +3819,7 @@ var FAVS={pueblos:[
   });
 
   // Keyboard access for the original menu and accordions.
-  $all('.drawer .item').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button');on(el,'keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});});
+  $all('.drawer .item:not(button)').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button');on(el,'keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});});
   on(document,'keydown',e=>{if(e.key==='Escape') $('#drawer').classList.remove('open');});
   /* ===== Inicializar ===== */
   renderAcc();
@@ -3819,10 +3831,8 @@ var FAVS={pueblos:[
   updateStayUI();
   updateIncUI();
   updateSugUI();
-  var params=new URLSearchParams(location.search);
-  if(PLACE_LABEL[params.get('focus')]) setStayPlace(params.get('focus'));
-  if(params.get('nav')) showView(params.get('nav'));
-  if(params.get('section')==='restaurant'){var restaurantPlace=params.get('focus')==='ramales'?'ramales':'oyambre';setStayPlace(restaurantPlace);showView('stay');$('#'+restaurantPlace+'Restaurant').scrollIntoView({block:'start'});}
+  navigation=window.ACOBIJO_NAV.create({render:renderView,getPlace:()=>STAY,setPlace:setStayPlace});
+  navigation.start();
   if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 
 });

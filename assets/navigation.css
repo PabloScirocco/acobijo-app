@@ -1,0 +1,43 @@
+/* A normal-flow back row: the guest's page remains free of extra fixed bars. */
+.navigation-back{
+  width:100%;max-width:1160px;margin:0 auto;padding:16px 24px 0;
+  display:flex;align-items:center;gap:12px;
+}
+.navigation-back[hidden],#navBack[hidden]{display:none!important}
+.navigation-back .btn{
+  min-height:44px;max-width:100%;padding:9px 16px;gap:9px;
+  font-size:14px;font-weight:600;line-height:1.4;
+  background:var(--card);border:1px solid var(--line);color:var(--ink);
+}
+.navigation-back svg,.navigation-back-icon{
+  width:18px;height:18px;flex:0 0 18px;
+}
+.navigation-back-icon{display:inline-flex;align-items:center;justify-content:center;font-size:21px}
+.navigation-back .btn span:not([aria-hidden]){overflow-wrap:anywhere;text-align:left}
+
+.drawer .drawer-group{display:grid;gap:4px;min-width:0}
+.drawer .drawer-group+.drawer-group{
+  border-top:1px solid var(--line);padding-top:12px;margin-top:2px;
+}
+.drawer .drawer-group-title{
+  margin:4px 11px 5px;font:700 11px/1.5 'Avenir Next',Avenir,'Segoe UI',sans-serif;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+}
+.drawer .drawer-group .item{
+  width:100%;min-height:44px;min-width:0;margin:0;padding:10px 12px;
+  text-align:left;line-height:1.45;font-size:14px;
+}
+.drawer .drawer-group .item strong{min-width:0;overflow-wrap:anywhere}
+.drawer .item[aria-current="page"],body:not(.dark) .drawer .item[aria-current="page"]{
+  background:linear-gradient(110deg,#d1e5ea,#ead9bd);color:#173e50;
+  box-shadow:inset 3px 0 0 #235b70;
+}
+body.dark .drawer .item[aria-current="page"]{
+  background:linear-gradient(110deg,#244652,#304447);color:#edf1ed;
+  box-shadow:inset 3px 0 0 #7fbdcc;
+}
+@media(max-width:700px){
+  .navigation-back{padding:12px 16px 0}
+  .navigation-back .btn{padding:9px 14px}
+  .drawer .panel,body.dark .drawer .panel{padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+}
