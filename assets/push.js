@@ -264,10 +264,24 @@
       }
       await loadSDK(); assertCurrent(epoch);
       if (!sdk.Notifications.isPushSupported()) { await rollback(epoch, 'unsupported'); return; }
-      const optedIn = Promise.resolve(sub().optIn());
-      // Even a late optIn resolution must honour a persisted disabled intent.
-      optedIn.then(() => { if (!saved?.enabled) return sub().optOut(); }).catch(() => {});
-      await timeLimit(optedIn); assertCurrent(epoch);
+      if (permission() !== 'granted') throw new Error('Notification permission changed');
+      if (!sub().token) {
+        // Native permission and a push subscription are different. In v16,
+        // optIn() with granted permission only clears optedOut; it does not
+        // register a missing push token. The SDK request performs registration.
+        // Since permission is already granted, it shows no second native prompt.
+        const registration = Promise.resolve(sdk.Notifications.requestPermission());
+        registration.then(() => { if (!saved?.enabled) return sub().optOut(); }).catch(() => {});
+        const registered = await timeLimit(registration); assertCurrent(epoch);
+        if (!registered) throw new Error('Push registration failed');
+      }
+      if (permission() !== 'granted') throw new Error('Notification permission changed');
+      if (!sub().optedIn) {
+        // An existing token can be explicitly opted out from a previous visit.
+        const optedIn = Promise.resolve(sub().optIn());
+        optedIn.then(() => { if (!saved?.enabled) return sub().optOut(); }).catch(() => {});
+        await timeLimit(optedIn); assertCurrent(epoch);
+      }
       await waitForSubscription(epoch);
       setStatus('syncing'); await syncTags(epoch);
       setStatus('active');
