@@ -184,6 +184,9 @@ body.dark .note{background:#1f1a10}
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
+<link rel="stylesheet" href="assets/push.css?v=20261005-45">
+<script defer src="assets/push-copy.js?v=20261005-45"></script>
+<script defer src="assets/push.js?v=20261005-45"></script>
 <link rel="stylesheet" href="assets/analytics.css?v=20260928-38">
 <script defer src="assets/analytics.js?v=20260930-43" data-measurement-id="G-WQDFCB201D"></script>
 <style>
@@ -315,6 +318,16 @@ body.dark .note{background:#1f1a10}
     <button type="button" class="btn" data-nav="sea" data-sea-stay data-sea-copy="nav">Mar y playas</button>
     <button type="button" class="btn contact-stay-link" data-nav="contacts" data-contacts-stay data-contact-copy="nav">Servicios útiles</button>
     <section id="stayTools" class="card stay-tools" aria-label="Servicios de la estancia"></section>
+    <section id="pushPanel" class="card push-panel" aria-labelledby="pushTitle" hidden>
+      <div class="push-heading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4M12 2V1"/></svg><h3 id="pushTitle" data-push-copy="title">Avisos en tu móvil</h3></div>
+      <p class="push-intro" data-push-copy="intro">Elige qué notificaciones quieres recibir de tu alojamiento. Puedes cambiar tus preferencias o desactivarlas cuando quieras.</p>
+      <div class="push-place"><label for="pushPlace" data-push-copy="placeLabel">Alojamiento para tus avisos</label><select id="pushPlace" class="select"><option value="oyambre">Caravaning Oyambre</option><option value="ramales">Camping Ramales</option><option value="ruiloba">Camping Ruiloba</option><option value="cardeo">Apartamentos El Cardeo</option><option value="verdemar">Hotel Verdemar by Grupo A Cobijo</option></select></div>
+      <fieldset class="push-options"><legend data-push-copy="preferencesLabel">Qué quieres recibir</legend><label class="push-option"><input type="checkbox" id="pushEvents" checked><span data-push-copy="eventLabel">Eventos y actividades</span></label><label class="push-option"><input type="checkbox" id="pushOffers"><span data-push-copy="offerLabel">Ofertas y promociones</span></label><label class="push-option"><input type="checkbox" id="pushImportant" checked><span data-push-copy="importantLabel">Avisos importantes de tu estancia</span></label></fieldset>
+      <div class="push-actions"><button type="button" id="pushEnable" class="btn primary" data-push-copy="enable">Activar avisos</button><button type="button" id="pushSave" class="btn primary" data-push-copy="save" hidden>Guardar preferencias</button><button type="button" id="pushDisable" class="btn" data-push-copy="disable" hidden>Desactivar avisos</button></div>
+      <p id="pushStatus" role="status" aria-live="polite"></p><p id="pushHelp"></p>
+      <p class="push-note" data-push-copy="importantNote">Estos avisos complementan la información de recepción. No son un canal de emergencias ni garantizan una entrega inmediata.</p>
+      <p class="push-privacy"><span data-push-copy="privacy">Al activar los avisos, OneSignal gestionará la suscripción de este dispositivo y tus preferencias: alojamiento y tipos de aviso.</span> <a href="https://onesignal.com/privacy_policy" target="_blank" rel="noopener" data-push-copy="privacyLink">Privacidad de OneSignal</a></p>
+    </section>
     <div class="card" style="margin-top:12px">
       <h3 id="t-stay-hours">Horarios del alojamiento</h3>
       <div id="stayHours"></div>

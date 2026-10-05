@@ -1,0 +1,55 @@
+/* Notification preferences stay in the page; permission is requested by the guest. */
+#pushPanel{
+  margin-top:18px;background:#dfeaec;border:1px solid #bfd1d6;
+  color:var(--ink);scroll-margin-top:100px;
+}
+#pushPanel[hidden],#pushPanel [hidden]{display:none!important}
+#pushPanel .push-heading{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+#pushPanel .push-heading h3,#pushPanel>h3{margin:0}
+#pushPanel .push-heading svg{width:25px;height:25px;flex:0 0 25px;color:var(--brand)}
+#pushPanel .push-intro{max-width:760px;margin:8px 0 20px;line-height:1.65}
+#pushPanel .push-place{display:block;max-width:520px;margin:18px 0}
+#pushPanel .push-place>span,#pushPanel label[for="pushPlace"]{
+  display:block;margin-bottom:7px;font-size:14px;font-weight:650;
+}
+#pushPlace{display:block;width:100%;max-width:520px;min-height:48px;font-size:16px}
+#pushPanel :is(.push-preferences,.push-options){
+  min-width:0;padding:0;margin:20px 0 0;border:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+}
+#pushPanel :is(.push-preferences,.push-options) legend{
+  width:100%;padding:0 0 9px;font-size:14px;font-weight:650;
+}
+#pushPanel :is(.push-preferences,.push-options)>label{
+  display:flex;align-items:center;gap:11px;min-height:60px;min-width:0;
+  padding:13px 14px;border:1px solid var(--line);border-radius:12px;
+  background:#f5efe3;cursor:pointer;font-size:14px;line-height:1.45;
+}
+#pushPanel :is(.push-preferences,.push-options)>label>span{min-width:0;overflow-wrap:anywhere}
+#pushPanel :is(.push-preferences,.push-options) input[type="checkbox"]{
+  margin:0;width:21px;height:21px;flex:0 0 21px;accent-color:#235b70;cursor:pointer;
+}
+#pushPanel :is(.push-preferences,.push-options)>label:focus-within{outline:2px solid #bd8e44;outline-offset:3px}
+#pushPanel .push-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:20px}
+#pushEnable,#pushSave,#pushDisable{min-height:46px;white-space:normal;font-size:14px;line-height:1.4}
+#pushEnable,#pushSave{background:#235b70;border-color:#235b70;color:#fff}
+#pushDisable{background:transparent;border-color:#839fa7;color:var(--ink)}
+#pushPanel button:disabled{opacity:.55;cursor:default;filter:none}
+#pushStatus{min-height:1.5em;margin:18px 0 6px;font-size:14px;font-weight:650;line-height:1.55}
+#pushHelp,.push-install{margin:6px 0 12px;font-size:13px;line-height:1.65;color:var(--muted);max-width:800px}
+#pushPanel .push-note,#pushPanel .push-privacy{font-size:13px;line-height:1.65;color:var(--muted)}
+#pushPanel .push-note{margin:18px 0 10px}
+#pushPanel .push-privacy{margin:0;padding-top:12px;border-top:1px solid var(--line)}
+#pushPanel .push-privacy a{display:inline-block;text-underline-offset:3px;overflow-wrap:anywhere}
+body.dark #pushPanel{background:#1c3844;border-color:#3b5760}
+body.dark #pushPanel :is(.push-preferences,.push-options)>label{background:#263d43;border-color:#4b6064}
+body.dark #pushPanel :is(.push-preferences,.push-options) input[type="checkbox"]{accent-color:#8dc7d4}
+body.dark #pushEnable,body.dark #pushSave{background:#8dc7d4;border-color:#8dc7d4;color:#10232d}
+body.dark #pushDisable{border-color:#78949d}
+@media(max-width:700px){
+  #pushPanel :is(.push-preferences,.push-options){grid-template-columns:1fr;gap:8px}
+  #pushPanel :is(.push-preferences,.push-options)>label{min-height:52px}
+  #pushPanel .push-place,#pushPlace{max-width:none}
+  #pushPanel .push-actions{align-items:stretch}
+  #pushPanel .push-actions .btn{flex:1 1 170px}
+}
