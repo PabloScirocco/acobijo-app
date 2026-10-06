@@ -180,7 +180,7 @@ body.dark .note{background:#1f1a10}
 <script defer src="assets/marine.js?v=20260930-43"></script>
 <link rel="stylesheet" href="assets/navigation.css?v=20261001-44">
 <script defer src="assets/navigation-copy.js?v=20261001-44"></script>
-<script defer src="assets/navigation.js?v=20261001-44b"></script>
+<script defer src="assets/navigation.js?v=20261006-49b"></script>
 <script defer src="assets/interactions.js?v=20260927-30"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
 <script defer src="assets/stay-tools.js?v=20260927-30"></script>
@@ -205,9 +205,9 @@ body.dark .note{background:#1f1a10}
 @media(prefers-reduced-motion:reduce){.welcome-inner{animation:none}}
 </style>
 <link rel="stylesheet" href="assets/palette.css?v=20261006-48">
-<link rel="stylesheet" href="assets/layout.css?v=20261006-48">
-<script defer src="assets/design.js?v=20261006-48"></script>
-<script defer src="assets/stay-layout.js?v=20261006-48"></script>
+<link rel="stylesheet" href="assets/layout.css?v=20261006-49b">
+<script defer src="assets/design.js?v=20261006-49b"></script>
+<script defer src="assets/stay-layout.js?v=20261006-49b"></script>
 </head>
 <body>
 
@@ -281,6 +281,11 @@ body.dark .note{background:#1f1a10}
       <span class="hero-caption">CANTABRIA · GRUPO A COBIJO</span>
     </div>
     <div class="stay-bar"><div><label for="homePlace" data-copy="choose">¿Dónde te alojas?</label><select id="homePlace" class="select"><option value="oyambre">Oyambre</option><option value="ramales">Ramales</option><option value="ruiloba">El Helguero · Ruiloba</option><option value="cardeo">El Cardeo</option><option value="verdemar">Hotel Verdemar</option></select></div><div class="row"><a id="homeCall" class="btn primary">Llamar</a><a id="homeWA" class="btn">WhatsApp</a><a id="homeDir" class="btn">Cómo llegar</a></div></div>
+    <section class="home-notifications" aria-labelledby="homeNotificationsTitle">
+      <span class="home-notifications-icon" aria-hidden="true">🔔</span>
+      <div class="home-notifications-copy"><h3 id="homeNotificationsTitle" data-design-copy="notificationsTitle">Avisos en tu móvil</h3><p data-design-copy="notificationsSub">Eventos, ofertas y avisos importantes de tu alojamiento. Tú eliges qué recibir.</p></div>
+      <button id="homeNotificationsOpen" type="button" class="btn" data-open-notifications data-design-copy="notificationsButton">Configurar avisos</button>
+    </section>
 <section class="home-essentials" aria-label="Accesos rápidos">    <h3 class="section-title" data-copy="quick"></h3><div class="tiles quick-tiles">
 <button class="tile" data-nav="stay"><span class="big" aria-hidden="true">⌂</span><strong id="t-stay">Mi estancia</strong><span class="muted" id="t-stay-sub">Contactos, clima, horarios</span></button><button class="tile" data-nav="schedules"><span class="big" aria-hidden="true">◷</span><strong id="t-sc">Horarios</strong><span class="muted" id="t-sc-sub">Organiza tu día</span></button><button class="tile" data-nav="incidents"><span class="big" aria-hidden="true">♡</span><strong id="t-inc">Necesito ayuda</strong><span class="muted" id="t-inc-sub">Contacta con recepción</span></button><button class="tile" data-nav="events"><span class="big" aria-hidden="true">▦</span><strong id="t-ev">Eventos</strong><span class="muted" id="t-ev-sub">La agenda del grupo</span></button></div><div class="home-utility-links"><button class="text-link" type="button" data-nav="contacts" data-contacts-stay><span class="line-icon" data-design-icon="pin" aria-hidden="true"></span><span data-contact-copy="nav">Servicios útiles</span><span aria-hidden="true">↗</span></button></div></section>
     <section class="install-card" aria-labelledby="installHeading">

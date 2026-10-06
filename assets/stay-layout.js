@@ -57,12 +57,19 @@
     if(moreContactTitle)moreContactTitle.textContent=words.moreContact;
     syncDisclosures();
   }
-  function openRestaurantLink(){
+  function openSectionLink(){
     if(!ready)return;
     const params=new URLSearchParams(window.location.search);
-    if(params.get('section')!=='restaurant'||(params.get('nav')&&params.get('nav')!=='stay'))return;
+    if(params.get('nav')&&params.get('nav')!=='stay')return;
     const target=params.get('focus')||place;
-    if(!['oyambre','ramales'].includes(target)||target!==place)return;
+    if(target!==place)return;
+    if(params.get('section')==='notifications'){
+      selectTab('information');
+      const item=disclosures.find(entry=>entry.node.id==='pushPanel');
+      if(item)item.wrapper.open=true;
+      return;
+    }
+    if(params.get('section')!=='restaurant'||!['oyambre','ramales'].includes(target))return;
     const item=disclosures.find(entry=>entry.node.id===target+'Restaurant');
     if(item&&!item.node.hidden){selectTab('essential');item.wrapper.open=true;}
   }
@@ -126,7 +133,7 @@
     move(information,disclosure(byId('pushPanel'),'notifications','stayNotificationsDisclosure','pushTitle'));
     move(information,byId('stayConditions'));move(information,disclosure(byId('stayAwards'),'awards','stayAwardsDisclosure'));
     const quick=byId('stayQuick');if(quick)quick.hidden=true;
-    ready=true;selectTab(remembered.get(place)||'essential');translate();openRestaurantLink();
+    ready=true;selectTab(remembered.get(place)||'essential');translate();openSectionLink();
     // Only watch original roots. Wrapper changes cannot trigger this observer.
     if(typeof MutationObserver!=='undefined'){
       const observer=new MutationObserver(syncDisclosures);
@@ -135,7 +142,7 @@
   }
   window.addEventListener('acobijo:stay-tools',syncPlace);
   document.addEventListener('acobijo:language',()=>{syncPlace();translate();});
-  document.addEventListener('acobijo:view',event=>{if(event.detail==='stay'){syncPlace();openRestaurantLink();}});
+  document.addEventListener('acobijo:view',event=>{if(event.detail==='stay'){syncPlace();openSectionLink();}});
   // visual.js and interactions.js construct their nodes during DOMContentLoaded.
   // The next task lets every existing initializer finish before moving anything.
   const deferStart=()=>setTimeout(start,0);

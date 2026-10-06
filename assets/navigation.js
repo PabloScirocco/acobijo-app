@@ -6,6 +6,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  let current=null,saveFrame=0,restoreFrame=0,restoreTimer=0,observer=null,restoring=false,started=false;
  const byId=id=>document.getElementById(id);
  const validView=view=>!!byId('view-'+view);
+ const sectionFor=(view,place,section)=>view==='stay'&&(section==='notifications'||(section==='restaurant'&&['oyambre','ramales'].includes(place)))?section:null;
  const valid=state=>state&&state.app===marker&&typeof state.id==='string'&&validView(state.view)&&places.includes(state.place)&&Number.isInteger(state.depth)&&state.depth>=0;
  const newId=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
  const y=()=>Math.max(0,window.scrollY||0);
@@ -24,11 +25,18 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
   if(getPlace()!==entry.place)setPlace(entry.place);
   render(entry.view);chrome();
  }
- function focusHeading(){const heading=byId('view-'+current.view)?.querySelector('h2');if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}}
+ function focusHeading(){if(current.section==='notifications')return;const heading=byId('view-'+current.view)?.querySelector('h2');if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}}
+ function sectionTarget(entry){
+  if(entry.section==='restaurant')return byId(entry.place+'Restaurant');
+  if(entry.section==='notifications'){const summary=byId('stayNotificationsDisclosureTitle');return summary&&!summary.closest('[hidden]')?summary:null;}
+  return null;
+ }
  function restore(entry,anchor=false){
-  cancelRestore();restoring=true;
+  cancelRestore();restoring=true;let sectionFocused=false;
   const apply=()=>{if(current.id!==entry.id)return;let top=Number.isFinite(entry.scroll)?Math.max(0,entry.scroll):0;
-   if(anchor&&entry.section==='restaurant'){const target=byId(entry.place+'Restaurant');if(target)top=y()+target.getBoundingClientRect().top-(document.querySelector('.topbar')?.getBoundingClientRect().height||0)-12;}
+   const target=sectionTarget(entry);
+   if(target&&entry.section==='notifications'&&!sectionFocused&&!target.closest('[inert]')){target.focus({preventScroll:true});sectionFocused=true;}
+   if(anchor&&target)top=y()+target.getBoundingClientRect().top-(document.querySelector('.topbar')?.getBoundingClientRect().height||0)-12;
    window.scrollTo({top,behavior:'instant'});
   };
   apply();restoreFrame=requestAnimationFrame(()=>{apply();restoreFrame=requestAnimationFrame(apply);});
@@ -37,8 +45,8 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  }
  function go(view,options={}){
   if(!started)return;view=validView(view)?view:'home';const place=places.includes(options.place)?options.place:getPlace();
-  const section=options.section==='restaurant'&&view==='stay'&&['oyambre','ramales'].includes(place)?'restaurant':null;
-  if(current.view===view&&current.place===place&&current.section===section){byId('drawer').classList.remove('open');chrome();return;}
+  const section=sectionFor(view,place,options.section);
+  if(current.view===view&&current.place===place&&current.section===section){byId('drawer').classList.remove('open');if(section==='notifications'){show(current);restore(current,true);}else chrome();return;}
   cancelRestore();save();
   current={app:marker,id:newId(),view,place,section,depth:options.replace?current.depth:current.depth+1,scroll:0};
   write(!!options.replace,current);show(current);focusHeading();restore(current,!!section);
@@ -48,7 +56,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
   if(started)return;started=true;
   const params=new URLSearchParams(location.search),saved=history.state;
   if(valid(saved)){current={...saved};show(current);restore(current);}
-  else{const place=places.includes(params.get('focus'))?params.get('focus'):getPlace();const section=params.get('section')==='restaurant'&&['oyambre','ramales'].includes(place)?'restaurant':null;
+  else{const place=places.includes(params.get('focus'))?params.get('focus'):getPlace();const section=sectionFor('stay',place,params.get('section'));
    current={app:marker,id:newId(),view:section?'stay':validView(params.get('nav'))?params.get('nav'):'home',place,section,depth:0,scroll:0};write(true,current);show(current);restore(current,!!section);
   }
  }
@@ -59,6 +67,9 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  window.addEventListener('pagehide',()=>{cancelRestore();save();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)save();});
  document.addEventListener('acobijo:language',()=>{if(current)chrome();});
+ document.addEventListener('click',event=>{if(event.target?.closest?.('[data-open-notifications]')){event.preventDefault();go('stay',{section:'notifications'});}});
+ // A direct link may load beneath the welcome screen; focus only after it closes.
+ byId('welcomeEnter')?.addEventListener('click',()=>{if(current?.section==='notifications')restore(current,!current.scroll);});
  byId('navBack').addEventListener('click',back);
  try{history.scrollRestoration='manual';}catch(_){}
  return {start,go,back,save,currentView:()=>current?.view||'home'};
