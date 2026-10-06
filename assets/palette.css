@@ -3,6 +3,7 @@
  --bg:#f5f2eb;--ink:#203e4c;--muted:#596c74;--line:#d9e0df;
  --brand:#24566b;--brand-ink:#1b4357;--card:#fffcf7;--tint:#e8eff0;
  --sand:#eee6d7;--blue-soft:#e4eef1;--surface:#fffcf7;--on-brand:#fff;
+ --gold:#ad7d37;--gold-ink:#805817;--gold-soft:#f2e1c2;
  --wx1:#edf3f3;--wx2:#e4eef0;--wx3:#d7e7eb;--wx4:#cedfe5;
  background:var(--bg);color:var(--ink);color-scheme:light;
 }
@@ -10,6 +11,7 @@ body.dark{
  --bg:#14242d;--ink:#eef3f4;--muted:#b2c2c9;--line:#3c505a;
  --brand:#a0cedb;--brand-ink:#d8edf3;--card:#1d313b;--tint:#263e49;
  --sand:#334044;--blue-soft:#233d49;--surface:#1d313b;--on-brand:#142c39;
+ --gold:#d9b875;--gold-ink:#f0cf93;--gold-soft:#4b4030;
  --wx1:#203741;--wx2:#263e49;--wx3:#2c4653;--wx4:#324e5c;
  background:var(--bg);color:var(--ink);color-scheme:dark;
 }
@@ -40,11 +42,6 @@ body .install-card .install-button{background:var(--brand);color:var(--on-brand)
 body .wx,body .wx-today,body .wx-day{background:var(--blue-soft);border-color:var(--line)}
 body #pushPanel,body #pushPanel .push-options>label{background:var(--card);border-color:var(--line)}
 body #pushEnable,body #pushSave{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
-body .app-promotion{background:var(--sand);border-color:var(--line);color:var(--ink);box-shadow:none}
-body .app-promotion .promo-description,body .app-promotion .eyebrow{color:var(--muted)}
-body .app-promotion .promo-code,body .app-promotion .promo-code-label{color:var(--ink)}
-body .app-promotion .promo-feedback{color:var(--ink)}
-body .app-promotion .promo-copy{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 body .stay-quick .btn,body .explore-links .btn{background:var(--card);border-color:var(--line)}
 body .pill,body .badge-pill{background:var(--card);color:var(--ink);border-color:var(--line)}
 body.dark .service-state.open{background:#254d44;color:#b9e6d1}
@@ -57,3 +54,13 @@ body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro) p{colo
 body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro) .eyebrow{color:var(--brand)}
 body .view :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro)>p:not(.eyebrow){color:var(--muted)}
 body .view :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro):after{color:var(--brand);opacity:.12}
+
+/* Familiar golden accents highlight actions and the current section. */
+body .navbtn.active,body .stay-tab[aria-selected="true"]{background:var(--gold-soft);color:var(--ink);box-shadow:inset 0 -3px 0 var(--gold)}
+body .drawer .item[aria-current="page"]{background:var(--gold-soft);box-shadow:inset 3px 0 0 var(--gold)}
+body .quick-tiles .tile .big,body .discover-arrow,body .secondary-link .line-icon,body .stay-disclosure>summary:after{color:var(--gold-ink)}
+body .install-card-icon{background:var(--gold-soft);color:var(--gold-ink)}
+body .install-card .install-button,body .btn.hero-cta,body .stay-gallery-open{background:#ead5af;color:#203e4c;border-color:#c49a5d;box-shadow:0 3px 12px #ad7d3714}
+body .app-promotion{border-color:#c49a5d}
+body .app-promotion h2,body .app-promotion .promo-code{color:#f1d7a9}
+@media(hover:hover){body .discover-card:hover,body .place-preview:hover,body .gallery-thumb:hover{border-color:var(--gold)}body .quick-tiles .tile:hover{background:var(--gold-soft);border-color:var(--gold)}}

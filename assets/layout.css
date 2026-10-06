@@ -4,9 +4,9 @@ main{max-width:1160px;padding-top:24px}
 .topbar{min-height:72px}.topbar h1{letter-spacing:0;font-size:15px}
 button:hover,a.btn:hover{filter:none}
 .btn{font-size:14px;font-weight:600;border-radius:12px}
-.line-icon,.big[data-design-icon],.ico [data-design-icon]{display:inline-flex;align-items:center;justify-content:center}
+.line-icon,.quick-tiles .big,.ico [data-design-icon]{display:inline-flex;align-items:center;justify-content:center}
 [data-design-icon] svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.navbar .ico{height:24px}.navbar .navbtn{gap:4px;font-size:12px}
+.navbar .ico{height:26px;font-size:22px;line-height:26px}.navbar .navbtn{gap:4px;font-size:12px}
 .welcome-hero{height:340px;border-radius:22px}
 .welcome-content{padding:34px 38px;max-width:630px}
 .welcome-content h2{font-size:clamp(38px,4.8vw,58px);margin:14px 0}
@@ -17,7 +17,7 @@ button:hover,a.btn:hover{filter:none}
 .stay-bar .row{gap:8px}.stay-bar .btn{font-size:13px}
 .home-essentials{margin:0 0 22px}.home-essentials>.section-title{font:600 20px/1.3 'Avenir Next',Avenir,sans-serif;margin:0 0 16px;letter-spacing:0}
 .quick-tiles{gap:12px}.quick-tiles .tile{flex-direction:row;align-items:center;flex-wrap:wrap;column-gap:12px;padding:17px 16px;border:1px solid var(--line);background:var(--card);min-height:96px;border-radius:16px}
-.quick-tiles .tile .big{height:34px;width:34px;flex-shrink:0;color:var(--brand)}
+.quick-tiles .tile .big{height:34px;width:34px;flex-shrink:0;color:var(--brand);font-size:30px;line-height:1}
 .quick-tiles .tile strong{font-size:15px;flex:1;text-wrap:balance;line-height:1.3}
 .quick-tiles .tile .muted{width:100%;font-size:12px;line-height:1.4;color:var(--muted)}
 .home-utility-links{display:flex;justify-content:flex-end;margin-top:8px}

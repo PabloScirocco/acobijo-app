@@ -23,8 +23,7 @@ function translate(){const t=copy[localStorage.getItem('lang')||document.documen
 function installation(){const card=document.querySelector('.install-card');if(card)card.hidden=installed();}
 document.addEventListener('DOMContentLoaded',()=>{
  document.querySelectorAll('[data-design-icon]').forEach(n=>{const path=paths[n.dataset.designIcon];if(path)n.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+path+'</svg>';});
- // A promotion belongs to the home page, not above every utility screen.
- const promotion=document.querySelector('.app-promotion'),install=document.querySelector('.install-card');if(promotion&&install)install.after(promotion);
+ // promotion.js places the installed-app offer first in main, before the page content.
  translate();installation();
  const media=window.matchMedia('(display-mode: standalone)');if(media.addEventListener)media.addEventListener('change',installation);
  window.addEventListener('appinstalled',installation);
