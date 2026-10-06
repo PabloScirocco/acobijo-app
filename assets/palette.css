@@ -1,23 +1,59 @@
-/* Coastal palette: soft blue, warm sand and readable deep-blue text. */
-body:not(.dark){--bg:#edf0e9;--card:#f5efe3;--tint:#e2ebec;--line:#c3d1d0;--ink:#173e50;--muted:#465e65;--brand:#235b70;background:linear-gradient(165deg,#dbe9ed 0,#eef0e8 640px,#ede2cf 1500px);background-repeat:no-repeat;background-color:#ede2cf}
-body:not(.dark) .topbar{background:#dce9ecf5;border-bottom-color:#b9ced3}
-body:not(.dark) .stay-bar{background:#e1ecec;border-color:#b8cdd0}
-body:not(.dark) .quick-tiles .tile{background:#d8e8ec;border-color:#bad0d6}
-body:not(.dark) .quick-tiles .tile:nth-child(even){background:#ede0c9;border-color:#d7c8ac}
-body:not(.dark) .place-preview,body:not(.dark) .gallery-thumb{background:#e6eef0}
-body:not(.dark) .place-preview:nth-child(even){background:#eee2ce}
-body:not(.dark) .stay-tool{background:#dce9ec;border-color:#bed1d6}
-body:not(.dark) .stay-tool:nth-child(even){background:#efe3ce;border-color:#d8caaf}
-body:not(.dark) .stay-conditions{background:#eee1cc;border-color:#d6c6a6}
-body:not(.dark) .stay-conditions details{border-top-color:#d4c4a8}
-body:not(.dark) .restaurant-panel,body:not(.dark) .route-filters{background:#dfeaec}
-body:not(.dark) .route-card:nth-child(even),body:not(.dark) .award-card:nth-child(even){background:#e2edf0}
-body:not(.dark) .award-home{background:linear-gradient(110deg,#e7d8bc,#e1e9e5);border-color:#cdbf9f}
-body:not(.dark) .empty-events,body:not(.dark) #eventsEmpty{background:#dbe8ed}
-body:not(.dark) .navbar{background:#d7e6eaf5;border-color:#adc7ce;box-shadow:0 8px 35px #254d6022}
-body:not(.dark) .navbtn.active{background:#f0e0c3;color:#173e50}
-body:not(.dark) .stay-quick .btn,body:not(.dark) .explore-links .btn{background:#e3edef;border-color:#bbd0d4}
-body:not(.dark) .input,body:not(.dark) .select,body:not(.dark) .textarea{background:#f8f3e9}
-body:not(.dark) .stay-bar .select{background:transparent}
-body:not(.dark) .drawer .panel{background:linear-gradient(160deg,#dce9ec,#eee2ce)}
-body:not(.dark) .drawer .item:hover{background:#c9dfe5}
+/* One coastal palette across every screen: warm sand, mist blue, deep ink. */
+:root,body:not(.dark){
+ --bg:#f5f2eb;--ink:#203e4c;--muted:#596c74;--line:#d9e0df;
+ --brand:#24566b;--brand-ink:#1b4357;--card:#fffcf7;--tint:#e8eff0;
+ --sand:#eee6d7;--blue-soft:#e4eef1;--surface:#fffcf7;--on-brand:#fff;
+ --wx1:#edf3f3;--wx2:#e4eef0;--wx3:#d7e7eb;--wx4:#cedfe5;
+ background:var(--bg);color:var(--ink);color-scheme:light;
+}
+body.dark{
+ --bg:#14242d;--ink:#eef3f4;--muted:#b2c2c9;--line:#3c505a;
+ --brand:#a0cedb;--brand-ink:#d8edf3;--card:#1d313b;--tint:#263e49;
+ --sand:#334044;--blue-soft:#233d49;--surface:#1d313b;--on-brand:#142c39;
+ --wx1:#203741;--wx2:#263e49;--wx3:#2c4653;--wx4:#324e5c;
+ background:var(--bg);color:var(--ink);color-scheme:dark;
+}
+html:has(body.dark){background:#14242d;color-scheme:dark}
+body{height:auto;min-height:100vh}
+body .topbar{background:var(--bg);border-color:var(--line)}
+body .navbar{background:var(--card);border-color:var(--line);box-shadow:0 4px 28px #102d3812}
+body .navbtn.active{background:var(--blue-soft);color:var(--ink)}
+body .drawer .panel{background:var(--bg)}
+body .drawer .item:hover{background:var(--tint)}
+body .drawer .item[aria-current="page"]{background:var(--blue-soft);color:var(--ink);box-shadow:inset 3px 0 0 var(--brand)}
+body .btn,body .input,body .select,body .textarea{background:var(--card);color:var(--ink);border-color:var(--line)}
+body .btn.primary,body .chip.on{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+body .btn.hero-cta,body .stay-gallery-open{background:#f1e8d8;color:#203e4c;border-color:#f1e8d8}
+body .btn.ghost{background:transparent;color:var(--muted)}
+body .card,body .place-preview,body .gallery-thumb,body .route-card,body .award-card,body .acc-item{background:var(--card);border-color:var(--line)}
+body .acc-h,body .route-filters,body .contact-filters,body .market-filters,body .award-filters{background:var(--blue-soft);border-color:var(--line)}
+body .stay-bar,body .stay-tool,body .restaurant-panel{background:var(--blue-soft);border-color:var(--line)}
+body .stay-bar .select{background:transparent}
+body .stay-conditions{background:var(--card);border-color:var(--line)}
+body .stay-conditions details{border-color:var(--line)}
+body .contact-hero,body .routes-hero,body .market-hero,body .sea-hero,body .awards-intro{background:var(--blue-soft);border-color:var(--line)}
+body .empty-events,body #eventsEmpty{background:transparent;border-color:var(--line)}
+body .install-card{background:var(--blue-soft);color:var(--ink);border-color:var(--line)}
+body .install-card p{color:var(--muted)}
+body .install-card-icon{background:var(--card);color:var(--brand)}
+body .install-card .install-button{background:var(--brand);color:var(--on-brand);border-color:var(--brand);box-shadow:none}
+body .wx,body .wx-today,body .wx-day{background:var(--blue-soft);border-color:var(--line)}
+body #pushPanel,body #pushPanel .push-options>label{background:var(--card);border-color:var(--line)}
+body #pushEnable,body #pushSave{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+body .app-promotion{background:var(--sand);border-color:var(--line);color:var(--ink);box-shadow:none}
+body .app-promotion .promo-description,body .app-promotion .eyebrow{color:var(--muted)}
+body .app-promotion .promo-code,body .app-promotion .promo-code-label{color:var(--ink)}
+body .app-promotion .promo-feedback{color:var(--ink)}
+body .app-promotion .promo-copy{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+body .stay-quick .btn,body .explore-links .btn{background:var(--card);border-color:var(--line)}
+body .pill,body .badge-pill{background:var(--card);color:var(--ink);border-color:var(--line)}
+body.dark .service-state.open{background:#254d44;color:#b9e6d1}
+body.dark .service-state.closed{background:#473f35;color:#ecdbc0}
+body.dark .award-emblem{background:var(--sand);color:var(--ink)}
+:focus-visible{outline:3px solid #ad773b;outline-offset:4px}
+body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro){color:var(--ink)}
+body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro) h2{color:var(--ink)}
+body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro) p{color:var(--muted)}
+body :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro) .eyebrow{color:var(--brand)}
+body .view :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro)>p:not(.eyebrow){color:var(--muted)}
+body .view :is(.contact-hero,.routes-hero,.market-hero,.sea-hero,.awards-intro):after{color:var(--brand);opacity:.12}

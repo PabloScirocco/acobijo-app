@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v46-2026-10-05-push-registration';
+const VERSION      = 'v47-2026-10-06-layout';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -15,7 +15,7 @@ const CORE = [
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
   R('assets/push.css'), R('assets/push-copy.js'), R('assets/push.js'),
-  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/visual.css'), R('assets/awards.css'), R('assets/awards.js'), R('assets/interactions.js'), R('assets/interactions.css'), R('assets/palette.css'), R('assets/promotion.css'), R('assets/promotion.js'), R('assets/markets.css'), R('assets/markets-data.js'), R('assets/markets.js'), R('assets/marine-data.js'), R('assets/marine-copy.js'), R('assets/sun-times.js'), R('assets/marine-api.js'), R('assets/marine.js'), R('assets/marine.css'), R('assets/navigation.css'), R('assets/navigation-copy.js'), R('assets/navigation.js'), R('assets/visual.js'), R('assets/conditions.js'), R('assets/restaurant.css'), R('assets/services.css'), R('assets/services-data.js'), R('assets/services-copy.js'), R('assets/services.js'), R('assets/services-emergencies.js'), R('assets/services-emergencies.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('assets/analytics.js'), R('assets/analytics.css'), R('events.json'), R('schedules.json')
+  R('manifest.webmanifest'), R('assets/guest.css'), R('assets/visual.css'), R('assets/awards.css'), R('assets/awards.js'), R('assets/interactions.js'), R('assets/interactions.css'), R('assets/palette.css'), R('assets/layout.css'), R('assets/design.js'), R('assets/stay-layout.js'), R('assets/discover/coast.webp'), R('assets/discover/towns.webp'), R('assets/discover/nature.webp'), R('assets/promotion.css'), R('assets/promotion.js'), R('assets/markets.css'), R('assets/markets-data.js'), R('assets/markets.js'), R('assets/marine-data.js'), R('assets/marine-copy.js'), R('assets/sun-times.js'), R('assets/marine-api.js'), R('assets/marine.js'), R('assets/marine.css'), R('assets/navigation.css'), R('assets/navigation-copy.js'), R('assets/navigation.js'), R('assets/visual.js'), R('assets/conditions.js'), R('assets/restaurant.css'), R('assets/services.css'), R('assets/services-data.js'), R('assets/services-copy.js'), R('assets/services.js'), R('assets/services-emergencies.js'), R('assets/services-emergencies.css'), R('assets/routes.css'), R('assets/routes-data.js'), R('assets/routes.js'), R('assets/stay-tools.js'), R('assets/stay-tools.css'), R('assets/analytics.js'), R('assets/analytics.css'), R('events.json'), R('schedules.json')
 ];
 
 // ---------- Install ----------
