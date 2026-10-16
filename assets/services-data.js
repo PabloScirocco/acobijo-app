@@ -24,14 +24,16 @@ window.ACOBIJO_CONTACTS = [
       "en": "San Vicente de la Barquera ↔ Santander bus route. Camping Oyambre and Apartamentos El Cardeo are between the San Vicente de la Barquera and Comillas stops. Camping Ruiloba is between the Comillas and Cóbreces stops.",
       "fr": "Ligne San Vicente de la Barquera ↔ Santander. Camping Oyambre et Apartamentos El Cardeo se trouvent entre les arrêts de San Vicente de la Barquera et Comillas. Camping Ruiloba se trouve entre les arrêts de Comillas et Cóbreces.",
       "de": "Buslinie San Vicente de la Barquera ↔ Santander. Camping Oyambre und Apartamentos El Cardeo liegen zwischen den Haltestellen San Vicente de la Barquera und Comillas. Camping Ruiloba liegt zwischen den Haltestellen Comillas und Cóbreces.",
-      "nl": "Buslijn San Vicente de la Barquera ↔ Santander. Camping Oyambre en Apartamentos El Cardeo liggen tussen de haltes San Vicente de la Barquera en Comillas. Camping Ruiloba ligt tussen de haltes Comillas en Cóbreces."
+      "nl": "Buslijn San Vicente de la Barquera ↔ Santander. Camping Oyambre en Apartamentos El Cardeo liggen tussen de haltes San Vicente de la Barquera en Comillas. Camping Ruiloba ligt tussen de haltes Comillas en Cóbreces.",
+      "eu": "San Vicente de la Barquera ↔ Santander linea. Camping Oyambre eta Apartamentos El Cardeo San Vicente de la Barquera eta Comillas geltokien artean daude. Camping Ruiloba Comillas eta Cóbreces geltokien artean dago."
     },
     "notice": {
       "es": "Pago solo en efectivo. Se admiten billetes de hasta 20 €. Salvo en la parada de origen, los horarios son aproximados. Pueden producirse retrasos.",
       "en": "Cash only. Banknotes up to €20 are accepted. Except at the route’s starting stop, scheduled times are approximate. Delays may occur.",
       "fr": "Paiement en espèces uniquement. Billets de 20 € maximum. Sauf à l’arrêt de départ, les horaires sont approximatifs. Des retards sont possibles.",
       "de": "Nur Barzahlung. Banknoten bis 20 € werden akzeptiert. Außer an der Starthaltestelle sind die Fahrplanzeiten ungefähre Angaben. Verspätungen sind möglich.",
-      "nl": "Alleen contant betalen. Biljetten tot en met €20 worden geaccepteerd. Behalve bij de beginhalte zijn de tijden bij benadering. Vertragingen zijn mogelijk."
+      "nl": "Alleen contant betalen. Biljetten tot en met €20 worden geaccepteerd. Behalve bij de beginhalte zijn de tijden bij benadering. Vertragingen zijn mogelijk.",
+      "eu": "Eskudirutan soilik ordain daiteke. Gehienez 20 €-ko billeteak onartzen dira. Abiapuntuko geltokian izan ezik, ordutegiak gutxi gorabeherakoak dira. Atzerapenak egon daitezke."
     },
     "sources": [
       "https://lacantabrica.com/",
@@ -101,7 +103,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "San Vicente de la Barquera taxi rank",
       "fr": "Station de taxis de San Vicente de la Barquera",
       "de": "Taxistand San Vicente de la Barquera",
-      "nl": "Taxistandplaats San Vicente de la Barquera"
+      "nl": "Taxistandplaats San Vicente de la Barquera",
+      "eu": "Taxi-geltokia · San Vicente de la Barquera"
     },
     "sources": [
       "https://aytosanvicentedelabarquera.es/empresas-y-servicios/"
@@ -126,7 +129,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Comillas taxi rank",
       "fr": "Station de taxis de Comillas",
       "de": "Taxistand Comillas",
-      "nl": "Taxistandplaats Comillas"
+      "nl": "Taxistandplaats Comillas",
+      "eu": "Taxi-geltokia · Comillas"
     },
     "sources": [
       "https://www.comillas.es/wp-content/uploads/2025/04/BOLETIN-Semana-31-1.pdf"
@@ -154,7 +158,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Car repairs, general mechanical work, bodywork and paintwork.",
       "fr": "Garage automobile : mécanique générale, carrosserie et peinture.",
       "de": "Kfz-Werkstatt für allgemeine Reparaturen, Karosserie- und Lackierarbeiten.",
-      "nl": "Autogarage voor algemene reparaties, carrosseriewerk en spuitwerk."
+      "nl": "Autogarage voor algemene reparaties, carrosseriewerk en spuitwerk.",
+      "eu": "Auto-tailerra: mekanika orokorra, txapa eta pintura."
     },
     "sources": [
       "https://www.afodeb.es/talleres-velez"
@@ -185,7 +190,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Repairs, maintenance and rental of campervans, motorhomes and caravans.",
       "fr": "Réparation, entretien et location de vans aménagés, camping-cars et caravanes.",
       "de": "Reparatur, Wartung und Vermietung von Campervans, Wohnmobilen und Wohnwagen.",
-      "nl": "Reparatie, onderhoud en verhuur van camperbusjes, campers en caravans."
+      "nl": "Reparatie, onderhoud en verhuur van camperbusjes, campers en caravans.",
+      "eu": "Camperren, autokarabanen eta karabanen konponketa, mantentzea eta alokairua."
     },
     "sources": [
       "https://caravaningcantabria.es/contacto/",
@@ -262,7 +268,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "The pharmacy previously known as Busto Barbarín, on Los Arzobispos.",
       "fr": "La pharmacie connue auparavant sous le nom de Busto Barbarín, rue Los Arzobispos.",
       "de": "Die ehemals als Busto Barbarín bekannte Apotheke in der Straße Los Arzobispos.",
-      "nl": "De apotheek die voorheen Busto Barbarín heette, aan Los Arzobispos."
+      "nl": "De apotheek die voorheen Busto Barbarín heette, aan Los Arzobispos.",
+      "eu": "Busto Barbarín izenez ezagutzen den farmazia, Los Arzobispos-en."
     }
   },
   {
@@ -355,7 +362,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Guardia Civil station · San Vicente de la Barquera",
       "fr": "Poste de la Guardia Civil · San Vicente de la Barquera",
       "de": "Guardia-Civil-Dienststelle · San Vicente de la Barquera",
-      "nl": "Guardia Civil-bureau · San Vicente de la Barquera"
+      "nl": "Guardia Civil-bureau · San Vicente de la Barquera",
+      "eu": "Guardia Civil-en bulegoa · San Vicente de la Barquera"
     }
   },
   {
@@ -381,7 +389,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Guardia Civil station · Comillas",
       "fr": "Poste de la Guardia Civil · Comillas",
       "de": "Guardia-Civil-Dienststelle · Comillas",
-      "nl": "Guardia Civil-bureau · Comillas"
+      "nl": "Guardia Civil-bureau · Comillas",
+      "eu": "Guardia Civil-en bulegoa · Comillas"
     }
   },
   {
@@ -407,7 +416,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Guardia Civil station · Ramales de la Victoria",
       "fr": "Poste de la Guardia Civil · Ramales de la Victoria",
       "de": "Guardia-Civil-Dienststelle · Ramales de la Victoria",
-      "nl": "Guardia Civil-bureau · Ramales de la Victoria"
+      "nl": "Guardia Civil-bureau · Ramales de la Victoria",
+      "eu": "Guardia Civil-en bulegoa · Ramales de la Victoria"
     }
   },
   {
@@ -436,7 +446,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "San Vicente de la Barquera health centre",
       "fr": "Centre de santé de San Vicente de la Barquera",
       "de": "Gesundheitszentrum San Vicente de la Barquera",
-      "nl": "Gezondheidscentrum San Vicente de la Barquera"
+      "nl": "Gezondheidscentrum San Vicente de la Barquera",
+      "eu": "San Vicente de la Barquera osasun-zentroa"
     }
   },
   {
@@ -464,7 +475,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Comillas medical clinic",
       "fr": "Cabinet médical de Comillas",
       "de": "Arztpraxis Comillas",
-      "nl": "Medische praktijk Comillas"
+      "nl": "Medische praktijk Comillas",
+      "eu": "Comillasko mediku-kontsultategia"
     }
   },
   {
@@ -491,7 +503,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Alto Asón health centre · Ramales",
       "fr": "Centre de santé Alto Asón · Ramales",
       "de": "Gesundheitszentrum Alto Asón · Ramales",
-      "nl": "Gezondheidscentrum Alto Asón · Ramales"
+      "nl": "Gezondheidscentrum Alto Asón · Ramales",
+      "eu": "Alto Asón osasun-zentroa · Ramales"
     }
   },
   {
@@ -1091,7 +1104,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "An option in Torrelavega for a longer shopping trip.",
       "fr": "Une option à Torrelavega, pour un trajet plus long.",
       "de": "Eine Einkaufsmöglichkeit in Torrelavega mit längerer Anfahrt.",
-      "nl": "Een optie in Torrelavega waarvoor je verder moet rijden."
+      "nl": "Een optie in Torrelavega waarvoor je verder moet rijden.",
+      "eu": "Torrelavegako aukera, erosketa-bidaia luzeagoetarako."
     }
   },
   {
@@ -1110,7 +1124,8 @@ window.ACOBIJO_CONTACTS = [
       "en": "Ramales ↔ Laredo bus",
       "fr": "Bus Ramales ↔ Laredo",
       "de": "Bus Ramales ↔ Laredo",
-      "nl": "Bus Ramales ↔ Laredo"
+      "nl": "Bus Ramales ↔ Laredo",
+      "eu": "Ramales ↔ Laredo autobusa"
     },
     "phone": "+34 910 207 007",
     "website": "https://www.alsa.es/horarios-autobuses",
@@ -1119,14 +1134,16 @@ window.ACOBIJO_CONTACTS = [
       "en": "Direct bus service between Ramales de la Victoria and Laredo, operated by Turytrans (ALSA). Part of route K4816 Laredo–Ramales–Bustablado.",
       "fr": "Liaison directe entre Ramales de la Victoria et Laredo, assurée par Turytrans (ALSA). Elle fait partie de la ligne K4816 Laredo–Ramales–Bustablado.",
       "de": "Direkte Busverbindung zwischen Ramales de la Victoria und Laredo, betrieben von Turytrans (ALSA). Teil der Linie K4816 Laredo–Ramales–Bustablado.",
-      "nl": "Rechtstreekse busverbinding tussen Ramales de la Victoria en Laredo, uitgevoerd door Turytrans (ALSA). Onderdeel van lijn K4816 Laredo–Ramales–Bustablado."
+      "nl": "Rechtstreekse busverbinding tussen Ramales de la Victoria en Laredo, uitgevoerd door Turytrans (ALSA). Onderdeel van lijn K4816 Laredo–Ramales–Bustablado.",
+      "eu": "Ramales de la Victoria eta Laredo arteko zuzeneko zerbitzua, Turytrans-ek (ALSA) eskainia. K4816 Laredo–Ramales–Bustablado linearen parte da."
     },
     "notice": {
       "es": "Consulta los horarios para la fecha de tu viaje. El teléfono corresponde a atención al cliente de ALSA.",
       "en": "Check the timetable for your travel date. The phone number is for ALSA customer service.",
       "fr": "Consultez les horaires pour la date de votre voyage. Le numéro de téléphone est celui du service client ALSA.",
       "de": "Prüfen Sie den Fahrplan für Ihren Reisetag. Die Telefonnummer gehört zum ALSA-Kundenservice.",
-      "nl": "Bekijk de dienstregeling voor je reisdatum. Het telefoonnummer is van de klantenservice van ALSA."
+      "nl": "Bekijk de dienstregeling voor je reisdatum. Het telefoonnummer is van de klantenservice van ALSA.",
+      "eu": "Kontsultatu zure bidaiaren eguneko ordutegiak. Telefono-zenbakia ALSAren bezeroarentzako arreta-zerbitzuarena da."
     },
     "sources": [
       "https://transportedecantabria.es/web/ctl/estaciones-autobus/-/estacion/43302",

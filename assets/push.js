@@ -5,7 +5,7 @@
   const APP_ID = '8f825451-a654-4daf-aafd-7dc27706d48a';
   const SDK_URL = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
   const STORAGE_KEY = 'acobijo_push_preferences_v1';
-  const PLACES = ['oyambre', 'ramales', 'ruiloba', 'cardeo', 'verdemar'];
+  const PLACES = ['all', 'oyambre', 'ramales', 'ruiloba', 'cardeo', 'verdemar'];
   const CATEGORY_IDS = { events: 'pushEvents', offers: 'pushOffers', important: 'pushImportant' };
   const fallback = {
     inactive: 'Los avisos están desactivados.', active: 'Los avisos están activados.',
@@ -21,7 +21,7 @@
     disableError: 'No hemos podido confirmar la baja. Vuelve a intentarlo.',
     permissionDismissed: 'No se han activado los avisos. Puedes volver a intentarlo.',
     preferencesChanged: 'Tienes cambios sin guardar.',
-    help: 'Puedes cambiar el alojamiento y los tipos de aviso o desactivarlos aquí.',
+    help: 'Puedes elegir los tipos de aviso de todo el grupo o desactivarlos aquí.',
     helpInstall: 'En iOS 16.4 o posterior: Safari → Compartir → Añadir a pantalla de inicio. Abre la app instalada.',
     helpDenied: 'Permite las notificaciones de esta web en los ajustes del navegador y vuelve aquí.',
     helpOffline: 'Vuelve a intentarlo cuando recuperes la conexión.',
@@ -57,8 +57,8 @@
   function language() {
     let value;
     try { value = localStorage.getItem('lang'); } catch (_) {}
-    if (!['es', 'en', 'fr', 'de', 'nl'].includes(value)) value = (document.documentElement.lang || 'es').slice(0, 2).toLowerCase();
-    return ['es', 'en', 'fr', 'de', 'nl'].includes(value) ? value : 'es';
+    if (!['es', 'en', 'fr', 'de', 'nl', 'eu'].includes(value)) value = (document.documentElement.lang || 'es').slice(0, 2).toLowerCase();
+    return ['es', 'en', 'fr', 'de', 'nl', 'eu'].includes(value) ? value : 'es';
   }
   function words() { return Object.assign({}, fallback, window.ACOBIJO_PUSH_COPY?.es, window.ACOBIJO_PUSH_COPY?.[language()]); }
   function isIOS() { return /iPad|iPhone|iPod/.test(navigator.userAgent || '') || (/Macintosh/.test(navigator.userAgent || '') && navigator.maxTouchPoints > 1); }
@@ -87,6 +87,7 @@
       if (typeof copy[key] === 'string') node.textContent = copy[key];
     });
     fields.status.textContent = copy[statusKey] || fallback.error;
+    if (saved?.enabled && saved.place !== 'all') fields.save.textContent = copy.enableGroup;
     fields.help.textContent = copy[helpKey] || fallback.help;
     panel.dataset.pushState = statusKey;
     panel.setAttribute('aria-busy', String(busy));
@@ -94,30 +95,25 @@
     fields.enable.hidden = enabled;
     fields.save.hidden = !saved?.enabled || saved.pendingDisable;
     fields.disable.hidden = !(saved?.enabled || saved?.pendingDisable || subscribed());
-    [fields.enable, fields.save, fields.disable, fields.place, ...Object.keys(CATEGORY_IDS).map(key => fields[key])].forEach(node => { node.disabled = busy; });
+    [fields.enable, fields.save, fields.disable, ...Object.keys(CATEGORY_IDS).map(key => fields[key])].forEach(node => { node.disabled = busy; });
     const unavailable = ['unsupported', 'installRequired'].includes(availability());
     fields.enable.disabled = busy || unavailable;
     fields.save.disabled = busy || unavailable;
   }
   function formValue(enabled) {
-    return normalize({ place: fields.place.value, events: fields.events.checked, offers: fields.offers.checked, important: fields.important.checked, enabled, pendingDisable: false });
+    return normalize({ place: 'all', events: fields.events.checked, offers: fields.offers.checked, important: fields.important.checked, enabled, pendingDisable: false });
   }
   function populate(value) {
-    fields.place.value = value.place;
     Object.keys(CATEGORY_IDS).forEach(key => { fields[key].checked = value[key]; });
   }
-  function currentPlace() {
-    const place = document.getElementById('stayPlace')?.value;
-    return PLACES.includes(place) ? place : 'oyambre';
-  }
-  function defaultValue() { return { place: currentPlace(), events: true, offers: false, important: true, enabled: false, pendingDisable: false }; }
+  function defaultValue() { return { place: 'all', events: true, offers: false, important: true, enabled: false, pendingDisable: false }; }
   function refresh() {
     if (busy) { render(); return; }
     if (saved?.pendingDisable) { setStatus('disableError'); return; }
     const problem = availability();
     if (problem) { setStatus(problem); return; }
     if (dirty && saved?.enabled) { setStatus('preferencesChanged'); return; }
-    setStatus(active() ? 'active' : 'inactive');
+    setStatus(active() ? (saved.place === 'all' ? 'active' : 'activeLegacy') : 'inactive');
   }
   function timeLimit(promise, milliseconds = 15000) {
     let timer;
@@ -331,7 +327,7 @@
     try {
       await loadSDK(); assertCurrent(epoch);
       if (!subscribed()) { setStatus('inactive'); return; }
-      await syncTags(epoch); setStatus(dirty ? 'preferencesChanged' : 'active');
+      await syncTags(epoch); setStatus(dirty ? 'preferencesChanged' : saved.place === 'all' ? 'active' : 'activeLegacy');
     } catch (_) { await rollback(epoch, navigator.onLine === false ? 'offline' : 'saveError'); }
     finally { await settled(epoch); }
   }
@@ -340,7 +336,7 @@
     panel = document.getElementById('pushPanel');
     if (!panel) return;
     fields = {};
-    for (const [key, id] of Object.entries({ place: 'pushPlace', enable: 'pushEnable', save: 'pushSave', disable: 'pushDisable', status: 'pushStatus', help: 'pushHelp', ...CATEGORY_IDS })) {
+    for (const [key, id] of Object.entries({ enable: 'pushEnable', save: 'pushSave', disable: 'pushDisable', status: 'pushStatus', help: 'pushHelp', ...CATEGORY_IDS })) {
       fields[key] = document.getElementById(id);
       if (!fields[key]) return;
     }
@@ -349,12 +345,8 @@
     fields.enable.addEventListener('click', enable);
     fields.save.addEventListener('click', save);
     fields.disable.addEventListener('click', disable);
-    [fields.place, ...Object.keys(CATEGORY_IDS).map(key => fields[key])].forEach(node => node.addEventListener('change', () => { dirty = true; refresh(); }));
+    Object.keys(CATEGORY_IDS).map(key => fields[key]).forEach(node => node.addEventListener('change', () => { dirty = true; refresh(); }));
     document.addEventListener('acobijo:language', render);
-    window.addEventListener('acobijo:stay-tools', () => {
-      // Prefill only until the guest edits or saves notification preferences.
-      if (!saved && !dirty && !busy) fields.place.value = currentPlace();
-    });
     window.addEventListener('offline', () => { if (!busy) refresh(); });
     window.addEventListener('online', () => { if (!busy) resume(); });
     window.addEventListener('pageshow', () => { if (!busy) resume(); });

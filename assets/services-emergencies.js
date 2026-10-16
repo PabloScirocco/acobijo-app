@@ -22,6 +22,7 @@
   window.ACOBIJO_EMERGENCY_UTILS = Object.freeze({ telephone });
 
   const copy = {
+    eu: {"title":"Larrialdiak","intro":"Larrialdi batean edo berehalako arriskuan, deitu 112ra.","scope":"Espainian erabiltzeko telefono-zenbakiak.","more":"Beste telefono ofizial batzuk","emergency":"Larrialdiak","support":"Arreta espezializatua","call":"Deitu","source":"Iturri ofiziala","lines":{"112":["Larrialdiak","Osasun-laguntza, polizia, suhiltzaileak eta erreskatea."],"061":["Osasun-larrialdiak","Premiazko osasun-laguntza eta orientazioa Kantabrian."],"062":["Guardia Civil","Larrialdietarako zuzeneko arreta."],"091":["Policía Nacional","Poliziaren esku-hartzea behar duten larrialdietarako arreta."],"sea":["Itsas salbamendua","Larrialdiak itsasoan."],"016":["Emakumeen aurkako indarkeria","Informazioa, aholkularitza juridikoa eta laguntza psikosoziala."],"024":["Jokabide suizidaren aurrean laguntza","Arriskuan dauden pertsonentzako, senideentzako eta hurbilekoentzako laguntza."],"poison":["Informazio toxikologikoa","Intoxikazioei eta substantzia toxikoekiko esposizioari buruzko kontsultak."]}},
     es: {
       title: 'Emergencias', intro: 'Ante una emergencia o peligro inmediato, llama al 112.',
       scope: 'Teléfonos para usar en España.', more: 'Otros teléfonos oficiales',

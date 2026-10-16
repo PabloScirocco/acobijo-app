@@ -15,7 +15,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  function save(){cancelAnimationFrame(saveFrame);saveFrame=0;if(!current||restoring)return;current.scroll=y();positions.set(current.id,current.scroll);if(history.state?.id===current.id)write(true,current);}
  function cancelRestore(){cancelAnimationFrame(restoreFrame);clearTimeout(restoreTimer);observer?.disconnect();observer=null;restoring=false;}
  function chrome(){
-  const lang=localStorage.getItem('lang')||'es',copy=window.ACOBIJO_NAV_COPY[lang]||window.ACOBIJO_NAV_COPY.es;
+  const lang=localStorage.getItem('lang')||document.documentElement.lang||'es',copy=window.ACOBIJO_NAV_COPY[lang]||window.ACOBIJO_NAV_COPY.es;
   document.querySelectorAll('[data-navigation-copy]').forEach(n=>n.textContent=copy[n.dataset.navigationCopy]);
   byId('navigationBack').hidden=current.depth===0&&current.view==='home';
   document.querySelectorAll('.drawer [data-nav],.navbar [data-nav]').forEach(n=>{const selected=n.dataset.nav===current.view;n.classList.toggle('active',selected);if(selected)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});

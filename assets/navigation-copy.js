@@ -1,6 +1,7 @@
 (function(){
   'use strict';
   window.ACOBIJO_NAV_COPY={
+    eu:{back:'Atzera',stayGroup:'Zure egonaldian',discoverGroup:'Ezagutu Kantabria',groupGroup:'Grupo A Cobijo',menu:'Menua'},
     es:{back:'Volver',stayGroup:'Durante tu estancia',discoverGroup:'Descubre Cantabria',groupGroup:'Grupo A Cobijo',menu:'Menú'},
     en:{back:'Back',stayGroup:'During your stay',discoverGroup:'Discover Cantabria',groupGroup:'Grupo A Cobijo',menu:'Menu'},
     fr:{back:'Retour',stayGroup:'Pendant votre séjour',discoverGroup:'Découvrez la Cantabrie',groupGroup:'Grupo A Cobijo',menu:'Menu'},

@@ -21,6 +21,7 @@
     '34652826564': 'ruiloba', '34664686158': 'cardeo', '34662204718': 'verdemar'
   };
   const copy = {
+    eu: ['Pribatutasuna eta estatistikak', 'Appa hobetzen lagunduko diguzu?', 'Zure baimenarekin, Google Analytics cookieak erabiltzen ditugu bisitak eta apparen erabilera ezagutzeko. Ez ditugu publizitaterako erabiltzen. Hemen edozein unetan alda dezakezu zure aukera.', 'Estatistikak onartu', 'Estatistikak baztertu', 'Googleren pribatutasuna', 'Estatistikak aktibatuta', 'Estatistikak desaktibatuta', 'Oraindik ez duzu aukeratu.'],
     es: ['Privacidad y estadísticas', '¿Nos ayudas a mejorar la app?', 'Con tu permiso, usamos cookies de Google Analytics para conocer las visitas y el uso de la app. No las usamos para publicidad. Puedes cambiar tu elección aquí en cualquier momento.', 'Aceptar estadísticas', 'Rechazar estadísticas', 'Privacidad de Google', 'Estadísticas activadas', 'Estadísticas desactivadas', 'Todavía no has elegido.'],
     en: ['Privacy and analytics', 'Help us improve the app?', 'With your permission, we use Google Analytics cookies to understand visits and app usage. We do not use them for advertising. You can change your choice here at any time.', 'Accept analytics', 'Reject analytics', 'Google privacy', 'Analytics enabled', 'Analytics disabled', 'You have not chosen yet.'],
     fr: ['Confidentialité et statistiques', 'Nous aider à améliorer l’application ?', 'Avec votre accord, nous utilisons les cookies Google Analytics pour connaître les visites et l’utilisation de l’application. Nous ne les utilisons pas à des fins publicitaires. Vous pouvez modifier votre choix ici à tout moment.', 'Accepter les statistiques', 'Refuser les statistiques', 'Confidentialité Google', 'Statistiques activées', 'Statistiques désactivées', 'Vous n’avez pas encore choisi.'],
@@ -184,7 +185,7 @@
       '<div class="analytics-consent-actions"><button type="button" class="btn" id="analyticsAccept" data-analytics-copy="3"></button>' +
       '<button type="button" class="btn" id="analyticsReject" data-analytics-copy="4"></button></div>';
     panel.hidden = !!choice;
-    main.prepend(panel);
+    main.append(panel);
     const footer = document.createElement('footer');
     footer.className = 'analytics-footer';
     preferences = document.createElement('button');

@@ -1,6 +1,7 @@
 (function(){
   'use strict';
   const copy={
+    eu:{essential:'Funtsezkoa',photos:'Argazkiak eta ostatuak',information:'Informazioa',tabs:'Zure egonaldiaren atalak',hours:'Ordutegi guztiak',restaurant:'Jatetxea',notifications:'Abisuak zure mugikorrean',outings:'Ezagutu ingurua',moreContact:'Jarri harremanetan ostatuarekin',awards:'Sariak eta aintzatespenak'},
     es:{essential:'Lo esencial',photos:'Fotos y alojamientos',information:'Información',tabs:'Apartados de tu estancia',hours:'Horarios completos',restaurant:'Restaurante',notifications:'Avisos en tu móvil',outings:'Descubre los alrededores',moreContact:'Contacta con el alojamiento',awards:'Premios y reconocimientos'},
     en:{essential:'Essentials',photos:'Photos & accommodation',information:'Information',tabs:'Your stay sections',hours:'Full opening hours',restaurant:'Restaurant',notifications:'Notifications on your phone',outings:'Explore the area',moreContact:'Contact your accommodation',awards:'Awards and recognition'},
     fr:{essential:'L’essentiel',photos:'Photos et hébergements',information:'Informations',tabs:'Rubriques de votre séjour',hours:'Tous les horaires',restaurant:'Restaurant',notifications:'Des notifications sur votre mobile',outings:'Découvrez les environs',moreContact:'Contactez votre hébergement',awards:'Prix et distinctions'},

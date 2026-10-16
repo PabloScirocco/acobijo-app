@@ -1,0 +1,86 @@
+{
+  "id": "es.grupoacobijo.app",
+  "name": "Grupo A Cobijo",
+  "short_name": "A Cobijo",
+  "description": "Zure egonaldirako appa: Grupo A Cobijoko ekitaldiak, ordutegiak eta zerbitzuak.",
+  "lang": "eu",
+  "dir": "ltr",
+  "start_url": "./?pwa=1",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "background_color": "#f7f4ee",
+  "theme_color": "#23566a",
+  "orientation": "portrait-primary",
+  "categories": [
+    "travel",
+    "events",
+    "food",
+    "navigation"
+  ],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ekitaldiak",
+      "short_name": "Ekitaldiak",
+      "url": "./?nav=events",
+      "description": "Taldearen ekitaldiak ikusi"
+    },
+    {
+      "name": "Ordutegiak",
+      "short_name": "Ordutegiak",
+      "url": "./?nav=schedules",
+      "description": "Establezimenduen ordutegiak ikusi"
+    },
+    {
+      "name": "Oyambre",
+      "short_name": "Oyambre",
+      "url": "./?nav=places&focus=oyambre",
+      "description": "Oyambre: sarbideak eta mapa"
+    },
+    {
+      "name": "Ramales",
+      "short_name": "Ramales",
+      "url": "./?nav=places&focus=ramales",
+      "description": "Ramales: sarbideak eta mapa"
+    },
+    {
+      "name": "Ruiloba",
+      "short_name": "Ruiloba",
+      "url": "./?nav=places&focus=ruiloba",
+      "description": "Ruiloba: sarbideak eta mapa"
+    },
+    {
+      "name": "El Cardeo",
+      "short_name": "Cardeo",
+      "url": "./?nav=places&focus=cardeo",
+      "description": "El Cardeo: sarbideak eta mapa"
+    },
+    {
+      "name": "Hotel Verdemar",
+      "url": "./?nav=stay&focus=verdemar",
+      "description": "Hotel Verdemar: sarbideak eta mapa"
+    }
+  ],
+  "prefer_related_applications": false
+}

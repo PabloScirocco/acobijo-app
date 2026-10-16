@@ -24,7 +24,8 @@ window.ACOBIJO_MARKETS = [
       "en": "In summer it moves to Campa de Sobrellano, on Paseo Marqués de Comillas. Check the seasonal location before visiting.",
       "fr": "En été, le marché se déplace à la Campa de Sobrellano, sur le Paseo Marqués de Comillas. Vérifiez le lieu selon la saison avant votre visite.",
       "de": "Im Sommer findet der Markt auf der Campa de Sobrellano am Paseo Marqués de Comillas statt. Prüfen Sie vor dem Besuch den saisonalen Standort.",
-      "nl": "In de zomer verhuist de markt naar Campa de Sobrellano aan de Paseo Marqués de Comillas. Controleer voor je bezoek de locatie voor het seizoen."
+      "nl": "In de zomer verhuist de markt naar Campa de Sobrellano aan de Paseo Marqués de Comillas. Controleer voor je bezoek de locatie voor het seizoen.",
+      "eu": "Udan Campa de Sobrellanora lekualdatzen da, Paseo Marqués de Comillas-en. Joan aurretik, kontsultatu denboraldiko kokapena."
     },
     "source": "https://www.comillas.es/wp-content/uploads/2025/09/BOLETIN-SEMANA-40.pdf",
     "sourceLabel": "Oficina de Turismo de Comillas",
@@ -36,7 +37,8 @@ window.ACOBIJO_MARKETS = [
           "en": "Historic centre",
           "fr": "Centre historique",
           "de": "Altstadt",
-          "nl": "Historisch centrum"
+          "nl": "Historisch centrum",
+          "eu": "Hirigune historikoa"
         },
         "venue": "Plaza Joaquín del Piélago"
       },
@@ -46,12 +48,17 @@ window.ACOBIJO_MARKETS = [
           "en": "In summer · Sobrellano",
           "fr": "En été · Sobrellano",
           "de": "Im Sommer · Sobrellano",
-          "nl": "In de zomer · Sobrellano"
+          "nl": "In de zomer · Sobrellano",
+          "eu": "Udan · Sobrellano"
         },
         "venue": "Campa de Sobrellano, Paseo Marqués de Comillas"
       }
     ],
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Plaza Joaquín del Piélago, Corro Campíos y Plaza de la Constitución",
+      "eu": "Plaza Joaquín del Piélago, Corro Campíos eta Plaza de la Constitución"
+    }
   },
   {
     "id": "cabezon",
@@ -87,7 +94,11 @@ window.ACOBIJO_MARKETS = [
     "source": "https://torrelavega.es/ciudad/ferias-y-mercados/",
     "sourceLabel": "Ayuntamiento de Torrelavega",
     "zone": "central",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Aparcamiento exterior del Mercado Nacional de Ganados",
+      "eu": "Mercado Nacional de Ganados-en kanpoko aparkalekua"
+    }
   },
   {
     "id": "torrelavega-ecologico",
@@ -97,7 +108,8 @@ window.ACOBIJO_MARKETS = [
       "en": "Organic market",
       "fr": "Marché bio",
       "de": "Bio-Markt",
-      "nl": "Biologische markt"
+      "nl": "Biologische markt",
+      "eu": "Azoka ekologikoa"
     },
     "venue": "Soportales de la Plaza Mayor",
     "days": [
@@ -106,7 +118,11 @@ window.ACOBIJO_MARKETS = [
     "source": "https://torrelavega.es/ciudad/ferias-y-mercados/",
     "sourceLabel": "Ayuntamiento de Torrelavega",
     "zone": "central",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Soportales de la Plaza Mayor",
+      "eu": "Plaza Mayor-eko arkupeak"
+    }
   },
   {
     "id": "cartes",
@@ -118,7 +134,11 @@ window.ACOBIJO_MARKETS = [
     "source": "https://cantabriaspain.co.uk/enjoy-it/culture/fairs-and-markets/",
     "sourceLabel": "Turismo de Cantabria",
     "zone": "central",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Polígono industrial La Llanada",
+      "eu": "La Llanada industrialdea"
+    }
   },
   {
     "id": "solares",
@@ -140,7 +160,8 @@ window.ACOBIJO_MARKETS = [
       "en": "La Esperanza street market",
       "fr": "Marché de La Esperanza",
       "de": "Wochenmarkt La Esperanza",
-      "nl": "Weekmarkt La Esperanza"
+      "nl": "Weekmarkt La Esperanza",
+      "eu": "La Esperanza azoka"
     },
     "venue": "Plaza de la Esperanza",
     "days": [
@@ -156,7 +177,8 @@ window.ACOBIJO_MARKETS = [
       "en": "Food: Tuesdays, Fridays and Saturdays. Clothing and footwear: Mondays, Wednesdays and Thursdays.",
       "fr": "Alimentation : mardi, vendredi et samedi. Vêtements et chaussures : lundi, mercredi et jeudi.",
       "de": "Lebensmittel: dienstags, freitags und samstags. Kleidung und Schuhe: montags, mittwochs und donnerstags.",
-      "nl": "Levensmiddelen: dinsdag, vrijdag en zaterdag. Kleding en schoenen: maandag, woensdag en donderdag."
+      "nl": "Levensmiddelen: dinsdag, vrijdag en zaterdag. Kleding en schoenen: maandag, woensdag en donderdag.",
+      "eu": "Elikagaiak: astearteetan, ostiraletan eta larunbatetan. Arropa eta oinetakoak: astelehenetan, asteazkenetan eta ostegunetan."
     },
     "source": "https://turismo.santander.es/que-hacer/planes-en-santander/mercados-y-ferias",
     "sourceLabel": "Turismo de Santander",
@@ -171,7 +193,8 @@ window.ACOBIJO_MARKETS = [
       "en": "Plaza de México street market",
       "fr": "Marché de la Plaza de México",
       "de": "Wochenmarkt Plaza de México",
-      "nl": "Weekmarkt Plaza de México"
+      "nl": "Weekmarkt Plaza de México",
+      "eu": "México azoka"
     },
     "venue": "Plaza de México",
     "days": [
@@ -186,7 +209,8 @@ window.ACOBIJO_MARKETS = [
       "en": "Food: Mondays, Wednesdays and Thursdays. Clothing and footwear: Tuesdays and Fridays.",
       "fr": "Alimentation : lundi, mercredi et jeudi. Vêtements et chaussures : mardi et vendredi.",
       "de": "Lebensmittel: montags, mittwochs und donnerstags. Kleidung und Schuhe: dienstags und freitags.",
-      "nl": "Levensmiddelen: maandag, woensdag en donderdag. Kleding en schoenen: dinsdag en vrijdag."
+      "nl": "Levensmiddelen: maandag, woensdag en donderdag. Kleding en schoenen: dinsdag en vrijdag.",
+      "eu": "Elikagaiak: astelehenetan, asteazkenetan eta ostegunetan. Arropa eta oinetakoak: astearteetan eta ostiraletan."
     },
     "source": "https://turismo.santander.es/que-hacer/planes-en-santander/mercados-y-ferias",
     "sourceLabel": "Turismo de Santander",
@@ -201,7 +225,8 @@ window.ACOBIJO_MARKETS = [
       "en": "Sunday flea market",
       "fr": "Marché aux puces du dimanche",
       "de": "Sonntäglicher Flohmarkt",
-      "nl": "Vlooienmarkt op zondag"
+      "nl": "Vlooienmarkt op zondag",
+      "eu": "Igandeko bigarren eskuko azoka"
     },
     "venue": "Plaza de la Esperanza",
     "days": [
@@ -224,12 +249,17 @@ window.ACOBIJO_MARKETS = [
       "en": "Check the municipal calendar: the market does not take place on some Sundays due to festivals and events.",
       "fr": "Consultez le calendrier municipal : le marché n’a pas lieu certains dimanches en raison de fêtes ou d’événements.",
       "de": "Prüfen Sie den Veranstaltungskalender der Gemeinde: An manchen Sonntagen entfällt der Markt wegen Festen und Veranstaltungen.",
-      "nl": "Controleer de gemeentelijke agenda: op sommige zondagen gaat de markt vanwege feesten en evenementen niet door."
+      "nl": "Controleer de gemeentelijke agenda: op sommige zondagen gaat de markt vanwege feesten en evenementen niet door.",
+      "eu": "Kontsultatu udal-egutegia: zenbait igandetan ez da azokarik egiten, jaiak eta ekitaldiak direla eta."
     },
     "source": "https://www.laredoturismo.es/toma-nota/agenda/cat_ids~130/",
     "sourceLabel": "Turismo de Laredo",
     "zone": "east",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Avenida de España y calle San Andrés de Giles",
+      "eu": "Avenida de España eta Calle San Andrés de Giles"
+    }
   },
   {
     "id": "colindres",
@@ -242,7 +272,11 @@ window.ACOBIJO_MARKETS = [
     "sourceLabel": "Ayuntamiento de Colindres",
     "zone": "east",
     "mapVenue": "Calle Manuel Fernández Madrazo",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Calles Manuel Fernández Madrazo, Heliodoro Fernández, Ría Asón y Almirante Fontán",
+      "eu": "Manuel Fernández Madrazo, Heliodoro Fernández, Ría Asón eta Almirante Fontán kaleak"
+    }
   },
   {
     "id": "ramales",
@@ -290,6 +324,10 @@ window.ACOBIJO_MARKETS = [
     "source": "https://boc.cantabria.es/boces/verAnuncioAction.do?idAnuBlob=298076",
     "sourceLabel": "Ayuntamiento de Santoña",
     "zone": "east",
-    "verifiedAt": "2026-09-29"
+    "verifiedAt": "2026-09-29",
+    "displayVenue": {
+      "es": "Calles Sor María del Carmen y Turbaco",
+      "eu": "Sor María del Carmen eta Turbaco kaleak"
+    }
   }
 ];

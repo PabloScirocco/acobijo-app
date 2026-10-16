@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   finally{clearTimeout(timeout);if(current===request){loading=false;render();}}
  }
  function changeBeach(id){if(!beaches.some(b=>b.id===id))return;selected=id;$('seaBeach').value=id;request++;controller?.abort();loading=false;data=null;error='';lastAttempt=0;render();load(true);}
- function translate(){lang=Object.hasOwn(copy,read('lang'))?read('lang'):'es';t=copy[lang];document.querySelectorAll('[data-sea-copy]').forEach(n=>n.textContent=t[n.dataset.seaCopy]);const previous=selected;$('seaBeach').replaceChildren(...beaches.map(b=>{const option=el('option',b.name);option.value=b.id;return option;}));$('seaBeach').value=previous;render();}
+ function translate(){const next=(read('lang')||document.documentElement?.lang||'es').slice(0,2).toLowerCase();lang=Object.hasOwn(copy,next)?next:'es';t=copy[lang];document.querySelectorAll('[data-sea-copy]').forEach(n=>n.textContent=t[n.dataset.seaCopy]);const previous=selected;$('seaBeach').replaceChildren(...beaches.map(b=>{const option=el('option',b.name);option.value=b.id;return option;}));$('seaBeach').value=previous;render();}
  function enter(){clearInterval(ticker);if(!active())return;load();ticker=setInterval(()=>{render();if(Date.now()-lastAttempt>=15*60000)load(true);},60000);}
  function leave(){clearInterval(ticker);request++;controller?.abort();loading=false;}
  $('seaBeach').addEventListener('change',e=>changeBeach(e.target.value));$('seaRefresh').addEventListener('click',()=>load(true));

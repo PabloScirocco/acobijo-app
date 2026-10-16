@@ -13,8 +13,14 @@
 </head>
 <body>
   <div class="box">
-    <h1>404 · Vaya, por aquí no hay camping</h1>
-    <p>La página que buscas no existe. Vuelve a la <a href="./">página principal</a>.</p>
+    <h1 id="errorTitle">404 · Vaya, por aquí no hay camping</h1>
+    <p id="errorMessage">La página que buscas no existe. Vuelve a la <a href="./">página principal</a>.</p>
   </div>
+<script>
+(function(){
+const copy={es:['Página no encontrada','404 · Vaya, por aquí no hay camping','La página que buscas no existe.','Volver al inicio'],en:['Page not found','404 · There is no campsite here','The page you are looking for does not exist.','Back to home'],fr:['Page introuvable','404 · Aucun camping par ici','La page que vous cherchez n’existe pas.','Retour à l’accueil'],de:['Seite nicht gefunden','404 · Hier gibt es keinen Campingplatz','Die gesuchte Seite existiert nicht.','Zur Startseite'],nl:['Pagina niet gevonden','404 · Hier is geen camping','De pagina die je zoekt bestaat niet.','Terug naar de startpagina'],eu:['Orria ez da aurkitu','404 · Hemen ez dago kanpinik','Bilatzen ari zaren orria ez da existitzen.','Itzuli hasierara']};
+let lang=(navigator.language||'es').slice(0,2);try{lang=localStorage.getItem('lang')||lang;}catch(_){}if(!copy[lang])lang='es';const t=copy[lang];document.documentElement.lang=lang;document.title=t[0]+' · Grupo A Cobijo';document.getElementById('errorTitle').textContent=t[1];const message=document.getElementById('errorMessage');message.textContent=t[2]+' ';const link=document.createElement('a');link.href='/acobijo-app/';link.textContent=t[3];message.append(link);
+})();
+</script>
 </body>
 </html>
