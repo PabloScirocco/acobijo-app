@@ -1,0 +1,78 @@
+/* Home: one first action, the guest's stay, and optional ideas to explore. */
+#view-home{max-width:900px;margin-inline:auto}
+#view-home>.install-card,#view-home>.home-notifications{position:relative;display:block;padding:0;margin:0 0 16px;border:0;background:transparent;box-shadow:none}
+#view-home .install-card-copy,#view-home .home-notifications-copy{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#view-home .install-card-icon,#view-home .home-notifications-icon{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:28px;height:30px;margin:0;display:grid;place-items:center;pointer-events:none;background:transparent;color:var(--gold-ink);font-size:25px}
+#view-home .install-card-icon svg{width:25px;height:28px}
+#view-home .install-button,#view-home .home-notifications .btn{width:100%;max-width:none;min-height:56px;padding:13px 48px;margin:0;border:1px solid var(--gold);border-radius:14px;background:var(--gold-soft);color:var(--ink);box-shadow:none;font-size:16px;line-height:1.4;justify-content:center}
+#view-home .install-button>span:last-child{position:absolute;right:20px;font-size:20px}
+#view-home>.welcome-hero{height:185px;border-radius:18px;display:flex;align-items:center}
+#view-home .welcome-content{padding:24px 30px;max-width:100%}
+#view-home .welcome-content .eyebrow{font-size:9px;margin:0 0 10px;letter-spacing:.16em}
+#view-home .welcome-content h2{font-size:clamp(31px,4vw,43px);line-height:1.12;margin:0}
+#view-home .hero-caption{display:none}
+#view-home>.stay-bar{margin:14px 0 22px;padding:14px 20px;box-shadow:none;border:0;border-radius:14px;gap:16px;background:var(--blue-soft)}
+#view-home .stay-bar label{font-size:12px;margin-bottom:0}
+#view-home .stay-bar .select{font-size:17px;min-height:44px;padding:5px 25px 5px 0}
+#view-home .stay-bar .row{gap:12px;margin:0}
+#view-home .stay-bar .btn{background:transparent;color:var(--brand-ink);border:0;padding:8px 4px;font-size:12px;min-height:44px}
+#view-home .home-essentials{margin:0 0 20px}
+#view-home .home-essentials>.section-title{font-size:17px;margin:0 0 12px}
+#view-home .quick-tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#view-home .quick-tiles .tile{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:flex-start;justify-content:center;gap:9px;min-height:102px;padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+#view-home .quick-tiles .tile strong{font-size:15px;flex:0;line-height:1.35;text-wrap:balance;overflow-wrap:break-word}
+#view-home .quick-tiles .tile .big{width:28px;height:27px;font-size:28px}
+#view-home .quick-tiles .tile .muted{display:none}
+#view-home>.home-discover{margin:0;border:1px solid var(--line);border-radius:14px;background:transparent;overflow:hidden}
+#view-home>.home-discover>summary{display:flex;align-items:center;gap:13px;padding:17px 20px;min-height:78px;cursor:pointer;list-style:none;color:var(--ink)}
+#view-home>.home-discover>summary::-webkit-details-marker{display:none}
+#view-home>.home-discover>summary:focus-visible{outline-offset:-4px}
+.home-explore-icon{color:var(--gold-ink);font-size:30px;line-height:1;width:28px;text-align:center;flex-shrink:0}
+.home-explore-copy{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.home-explore-copy strong{font-size:17px;font-weight:600;line-height:1.4}
+.home-explore-copy small{font-size:12px;line-height:1.5;color:var(--muted)}
+.home-explore-toggle{font-size:27px;font-weight:400;color:var(--gold-ink);line-height:1;transition:transform 160ms ease}
+.home-discover[open] .home-explore-toggle{transform:rotate(45deg)}
+#view-home .home-discover>.discover-grid{padding:0 16px 6px;gap:12px}
+#view-home .home-discover>.discover-footer{padding:0 18px 12px;margin:0}
+#view-home .discover-card>img,#view-home .discover-illustration{height:125px;min-height:125px}
+#view-home .discover-card-body{padding:14px 27px 14px 14px}
+#view-home .discover-card-body strong{font-size:21px}
+#view-home .discover-card-body small{font-size:12px}
+#view-home>.home-group{display:flex;flex-wrap:wrap;justify-content:center;column-gap:24px;row-gap:0;margin:16px 0 0}
+#view-home .home-group .text-link{margin:0;min-height:44px;padding:8px 0;font-size:12px;color:var(--muted);text-align:center}
+#view-home .home-agenda{margin:20px 0 0;padding:18px 0}
+#view-home>.app-promotion{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;margin:0 0 20px!important;padding:12px 16px!important;border-radius:14px}
+#view-home .app-promotion .eyebrow,#view-home .promo-code-label{display:none}
+#view-home .app-promotion h2{font-size:17px!important;line-height:1.4!important;margin:0;color:var(--ink)}
+#view-home .promo-content{align-self:center}
+#view-home .app-promotion .promo-action{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0;width:auto;min-width:0}
+#view-home .promo-code{margin:0;font-size:16px;letter-spacing:.06em}
+#view-home .promo-copy{width:auto;min-height:44px;font-size:12px;padding:8px 12px}
+#view-home .promo-feedback{flex-basis:100%;margin:0;font-size:12px;line-height:1.4;text-align:left}
+#view-home .promo-feedback:empty{display:none}
+#view-home .promo-conditions{grid-column:1/-1;font-size:12px}
+#view-home .promo-conditions summary{cursor:pointer;min-height:34px;display:list-item;list-style:disclosure-closed inside;padding:8px 0 2px;color:var(--muted)}
+#view-home .promo-conditions[open] summary{list-style-type:disclosure-open}
+#view-home .promo-description{margin:6px 0 0}
+@media(max-width:700px){
+ #view-home>.welcome-hero{height:155px}
+ #view-home .welcome-content{padding:22px}
+ #view-home .welcome-content h2{font-size:34px}
+ #view-home>.stay-bar{padding:12px 16px;margin:12px 0 20px}
+ #view-home .stay-bar .row{gap:8px;border-top:1px solid var(--line);margin-top:6px;padding-top:3px}
+ #view-home .stay-bar .btn{padding:7px 0;font-size:11px}
+ #view-home .quick-tiles .tile{min-height:100px;padding:13px 10px;gap:8px}
+ #view-home .quick-tiles .tile strong{font-size:13px}
+ #view-home .quick-tiles .tile .big{font-size:26px;width:26px}
+ #view-home>.home-discover>summary{padding:15px;gap:10px}
+ .home-explore-copy strong{font-size:16px}.home-explore-copy small{font-size:11px}
+ #view-home .home-discover>.discover-grid{padding:0 12px 6px;gap:10px}
+ #view-home .discover-card>img,#view-home .discover-illustration{height:105px;min-height:105px}
+ #view-home .discover-card-body strong{font-size:19px}#view-home .discover-card-body small{font-size:11px}
+ #view-home>.home-group{column-gap:18px;margin-top:10px}
+ #view-home .home-group .text-link{font-size:11px}
+ #view-home>.app-promotion{grid-template-columns:1fr;gap:4px}
+ #view-home .app-promotion .promo-action{justify-content:space-between}
+}
+@media(prefers-reduced-motion:reduce){.home-explore-toggle{transition:none}}

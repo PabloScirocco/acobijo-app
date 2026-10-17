@@ -9,6 +9,12 @@ const copy={
  de:{notificationsTitle:"Benachrichtigungen auf Ihrem Smartphone",notificationsSub:"Veranstaltungen, Angebote und wichtige Mitteilungen aller Unterkünfte von Grupo A Cobijo. Sie wählen, was Sie erhalten.",notificationsButton:"Benachrichtigungen einrichten",townsTitle:'Ausflugsziele',foodTitle:'Regionale Küche',favoritesTitle:'Tipps vom Team',discoverEyebrow:'In Ihrem eigenen Tempo',discoverTitle:'Entdecken Sie Kantabrien',seaSub:'Gezeiten, Wellen und Sonnenuntergang',routesSub:'Zu Fuß oder mit dem Rad',townsSub:'Orte, Landschaften und Ausflugsziele',foodSub:'Die Küche unserer Region',marketsSub:'Markttage und Orte zum Stöbern',favoritesSub:'Die Empfehlungen unseres Teams',quickLabel:'Direktzugriff für Ihren Aufenthalt'},
  nl:{notificationsTitle:"Meldingen op je telefoon",notificationsSub:"Evenementen, aanbiedingen en belangrijke berichten van alle accommodaties van Grupo A Cobijo. Jij kiest wat je ontvangt.",notificationsButton:"Meldingen instellen",townsTitle:'Bezienswaardigheden',foodTitle:'Streekgerechten',favoritesTitle:'Tips van ons team',discoverEyebrow:'Op je eigen tempo',discoverTitle:'Ontdek Cantabrië',seaSub:'Getijden, golven en zonsondergang',routesSub:'Te voet of op de fiets: jij kiest',townsSub:'Dorpen, landschappen en bezienswaardigheden',foodSub:'Proef onze streek',marketsSub:'Waar en wanneer je kunt rondstruinen',favoritesSub:'De tips van ons team',quickLabel:'Snel naar je verblijfsinformatie'}
 };
+Object.assign(copy.es,{"exploreTitle":"Descubre Cantabria","exploreHint":"Rutas, playas, gastronomía y más","homePlaces":"Nuestros alojamientos"});
+Object.assign(copy.en,{"exploreTitle":"Discover Cantabria","exploreHint":"Routes, beaches, food and more","homePlaces":"Our accommodation"});
+Object.assign(copy.fr,{"exploreTitle":"Découvrez la Cantabrie","exploreHint":"Itinéraires, plages, gastronomie et plus","homePlaces":"Nos hébergements"});
+Object.assign(copy.de,{"exploreTitle":"Kantabrien entdecken","exploreHint":"Routen, Strände, Kulinarik und mehr","homePlaces":"Unsere Unterkünfte"});
+Object.assign(copy.nl,{"exploreTitle":"Ontdek Cantabrië","exploreHint":"Routes, stranden, streekgerechten en meer","homePlaces":"Onze accommodaties"});
+Object.assign(copy.eu,{"exploreTitle":"Ezagutu Kantabria","exploreHint":"Ibilbideak, hondartzak, gastronomia eta gehiago","homePlaces":"Gure ostatuak"});
 const paths={
  home:'<path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/>',
  stay:'<rect x="5" y="7" width="14" height="14" rx="3"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3M9 11v6m6-6v6"/>',
