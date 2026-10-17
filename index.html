@@ -183,7 +183,9 @@ body.dark .note{background:#1f1a10}
 <script defer src="assets/navigation.js?v=20261017-51"></script>
 <script defer src="assets/interactions.js?v=20261017-51"></script>
 <link rel="stylesheet" href="assets/stay-tools.css">
-<script defer src="assets/stay-tools.js?v=20261017-51"></script>
+<link rel="stylesheet" href="assets/seasonal-hours.css?v=20261017-53">
+<script defer src="assets/seasonal-hours.js?v=20261017-53"></script>
+<script defer src="assets/stay-tools.js?v=20261017-53"></script>
 <link rel="stylesheet" href="assets/push.css?v=20261017-51">
 <script defer src="assets/push-copy.js?v=20261017-51"></script>
 <script defer src="assets/push.js?v=20261017-51"></script>
@@ -208,7 +210,7 @@ body.dark .note{background:#1f1a10}
 <link rel="stylesheet" href="assets/layout.css?v=20261017-51">
 <link rel="stylesheet" href="assets/home.css?v=20261017-51">
 <link rel="stylesheet" href="assets/announcements.css?v=20261017-52">
-<script defer src="assets/announcements.js?v=20261017-52"></script>
+<script defer src="assets/announcements.js?v=20261017-53"></script>
 <script defer src="assets/design.js?v=20261017-51"></script>
 <script defer src="assets/stay-layout.js?v=20261017-51"></script>
 </head>
@@ -1532,7 +1534,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var el=document.getElementById('acc-'+k);
       if(!el) return;
       var item=SCHEDULES[k]||SCHEDULES_DEFAULT[k]||{};
-      el.innerHTML = item[LANG] || item.es || '';
+      el.innerHTML = window.ACOBIJO_SEASONAL_HOURS.renderHours(k,item,LANG);
     });
   }
   function loadSchedules(){
@@ -1575,7 +1577,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function renderStayHours(){
     var cont=$('#stayHours'); if(!cont) return;
     var item=(SCHEDULES[STAY]||SCHEDULES_DEFAULT[STAY]||{});
-    cont.innerHTML = item[LANG] || item.es || '';
+    cont.innerHTML = window.ACOBIJO_SEASONAL_HOURS.renderHours(STAY,item,LANG);
     renderRestaurant();
     if(SCHEDULES && STAY) window.dispatchEvent(new CustomEvent("acobijo:stay-tools",{detail:{schedules:SCHEDULES,place:STAY,lang:LANG,contact:$("#stayWA").href}}));
   }
@@ -1624,7 +1626,11 @@ document.addEventListener('DOMContentLoaded', function(){
       var attr=place==='ramales'?'data-ramales-restaurant':'data-restaurant';
       $all('['+attr+']').forEach(el=>el.textContent=R[Number(el.getAttribute(attr))]);
       var schedule=(SCHEDULES&&SCHEDULES[place])||(SCHEDULES_DEFAULT&&SCHEDULES_DEFAULT[place]);
-      if(schedule){
+      var seasonal=window.ACOBIJO_SEASONAL_HOURS.info(place,LANG);
+      if(seasonal && seasonal.closed){
+        $('#'+prefix+'Hours').textContent=seasonal.title+'\n'+seasonal.dates;
+        $('#'+prefix+'BarHours').textContent=seasonal.title+'\n'+seasonal.dates;
+      }else if(schedule){
         var lines=(schedule[LANG]||schedule.es||'').split(/<br\s*\/?\s*>/i);
         var labels={es:['Restaurante',place==='ramales'?'Cafetería':'Bar'],en:['Restaurant',place==='ramales'?'Café/Bar':'Bar'],fr:['Restaurant',place==='ramales'?'Cafétéria':'Bar'],de:['Restaurant',place==='ramales'?'Café/Bar':'Bar'],nl:['Restaurant',place==='ramales'?'Cafetaria':'Bar'],eu:['Jatetxea',place==='ramales'?'Kafetegia':'Taberna']}[LANG]||['Restaurante','Bar'];
         function hours(label){var line=lines.find(x=>x.includes('<b>'+label+'</b>'));var box=document.createElement('div');box.innerHTML=line||'';return box.textContent.replace(/^[^:]+:\s*/,'');}
@@ -3858,6 +3864,18 @@ var FAVS={pueblos:[
   // Keyboard access for the original menu and accordions.
   $all('.drawer .item:not(button)').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button');on(el,'keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});});
   on(document,'keydown',e=>{if(e.key==='Escape') $('#drawer').classList.remove('open');});
+  // Re-evaluate the calendar after midnight or when returning to an open app.
+  var scheduleDay=window.ACOBIJO_SEASONAL_HOURS.dayKey();
+  function refreshSeasonalHours(){
+    if(document.hidden)return;
+    var today=window.ACOBIJO_SEASONAL_HOURS.dayKey();
+    if(today===scheduleDay)return;
+    scheduleDay=today;
+    renderAcc(); renderStayHours();
+  }
+  setInterval(refreshSeasonalHours,30000);
+  document.addEventListener('visibilitychange',refreshSeasonalHours);
+  window.addEventListener('pageshow',refreshSeasonalHours);
   /* ===== Inicializar ===== */
   renderAcc();
   loadSchedules();

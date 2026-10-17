@@ -1,0 +1,6 @@
+.seasonal-hours-notice{padding:14px 16px;margin:0 0 16px;border:1px solid var(--line);border-inline-start:3px solid var(--gold);border-radius:12px;background:var(--blue-soft);color:var(--ink);font-size:14px;line-height:1.6}
+.seasonal-hours-notice:last-child{margin-bottom:0}
+.seasonal-hours-notice strong{display:block;margin-bottom:3px;font-weight:700;color:var(--ink)}
+.seasonal-hours-notice span{display:block}
+.stay-services>.seasonal-hours-notice{margin-top:14px}
+.restaurant-hours dd{white-space:pre-line}
