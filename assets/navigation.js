@@ -10,7 +10,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  const valid=state=>state&&state.app===marker&&typeof state.id==='string'&&validView(state.view)&&places.includes(state.place)&&Number.isInteger(state.depth)&&state.depth>=0;
  const newId=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
  const y=()=>Math.max(0,window.scrollY||0);
- function urlFor(entry){const url=new URL(location.href);url.searchParams.set('nav',entry.view);url.searchParams.set('focus',entry.place);url.searchParams.delete('flush');url.searchParams.delete('section');url.hash='';if(entry.section)url.searchParams.set('section',entry.section);return url.pathname+url.search+url.hash;}
+ function urlFor(entry){const url=new URL(location.href);url.searchParams.set('nav',entry.view);url.searchParams.set('focus',entry.place);url.searchParams.delete('flush');url.searchParams.delete('section');url.searchParams.delete('creature');url.searchParams.delete('mythMode');url.searchParams.delete('figure');url.hash='';if(entry.view==='mythology'){if(entry.creature)url.searchParams.set('creature',entry.creature);if(entry.mythMode==='collection')url.searchParams.set('mythMode','collection');}if(entry.section)url.searchParams.set('section',entry.section);return url.pathname+url.search+url.hash;}
  function write(replace,entry){try{history[replace?'replaceState':'pushState'](entry,'',urlFor(entry));}catch(_){/* In-memory navigation remains usable in restricted browsers. */}}
  function save(){cancelAnimationFrame(saveFrame);saveFrame=0;if(!current||restoring)return;current.scroll=y();positions.set(current.id,current.scroll);if(history.state?.id===current.id)write(true,current);}
  function cancelRestore(){cancelAnimationFrame(restoreFrame);clearTimeout(restoreTimer);observer?.disconnect();observer=null;restoring=false;}
@@ -46,9 +46,11 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  function go(view,options={}){
   if(!started)return;view=validView(view)?view:'home';const place=places.includes(options.place)?options.place:getPlace();
   const section=sectionFor(view,place,options.section);
-  if(current.view===view&&current.place===place&&current.section===section){byId('drawer').classList.remove('open');if(section==='notifications'){show(current);restore(current,true);}else chrome();return;}
+  const creature=view==='mythology'&&typeof options.creature==='string'?options.creature.slice(0,80):null;
+  const mythMode=view==='mythology'&&options.mythMode==='collection'?'collection':null;
+  if(current.view===view&&current.place===place&&current.section===section&&(current.creature||null)===creature&&(current.mythMode||null)===mythMode){byId('drawer').classList.remove('open');if(section==='notifications'){show(current);restore(current,true);}else chrome();return;}
   cancelRestore();save();
-  current={app:marker,id:newId(),view,place,section,depth:options.replace?current.depth:current.depth+1,scroll:0};
+  current={app:marker,id:newId(),view,place,section,creature,mythMode,depth:options.replace?current.depth:current.depth+1,scroll:0};
   write(!!options.replace,current);show(current);focusHeading();restore(current,!!section);
  }
  function back(){cancelRestore();save();if(current.depth>0&&history.state?.id===current.id)history.back();else go('home',{replace:true});}
@@ -57,7 +59,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
   const params=new URLSearchParams(location.search),saved=history.state;
   if(valid(saved)){current={...saved};show(current);restore(current);}
   else{const place=places.includes(params.get('focus'))?params.get('focus'):getPlace();const section=sectionFor('stay',place,params.get('section'));
-   current={app:marker,id:newId(),view:section?'stay':validView(params.get('nav'))?params.get('nav'):'home',place,section,depth:0,scroll:0};write(true,current);show(current);restore(current,!!section);
+   current={app:marker,id:newId(),view:section?'stay':validView(params.get('nav'))?params.get('nav'):'home',place,section,creature:params.get('nav')==='mythology'?params.get('creature')?.slice(0,80)||null:null,mythMode:params.get('mythMode')==='collection'?'collection':null,depth:0,scroll:0};write(true,current);show(current);restore(current,!!section);
   }
  }
  window.addEventListener('popstate',event=>{if(!valid(event.state))return;cancelRestore();cancelAnimationFrame(saveFrame);saveFrame=0;current={...event.state};if(positions.has(current.id))current.scroll=positions.get(current.id);show(current);focusHeading();restore(current);});
@@ -70,6 +72,7 @@ window.ACOBIJO_NAV={create({render,getPlace,setPlace}){
  document.addEventListener('click',event=>{if(event.target?.closest?.('[data-open-notifications]')){event.preventDefault();go('stay',{section:'notifications'});}});
  // A direct link may load beneath the welcome screen; focus only after it closes.
  byId('welcomeEnter')?.addEventListener('click',()=>{if(current?.section==='notifications')restore(current,!current.scroll);});
+ document.addEventListener('acobijo:navigate',event=>{if(event.detail?.view==='mythology')go('mythology',event.detail);});
  byId('navBack').addEventListener('click',back);
  try{history.scrollRestoration='manual';}catch(_){}
  return {start,go,back,save,currentView:()=>current?.view||'home'};

@@ -1,6 +1,6 @@
 // service-worker.js
 // v5 — 2025-11-06 — SPA robusta (404->index), Navigation Preload, aviso de versión activa
-const VERSION      = 'v53-2026-10-17-seasonal-hours';
+const VERSION      = 'v54-2026-10-28-mythology';
 const CACHE_STATIC = 'acobijo-static-' + VERSION;
 const CACHE_DATA   = 'acobijo-data-' + VERSION;
 
@@ -12,6 +12,7 @@ const R = (p) => new URL(p, SCOPE).pathname;
 const CORE = [
   R('./'),                   // raíz del scope
   R('index.html'),
+  R('assets/mythology/data.js'), R('assets/mythology/core.js'), R('assets/mythology/copy.js'), R('assets/mythology/mythology.js'), R('assets/mythology/mythology.css'), R('assets/mythology/trastolillu.jpeg'), R('assets/mythology/anjana.jpeg'), R('assets/mythology/caballucos-del-diablo.jpeg'), R('assets/mythology/culebre.jpeg'), R('assets/mythology/trenti.jpeg'), R('assets/mythology/ventolines.jpeg'), R('assets/mythology/musgosu.jpeg'),
   R('assets/logo.png'),
   R('assets/icons/icon-192.png'),
   R('assets/push.css'), R('assets/push-copy.js'), R('assets/push.js'),
